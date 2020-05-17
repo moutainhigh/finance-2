@@ -37,5 +37,17 @@ public class SystemConstant {
      */
     public static String[] LOGIN_VERIFY_EXCLUDE_URL = {"/userInfo/login", "/userInfo/forgetPassword",
             "/userInfo/sendForgetPasswordCode", "/userInfo/generatorImgCode", "/authorize", "/userInfo/getAuthRedirect", "/enum/**"};
+    /**
+     * 行业方向
+     */
+    public static final String HYFX = "HYFX";
+    /**
+     * 融资额度
+     */
+    public static final String RZED = "RZED";
+    /**
+     * 融资阶段
+     */
+    public static final String RZJD = "RZJD";
 
 }

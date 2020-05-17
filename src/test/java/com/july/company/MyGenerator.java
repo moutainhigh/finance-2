@@ -241,7 +241,7 @@ public class MyGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        return new String[] {"sys_code"};
+        return new String[] {"fc_company_detail","fc_finance_company","fc_sys_code"};
     }
 
 }

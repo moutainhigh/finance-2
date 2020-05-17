@@ -12,7 +12,7 @@ import java.util.List;
  * @program springboot-company
  * @since 2020-05-16 09:44
  **/
-public class PageVo <T> implements IPageVo<T> {
+public class PageVo<T> implements IPageVo<T> {
 
     private static final long serialVersionUID = 8545996863226528798L;
 
@@ -66,10 +66,8 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 当前页 current = page = currentPage = pageNo
-     *
      * @param page 当前页
      * @return 分页对象
-     *
      */
     public PageVo<T> setPage(Long page) {
         return this.setCurrent(page);
@@ -77,7 +75,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 当前页 current = page = currentPage = pageNo
-     *
      * @param currentPage 当前页
      * @return 分页对象
      */
@@ -87,7 +84,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 获取当前页 current = page = currentPage = pageNo
-     *
      * @return 当前页
      */
     public Long getCurrentPage() {
@@ -105,7 +101,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 每页记录数size = pageSize = limt = limit
-     *
      * @param pageSize 分页大小
      * @return 分页对象
      */
@@ -123,7 +118,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 每页记录数size = pageSize = limt = limit
-     *
      * @param limt 分页大小
      * @return 分页对象
      */
@@ -133,7 +127,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 总的记录数
-     *
      * @param totalCount total = totalCount = count 总记录数
      * @return 分页对象
      */
@@ -143,7 +136,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 总的记录数 total = totalCount = count 总记录数据
-     *
      * @return 总记录数
      */
     public Long getTotalCount() {
@@ -152,7 +144,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 总的记录数
-     *
      * @param count total = totalCount = count 总记录数
      * @return 分页对象
      */
@@ -162,7 +153,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 分页构造函数
-     *
      * @param current 当前页
      * @param size    每页显示条数
      */
@@ -172,7 +162,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 构造函数
-     *
      * @param current 当前页
      * @param size    分页大小
      * @param total   总记录数
@@ -183,7 +172,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 构造函数
-     *
      * @param current       当前页
      * @param size          分页大小
      * @param isSearchCount 查询数量
@@ -194,7 +182,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 构造函数
-     *
      * @param current       当前页
      * @param size          分页大小
      * @param total         总记录数
@@ -211,7 +198,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 是否存在上一页
-     *
      * @return true / false
      */
     public boolean hasPrevious() {
@@ -220,7 +206,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 是否存在下一页
-     *
      * @return true / false
      */
     public boolean hasNext() {
@@ -236,7 +221,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 数据列表,等与 getList=getRecords
-     *
      * @return 列表数据
      */
     @JsonIgnore
@@ -253,7 +237,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 数据列表,等与 setList=setRecords
-     *
      * @param list 列表数据
      * @return 分页对象
      */
@@ -304,7 +287,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 排序字段
-     *
      * @param ascs 排序字段
      * @return 分页对象
      */
@@ -317,7 +299,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 升序
-     *
      * @param ascs 多个升序字段
      * @return 分页对象
      */
@@ -333,7 +314,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 排序
-     *
      * @param descs 排序字段
      * @return 分页对象
      */
@@ -346,7 +326,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 降序
-     *
      * @param descs 多个降序字段
      * @return 分页对象
      */
@@ -371,7 +350,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 查询数量
-     *
      * @param isSearchCount 查询数量是否
      * @return 分页对象
      */
@@ -382,7 +360,6 @@ public class PageVo <T> implements IPageVo<T> {
 
     /**
      * 优化数量sql
-     *
      * @param optimizeCountSql 是否
      * @return 分页对象
      */

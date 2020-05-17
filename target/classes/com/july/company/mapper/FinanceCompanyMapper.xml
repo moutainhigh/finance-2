@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.july.company.mapper.FinanceCompanyMapper">
+
+    <select id="getFinanceCompany" resultType="com.july.company.vo.stock.StockCompanyVo">
+        select ffc.title,ffc.mechanism,fcd.industryDirect,fcd.financeQuota,fcd.financeState from fc_finance_company ffc,fc_company_detail fcd
+        where
+        ffc.id = fcd.companyId
+        and ffc.deleted = 0
+        <if test="param.financeQuota != null">
+            and fcd.financeQuota = #{param.financeQuota}
+        </if>
+        <if test="param.financeState != null">
+            and fcd.financeState = #{param.financeState}
+        </if>
+        <if test="param.industryDirect != null">
+            and fcd.industryDirect = #{param.industryDirect}
+        </if>
+        <if test="param.registerAddress != null">
+            and fcd.registerAddress = #{param.registerAddress}
+        </if>
+        <if test="param.business != null">
+            and fcd.business = #{param.business}
+        </if>
+        <if test="param.staffCount != null">
+            and fcd.staffCount = #{param.staffCount}
+        </if>
+        <if test="param.marketOccupyRate != null">
+            and fcd.marketOccupyRate = #{param.marketOccupyRate}
+        </if>
+        <if test="param.evaluateName != null">
+            and fcd.evaluateName = #{param.evaluateName}
+        </if>
+        <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
+            and (
+                ffc.mechanism like concat('%',#{param.mechanismOrProduct},'%')
+                or
+                ffc.title like concat('%',#{param.mechanismOrProduct},'%')
+            )
+        </if>
+    </select>
+
+</mapper>
