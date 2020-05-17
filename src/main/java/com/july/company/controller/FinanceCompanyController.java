@@ -33,7 +33,7 @@ public class FinanceCompanyController {
     /**
      * 获取股权融资公司列表信息
      * @param pageParamVo
-     * @return com.july.company.response.ResultT<com.july.company.response.ResultT.Page<com.july.company.vo.stock.StockCompanyVo>>
+     * @return com.july.company.response.ResultT<com.july.company.response.ResultT.Page < com.july.company.vo.stock.StockCompanyVo>>
      * @author zengxueqi
      * @since 2020/5/17
      */
@@ -51,7 +51,8 @@ public class FinanceCompanyController {
      * @author zengxueqi
      * @since 2020/5/17
      */
-    public ResultT<StockCompanyDetailVo> getFinanceCompanyDetail(@RequestBody StockCompanyDetailDto stockCompanyDetailDto){
+    @PostMapping("/getFinanceCompanyDetail")
+    public ResultT<StockCompanyDetailVo> getFinanceCompanyDetail(@RequestBody StockCompanyDetailDto stockCompanyDetailDto) {
         return ResultT.ok(financeCompanyService.getFinanceCompanyDetail(stockCompanyDetailDto));
     }
 

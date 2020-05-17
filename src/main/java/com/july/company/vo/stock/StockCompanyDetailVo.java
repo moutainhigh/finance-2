@@ -98,7 +98,7 @@ public class StockCompanyDetailVo implements Serializable {
     /**
      * 目标客户
      */
-    private String argetCustomerStr;
+    private String targetCustomerStr;
     /**
      * 市场占有率/预期市场占有率
      */

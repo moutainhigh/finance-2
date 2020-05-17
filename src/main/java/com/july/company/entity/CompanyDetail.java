@@ -102,8 +102,8 @@ public class CompanyDetail extends BaseEntity {
     /**
      * 目标客户
      */
-    @TableField("argetCustomer")
-    private Integer argetCustomer;
+    @TableField("targetCustomer")
+    private Integer targetCustomer;
     /**
      * 市场占有率/预期市场占有率
      */

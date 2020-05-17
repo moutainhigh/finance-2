@@ -47,7 +47,7 @@ public class MarkDownTest {
         //指定控制器
         config.setControllerName("com.july.company.controller.FinanceCompanyController");
         //指定控制器里面的那个接口
-        config.setMethodName("getFinanceCompany");
+        config.setMethodName("getFinanceCompanyDetail");
         //show doc错误代码列表页面地址
         //config.setErrorUrl("http://api-doc.sjhh-inner.com/web/#/73?page_id=2872");
         //不指定SourcePaths默认加载代码为项目src/main/java下的
