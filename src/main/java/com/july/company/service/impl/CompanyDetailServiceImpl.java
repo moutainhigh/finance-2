@@ -27,7 +27,7 @@ public class CompanyDetailServiceImpl extends ServiceImpl<CompanyDetailMapper, C
     public CompanyDetail getCompanyDetail(Long companyId) {
         QueryWrapper<CompanyDetail> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(companyId != null, "companyId", companyId)
-                .eq("deleted", SystemConstant.SYS_TRUE);
+                .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
     }
 

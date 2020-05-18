@@ -29,41 +29,45 @@ public class UserInfo extends BaseEntity {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
     /**
      * 用户姓名
      */
     @TableField("username")
     private String username;
-
     /**
      * 用户密码
      */
     @TableField("password")
     private String password;
-
     /**
      * 性别(0女，1男)
      */
     @TableField("sex")
     private Integer sex;
-
     /**
      * 手机号
      */
     @TableField("mobile")
     private String mobile;
-
     /**
      * 用户头像
      */
     @TableField("avatar")
     private String avatar;
-
     /**
      * 密码盐值
      */
     @TableField("pwdSalt")
     private String pwdSalt;
+    /**
+     * 企业名称
+     */
+    @TableField("companyName")
+    private String companyName;
+    /**
+     * 统一社会信用代码
+     */
+    @TableField("creditCode")
+    private String creditCode;
 
 }

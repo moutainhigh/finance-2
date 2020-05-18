@@ -7,9 +7,12 @@ import com.july.company.dto.UserImgCodeDto;
 import com.july.company.dto.UserInfoDto;
 import com.july.company.dto.login.LoginAuthDto;
 import com.july.company.dto.login.UserRegisterDto;
+import com.july.company.dto.sms.SmsCodeDto;
+import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.july.company.vo.login.LoginAuthVo;
+import com.july.company.vo.sms.SmsCodeVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -72,6 +75,31 @@ public class UserInfoController {
     public ResultT<String> register(@RequestBody UserRegisterDto userRegisterDto) {
         userInfoService.userRegister(userRegisterDto);
         return ResultT.ok("注册成功！");
+    }
+
+    /**
+     * 发送验证码
+     * @param smsCodeDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/18
+     */
+    @PostMapping("/sendSmsCode")
+    public ResultT<String> sendSmsCode(@Valid @RequestBody SmsCodeDto smsCodeDto) {
+        userInfoService.sendSmsCode(smsCodeDto);
+        return ResultT.ok("验证码发送成功！");
+    }
+
+    /**
+     * 验证验证码是否有效
+     * @param smsCodeVerifyDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.sms.SmsCodeVo>
+     * @author zengxueqi
+     * @since 2020/5/18
+     */
+    @PostMapping("/verifySmsCode")
+    public ResultT<SmsCodeVo> verifySmsCode(@Valid @RequestBody SmsCodeVerifyDto smsCodeVerifyDto) {
+        return ResultT.ok(userInfoService.verifySmsCode(smsCodeVerifyDto));
     }
 
 }

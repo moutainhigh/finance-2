@@ -9,13 +9,13 @@ package com.july.company.constant;
 public class SystemConstant {
 
     /**
-     * 是（正确）
-     */
-    public static final Integer SYS_TRUE = 0;
-    /**
      * 否（错误）
      */
-    public static final Integer SYS_FALSE = 1;
+    public static final Integer SYS_FALSE = 0;
+    /**
+     * 是（正确）
+     */
+    public static final Integer SYS_TRUE = 1;
     /**
      * 登录缓存前缀名称
      */
@@ -121,7 +121,17 @@ public class SystemConstant {
      * 公司所获评定称号
      */
     public static final String PDCH = "PDCH";
-
-
+    /**
+     * http正常响应状态
+     */
+    public static final int HTTP_STATUS = 200;
+    /**
+     * 注册短信
+     */
+    public static final String SMS_REGISTER = "register_";
+    /**
+     * 登录过期时间(分)
+     */
+    public static final Integer SMS_EXPIRE_LOGIN = 3;
 
 }

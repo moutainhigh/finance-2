@@ -31,6 +31,7 @@
         <hutool.version>5.0.6</hutool.version>
         <beetl.version>3.0.15.RELEASE</beetl.version>
         <fastjson.version>1.2.62</fastjson.version>
+        <aliyun-verison>4.5.0</aliyun-verison>
     </properties>
 
     <dependencies>
@@ -154,6 +155,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>${aliyun-verison}</version>
         </dependency>
         <dependency>
             <groupId>com.github.zengxueqi-yu</groupId>
