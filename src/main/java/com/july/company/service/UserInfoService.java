@@ -3,8 +3,11 @@ package com.july.company.service;
 import com.july.company.dto.UserInfoDto;
 import com.july.company.dto.login.LoginAuthDto;
 import com.july.company.dto.login.UserRegisterDto;
+import com.july.company.dto.sms.SmsCodeDto;
+import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.sms.SmsCodeVo;
 
 /**
  * 用户服务
@@ -50,5 +53,23 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/16
      */
     UserInfoDto getUserInfo(Long userId);
+
+    /**
+     * 发送验证码
+     * @param smsCodeDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/18
+     */
+    void sendSmsCode(SmsCodeDto smsCodeDto);
+
+    /**
+     * 判断验证码是否有效
+     * @param smsCodeVerifyDto
+     * @return com.july.company.vo.sms.SmsCodeVo
+     * @author zengxueqi
+     * @since 2020/5/18
+     */
+    SmsCodeVo verifySmsCode(SmsCodeVerifyDto smsCodeVerifyDto);
 
 }

@@ -31,5 +31,15 @@ public class UserRegisterDto implements Serializable {
      */
     @NotNull
     private String mobile;
+    /**
+     * 企业名称
+     */
+    @NotNull
+    private String companyName;
+    /**
+     * 统一社会信用代码
+     */
+    @NotNull
+    private String creditCode;
 
 }

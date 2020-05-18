@@ -142,7 +142,7 @@ public class MyGenerator {
         strategy.setRestControllerStyle(true); //是否生成rest控制器
         strategy.setInclude(getTableName()); // 需要包含的表名，允许正则表达式（与exclude二选一配置）
         //strategy.setExclude(new String[]{"test"}); 	   // 需要排除的表名，允许正则表达式
-        strategy.setSuperEntityClass("cn.tcampus.util.entity.BaseEntity");// 自定义继承的Entity类全称，带包名
+        strategy.setSuperEntityClass("com.july.company.base.BaseEntity");// 自定义继承的Entity类全称，带包名
         //自定义基础的Entity类，公共字段
         strategy.setSuperEntityColumns("updatedTime", "createdTime", "deleted");
         //strategy.includeSuperEntityColumns();//包含超类实体列
@@ -241,7 +241,7 @@ public class MyGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        return new String[] {"fc_company_detail","fc_finance_company","fc_sys_code"};
+        return new String[] {"fc_sms_record"};
     }
 
 }
