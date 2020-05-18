@@ -16,3 +16,9 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face{
+    font-family:DS-DIGIT;
+    src: url("DS-DIGIT-4.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
