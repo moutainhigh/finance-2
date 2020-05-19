@@ -1,12 +1,15 @@
 package com.july.company.service;
 
 import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.login.ForgetPasswordDto;
 import com.july.company.dto.login.LoginAuthDto;
+import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
 
 /**
@@ -24,17 +27,6 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/16
      */
     UserInfoDto login(LoginAuthDto loginAuthDto);
-
-    /**
-     * code加入缓存
-     * @param flag
-     * @param key
-     * @param code
-     * @return void
-     * @author zengxueqi
-     * @since 2020/5/16
-     */
-    void codeCache(String flag, String key, String code);
 
     /**
      * 用户注册
@@ -71,5 +63,23 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/18
      */
     SmsCodeVo verifySmsCode(SmsCodeVerifyDto smsCodeVerifyDto);
+
+    /**
+     * 忘记密码时查询用户是否存在
+     * @param userInfoValidDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    UserInfoValidVo getUserInfoForForgetPassword(UserInfoValidDto userInfoValidDto);
+
+    /**
+     * 忘记密码
+     * @param forgetPasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    void forgetPassword(ForgetPasswordDto forgetPasswordDto);
 
 }

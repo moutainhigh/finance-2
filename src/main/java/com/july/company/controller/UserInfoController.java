@@ -1,17 +1,16 @@
 package com.july.company.controller;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
-import com.july.company.constant.SystemConstant;
-import com.july.company.dto.UserImgCodeDto;
 import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.login.ForgetPasswordDto;
 import com.july.company.dto.login.LoginAuthDto;
+import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.july.company.vo.login.LoginAuthVo;
+import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,22 +45,6 @@ public class UserInfoController {
                 .userInfo(userInfoDto)
                 .build();
         return ResultT.ok(loginAuthVo);
-    }
-
-    /**
-     * 生成图片验证码
-     * @param UserImgCodeDto
-     * @return com.july.company.response.ResultT<java.lang.String>
-     * @author zengxueqi
-     * @since 2020/5/16
-     */
-    @PostMapping("/generatorImgCode")
-    public ResultT<String> generatorImgCode(@Valid @RequestBody UserImgCodeDto UserImgCodeDto) {
-        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(200, 100);
-        String imageBase64 = captcha.getImageBase64();
-        String code = captcha.getCode();
-        userInfoService.codeCache(SystemConstant.IMG_CODE_FLAG, UserImgCodeDto.getCode(), code);
-        return ResultT.ok(imageBase64);
     }
 
     /**
@@ -100,6 +83,31 @@ public class UserInfoController {
     @PostMapping("/verifySmsCode")
     public ResultT<SmsCodeVo> verifySmsCode(@Valid @RequestBody SmsCodeVerifyDto smsCodeVerifyDto) {
         return ResultT.ok(userInfoService.verifySmsCode(smsCodeVerifyDto));
+    }
+
+    /**
+     * 忘记密码时查询用户是否存在
+     * @param userInfoValidDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    @PostMapping("/getUserInfoForForgetPassword")
+    public ResultT<UserInfoValidVo> getUserInfoForForgetPassword(@RequestBody UserInfoValidDto userInfoValidDto) {
+        return ResultT.ok(userInfoService.getUserInfoForForgetPassword(userInfoValidDto));
+    }
+
+    /**
+     * 忘记密码
+     * @param forgetPasswordDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    @PostMapping("/forgetPassword")
+    public ResultT<String> forgetPassword(@RequestBody ForgetPasswordDto forgetPasswordDto) {
+        userInfoService.forgetPassword(forgetPasswordDto);
+        return ResultT.ok("密码修改成功！");
     }
 
 }

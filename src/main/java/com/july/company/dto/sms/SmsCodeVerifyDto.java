@@ -1,5 +1,6 @@
 package com.july.company.dto.sms;
 
+import com.july.company.entity.enums.SmsCodeEnum;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -21,5 +22,10 @@ public class SmsCodeVerifyDto implements Serializable {
      * 验证码
      */
     private String smsCode;
+    /**
+     * 短信使用类型(0=注册，1=忘记密码)
+     * @mock 1
+     */
+    private Integer usageType;
 
 }

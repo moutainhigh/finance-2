@@ -11,36 +11,30 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.login.ForgetPasswordDto;
 import com.july.company.dto.login.LoginAuthDto;
+import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.entity.UserInfo;
+import com.july.company.entity.enums.SmsCodeEnum;
 import com.july.company.exception.BnException;
 import com.july.company.intercepts.TokenHandle;
 import com.july.company.mapper.UserInfoMapper;
-import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.Md5Utils;
 import com.july.company.utils.UUIDUtils;
-import com.july.company.utils.VerifyCodeUtils;
+import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.time.Duration;
-import java.util.Base64;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -96,24 +90,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     }
 
     /**
-     * code加入缓存
-     * @param flag
-     * @param key
-     * @param code
-     * @return void
-     * @author zengxueqi
-     * @since 2020/5/16
-     */
-    @Override
-    public void codeCache(String flag, String key, String code) {
-        Object o = valueOperations.get(flag + key);
-        if (o != null) {
-            throw BnException.on("请不要重复生成验证码！");
-        }
-        valueOperations.set(flag + key, code, Duration.ofMinutes(15));
-    }
-
-    /**
      * 用户注册
      * @param userRegisterDto
      * @return void
@@ -166,7 +142,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         try {
             CommonResponse response = client.getCommonResponse(request);
             if (response.getHttpStatus() == SystemConstant.HTTP_STATUS) {
-                valueOperations.set(SystemConstant.SMS_REGISTER + smsCodeDto.getMobile(), verifyCode, SystemConstant.SMS_EXPIRE_LOGIN, TimeUnit.MINUTES);
+                valueOperations.set(SmsCodeEnum.getDescByValue(smsCodeDto.getUsageType()) + smsCodeDto.getMobile(), verifyCode, SystemConstant.SMS_EXPIRE_LOGIN, TimeUnit.MINUTES);
             }
         } catch (ServerException e) {
             e.printStackTrace();
@@ -184,13 +160,51 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public SmsCodeVo verifySmsCode(SmsCodeVerifyDto smsCodeVerifyDto) {
-        Object object = valueOperations.get(SystemConstant.SMS_REGISTER + smsCodeVerifyDto.getMobile());
+        Object object = valueOperations.get(SmsCodeEnum.getDescByValue(smsCodeVerifyDto.getUsageType()) + smsCodeVerifyDto.getMobile());
         SmsCodeVo smsCodeVo = new SmsCodeVo();
         smsCodeVo.setSmsCodeValid(SystemConstant.SYS_FALSE);
         if (object != null) {
             smsCodeVo.setSmsCodeValid(SystemConstant.SYS_TRUE);
         }
         return smsCodeVo;
+    }
+
+    /**
+     * 忘记密码时查询用户是否存在
+     * @param userInfoValidDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    @Override
+    public UserInfoValidVo getUserInfoForForgetPassword(UserInfoValidDto userInfoValidDto) {
+        BnException.of(StringUtils.isEmpty(userInfoValidDto.getMobile()), "找回密码时，手机号不能为空！");
+
+        UserInfo userInfo = getUserInfoByMobile(userInfoValidDto.getMobile());
+        
+        UserInfoValidVo userInfoValidVo = new UserInfoValidVo();
+        userInfoValidVo.setUserValid(userInfo != null ? SystemConstant.SYS_TRUE : SystemConstant.SYS_FALSE);
+        return userInfoValidVo;
+    }
+
+    /**
+     * 忘记密码
+     * @param forgetPasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/19
+     */
+    @Override
+    public void forgetPassword(ForgetPasswordDto forgetPasswordDto) {
+        BnException.of(StringUtils.isEmpty(forgetPasswordDto.getMobile()), "找回密码时，手机号不能为空！");
+        UserInfo userInfo = getUserInfoByMobile(forgetPasswordDto.getMobile());
+        BnException.of(userInfo == null, "当前手机号没有注册用户信息！");
+
+        //新的密码盐值
+        String passwordSalt = Md5Utils.getRandomString(32);
+        userInfo.setPwdSalt(passwordSalt);
+        userInfo.setPassword(Md5Utils.generatePassword(forgetPasswordDto.getPassword(), passwordSalt));
+        this.updateById(userInfo);
     }
 
     /**
@@ -242,43 +256,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 .eq("password", password)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
-    }
-
-    /**
-     * 获取验证码图片和文本(验证码文本会保存在HttpSession中)
-     * @param response
-     * @return ResultT<String>
-     * @author zengxueqi
-     * @since 2020/5/18
-     */
-    @PostMapping("/genCaptcha")
-    public ResultT<String> genCaptcha(HttpServletResponse response) {
-        try {
-            //设置页面不缓存
-            response.setHeader("Pragma", "no-cache");
-            response.setHeader("Cache-Control", "no-cache");
-            response.setDateHeader("Expires", 0);
-            String verifyCode = VerifyCodeUtils.generateTextCode(VerifyCodeUtils.TYPE_ALL_MIXED, 4, null);
-            //将验证码放到HttpSession里面
-
-            response.setHeader("Access-Control-Expose-Headers:validateCode", verifyCode);
-            response.setHeader("validateCodetest", verifyCode);
-            //设置输出的内容的类型为JPEG图像
-            // response.setContentType("image/jpeg");
-            BufferedImage bufferedImage = VerifyCodeUtils.generateImageCode(verifyCode, 117, 40, 5, true, new Color(249, 205, 173), null, null);
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
-            ImageIO.write(bufferedImage, "JPEG", baos);//写入流中
-            byte[] bytes = baos.toByteArray();//转换成字节
-            Base64.Encoder encoder = Base64.getEncoder();
-            String png_base64 = encoder.encodeToString(bytes).trim();//转换成base64串
-            png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");//删除 \r\n
-            return ResultT.ok(verifyCode + ":" + png_base64);
-        } catch (Exception e) {
-            e.printStackTrace();
-            ResultT.error(e.getMessage());
-        }
-        return ResultT.error("验证码获取失败");
     }
 
 }
