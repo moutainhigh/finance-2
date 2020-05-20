@@ -40,7 +40,7 @@ export default {
 }
 </script>
 <style scoped>
-.login{min-width:1920px;min-height:1080px;position:absolute;top:0px;left:0px;}
+.login{width:100%;min-height:1080px;position:absolute;top:0px;left:0px;}
 .login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:504px;height:290px;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}
 .login .login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:38px 26px 16px 30px;font-family: FZLTXHK;

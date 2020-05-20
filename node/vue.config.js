@@ -4,13 +4,18 @@ module.exports = {
     productionSourceMap: false,
     devServer: {
         proxy: {
-            '/api':{
-                target:'https://xxx.cn',
+            '/finance':{
+                target:'http://financial.dev.bigdatacd.com:9000',
                 changeOrigin:true,
                 pathRewrite:{
-                    '/api':''
+                    '/finance':'/finance'
                 }
             }
         }
     },
+    configureWebpack:{
+        externals:{
+            'BMap':'BMap'
+        }
+    }
 }

@@ -73,7 +73,7 @@ export default {
 }
 </script>
 <style scoped>
-.login{min-width:1920px;min-height:1080px;position:absolute;top:0px;left:0px;}
+.login{width:100%;min-height:1080px;position:absolute;top:0px;left:0px;}
 .login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:590px;height:523px;z-index:9;}
 .login-box .reg-img{position:absolute;top:0px;left:0px;width:100%;height:600px;z-index:-1;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}
