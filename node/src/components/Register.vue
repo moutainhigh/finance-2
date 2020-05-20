@@ -4,7 +4,7 @@
             <img src="/image/home/login.png" class="reg-img" />
             <div class="l-title">
                 <div>注册</div>
-                <img src="/image/home/close.png" class="close"/>
+                <img src="/image/home/close.png" class="close"  @click="$emit('close')"/>
             </div>
             <div class="l-input">
                 <div>* 企业名称</div>
@@ -21,7 +21,7 @@
             <div class="l-input">
                 <div>* 联系人</div>
                 <div>
-                    <input type="text" name="pwd" placeholder="请输入统一社会信用代码"/>
+                    <input type="text" name="pwd" placeholder="请输入联系人"/>
                 </div>
             </div>
             <div class="l-input">
@@ -50,8 +50,8 @@
                 <div class="code">获取验证码</div>
             </div>
             <div class="l-btns">
-                <div class="l-btn">确认注册</div>
-                <div class="l-btn">返回登录</div>
+                <div class="l-btn" @click="$emit('do-reg',regForm)">确认注册</div>
+                <div class="l-btn" @click="$emit('to-login')">返回登录</div>
             </div>
             
         </div>
@@ -62,7 +62,9 @@ export default {
     name:'Re',
     data(){
         return {
-
+            regForm:{
+                
+            }
         }
     },
     methods:{
