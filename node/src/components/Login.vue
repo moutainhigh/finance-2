@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="login-box">
+        <div class="login-box" v-if="!isForm">
             <div class="l-title">
                 <div>成都市科技金融智能服务平台</div>
                 <img src="/image/home/close.png" class="close" @click="$emit('close')"/>
@@ -19,18 +19,64 @@
             </div>
             <div class="l-btn" @click="$emit('do-login',loginForm)">登录</div>
             <div class="reg" @click="$emit('to-reg')">没有账号？去注册</div>
-            
+        </div>
+        <div class="login-box" v-if="isForm">
+            <a-card title="成都市科技金融智能服务平台" style="width:504px;border-radius:15px;">
+                <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
+                <a-form-model ref="ruleForm" :model="loginForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:18}">
+                    <a-form-model-item ref="mobile" label="帐号" prop="mobile">
+                        <a-input v-model="loginForm.mobile" @blur="
+                            () => {
+                                $refs.mobile.onFieldBlur();
+                            }
+                            "
+                        />
+                        </a-form-model-item>
+                    <a-form-model-item ref="password" label="密码" prop="password">
+                        <a-input v-model="loginForm.password" @blur="
+                            () => {
+                                $refs.password.onFieldBlur();
+                            }
+                            "
+                        />
+                    </a-form-model-item>
+                    <a-form-model-item :wrapper-col="{ span: 20, offset: 2 }">
+                        <a-button type="primary" @click="$emit('do-login',loginForm)" block size="large">
+                            登录
+                        </a-button>
+                        <a-button style="margin-left: 10px;" @click="$emit('to-reg')" type="link">
+                            没有帐号，去注册
+                        </a-button>
+                        <a-button style="margin-left: 10px;" @click="$emit('to-forget')" type="link">
+                            忘记密码
+                        </a-button>
+                    </a-form-model-item>
+                </a-form-model>
+            </a-card>
         </div>
     </div>
 </template>
 <script>
 export default {
     name:'Login',
+    props:{
+        isForm:{type:Boolean,default:false}
+    },
     data(){
         return {
             loginForm:{
                 mobile:'',
                 password:''
+            },
+            rules: {
+                mobile: [
+                    { required: true, message: '请输入', trigger: 'blur' },
+                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                ],
+                password: [
+                    { required: true, message: '请输入', trigger: 'blur' },
+                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                ],
             }
         }
     },

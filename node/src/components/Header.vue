@@ -12,8 +12,8 @@
             <div class="nav-item" @click="toPage('/guquan')">一键匹配</div>
         </div>
         <div class="user">
-            <div class="btn logo">登录</div>
-            <div class="btn reg">注册</div>
+            <div class="btn logo" @click="$emit('do-login')">登录</div>
+            <div class="btn reg" @click="$emit('to-reg')">注册</div>
         </div>
     </div>
 </template>

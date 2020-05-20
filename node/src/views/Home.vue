@@ -68,6 +68,7 @@
         </div>
       </div>
     </div>
+    <img src="/image/home/seld.png" alt="" class="seld">
     <transition name="fade">
       <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
     </transition>
@@ -78,6 +79,7 @@
 </template>
 <script>
 import BMap from 'BMap';
+import $ from 'jQuery';
 export default {
   data(){
     return {
@@ -123,25 +125,40 @@ export default {
       // map.centerAndZoom("成都市",15);                
       // map.enableScrollWheelZoom(false);  
       // 获取当前区域图片
-      var img = document.querySelector('img[name="简阳市"]')
+      let name="彭州市";
+      var img = document.querySelector('img[name="'+ name +'"]')
       let top = Number(img.style.top.replace('px',''));
       let left = Number(img.style.left.replace('px',''));
       let width = img.width;
       let height = img.height; 
       // 绘制svg
       let svg = this.$d3.select('.c-map').append('svg').attr('width',width/2).attr('height',height/2)
-              .style('position','absolute').style('top',top+(height/4)).style('left',left+(width/4));
+              .style('position','absolute').style('z-index',7).style('top',top+(height/4)).style('left',left+(width/4));
               // .style('position','absolute').style('top',top+(width/2)).style('left',left+(height/2))
       // svg.append('image').attr('x',Math.random()).attr('y',Math.random()).attr('width',10).attr('height',10).attr('xlink:href','/image/home/guquan.png')
-      var cx = Math.random()+20;
-      var cy = Math.random()+20;
+      var cx = Math.floor(Math.random()*10+1)+20;
+      var cy = Math.floor(Math.random()*10+1)+20;
       // 绘制点
       svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer')
-      this.$d3.select('circle').on('click',(e)=>{
-        console.log(e)
+      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
+      var cx = Math.floor(Math.random()*10+10)+20;
+      var cy = Math.floor(Math.random()*10+10)+20;
+      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
+      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('top','c').attr('name',name).style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer')
+      // 给添加的点，添加点击事件监听
+      $('circle[top="c"]').click((e)=>{
+          console.log(e)
+          $('img[name]').css({opacity:0});
+          $('img[name="'+e.target.getAttribute('name')+'"]').css({opacity:1});
+          $('.seld').css({top:(e.pageY-$('.seld').width()/2)+'px',left:(e.clientX-$('.seld').height()/2)+'px',zIndex:6})
+          $('.c-info').css({opacity:1,top:'366px',right:'500px',transform:'scale(0)'})
+          .animate({opacity:1,top:'117px',right:'154px'},'show','linear').css({transform:'scale(1)'})
       })
-              
+      // 给选中添加监听再次点击消失，然后可以点击其他的机构
+      $('.seld').click(()=>{
+        $('.seld').css({zIndex:-1})
+      })
+     
     },
     login(){
       this.isLogin = true;
@@ -356,7 +373,7 @@ rect{transition:all 1s;cursor:pointer;opacity:0;stroke:red;stroke-width:2;fill:r
 rect:hover{opacity:1;} */
 
 #bmap{width:100%;height:100%;position:absolute;top:0px;left:0px;}
-
+.seld{position:absolute;top:0px;z-index:-1;}
 </style>
 <style>
 @keyframes topanimate {

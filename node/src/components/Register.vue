@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <div class="login-box">
+        <div class="login-box" v-if='!isForm'>
             <img src="/image/home/login.png" class="reg-img" />
             <div class="l-title">
                 <div>注册</div>
@@ -55,15 +55,60 @@
             </div>
             
         </div>
+        <div class="login-box" v-if='isForm'>
+            <a-card title="注册" style="width:504px;border-radius:15px;">
+                <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
+                <a-form-model ref="ruleForm" :model="regForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:18}">
+                    <a-form-model-item ref="mobile" label="帐号" prop="mobile">
+                        <a-input v-model="regForm.mobile" @blur="
+                            () => {
+                                $refs.mobile.onFieldBlur();
+                            }
+                            "
+                        />
+                        </a-form-model-item>
+                    <a-form-model-item ref="password" label="密码" prop="password">
+                        <a-input v-model="regForm.password" @blur="
+                            () => {
+                                $refs.password.onFieldBlur();
+                            }
+                            "
+                        />
+                    </a-form-model-item>
+                    <a-form-model-item :wrapper-col="{ span: 20, offset: 2 }">
+                        <a-button type="primary" @click="$emit('do-reg',regForm)" size="large" style="width:45%;">
+                            确认注册
+                        </a-button>
+                        <a-button type="info" @click="$emit('to-login')" size="large" style="margin-left:10%;width:45%;">
+                            返回登录
+                        </a-button>
+                    </a-form-model-item>
+                </a-form-model>
+            </a-card>
+        </div>
     </div>
 </template>
 <script>
 export default {
-    name:'Re',
+    name:'Reg',
+    props:{
+        isForm:{type:Boolean,default:false}
+    },
     data(){
         return {
             regForm:{
-                
+                mobile:'',
+                password:''
+            },
+            rules: {
+                mobile: [
+                    { required: true, message: '请输入', trigger: 'blur' },
+                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                ],
+                password: [
+                    { required: true, message: '请输入', trigger: 'blur' },
+                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                ],
             }
         }
     },
