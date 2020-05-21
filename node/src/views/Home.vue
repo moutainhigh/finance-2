@@ -24,12 +24,21 @@
           <img src="/image/home/left-animbg.png" class="left-animbg"/>
           <img src="/image/home/left-anim.gif" class="left-anim"/>
           <div class="main-left-tab">
-            <div class="active">股权机构</div>
-            <div>债券机构</div>
+            <div :class="tabAction==0?'active':''" @click="tabChange(0)">股权机构</div>
+            <div :class="tabAction==1?'active':''" @click="tabChange(1)">债券机构</div>
           </div>
-          <div class="main-left-list">
-            <div class="main-list-item" v-for="item in 10" :key="item" :class="item==1?'item-active':''">
-              成都技转创投{{item}}
+          <div class="main-left-list" v-show="tabAction==0">
+            <div class="main-list-item" v-for="(item,index) in gqjg" :key="index"
+              @click="selComp(index)" 
+              :class="index==gqIndex?'item-active':''">
+              {{item.title}}
+            </div>
+          </div>
+          <div class="main-left-list" v-show="tabAction==1">
+            <div class="main-list-item" v-for="(item,index) in gqjg" :key="index" 
+              @click="selComp(index)" 
+              :class="index==gqIndex?'item-active':''">
+              {{item.title}}
             </div>
           </div>
         </div>
@@ -61,9 +70,9 @@
           </div>
           <div class="main-right-list">
             <div class="list-title">当前结果</div>
-            <div class="right-list-item" v-for="item in 6" :key="item">
-                <div>企业入驻（家）</div>
-                <div>1039</div>
+            <div class="right-list-item" v-for="item in result" :key="item.title">
+                <div>{{item.title}}</div>
+                <div>{{item.value}}</div>
             </div>
           </div>
         </div>
@@ -80,6 +89,8 @@ import $ from 'jQuery';
 export default {
   data(){
     return {
+      tabAction:0,
+      gqIndex:-1,
       isLogin:false,
       isReg:false,
       userInfo:{userName:''},
@@ -108,6 +119,26 @@ export default {
         {opacity:0,top:'407px',left:'416px',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
         {opacity:0,top:'298px',left:'402px',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
         {opacity:0,top:'463px',left:'327px',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
+      ],
+      result:[
+        {title:'企业入驻（家）',type:'companyCount',value:0},
+        {title:'机构入驻（家）',type:'institutionCount',value:0},
+        {title:'股权产品（个）',type:'stockCount',value:0},
+        {title:'债劵产品（个）',type:'bondCount',value:0},
+        {title:'匹配（笔）',type:'matchCount',value:0},
+        {title:'匹配金额（亿元）',type:'matchMoney',value:0},
+      ],
+      gqjg:[
+        {title:'成都技转创投'},
+        {title:'红杉资本'},
+        {title:'深证创新投'},
+        {title:'达晨创投'},
+        {title:'君联资本'},
+        {title:'IDG资本'},
+        {title:'北极光创投'},
+        {title:'晨兴资本'},
+        {title:'今日资本'},
+        {title:'红杉中国'},
       ]
     }
   },
@@ -118,6 +149,8 @@ export default {
     setTimeout(()=>{
       this.initMap();
     },1000)
+    // 获取统计结果
+    this.getResult();
     
   },
   methods: {
@@ -194,6 +227,21 @@ export default {
         this.$router.push({path:url}).catch((err)=>{});
       }
     },
+    getResult(){
+      this.$http.post('/finance/institution/getFinanceStatistics').then(res=>{
+        if(res.data.code==0){
+          this.result.forEach((item,index)=>{
+            this.$set(this.result[index],'value',res.data.content[item.type])
+          })
+        }
+      })
+    },
+    tabChange(index){
+      this.tabAction = index;
+    },
+    selComp(index){
+      this.gqIndex = index;
+    }
     
   },
   components:{

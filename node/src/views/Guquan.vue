@@ -22,22 +22,13 @@
                     </div>
                 </div>
                 <div class="filter-body" :style="openBodyStyle">
-                    <div class="filter-item">
-                        <div class="item-title">融资额度</div>
+                    <div class="filter-item" v-for="sItem in searchFieldList" :key="sItem.codeType">
+                        <div class="item-title">{{sItem.name}}</div>
                         <div class="item">
-                            <div class="item-list" v-for="(item,index) in eduList" :key="index">{{item.title}}</div>
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <div class="item-title">融资阶段</div>
-                        <div class="item">
-                            <div class="item-list " v-for="(item,index) in rzjd" :key="index">{{item.title}}</div>
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <div class="item-title">行业方向</div>
-                        <div class="item">
-                            <div class="item-list " v-for="(item,index) in hyfx" :key="index">{{item.title}}</div>
+                            <div class="item-list" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code"
+                                :class="getActive(codeItem)?'active':''"
+                                @click="selSearchField(codeItem)"
+                                >{{codeItem.value}}</div>
                         </div>
                     </div>
                     <div class="filter-item more">
@@ -117,6 +108,8 @@
 </template>
 <script>
 import { getSearchField } from "@/common/commapi.js"
+import { matchSearchData} from "@/common/lib/tools.js"
+import {mapActions} from "vuex"
 export default {
     name:"Guquan",
     data(){
@@ -127,37 +120,6 @@ export default {
             openStyle:{},
             openBodyStyle:{},
             searchFieldList:[],
-            eduList:[
-                {title:'不限'},
-                {title:'0-100万'},
-                {title:'100-200万'},
-                {title:'200-500万'},
-                {title:'500-1000万'},
-                {title:'1000万以上'},
-            ],
-            rzjd:[
-                {title:'不限'},
-                {title:'未融资'},
-                {title:'天使轮'},
-                {title:'Pre-A轮'},
-                {title:'B轮'},
-                {title:'C轮'},
-                {title:'D轮及以上'},
-                {title:'上市公司'},
-                {title:'其他'},
-            ],
-            hyfx:[
-                {title:'不限'},
-                {title:'医药/医疗器械'},
-                {title:'电子信息'},
-                {title:'互联网'},
-                {title:'大数据'},
-                {title:'人工智能'},
-                {title:'新经济'},
-                {title:'轨道交通'},
-                {title:'军民融合'},
-                {title:'其他'},
-            ],
             selGroup:[
                 {title:'注册地址'},
                 {title:'股东背景'},
@@ -180,30 +142,31 @@ export default {
             ],
             params:{
                 "content":{
-                    "financeQuota":"16bjij",
-                    "financeState":"u7fg8g",
-                    "IndustryDirect":"dgvs8v",
-                    "registerAddress":"Apt. 159 夏栋03号， 大庆， 青 534853",
-                    "business":"6fjgo4",
+                    "financeQuota":"0",
+                    "financeState":"0",
+                    "IndustryDirect":"0",
+                    "registerAddress":"0",
+                    "business":"0",
                     "staffCount":681,
-                    "marketOccupyRate":"tduvlc",
-                    "evaluateName":"子骞.雷",
-                    "mechanismOrProduct":"ppdvnz"
+                    "marketOccupyRate":"0",
+                    "evaluateName":"0",
+                    "mechanismOrProduct":"0"
                 },
                 "pager":{
-                    "pageSize":459,
-                    "currentPage":694
+                    "pageSize":20,
+                    "currentPage":1
                 }
             }
         }
     },
     created(){
         // 预先加载搜索字段
-        getSearchField(this.$http,'/finance/sysCode/getSysCode').then(res=>{
-            this.searchFieldList = res;
+        getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
+            this.searchFieldList = matchSearchData(res);
         }).catch(err=>console.log(err))
     },
     methods:{
+        ...mapActions(['setUserInfo']),
         login(){
             this.isLogin = true;
             this.isReg = false;
@@ -251,11 +214,35 @@ export default {
         toDetail(item){
             console.log(22)
             this.$router.push({path:'/detail'})
+        },
+        selSearchField(item){
+            if(item.codeType=='RZED'){
+                this.params.content.financeQuota=item.code
+                this.$set(this.params.content,'financeQuota',item.code);
+            }
+            if(item.codeType=='RZJD'){
+                this.$set(this.params.content,'financeState',item.code);
+            }
+            if(item.codeType=='HYFX'){
+                this.$set(this.params.content,'IndustryDirect',item.code);
+            }
+        },
+        getActive(item){
+            if(item.codeType=='RZED' && this.params.content.financeQuota==item.code){
+                return true;
+            }
+            if(item.codeType=='RZJD' && this.params.content.financeState==item.code){
+                return true;
+            }
+            if(item.codeType=='HYFX' && this.params.content.IndustryDirect==item.code){
+                return true;
+            }
+            return false;
         }
 
     },
     mounted(){
-        this.initPage();
+        // this.initPage();
     },
     components:{
         Header:()=>{return import('@/components/Header.vue')},

@@ -14,29 +14,21 @@ Vue.use(VueRouter)
   {
     path: '/guquan',
     name: 'Guquan',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Guquan.vue'),
+    component: () => import('../views/Guquan.vue'),
     meta:{title:'股权融资'}
   },
   {
     path: '/zhaiquan',
     name: 'Zhaiquan',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Zhaiquan.vue'),
+    component: () => import('../views/Zhaiquan.vue'),
     meta:{title:'债券融资'}
   },
   {
     path: '/detail',
     name: 'Detail',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Detail.vue'),
+    component: () => import('../views/Detail.vue'),
     meta:{title:'详情'}
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
 
 const router = new VueRouter({
