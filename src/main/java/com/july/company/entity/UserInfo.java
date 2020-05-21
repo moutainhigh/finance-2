@@ -60,14 +60,9 @@ public class UserInfo extends BaseEntity {
     @TableField("pwdSalt")
     private String pwdSalt;
     /**
-     * 企业名称
+     * 所属企业id
      */
-    @TableField("companyName")
-    private String companyName;
-    /**
-     * 统一社会信用代码
-     */
-    @TableField("creditCode")
-    private String creditCode;
+    @TableField("companyId")
+    private Long companyId;
 
 }

@@ -3,7 +3,7 @@ mybatis-plus:
   type-enums-package: com.july.**.entity.enums
   configuration:
     default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
-#    type-aliases-super-type: cn.tcampus.util.entity.BaseEntity
+    type-aliases-super-type: com.july.company.entity.BaseEntity
 
 #debug: true
 #限制文件上传大小

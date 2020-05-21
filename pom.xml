@@ -34,7 +34,7 @@
         <aliyun-verison>4.5.0</aliyun-verison>
         <hutool-all-version>5.0.0</hutool-all-version>
         <jjwt-version>0.6.0</jjwt-version>
-        <lombok-version>1.16.10</lombok-version>
+        <lombok-version>1.18.10</lombok-version>
         <julydoc-version>1.1.1-RELEASE</julydoc-version>
         <mysql-connection-version>8.0.19</mysql-connection-version>
     </properties>

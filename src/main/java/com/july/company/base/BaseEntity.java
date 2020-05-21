@@ -12,11 +12,10 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * 基础类信息
+ * 公共实体类
  * @author zengxueqi
- * @program springboot-company
- * @since 2020-05-16 01:26
- **/
+ * @since 2020/05/01
+ */
 @Setter
 @Getter
 @ToString
@@ -24,6 +23,7 @@ import java.time.LocalDateTime;
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 55030697830101880L;
+
     /**
      * 更新数据的时间(秒)
      */
@@ -40,43 +40,16 @@ public class BaseEntity implements Serializable {
     @TableField(value = "deleted", fill = FieldFill.INSERT)
     private Integer deleted;
 
-    /**
-     * 获取时间类型的修改时间
-     * @return 时间类型的修改时间
-     */
-    public LocalDateTime updatedTime() {
-        if (updatedTime != null) {
-            return DateUtils.toLocalDateTime(updatedTime);
-        }
-        return null;
+    public Long getCreatedTime() {
+        return System.currentTimeMillis() / 1000;
     }
 
-    /**
-     * 把日期时间转换为Long整形的秒
-     * @param updatedTime 日期时间
-     */
-    public void updatedTime(LocalDateTime updatedTime) {
-        this.updatedTime = DateUtils.toLong(updatedTime);
+    public Long getUpdatedTime() {
+        return System.currentTimeMillis() / 1000;
     }
 
-    /**
-     * 获取时间类型的创建时间
-     * @return 创建时间
-     */
-    public LocalDateTime createdTime() {
-        if (createdTime != null) {
-            return DateUtils.toLocalDateTime(createdTime);
-        }
-        return null;
-    }
-
-    /**
-     * 把日期时间转换为Long整形的秒
-     * @param createdTime 日期时间
-     */
-    public void createdTime(LocalDateTime createdTime) {
-        this.createdTime = DateUtils.toLong(createdTime);
+    public Integer getDeleted() {
+        return 0;
     }
 
 }
-
