@@ -12,8 +12,9 @@
             <div class="nav-item" @click="toPage('/guquan')">一键匹配</div>
         </div>
         <div class="user">
-            <div class="btn logo" @click="$emit('do-login')">登录</div>
-            <div class="btn reg" @click="$emit('to-reg')">注册</div>
+            <div class="btn logo" @click="$emit('do-login')" v-show="!$store.state.userInfo.userName">登录</div>
+            <div class="btn reg" @click="$emit('to-reg')" v-show="!$store.state.userInfo.userName">注册</div>
+            <UserInfo :userInfo="$store.state.userInfo" v-show="$store.state.userInfo.userName"></UserInfo>
         </div>
     </div>
 </template>
@@ -29,6 +30,9 @@ export default {
         toPage(url){
             this.$router.push({path:url});
         }
+    },
+    components:{
+        UserInfo:()=>import("@/components/UserInfo.vue"),
     }
 
 }
@@ -46,4 +50,5 @@ export default {
 .header .user .btn{padding:5px 15px;border-radius:50px;font-size:12px;letter-spacing:1px;margin-left:15px;color:#fff;}
 .header .user .logo{padding:5px 15px;border-radius:50px;background:#9ee9ff;font-size:12px;letter-spacing:1px;margin-left:15px;color:#fff;cursor: pointer;}
 .header .user .reg{padding:5px 15px;border-radius:50px;border:1px solid #fff;font-size:12px;letter-spacing:1px;margin-left:15px;color:#fff;cursor: pointer;}
+.header .user .btn:hover{background:#9ee9ff;}
 </style>

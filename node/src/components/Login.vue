@@ -17,7 +17,7 @@
                     <input type="password" v-model.trim="loginForm.password" placeholder="请输入密码"/>
                 </div>
             </div>
-            <div class="l-btn" @click="$emit('do-login',loginForm)">登录</div>
+            <div class="l-btn" @click="doLogin">登录</div>
             <div class="reg" @click="$emit('to-reg')">没有账号？去注册</div>
         </div>
         <div class="login-box" v-if="isForm">
@@ -33,7 +33,7 @@
                         />
                         </a-form-model-item>
                     <a-form-model-item ref="password" label="密码" prop="password">
-                        <a-input v-model="loginForm.password" @blur="
+                        <a-input v-model="loginForm.password" type="password" @blur="
                             () => {
                                 $refs.password.onFieldBlur();
                             }
@@ -41,7 +41,7 @@
                         />
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 20, offset: 2 }">
-                        <a-button type="primary" @click="$emit('do-login',loginForm)" block size="large">
+                        <a-button type="primary" @click="doLogin" block size="large">
                             登录
                         </a-button>
                         <a-button style="margin-left: 10px;" @click="$emit('to-reg')" type="link">
@@ -57,6 +57,8 @@
     </div>
 </template>
 <script>
+import {storage} from '@/common/lib/tools.js'
+import {mapActions} from 'vuex';
 export default {
     name:'Login',
     props:{
@@ -70,18 +72,66 @@ export default {
             },
             rules: {
                 mobile: [
-                    { required: true, message: '请输入', trigger: 'blur' },
-                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                    { required: true, message: '请输入手机号或统一社会信用代码', trigger: 'blur' },
                 ],
                 password: [
-                    { required: true, message: '请输入', trigger: 'blur' },
-                    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { min: 8, max: 8, message: '请输入8位密码，包含字母、数字', trigger: 'blur' },
                 ],
             }
         }
     },
     methods:{
+        ...mapActions(['setUserInfo']),
+        doLogin(){
+            if(this.isForm){
+                this.$refs.ruleForm.validate(valid => {
+                    if (valid) {
+                        // 如果是手机号码，处理手机号码是否正确
+                        if(String(this.loginForm.mobile).length==11 && !/^1[3-9]{1}[0-9]{9}/.test(this.loginForm.mobile) ){
+                            this.$message.error("请输入手机号或统一社会信用代码");
+                            return ;
+                        }
+                        this.login(this.loginForm);
+                    } else {
+                        return false;
+                    }
+                });
+            }else{
+                if(!this.loginForm.mobile || (String(this.loginForm.mobile).length==11 && !/^1[3-9]{1}[0-9]{9}/.test(this.loginForm.mobile)) ){
+                    this.$message.error("请输入手机号或统一社会信用代码");
+                    return ;
+                }
+                if(!this.loginForm.password || String(this.loginForm.password).length != 8 ){
+                    this.$message.error("请输入8位密码，包含字母、数字");
+                    return ;
+                }
+                this.login(this.loginForm);
 
+            }
+            // this.$emit('do-reg',regForm);
+        },
+        login(loginForm){
+            this.$message.destroy();
+            this.$message.loading('登录中',0)
+            this.$http.post('/finance/userInfo/login',loginForm).then(res=>{
+                this.$message.destroy();
+                // 判断服务器端数据是否有误
+                if(res.data.code!=0){
+                    this.$message.error(res.data.msg);
+                    return ;
+                }
+                // 登录成功存储用户信息
+                storage('cdjr_token',res.data.content.token,2*60);
+                // localStorage.setItem('cdjr_token',res.data.content.token);
+                this.setUserInfo(res.data.content.userInfo);
+                localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
+                this.$message.loading('登录成功',1).then(()=>{
+                    // 处理完后关闭登录窗口
+                    this.$emit('do-login',this.loginForm)
+                });
+            });
+        }
     }
 }
 </script>

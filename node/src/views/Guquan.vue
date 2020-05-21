@@ -110,16 +110,13 @@
                 </div>
             </div>
         </div>
-        <transition name="fade">
         <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" :isForm="true"></Login>
-        </transition>
-        <transition name="fade">
-        <Register v-show="isReg" @to-login="login" @close="close" :isForm="true"></Register>
-        </transition>
+        <Register v-show="isReg" @to-login="login" @do-reg="doReg" @close="close" :isForm="true"></Register>
         <Footer></Footer>
     </div>
 </template>
 <script>
+import { getSearchField } from "@/common/commapi.js"
 export default {
     name:"Guquan",
     data(){
@@ -129,6 +126,7 @@ export default {
             openMore:false,
             openStyle:{},
             openBodyStyle:{},
+            searchFieldList:[],
             eduList:[
                 {title:'不限'},
                 {title:'0-100万'},
@@ -199,46 +197,33 @@ export default {
             }
         }
     },
+    created(){
+        // 预先加载搜索字段
+        getSearchField(this.$http,'/finance/sysCode/getSysCode').then(res=>{
+            this.searchFieldList = res;
+        }).catch(err=>console.log(err))
+    },
     methods:{
         login(){
-        this.isLogin = true;
-        this.isReg = false;
+            this.isLogin = true;
+            this.isReg = false;
         },
-        doLogin(form){
-        // /finance/userInfo/login
-        // 验证手机或者信用代码
-        if(!form.mobile){
-            this.$message.error('请输入正确的手机号或统一社会信用代码');
-            return ;
-        }
-        if(!form.password){
-            this.$message.error('请输入密码');
-            return ;
-        }
-
-        this.$message.loading('登录中',0)
-        this.$http.post('/finance/userInfo/login',form).then(res=>{
-            this.$message.destroy();
-            // 判断服务器端数据是否有误
-            if(res.data.code!=0){
-                this.$message.error(res.data.data.msg);
-                return ;
-            }
-            // 登录成功存储用户信息
-            localStorage.setItem('cdjr_token',res.data.content.token);
-            localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
-            this.$message.loading('登录成功',1).then(()=>{
-                // 处理完后关闭登录窗口
+        doLogin(params){
+            console.log(params)
+            if(params && params.mobile){
+                console.log(params)
                 this.isLogin = false;
-            });
-        });
+            }
         },
         reg(){
-        this.isReg = true;
-        this.isLogin = false;
+            this.isReg = true;
+            this.isLogin = false;
         },
-        doReg(){
-        // /finance/userInfo/register
+        doReg(params){
+            if(params && params.mobile){
+            console.log(params)
+            this.isReg = false;
+            }
         },
         close(){
         this.isLogin = false;
