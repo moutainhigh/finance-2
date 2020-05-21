@@ -12,8 +12,9 @@
         </div>
       </div>
       <div class="right">
-        <div class="btn" @click="login">登录</div>
-        <div class="btn" @click="reg">注册</div>
+        <div class="btn" @click="login" v-show="!userInfo.userName">登录</div>
+        <div class="btn" @click="reg" v-show="!userInfo.userName">注册</div>
+        <UserInfo :userInfo="userInfo" :isHome='true' v-show="userInfo.userName"></UserInfo>
       </div>
     </div>
     <div class="main">
@@ -69,12 +70,8 @@
       </div>
     </div>
     <img src="/image/home/seld.png" alt="" class="seld">
-    <transition name="fade">
-      <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
-    </transition>
-    <transition name="fade">
-      <Register v-show="isReg" @to-login="login" @close="close"></Register>
-    </transition>
+    <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
+    <Register v-show="isReg" @to-login="login" @close="close"></Register>
   </div>
 </template>
 <script>
@@ -85,6 +82,7 @@ export default {
     return {
       isLogin:false,
       isReg:false,
+      userInfo:{userName:''},
       map:[
         {opacity:0,top:'378px',left:'466px',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
         // {opacity:0,top:'331px',left:'107px',src:'/image/home/czs.svg',isshow:true,name:'崇州市'style:{zIndex:0}},
@@ -114,6 +112,9 @@ export default {
     }
   },
   mounted(){
+    if(localStorage.getItem('userInfo')){
+      this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
+    }
     setTimeout(()=>{
       this.initMap();
     },1000)
@@ -164,41 +165,23 @@ export default {
       this.isLogin = true;
       this.isReg = false;
     },
-    doLogin(form){
-      // /finance/userInfo/login
-      // 验证手机或者信用代码
-      if(!form.mobile){
-        this.$message.error('请输入正确的手机号或统一社会信用代码');
-        return ;
-      }
-      if(!form.password){
-        this.$message.error('请输入密码');
-        return ;
-      }
-
-      this.$message.loading('登录中',0)
-      this.$http.post('/finance/userInfo/login',form).then(res=>{
-          this.$message.destroy();
-          // 判断服务器端数据是否有误
-          if(res.data.code!=0){
-            this.$message.error(res.data.data.msg);
-            return ;
-          }
-          // 登录成功存储用户信息
-          localStorage.setItem('cdjr_token',res.data.content.token);
-          localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
-          this.$message.loading('登录成功',1).then(()=>{
-            // 处理完后关闭登录窗口
+    doLogin(params){
+        console.log(params)
+        if(params && params.mobile){
+            console.log(params)
             this.isLogin = false;
-          });
-      });
+        }
     },
     reg(){
       this.isReg = true;
       this.isLogin = false;
     },
-    doReg(){
-      // /finance/userInfo/register
+    doReg(params){
+      console.log(params)
+      if(params && params.mobile){
+        console.log(params)
+        this.isReg = false;
+      }
     },
     close(){
       this.isLogin = false;
@@ -216,6 +199,7 @@ export default {
   components:{
     Login:()=>import("@/components/Login.vue"),
     Register:()=>import("@/components/Register.vue"),
+    UserInfo:()=>import("@/components/UserInfo.vue"),
   }
 }
 </script>

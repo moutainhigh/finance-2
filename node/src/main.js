@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from './store'
 import App from './App.vue'
 import router from './router'
 import * as d3 from 'd3'
@@ -16,6 +17,7 @@ axios.defaults.headers = {
 }
 
 Vue.use(Antd)
+// Vue.use(store);
 // Vue.use(Select)
 // Vue.use(Form)
 // Vue.use(FormItem)
@@ -28,5 +30,6 @@ Vue.prototype.$http = axios;
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')
