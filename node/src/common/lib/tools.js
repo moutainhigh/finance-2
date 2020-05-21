@@ -3,6 +3,29 @@ axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:loc
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=utf-8',
 }
+
+/**
+ * 转化搜索数据为本地
+ * @param {要转化的数据} data 
+ */
+export function matchSearchData(data){
+    let dataArr = [];
+    let names = {'RZED':'融资额度','RZJD':'融资阶段','HYFX':'行业方向'};
+    if(!(data instanceof Array)){
+        return dataArr;
+    }else{
+        let fields = Object.keys(names);
+        data.forEach(item=>{
+            let index = fields.indexOf(item.codeType);
+            if(index!=-1){
+                item['name'] = names[item.codeType];
+                dataArr[index]=item;
+            }
+        });
+        return dataArr;
+    }
+}
+
 /**
  * 存储token
  * @param {要存储的字段} field 
