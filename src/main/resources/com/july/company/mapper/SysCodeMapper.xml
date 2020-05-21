@@ -4,6 +4,11 @@
 
     <select id="getSysCode" resultType="com.july.company.vo.code.SysCodeValueVo">
         select fsc.code,fsc.codeType,fsc.value from fc_sys_code fsc
+        where
+        1=1
+        <if test="codeType != null and codeType != ''">
+            and fsc.codeType = #{codeType}
+        </if>
     </select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.july.company.vo.login;
 
-import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.user.UserInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

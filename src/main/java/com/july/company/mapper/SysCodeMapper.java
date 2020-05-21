@@ -1,5 +1,6 @@
 package com.july.company.mapper;
 
+import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.july.company.vo.code.SysCodeValueVo;
@@ -15,11 +16,11 @@ public interface SysCodeMapper extends BaseMapper<SysCode> {
 
     /**
      * 列表查询条件信息
-     * @param
+     * @param sysCodeDto
      * @return java.util.List<com.july.company.vo.code.SysCodeValueVo>
      * @author zengxueqi
-     * @since 2020/5/20
+     * @since 2020/5/21
      */
-    List<SysCodeValueVo> getSysCode();
+    List<SysCodeValueVo> getSysCode(SysCodeDto sysCodeDto);
 
 }
