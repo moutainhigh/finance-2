@@ -1,12 +1,12 @@
 package com.july.company.controller;
 
-import com.july.company.dto.UserInfoDto;
 import com.july.company.dto.login.ForgetPasswordDto;
 import com.july.company.dto.login.LoginAuthDto;
 import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.UserInfoDto;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.july.company.vo.login.LoginAuthVo;

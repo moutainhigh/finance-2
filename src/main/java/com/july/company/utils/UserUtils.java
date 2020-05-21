@@ -1,6 +1,6 @@
 package com.july.company.utils;
 
-import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.user.UserInfoDto;
 
 /**
  * 获取用户信息

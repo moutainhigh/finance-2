@@ -1,5 +1,6 @@
 package com.july.company.service.impl;
 
+import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.july.company.mapper.SysCodeMapper;
 import com.july.company.service.SysCodeService;
@@ -28,14 +29,14 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
 
     /**
      * 列表查询条件信息
-     * @param
-     * @return java.util.List<com.july.company.dto.code.SysCodeVo>
+     * @param sysCodeDto
+     * @return java.util.List<com.july.company.vo.code.SysCodeVo>
      * @author zengxueqi
-     * @since 2020/5/20
+     * @since 2020/5/21
      */
     @Override
-    public List<SysCodeVo> getSysCode() {
-        List<SysCodeValueVo> sysCodeValueVos = sysCodeMapper.getSysCode();
+    public List<SysCodeVo> getSysCode(SysCodeDto sysCodeDto) {
+        List<SysCodeValueVo> sysCodeValueVos = sysCodeMapper.getSysCode(sysCodeDto);
 
         List<SysCodeVo> sysCodeVos = new ArrayList<>();
         if (!CollectionUtils.isEmpty(sysCodeValueVos)) {

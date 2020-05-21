@@ -1,12 +1,12 @@
 package com.july.company.service;
 
-import com.july.company.dto.UserInfoDto;
 import com.july.company.dto.login.ForgetPasswordDto;
 import com.july.company.dto.login.LoginAuthDto;
 import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.login.UserInfoValidVo;

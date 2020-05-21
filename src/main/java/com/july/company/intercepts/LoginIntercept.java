@@ -4,7 +4,7 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.net.NetUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.july.company.constant.SystemConstant;
-import com.july.company.dto.UserInfoDto;
+import com.july.company.dto.user.UserInfoDto;
 import com.july.company.exception.BnException;
 import com.july.company.service.UserInfoService;
 import com.july.company.utils.UserUtils;

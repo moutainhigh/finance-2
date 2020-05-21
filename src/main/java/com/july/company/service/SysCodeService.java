@@ -1,5 +1,6 @@
 package com.july.company.service;
 
+import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.code.SysCodeVo;
@@ -15,11 +16,11 @@ public interface SysCodeService extends IService<SysCode> {
 
     /**
      * 列表查询条件信息
-     * @param
-     * @return java.util.List<com.july.company.dto.code.SysCodeVo>
+     * @param sysCodeDto
+     * @return java.util.List<com.july.company.vo.code.SysCodeVo>
      * @author zengxueqi
-     * @since 2020/5/20
+     * @since 2020/5/21
      */
-    List<SysCodeVo> getSysCode();
+    List<SysCodeVo> getSysCode(SysCodeDto sysCodeDto);
 
 }

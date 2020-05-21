@@ -5,6 +5,7 @@ import com.july.company.entity.Institution;
 import com.july.company.entity.enums.InstitutionTypeEnum;
 import com.july.company.response.ResultT;
 import com.july.company.service.InstitutionService;
+import com.july.company.vo.institution.InstitutionAndRegionVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,18 @@ public class InstitutionController {
     public ResultT<String> saveInstitution(@RequestBody SaveInstitutionDto saveInstitutionDto) {
         institutionService.saveInstitution(saveInstitutionDto);
         return ResultT.ok("新增成功！");
+    }
+
+    /**
+     * 获取机构与机构对应的地区信息
+     * @param
+     * @return com.july.company.response.ResultT<java.util.List < com.july.company.vo.institution.InstitutionAndRegionVo>>
+     * @author zengxueqi
+     * @since 2020/5/21
+     */
+    @PostMapping("/getInstitutionAndRegion")
+    public ResultT<List<InstitutionAndRegionVo>> getInstitutionAndRegion() {
+        return ResultT.ok(institutionService.getInstitutionAndRegion());
     }
 
 }

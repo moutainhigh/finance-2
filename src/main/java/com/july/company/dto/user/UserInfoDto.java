@@ -1,4 +1,4 @@
-package com.july.company.dto;
+package com.july.company.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
