@@ -20,7 +20,7 @@ public class InterceptConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginIntercept).excludePathPatterns(SystemConstant.LOGIN_VERIFY_EXCLUDE_URL).excludePathPatterns("/*.txt");
+        //registry.addInterceptor(loginIntercept).excludePathPatterns(SystemConstant.LOGIN_VERIFY_EXCLUDE_URL).excludePathPatterns("/*.txt");
     }
 
     @Override
