@@ -42,6 +42,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/base/BaseEntity.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/controller/FinanceProductDetailController.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/impl/UserInfoServiceImpl.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/CorsConfig.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/impl/CompanyServiceImpl.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/controller/UserInfoController.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/InterceptConfig.java
@@ -59,6 +60,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/impl/FinanceProductServiceImpl.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/FinanceProductDetail.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/mapper/UserInfoMapper.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/CorsFilter.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/enums/FinanceTypeEnum.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/vo/finance/FinanceStatisticsVo.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/mapper/SysCodeMapper.java

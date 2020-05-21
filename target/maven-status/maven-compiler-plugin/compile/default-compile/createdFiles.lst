@@ -39,9 +39,11 @@ com/july/company/entity/Institution$InstitutionBuilder.class
 com/july/company/entity/UserInfo.class
 com/july/company/service/CompanyService.class
 com/july/company/response/ResultT.class
+com/july/company/intercepts/CorsFilter.class
 com/july/company/dto/login/UserRegisterDto.class
 com/july/company/dictionary/DictInit.class
 com/july/company/vo/sms/SmsCodeVo.class
+com/july/company/intercepts/CorsConfig.class
 com/july/company/utils/DateUtils.class
 com/july/company/intercepts/BearerTokenHandle.class
 com/july/company/base/BaseEntity.class
