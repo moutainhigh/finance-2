@@ -5,6 +5,7 @@ import com.july.company.entity.Institution;
 import com.july.company.entity.enums.InstitutionTypeEnum;
 import com.july.company.response.ResultT;
 import com.july.company.service.InstitutionService;
+import com.july.company.vo.finance.FinanceStatisticsVo;
 import com.july.company.vo.institution.InstitutionAndRegionVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,6 +52,18 @@ public class InstitutionController {
     @PostMapping("/getInstitutionAndRegion")
     public ResultT<List<InstitutionAndRegionVo>> getInstitutionAndRegion() {
         return ResultT.ok(institutionService.getInstitutionAndRegion());
+    }
+
+    /**
+     * 获取融资统计信息
+     * @param
+     * @return com.july.company.response.ResultT<com.july.company.vo.finance.FinanceStatisticsVo>
+     * @author zengxueqi
+     * @since 2020/5/21
+     */
+    @PostMapping("/getFinanceStatistics")
+    public ResultT<FinanceStatisticsVo> getFinanceStatistics(){
+        return ResultT.ok(institutionService.getFinanceStatistics());
     }
 
 }

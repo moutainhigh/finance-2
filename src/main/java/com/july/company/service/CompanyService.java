@@ -10,4 +10,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CompanyService extends IService<Company> {
 
+    /**
+     * 获取公司入驻数量
+     * @param
+     * @return java.lang.Integer
+     * @author zengxueqi
+     * @since 2020/5/21
+     */
+    Integer getCompanyCount();
+
 }

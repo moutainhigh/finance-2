@@ -3,6 +3,7 @@ package com.july.company.service;
 import com.july.company.dto.institution.SaveInstitutionDto;
 import com.july.company.entity.Institution;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.finance.FinanceStatisticsVo;
 import com.july.company.vo.institution.InstitutionAndRegionVo;
 
 import java.util.List;
@@ -31,5 +32,14 @@ public interface InstitutionService extends IService<Institution> {
      * @since 2020/5/21
      */
     List<InstitutionAndRegionVo> getInstitutionAndRegion();
+
+    /**
+     * 获取融资统计信息
+     * @param
+     * @return com.july.company.vo.finance.FinanceStatisticsVo
+     * @author zengxueqi
+     * @since 2020/5/21
+     */
+    FinanceStatisticsVo getFinanceStatistics();
 
 }
