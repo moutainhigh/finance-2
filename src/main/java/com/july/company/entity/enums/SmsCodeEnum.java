@@ -3,7 +3,7 @@ package com.july.company.entity.enums;
 import com.july.company.exception.BnException;
 
 /**
- * 性别信息
+ * 短信类型枚举信息
  * @author zengxueqi
  * @since 2020/05/19
  */

@@ -17,11 +17,13 @@ import com.july.company.dto.login.UserInfoValidDto;
 import com.july.company.dto.login.UserRegisterDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.entity.Company;
 import com.july.company.entity.UserInfo;
 import com.july.company.entity.enums.SmsCodeEnum;
 import com.july.company.exception.BnException;
 import com.july.company.intercepts.TokenHandle;
 import com.july.company.mapper.UserInfoMapper;
+import com.july.company.service.CompanyService;
 import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.Md5Utils;
@@ -32,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -57,6 +60,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     ValueOperations<String, Object> valueOperations;
     @Resource
     private TokenHandle tokenHandle;
+    @Resource
+    private CompanyService companyService;
 
     @Override
     public UserInfoDto login(LoginAuthDto loginAuthDto) {
@@ -97,18 +102,25 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @since 2020/5/16
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void userRegister(UserRegisterDto userRegisterDto) {
         UserInfo userInfoExist = getUserInfoByMobile(userRegisterDto.getMobile());
         BnException.of(userInfoExist != null, "当前手机号以前存在，请直接登录！");
 
+        //保存企业信息
+        Company company = new Company();
+        company.setCompanyName(userRegisterDto.getCompanyName());
+        company.setCreditCode(userRegisterDto.getCreditCode());
+        companyService.save(company);
+
+        //保存企业用户信息
         String passwordSalt = Md5Utils.getRandomString(32);
         UserInfo userInfo = UserInfo.builder()
                 .mobile(userRegisterDto.getMobile())
                 .password(Md5Utils.generatePassword(userRegisterDto.getPassword(), passwordSalt))
                 .pwdSalt(passwordSalt)
                 .username(userRegisterDto.getUserName())
-                .companyName(userRegisterDto.getCompanyName())
-                .creditCode(userRegisterDto.getCreditCode())
+                .companyId(company.getId())
                 .build();
         this.save(userInfo);
     }
@@ -181,7 +193,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         BnException.of(StringUtils.isEmpty(userInfoValidDto.getMobile()), "找回密码时，手机号不能为空！");
 
         UserInfo userInfo = getUserInfoByMobile(userInfoValidDto.getMobile());
-        
+
         UserInfoValidVo userInfoValidVo = new UserInfoValidVo();
         userInfoValidVo.setUserValid(userInfo != null ? SystemConstant.SYS_TRUE : SystemConstant.SYS_FALSE);
         return userInfoValidVo;
@@ -195,6 +207,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @since 2020/5/19
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void forgetPassword(ForgetPasswordDto forgetPasswordDto) {
         BnException.of(StringUtils.isEmpty(forgetPasswordDto.getMobile()), "找回密码时，手机号不能为空！");
         UserInfo userInfo = getUserInfoByMobile(forgetPasswordDto.getMobile());
