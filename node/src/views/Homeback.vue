@@ -68,8 +68,12 @@
         </div>
       </div>
     </div>
-    <Login v-show="isLogin"></Login>
-    <Register v-show="isReg"></Register>
+    <transition name="fade">
+      <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
+    </transition>
+    <transition name="fade">
+      <Register v-show="isReg" @to-login="login" @close="close"></Register>
+    </transition>
   </div>
 </template>
 <script>
@@ -83,9 +87,47 @@ export default {
   methods: {
     login(){
       this.isLogin = true;
+      this.isReg = false;
+    },
+    doLogin(form){
+      // /finance/userInfo/login
+      // 验证手机或者信用代码
+      if(!form.mobile){
+        this.$message.error('请输入正确的手机号或统一社会信用代码');
+        return ;
+      }
+      if(!form.password){
+        this.$message.error('请输入密码');
+        return ;
+      }
+
+      this.$message.loading('登录中',0)
+      this.$http.post('/finance/userInfo/login',form).then(res=>{
+          this.$message.destroy();
+          // 判断服务器端数据是否有误
+          if(res.data.code!=0){
+            this.$message.error(res.data.data.msg);
+            return ;
+          }
+          // 登录成功存储用户信息
+          localStorage.setItem('cdjr_token',res.data.content.token);
+          localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
+          this.$message.loading('登录成功',1).then(()=>{
+            // 处理完后关闭登录窗口
+            this.isLogin = false;
+          });
+      });
     },
     reg(){
       this.isReg = true;
+      this.isLogin = false;
+    },
+    doReg(){
+      // /finance/userInfo/register
+    },
+    close(){
+      this.isLogin = false;
+      this.isReg = false;
     },
     toPage(url,params){
       if(params){
