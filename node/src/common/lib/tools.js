@@ -1,5 +1,5 @@
 import axios from 'axios'
-axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:location.origin  //本地  ;
+axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:'http://financial.dev.bigdatacd.com:9000';
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=utf-8',
 }
