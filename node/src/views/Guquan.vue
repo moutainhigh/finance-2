@@ -295,9 +295,7 @@ font-family:PingFangSC-Regular;font-size:14px;color:#FFFFFF;text-align:center;li
 .guquan .lists-box .list-items{padding:32px 27px 0px;display:flex;justify-content:flex-start;flex-wrap:wrap;}
 .guquan .lists-box .list-items .list-item{width:calc(50% - 24px);margin-bottom:24px;}
 .guquan .lists-box .list-items .list-item:nth-child(2n+2){margin-left:24px;}
-@media screen and (max-width:1446px) {
-  .guquan .lists-box .list-items .list-item{flex:1;margin-bottom:24px;width:100% !important;}  
-}
+
 
 
 

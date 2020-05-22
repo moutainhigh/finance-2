@@ -18,36 +18,40 @@
       </div>
     </div>
     <div class="main">
-      <img src="/image/home/main.png" class="main-bg" />
+      <img src="/image/home/main.png" class="main-bg" alt="">
       <div class="main-body">
-        <div class="main-left">
-          <img src="/image/home/left-animbg.png" class="left-animbg"/>
-          <img src="/image/home/left-anim.gif" class="left-anim"/>
-          <div class="main-left-tab">
-            <div :class="tabAction==0?'active':''" @click="tabChange(0)">股权机构</div>
-            <div :class="tabAction==1?'active':''" @click="tabChange(1)">债券机构</div>
+        <div class="left">
+          <div class="tab">
+            <div class="tab-item" :class="tabAction==0?'tab-active':''" @click="tabChange(0)">股权机构</div>
+            <div class="tab-item" :class="tabAction==1?'tab-active':''" @click="tabChange(1)">债券机构</div>
           </div>
-          <div class="main-left-list" v-show="tabAction==0">
-            <div class="main-list-item" v-for="(item,index) in gqjg" :key="index"
-              @click="selComp(index)" 
-              :class="index==gqIndex?'item-active':''">
-              {{item.title}}
-            </div>
+          <div class="left-list" v-show="tabAction==0">
+              <div class="list-item" v-for="(item,index) in gqjg" :key="index"
+                  @click="selComp(index)" 
+                  :class="index==gqIndex?'item-active':''">
+                {{item.title}}
+              </div>
           </div>
-          <div class="main-left-list" v-show="tabAction==1">
-            <div class="main-list-item" v-for="(item,index) in gqjg" :key="index" 
-              @click="selComp(index)" 
-              :class="index==gqIndex?'item-active':''">
-              {{item.title}}
-            </div>
+          <div class="left-list" v-show="tabAction==1">
+              <div class="list-item" v-for="(item,index) in gqjg" :key="index"
+                  @click="selComp(index)" 
+                  :class="index==gqIndex?'item-active':''">
+                {{item.title}}
+              </div>
+          </div>
+          <div class="left-anima">
+            <img src="/image/home/left-animbg.png" alt="" class="anima-bg">
+            <img src="/image/home/left-anim.gif" alt="" class="anima">
           </div>
         </div>
-        <div class="main-center">
-          <div class="c-map">
-            <img src="/image/home/cd-map.png" width="802" height="594" class="ct-map"/>
-            <!-- <div id="bmap"></div> -->
+        <div class="center">
+          <img src="/image/home/map.png" alt="" class="center-bg">
+          <div class="center-map">
+            <img src="/image/home/cd-map.png" alt="" class="cd-map">
             <img class="map-s" :src="imgItem.src" v-for="(imgItem,index) in map" :key="index" :name='imgItem.name'
                  :style="{top:imgItem.top,left:imgItem.left,opacity:imgItem.opacity,...imgItem.style,position:'absolute'}"/>
+            <svg class="bg-svg" id="selsvg"></svg>
+            <svg class="bg-svg" id="circles" style="z-index:7;"></svg>
           </div>
           <div class="c-info">
             <div class="c-title">成都技转创投</div>
@@ -57,28 +61,32 @@
               <li>创新医药投资基金</li>
             </ul>
           </div>
-          <div class="c-bottom">
-            <img src="/image/home/znz.png"/>
+          <div class="znz">
+            <img src="/image/home/znz.png" alt="">
           </div>
         </div>
-        <div class="main-right">
-          <img src="/image/home/right-animbg.png" class="right-animbg"/>
-          <img src="/image/home/right-anim.gif" class="right-anim"/>
-          <div class="main-right-top">
-            <img src="/image/home/right-top.png" class="right-top" />
-            <div>一键匹配</div>
-          </div>
-          <div class="main-right-list">
-            <div class="list-title">当前结果</div>
-            <div class="right-list-item" v-for="item in result" :key="item.title">
-                <div>{{item.title}}</div>
-                <div>{{item.value}}</div>
+        <div class="right">
+            <div class="right-top">
+              <div class="top-img"><img src="/image/home/right-top.png" alt=""></div>
+              一键匹配
             </div>
-          </div>
+            <div class="right-list">
+                <img src="/image/home/result.png" alt="" class="result-bg">
+                <div class="list-title">当前结果</div>
+                <div class="list-item" v-for="item in result" :key="item.title">
+                    <div>{{item.title}}</div>
+                    <div>{{item.value}}</div>
+                </div>
+            </div>
+            <div class="right-anima">
+              <img src="/image/home/right-animbg.png" alt="" class="anima-bg">
+              <img src="/image/home/right-anim.gif" alt="" class="anima">
+            </div>
         </div>
       </div>
     </div>
-    <img src="/image/home/seld.png" alt="" class="seld">
+    
+    <!-- <img src="/image/home/seld.png" alt="" class="seld"> -->
     <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
     <Register v-show="isReg" @to-login="login" @close="close"></Register>
   </div>
@@ -95,30 +103,27 @@ export default {
       isReg:false,
       userInfo:{userName:''},
       map:[
-        {opacity:0,top:'378px',left:'466px',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
-        // {opacity:0,top:'331px',left:'107px',src:'/image/home/czs.svg',isshow:true,name:'崇州市'style:{zIndex:0}},
-        {opacity:0,top:'331px',left:'107px',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0}},
-        {opacity:0,top:'355px',left:'59px',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0}},
-        // {opacity:0,top:'355px',left:'59px',src:'/image/home/dyx.svg',isshow:true,name:'大邑县',style:{zIndex:0}},
-        {opacity:0,top:'146px',left:'222px',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0}},
-        {opacity:0,top:'444px',left:'466px',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
-        {opacity:0,top:'418px',left:'512px',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0}},
-        {opacity:0,top:'354px',left:'416px',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0}},
-        {opacity:0,top:'302px',left:'569px',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0}},
-        {opacity:0,top:'407px',left:'463px',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0}},
-        {opacity:0,top:'387px',left:'491px',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
-        {opacity:0,top:'119px',left:'316px',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0}},
-        {opacity:0,top:'299px',left:'334px',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0}},
-        {opacity:0,top:'532px',left:'177px',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0}},
-        {opacity:0,top:'316px',left:'500px',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0}},
-        {opacity:0,top:'386px',left:'398px',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0}},
-        {opacity:0,top:'453px',left:'83px',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
-        // {opacity:0,top:'476px',left:'106px',style:{width:"268px"},src:'/image/home/chq.svg',isshow:true,name:'邛崃市'},
-        {opacity:0,top:'408px',left:'357px',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0}},
-        {opacity:0,top:'324px',left:'317px',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0}},
-        {opacity:0,top:'407px',left:'416px',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
-        {opacity:0,top:'298px',left:'402px',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
-        {opacity:0,top:'463px',left:'327px',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
+        {opacity:0,top:'12.8vw',left:'22.8vw',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0,width:'5vw'}},
+        {opacity:0,top:'10.75vw',left:'3.29vw',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0,width:'16.5vw',height:'17vh'}},
+        {opacity:0,top:'11.7vw',left:'2vh',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0,width:'18vw',height:'18vh'}},
+        {opacity:0,top:'2.3vw',left:'19.6vh',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0,width:'9vw',height:'25vh'}},
+        {opacity:0,top:'15.9vw',left:'45vh',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0,width:'5vw',height:'7.5vh'}},
+        {opacity:0,top:'14.5vw',left:'49.6vh',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0,width:'16vw',height:'21vh'}},
+        {opacity:0,top:'11.7vw',left:'40.5vh',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0,width:'5.7vw',height:'9.5vh'}},
+        {opacity:0,top:'9.2vw',left:'56vh',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0,width:'13vw',height:'21vh'}},
+        {opacity:0,top:'14vw',left:'45vh',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0,width:'4vw'}},
+        {opacity:0,top:'13.3vw',left:'47.8vh',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0,width:'8.5vw',height:'13.3vh'}},
+        {opacity:0,top:'0.8vw',left:'29.3vh',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0,width:'12vw',height:'23vh'}},
+        {opacity:0,top:'8.9vw',left:'30.8vh',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0,width:'9vw',height:'13vh'}},
+        {opacity:0,top:'19.9vw',left:'14.5vh',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0,width:'10vw',height:'13vh'}},
+        {opacity:0,top:'10vw',left:'48.5vh',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0,width:'9vw',height:'14vh'}},
+        {opacity:0,top:'13.1vw',left:'38.3vh',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0,width:'5.5vw'}},
+        {opacity:0,top:'16.3vw',left:'4.5vh',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0,width:'16.5vw',height:'16.5vh'}},
+        {opacity:0,top:'14vw',left:'33.6vh',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0,width:'11.8vw',height:'20.3vh'}},
+        {opacity:0,top:'10.5vw',left:'29.5vh',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0,width:'7.5vw',height:'6.6vh'}},
+        {opacity:0,top:'14vw',left:'40.2vh',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0,width:'5vw'}},
+        {opacity:0,top:'9.2vw',left:'38vh',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0,width:'10.7vw',height:'13.6vh'}},
+        {opacity:0,top:'16.6vw',left:'30.5vh',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0,width:'6.8vw',height:'11.6vh'}},
       ],
       result:[
         {title:'企业入驻（家）',type:'companyCount',value:0},
@@ -162,38 +167,66 @@ export default {
       // 获取当前区域图片
       let name="彭州市";
       var img = document.querySelector('img[name="'+ name +'"]')
-      let top = Number(img.style.top.replace('px',''));
-      let left = Number(img.style.left.replace('px',''));
+      console.log(img)
+      let vwpxVal = document.documentElement.clientWidth/100;
+      let vhpxVal = document.documentElement.clientHeight/100;
+      let top = Number(img.style.top.replace('vw',''))*vwpxVal;
+      let left = Number(img.style.left.replace('vh',''))*vhpxVal;
       let width = img.width;
       let height = img.height; 
       // 绘制svg
-      let svg = this.$d3.select('.c-map').append('svg').attr('width',width/2).attr('height',height/2)
-              .style('position','absolute').style('z-index',7).style('top',top+(height/4)).style('left',left+(width/4));
+      // let svg = this.$d3.select('.center-map').append('svg').attr('width',width/2).attr('height',height/2)
+      //         .style('position','absolute').style('z-index',7).style('top',top+(height/4)).style('left',left+(width/4));
+      let svg = this.$d3.select('#circles');
               // .style('position','absolute').style('top',top+(width/2)).style('left',left+(height/2))
       // svg.append('image').attr('x',Math.random()).attr('y',Math.random()).attr('width',10).attr('height',10).attr('xlink:href','/image/home/guquan.png')
       var cx = Math.floor(Math.random()*10+1)+20;
       var cy = Math.floor(Math.random()*10+1)+20;
-      // 绘制点
-      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
-      var cx = Math.floor(Math.random()*10+10)+20;
-      var cy = Math.floor(Math.random()*10+10)+20;
-      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-      svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('top','c').attr('name',name).style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer')
+      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',2).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
+      if(false){
+        // 绘制点
+        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
+        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
+        var cx = Math.floor(Math.random()*10+10)+20;
+        var cy = Math.floor(Math.random()*10+10)+20;
+        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
+        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('top','c').attr('name',name).style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer')
+      }
       // 给添加的点，添加点击事件监听
       $('circle[top="c"]').click((e)=>{
           console.log(e)
           $('img[name]').css({opacity:0});
           $('img[name="'+e.target.getAttribute('name')+'"]').css({opacity:1});
           $('.seld').css({top:(e.pageY-$('.seld').width()/2)+'px',left:(e.clientX-$('.seld').height()/2)+'px',zIndex:6})
-          $('.c-info').css({opacity:1,top:'366px',right:'500px',transform:'scale(0)'})
-          .animate({opacity:1,top:'117px',right:'154px'},'show','linear').css({transform:'scale(1)'})
+          $('.c-info').css({opacity:1,top:'15vw',right:'20vw',transform:'scale(0)'})
+          .animate({opacity:1,top:'4vw',right:'3.2vw'},'show','linear').css({transform:'scale(1)'});
+          // 绘画选中点
+          this.drawSeled(e.offsetX,e.offsetY);
       })
       // 给选中添加监听再次点击消失，然后可以点击其他的机构
-      $('.seld').click(()=>{
-        $('.seld').css({zIndex:-1})
-      })
+      // $('.seld').click(()=>{
+      //   $('.seld').css({zIndex:-1})
+      // })
+      
      
+    },
+    drawSeled(cx,cy){
+      let vwpxVal = document.documentElement.clientWidth/100;
+      let vhpxVal = document.documentElement.clientHeight/100;
+
+      let ims = selsvg.getElementById('#seled');
+      console.log(ims)
+      if(ims){
+        ims.remove();
+      }
+      ims = document.createElementNS('http://www.w3.org/2000/svg','image')
+      ims.setAttribute('x',cx-55);
+      ims.setAttribute('y',cy-55);
+      ims.setAttribute('width',110);
+      ims.setAttribute('height',110);
+      ims.setAttribute('id',"#seled");
+      ims.href.baseVal = '/image/home/seld.png'
+      selsvg.append(ims);
     },
     login(){
       this.isLogin = true;
@@ -252,161 +285,443 @@ export default {
   }
 }
 </script>
-<style scoped>
-.home-box{background:url(/image/home/bg.png);}
-/* .home-box{min-width:100vw;min-height:100vh;background:url(/image/home/bg.png);} */
-.home-box .header{height:80px;padding:17px 63px 7px;display:flex;justify-content:space-between;}
-.home-box .header .left{display:flex;justify-content:space-between;}
-.home-box .header .left .nav{display:flex;justify-content:flex-start;align-items:center;margin-left:75px;}
-.home-box .header .left .nav .nav-item{width:129px;height:50px;background:url(/image/home/btn.png) center -8px no-repeat;background-size:cover;
-	font-family: FZLTXHK;font-size: 20px;font-weight: normal;font-stretch: normal;letter-spacing: 0px;color: #9ee9ff;text-shadow: 0px 0px 8px rgba(0, 90, 255, 0.2);
-  text-align:center;line-height:52px;cursor:pointer;
+<style lang="scss" scoped>
+*{padding:0px;margin:0px;}
+.home-box{
+  width:100vw;height: 100vh;background:url(/image/home/bg.png) no-repeat;background-size:cover;
+  .header{
+    width:100vw;
+    height:7vh;
+    padding:1vh 3vw;
+    display:flex;
+    justify-content:space-between;
+    position:relative;
+    z-index:2;
+    .left{
+      display:flex;
+      justify-content:flex-start;
+      .logo{
+        img{
+          width:25vw;
+        }
+      }
+    }
+    .nav{
+      display:flex;
+      justify-content:flex-start;
+      margin-left:4vw;
+      .nav-item{
+        width:7vw;
+        height:3vw;
+        margin-left:1vw;
+        text-align:center;
+        line-height:3vw;
+        background:url(/image/home/btn.png) center no-repeat;
+        background-size:cover;
+        font-family: FZLTXHK;
+        font-size: 1vw;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0vw;
+        color: #9ee9ff;
+        cursor:pointer;
+        &:first-child{
+          margin-left:0vw;
+        }
+        &:hover{
+          color: #abff9b;
+          background-image:url(/image/home/btn-act.png)
+        }
+      }
+    }
+    .right{
+      display:flex;
+      justify-content:flex-start;
+      .btn{
+        width:7vw;
+        height:3vw;
+        margin-left:1vw;
+        text-align:center;
+        line-height:3vw;
+        background:url(/image/home/btn.png) center no-repeat;
+        background-size:cover;
+        font-family: FZLTXHK;
+        font-size: 1vw;
+        font-weight: normal;
+        font-stretch: normal;
+        letter-spacing: 0vw;
+        color: #9ee9ff;
+        cursor:pointer;
+        &:first-child{
+          margin-left:0vw;
+        }
+        &:hover{
+          color: #abff9b;
+          background-image:url(/image/home/btn-act.png)
+        }
+      }
+    }
+  }
+  .main{
+    width:100vw;
+    height:93vh;
+    position: relative;
+    .main-bg{
+      width:100vw;
+      height:93vh;
+      position:absolute;
+      top:0vw;
+      left:0vh;
+      z-index:0;
+    }
+    .main-body{
+      padding:8vh 4vw 11vh;
+      display:flex;
+      justify-content:space-between;
+      position:relative;
+      z-index:1;
+      .left{
+        width:17vw;
+        height:73vh;
+        position:relative;
+        // background:green;
+        .tab{
+          width:13vw;
+          height:3vh;
+          background:url(/image/home/tab.png) center no-repeat;
+          background-size:cover;
+          margin:0 auto;
+          display:flex;
+          justify-content:center;
+          .tab-item{
+            position:relative;
+            font-family: FZLTXHK;
+            font-size: 1vw;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0vh;
+            color: #9ee9ff;
+            margin-left:1vw;
+            text-align:center;
+            cursor:pointer;
+            &:first-child{margin-left:0vw;}
+            &:hover{
+              color:#ffd600;
+            }
+            &:hover::after{
+              content:'';
+              width:4vw;
+              height:0.2vh;
+              background:#ffd600;
+              position:absolute;
+              bottom:0vh;
+              left:50%;
+              transform: translateX(-50%);
+            }
+          }
+          .tab-active{
+            color:#ffd600;
+            &::after{
+              content:'';
+              width:4vw;
+              height:0.2vh;
+              background:#ffd600;
+              position:absolute;
+              bottom:0vh;
+              left:50%;
+              transform: translateX(-50%);
+            }
+          }
+        }
+        .left-list{
+          width:17vw;
+          height:70vh;
+          padding-top:3vh;
+          // background:#fff;
+          .list-item{
+            width:13vw;
+            height:5vh;
+            margin:0vw 2vw 1.8vh;
+            position:relative;
+            background:url(/image/home/left.png) center no-repeat;
+            background-size:cover;
+            font-family: PingFangSC-Medium;
+            font-size: 1vw;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0vh;
+            color:#c1edfd;
+            text-align:center;
+            line-height:5vh;
+            cursor:pointer;
+            &:hover::before{
+              content:'';
+              width:17vw;
+              height:6vh;
+              background:url(/image/home/left-act.png) center no-repeat;
+              background-size:cover;
+              position:absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%);
+            }
+            &:hover::after{
+              content:'';
+              width:2vw;
+              height:2vh;
+              background:url(/image/home/left-p.png) center no-repeat;
+              background-size:cover;
+              position:absolute;
+              top: 50%;
+              right: -2.5vw;
+              transform: translateY(-50%);
+            }
+          }
+          .item-active{
+            &::before{
+              content:'';
+              width:17vw;
+              height:6vh;
+              background:url(/image/home/left-act.png) center no-repeat;
+              background-size:cover;
+              position:absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%);
+            }
+            &::after{
+              content:'';
+              width:2vw;
+              height:2vh;
+              background:url(/image/home/left-p.png) center no-repeat;
+              background-size:cover;
+              position:absolute;
+              top: 50%;
+              right: -2.5vw;
+              transform: translateY(-50%);
+            }
+          }
+        }
+        .left-anima{
+          width: 10vw;
+          height: 60vh;
+          position: absolute;
+          top: 52%;
+          left: 89%;
+          transform: translateY(-50%);
+          .anima-bg{
+            width: 10vw;
+            height: 60vh;
+          }
+          .anima{
+            position:absolute;
+            top: 50%;
+            left: -13%;
+            transform: translateY(-50%);
+            width:10vw;
+            height:60vh;
+          }
+        }
+      }
+      .center{
+        width:50vw;
+        height:73vh;
+        // background:blue;
+        position:relative;
+        .center-bg{
+          width: 60vw;
+          height: 96vh;
+          position: absolute;
+          z-index:-1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-52%);
+        }
+        .center-map{
+          width:42vw;
+          height:55vh;
+          margin:4vw auto;
+          position:relative;
+          z-index:1;
+          .cd-map{
+            width:42vw;
+            height:55vh;
+          }
+          .bg-svg{
+            width:42vw;
+            height:55vh;
+            margin:4vw auto;
+            position: absolute;
+            // background:#ff993a;
+            top: -3vw;
+            left: 0vh;
+          }
+        }
+        .c-info{
+          width:9vw;
+          height:10vw;
+          position: absolute;
+          top:4vw;
+          right:3.2vw;
+          background:url(/image/home/info.png) center no-repeat;
+          background-size:cover;
+          .c-title{
+            margin:1.5vw 1vw;
+            font-family: PingFangSC-Medium;
+            font-size: 1vw;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0vw;
+            color:#ffd600;
+            position:relative;
+            &::after{
+              content:'';
+              width: 7vw;
+              height:0.1vw;
+              background:#7edcff;
+              position:absolute;
+              bottom:-0.5vw;
+              left:50%;
+              transform:translateX(-50%);
+            }
+          }
+          ul{
+            margin:0vw 0vw 0 1.8vw;
+            li{
+              font-family: FZLTXHK;
+              font-size: 0.73vw;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0vw;
+              color: #ffd600;
+            }
+          }
+        }
+        .znz{
+          width: 3.13vw;
+	        height: 4.11vw;
+          position:absolute;
+          bottom:2.86vw;
+          left:4.61vw;
+          img{
+            width: 3.13vw;
+	          height: 4.11vw;
+          }
+        }
+      }
+      .right{
+        width:17vw;
+        height:73vh;
+        // background:gold;
+        position: relative;
+        .right-top{
+          width:8vw;
+          height:14vh;
+          margin:0vw auto;
+          font-family: FZLTCHJW--GB1-0;
+          font-size: 1vw;
+          font-weight: normal;
+          font-stretch: normal;
+          line-height: 14vh;
+          letter-spacing: 0vh;
+          color: #abff9b;
+          text-align:center;
+          position:relative;
+          .top-img{
+            width:7vw;
+            height:7vw;
+            position: absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            img{
+              width:7vw;
+              height:7vw;
+              animation:topanimate 5s infinite;animation-timing-function:linear;
+            }
+          }
+        }
+        .right-list{
+          width:17vw;
+          height:56vh;
+          position:relative;
+          .result-bg{
+            width:18vw;
+            height:60vh;
+            position:absolute;
+            top:0vw;
+            left:-1vh;
+          }
+          .list-title{
+            padding:3vh 0vw 1vh 1vw;
+            font-family: FZLTXHK;
+            font-size: 1vw;
+            font-weight: normal;
+            font-stretch: normal;
+            letter-spacing: 0vw;
+            color: #9ee9ff;
+          }
+          .list-item{
+            width:16vw;
+            height:8vh;
+            margin:0vw auto;
+            background:url(/image/home/result-item.png) center no-repeat;
+            background-size:cover;
+            position:relative;
+            div:nth-child(1){
+              height:8vh;
+              line-height:8vh;
+              margin-left:1.5vw;
+              font-family: FZLTXHK;
+              font-size: 0.9vw;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0vw;
+              color: #9ee9ff;
+            }
+            div:nth-child(2){
+              position:absolute;
+              top:0vw;
+              right:2.5vh;
+              width:6vw;
+              height:8vh;
+              line-height:8vh;
+              margin-left:1vw;
+              font-family: DS-DIGIT;
+              font-size: 2.3vw;
+              font-weight: normal;
+              font-stretch: normal;
+              letter-spacing: 0vw;
+              color: #ff993a;
+              opacity: 1;
+              text-align:right;
+            }
+          }
+        }
+        .right-anima{
+          width: 7vw;
+          height: 50vh;
+          position: absolute;
+          top: 32%;
+          left: -42%;
+          // transform: translateY(-50%);
+          .anima-bg{
+            width: 7vw;
+            height: 50vh;
+          }
+          .anima{
+            position:absolute;
+            top: 50%;
+            left: 15%;
+            transform: translateY(-50%);
+            width:7vw;
+            height:50vh;
+          }
+        }
+      }
+    }
+  }
 }
-  .home-box .header .left .nav .nav-item:hover{background:url(/image/home/btn-act.png) center -8px no-repeat;background-size:cover;color:#abff9b;}
-  .home-box .header .left .nav .btn-action{background:url(/image/home/btn-act.png) center -8px no-repeat;background-size:cover;color:#abff9b;}
-
-.home-box .header .left .logo{display:flex;align-items:center;}
-.home-box .header .left .logo img{width:500px;height:56px;cursor:pointer;}
-.home-box .header .right{display:flex;align-items:center;}
-.home-box .header .right .btn{width:129px;height:50px;background:url(/image/home/btn.png) center -8px no-repeat;background-size:cover;
-	font-family: FZLTXHK;font-size: 20px;font-weight: normal;font-stretch: normal;letter-spacing: 0px;color: #9ee9ff;text-shadow: 0px 0px 8px rgba(0, 90, 255, 0.2);
-  text-align:center;line-height:52px;cursor:pointer;}
-  .home-box .header .right .btn:hover{background:url(/image/home/btn-act.png) center -8px no-repeat;background-size:cover;color:#abff9b;}
-
-
-.main{height:calc(100vh - 80px);min-height:1000px;position:relative;padding-top:93px;}
-.main .main-bg{position:absolute;top:0px;left:0px;width:100%;height:100%;z-index:0;}
-.main .main-body{display:flex;justify-content:space-between;position:relative;z-index:6;margin:0px 65px 0 60px;}
-.main .main-body .main-left{/*margin-top:84px;*/width:317px;height:780px;position: relative;}
-.main .main-body .main-left-tab{margin:0 auto;background: url(/image/home/tab.png) center center no-repeat;background-size: cover;width: 235px;height: 26px;display: flex;justify-content: space-between;align-items: center;padding: 0px 33px;}
-.main .main-body .main-left-tab div{cursor:pointer;font-family: FZLTXHK;font-size: 20px;font-weight: normal;font-stretch: normal;line-height: 24px;letter-spacing: 0px;color: #9ee9ff;}
-.main .main-body .main-left-tab div.active{color: #ffd600;position:relative;font-size:18px;}
-.main .main-body .main-left-tab div.active:after{content:'';width:100%;height:2px;background:#ffd600;position:absolute;bottom:-2px;left:50%;transform:translate(-50%);}
-.main .main-body .main-left .main-left-list{margin:28px auto 0px;display:flex;flex-direction:column;align-items:center;}
-.main .main-body .main-left .main-left-list .main-list-item{width:248px;height:50px;background-size:cover;line-height:50px;text-align:center;	font-family: PingFangSC-Medium;
-	font-size: 18px;margin-bottom:26px;cursor:pointer;
-  background-image:url(/image/home/left.png);
-  background-repeat:no-repeat;
-  background-position: center;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 0px;
-	color: #c1edfd;}
-.main .main-body .main-left .main-left-list .main-list-item{position:relative;}
-.main .main-body .main-left .main-left-list .item-active{color:#ffd600;}
-.main .main-body .main-left .main-left-list .item-active:before{
-  content:'';width:300px;height:58px;
-  background-image:url(/image/home/left-act.png);
-  background-repeat:no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: -4px;
-  left: -30px;
-}
-.main .main-body .main-left .main-left-list .item-active:after{
-  content: '';
-  width: 56px;
-  height: 57px;
-  background-image: url(/image/home/left-p.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: -4px;
-  right: -48px;
-}
-.main .main-body .main-left .main-left-list .main-list-item:hover{color:#ffd600;}
-.main .main-body .main-left .main-left-list .main-list-item:hover:before{
-  content:'';width:300px;height:58px;
-  background-image:url(/image/home/left-act.png);
-  background-repeat:no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: -4px;
-  left: -30px;
-}
-.main .main-body .main-left .main-left-list .main-list-item:hover:after{
-  content: '';
-  width: 56px;
-  height: 57px;
-  background-image: url(/image/home/left-p.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  position: absolute;
-  top: -4px;
-  right: -48px;
-}
-.main .main-body .main-center{flex:1;position: relative;background: url(/image/home/map.png) center no-repeat;background-size: cover;}
-.main .main-body .main-center .c-map{width:880px;height:794px;margin:0 auto;display:flex;justify-content:center;align-items:center;position: relative;}
-.main .main-body .main-center .c-map .ct-map{margin:auto;}
-.main .main-body .main-center .c-info{width:179px;height:189px;background:url(/image/home/info.png) center no-repeat;position:absolute;top:117px;right:154px;}
-.main .main-body .main-center .c-info .c-title{font-family: PingFangSC-Medium;position:relative;
-	font-size: 18px;margin:21px 0px 11px 18px;
-	font-weight: normal;
-	font-stretch: normal;
-	letter-spacing: 2px;
-	color: #ffd600;}
-.main .main-body .main-center .c-info .c-title:after{content:'';width: 142px;height: 1px;background:#7edcff;position:absolute;bottom:-11px;left:0;}
-.main .main-body .main-center .c-info ul{padding-top:10px;}
-.main .main-body .main-center .c-info ul li{font-family: FZLTXHK;font-size: 14px;font-weight: normal;font-stretch: normal;line-height: 26px;letter-spacing: 1px;
-	color: #ffd600;
-}
-.main .main-body .main-center .c-bottom{position:absolute;bottom:84px;left:167px;}
-.main .main-body .main-center .c-bottom img{width:60px;height:79px;}
-
-
-.main .main-body .main-right{/*margin-top:84px;*/width:331px;height:789px;position: relative;margin-right: 26px;}
-/* .main .main-body .main-right .main-right-top{display:flex;justify-content:center;align-items:center;width:155px;height:155px;background:url(/image/home/right-top.png) center no-repeat;background-size:cover;margin:0px auto;} */
-.main .main-body .main-right .main-right-top{cursor:pointer;position:relative;display:flex;justify-content:center;align-items:center;width:155px;height:155px;margin:0px auto;}
-.main .main-body .main-right .main-right-top .right-top{width:100%;height:100%;position:absolute;top:0px;left:0px;animation:topanimate 5s infinite;animation-timing-function:linear;}
-.main .main-body .main-right .main-right-top div{font-family: FZLTCHJW--GB1-0;font-size: 22px;
-	font-weight: normal;
-	font-stretch: normal;
-	line-height: 24px;
-	letter-spacing: 0px;
-	color: #abff9b;}
-.main .main-body .main-right .main-right-list{width:331px;height:644px;background:url(/image/home/result.png) center no-repeat;background:cover;padding:19px 0px;}
-.main .main-body .main-right .main-right-list .list-title{margin:27px 0px 16px 25px;font-family: FZLTXHK;
-	font-size: 20px;
-	font-weight: normal;
-	font-stretch: normal;
-	line-height: 24px;
-	letter-spacing: 0px;
-	color: #b7efff;
-}
-.main .main-body .main-right .main-right-list .right-list-item{margin:0 auto;width:314px;height:89px;background:url(/image/home/result-item.png) center no-repeat;background-size:cover;position:relative;}
-.main .main-body .main-right .main-right-list .right-list-item div:nth-child(1){font-family: FZLTXHK;
-	font-size: 18px;padding:0 0 0 32px;display:inline-block;position: absolute;
-  top: 35px;
-	font-weight: normal;
-	font-stretch: normal;
-	line-height: 22px;
-	letter-spacing: 0px;
-	color: #b7efff;}
-.main .main-body .main-right .main-right-list .right-list-item div:nth-child(2){font-family:DS-DIGIT;
-	font-size: 45px;position: absolute;
-  top: 34px;
-  right: 30px;
-	font-weight: normal;
-	font-stretch: normal;
-	line-height: 24px;
-	letter-spacing: 0px;
-	color: #ff993a;}
-
-.main .main-body .main-left .left-animbg,.main .main-body .main-left .left-anim{position: absolute;top: 50%;right: -126px;transform: translateY(-50%);}
-.main .main-body .main-left .left-anim{right: -104px;top: 392px;}
-.main .main-body .main-right .right-animbg,.main .main-body .main-right .right-anim{position: absolute;top: 258px;left: -116px;}
-.main .main-body .main-right .right-anim{left: -95px;top: 258px;}
-/* .map-s{transition:all 1s;cursor:pointer;}
-.map-s:hover{opacity:1 !important;}
-rect{transition:all 1s;cursor:pointer;opacity:0;stroke:red;stroke-width:2;fill:rgba(255, 214, 0, 0.3);}
-rect:hover{opacity:1;} */
-
-#bmap{width:100%;height:100%;position:absolute;top:0px;left:0px;}
-.seld{position:absolute;top:0px;z-index:-1;}
 </style>
 <style>
 @keyframes topanimate {
