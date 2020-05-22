@@ -29,14 +29,14 @@
               <div class="list-item" v-for="(item,index) in gqjg" :key="index"
                   @click="selComp(index)" 
                   :class="index==gqIndex?'item-active':''">
-                {{item.title}}
+                {{item.institutionName}}
               </div>
           </div>
           <div class="left-list" v-show="tabAction==1">
-              <div class="list-item" v-for="(item,index) in gqjg" :key="index"
+              <div class="list-item" v-for="(item,index) in zjjg" :key="index"
                   @click="selComp(index)" 
                   :class="index==gqIndex?'item-active':''">
-                {{item.title}}
+                {{item.institutionName}}
               </div>
           </div>
           <div class="left-anima">
@@ -94,6 +94,7 @@
 <script>
 import BMap from 'BMap';
 import $ from 'jQuery';
+import {filterCompany} from '@/common/lib/tools.js'
 export default {
   data(){
     return {
@@ -134,17 +135,19 @@ export default {
         {title:'匹配金额（亿元）',type:'matchMoney',value:0},
       ],
       gqjg:[
-        {title:'成都技转创投'},
-        {title:'红杉资本'},
-        {title:'深证创新投'},
-        {title:'达晨创投'},
-        {title:'君联资本'},
-        {title:'IDG资本'},
-        {title:'北极光创投'},
-        {title:'晨兴资本'},
-        {title:'今日资本'},
-        {title:'红杉中国'},
-      ]
+        {institutionName:'成都技转创投'},
+        {institutionName:'红杉资本'},
+        {institutionName:'深证创新投'},
+        {institutionName:'达晨创投'},
+        {institutionName:'君联资本'},
+        {institutionName:'IDG资本'},
+        {institutionName:'北极光创投'},
+        {institutionName:'晨兴资本'},
+        {institutionName:'今日资本'},
+        {institutionName:'红杉中国'},
+      ],
+      zjjg:[],
+      companyList:[]
     }
   },
   mounted(){
@@ -157,6 +160,8 @@ export default {
     },1000)
     // 获取统计结果
     this.getResult();
+    // 获取推荐机构
+    this.getCompany();
     
   },
   methods: {
@@ -182,7 +187,8 @@ export default {
       // svg.append('image').attr('x',Math.random()).attr('y',Math.random()).attr('width',10).attr('height',10).attr('xlink:href','/image/home/guquan.png')
       var cx = Math.floor(Math.random()*10+1)+20;
       var cy = Math.floor(Math.random()*10+1)+20;
-      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',2).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
+      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
+      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
       if(false){
         // 绘制点
         svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
@@ -275,7 +281,21 @@ export default {
     },
     selComp(index){
       this.gqIndex = index;
+    },
+    getCompany(){
+      // /finance/institution/getInstitutionAndRegion
+      this.$http.post('/finance/institution/getInstitutionAndRegion',{}).then(res=>{
+        if(res.data.code==0){
+          this.companyList = res.data.content;
+          let company = filterCompany(this.companyList);
+          if(company){
+            this.gqjg = company.gqjg;
+            this.zjjg = company.zjjg;
+          }
+        }
+      })
     }
+
     
   },
   components:{
