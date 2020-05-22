@@ -16,8 +16,10 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/constant/SystemConstant.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/vo/sms/SmsCodeVo.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/response/PageParamVo.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/MyMetaObjectHandler.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/enums/SmsCodeEnum.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/utils/JwtUtils.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/MybatisPlusConfig.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/controller/SysCodeController.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dictionary/DictInit.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/enums/InstitutionTypeEnum.java
