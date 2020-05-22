@@ -22,6 +22,10 @@ public class InstitutionAndRegionVo implements Serializable {
     private static final long serialVersionUID = 4215278069766091938L;
 
     /**
+     * 机构id
+     */
+    private Long id;
+    /**
      * 机构名称
      */
     private String institutionName;
@@ -33,6 +37,10 @@ public class InstitutionAndRegionVo implements Serializable {
     /**
      * 地区id
      */
-    private Long regionId;
+    private String regionCode;
+    /**
+     * 地区名称
+     */
+    private String regionName;
 
 }

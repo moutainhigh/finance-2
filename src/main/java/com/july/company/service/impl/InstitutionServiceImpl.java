@@ -28,6 +28,8 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
 
     @Resource
     private CompanyService companyService;
+    @Resource
+    private InstitutionMapper institutionMapper;
 
     /**
      * 保存机构信息
@@ -55,19 +57,7 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
      */
     @Override
     public List<InstitutionAndRegionVo> getInstitutionAndRegion() {
-        List<Institution> institutions = this.list();
-
-        List<InstitutionAndRegionVo> institutionAndRegionVos = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(institutions)) {
-            institutionAndRegionVos = institutions.stream().map(institution ->
-                    InstitutionAndRegionVo.builder()
-                            .institutionName(institution.getInstitutionName())
-                            .institutionType(institution.getInstitutionType())
-                            .regionId(institution.getRegionId())
-                            .build()
-            ).collect(Collectors.toList());
-        }
-        return institutionAndRegionVos;
+        return institutionMapper.getInstitutionAndRegion();
     }
 
     /**
