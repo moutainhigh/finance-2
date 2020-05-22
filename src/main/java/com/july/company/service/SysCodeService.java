@@ -23,4 +23,13 @@ public interface SysCodeService extends IService<SysCode> {
      */
     List<SysCodeVo> getSysCode(SysCodeDto sysCodeDto);
 
+    /**
+     * 保存一键匹配的下拉框信息
+     * @param
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/22
+     */
+    void saveSysCode();
+
 }
