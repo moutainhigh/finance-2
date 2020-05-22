@@ -145,6 +145,7 @@ export default {
   mounted(){
     if(localStorage.getItem('userInfo')){
       this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
+      this.$store.commit('setUserInfo',this.userInfo);
     }
     setTimeout(()=>{
       this.initMap();
@@ -201,7 +202,7 @@ export default {
     doLogin(params){
         console.log(params)
         if(params && params.mobile){
-            console.log(params)
+            this.userInfo = this.$store.state.userInfo;
             this.isLogin = false;
         }
     },
