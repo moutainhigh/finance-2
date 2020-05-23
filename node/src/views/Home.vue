@@ -47,10 +47,14 @@
         <div class="center">
           <img src="/image/home/map.png" alt="" class="center-bg">
           <div class="center-map">
-            <img src="/image/home/cd-map.png" alt="" class="cd-map">
+            <!-- <img src="/image/home/cd-map.png" alt="" class="cd-map">
             <img class="map-s" :src="imgItem.src" v-for="(imgItem,index) in map" :key="index" :name='imgItem.name'
                  :style="{top:imgItem.top,left:imgItem.left,opacity:imgItem.opacity,...imgItem.style,position:'absolute'}"/>
-            <svg class="bg-svg" id="selsvg"></svg>
+            <svg class="bg-svg" id="selsvg"></svg> -->
+            <svg class="bg-svg map" width="37.4vw" height="26.61vw">
+              <image x="0" y='0' width="37.4vw" height="26.61vw" xlink:href="/image/home/cd-map.png"></image>
+              <image x="16" y='255' width="10.64vw" height="11vw" xlink:href="/image/home/彭州市.png"></image>
+            </svg>
             <svg class="bg-svg" id="circles" style="z-index:7;"></svg>
           </div>
           <div class="c-info">
@@ -156,7 +160,7 @@ export default {
       this.$store.commit('setUserInfo',this.userInfo);
     }
     setTimeout(()=>{
-      this.initMap();
+      // this.initMap();
     },1000)
     // 获取统计结果
     this.getResult();
@@ -614,6 +618,9 @@ export default {
               font-stretch: normal;
               letter-spacing: 0vw;
               color: #ffd600;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
             }
           }
         }
@@ -636,27 +643,27 @@ export default {
         position: relative;
         .right-top{
           width:8vw;
-          height:14vh;
+          height:8vw;
           margin:0vw auto;
           font-family: FZLTCHJW--GB1-0;
           font-size: 1vw;
           font-weight: normal;
           font-stretch: normal;
-          line-height: 14vh;
+          line-height: 8vw;
           letter-spacing: 0vh;
           color: #abff9b;
           text-align:center;
           position:relative;
           .top-img{
-            width:7vw;
-            height:7vw;
+            width:8vw;
+            height:8vw;
             position: absolute;
             top:50%;
             left:50%;
             transform:translate(-50%,-50%);
             img{
-              width:7vw;
-              height:7vw;
+              width:8vw;
+              height:8vw;
               animation:topanimate 5s infinite;animation-timing-function:linear;
             }
           }
