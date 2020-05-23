@@ -3,6 +3,25 @@ axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:'ht
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=utf-8',
 }
+/**
+ * 分离债券和股权机构
+ * @param {机构数据} data 
+ */
+export function filterCompany(data){
+    if(!data instanceof Array){
+        return false;
+    }
+    let gqjg = [];
+    let zjjg = [];
+    data.forEach(item=>{
+        if(item.institutionType==0){
+            gqjg.push(item); 
+        }else{
+            zjjg.push(item); 
+        }
+    });
+    return {gqjg:gqjg,zjjg:zjjg};
+}
 
 /**
  * 转化搜索数据为本地
