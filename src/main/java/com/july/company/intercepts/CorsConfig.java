@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @program finance
  * @since 2020-05-21 18:24
  **/
-@Configuration
+//@Configuration
 public class CorsConfig implements WebMvcConfigurer {
 
     @Override

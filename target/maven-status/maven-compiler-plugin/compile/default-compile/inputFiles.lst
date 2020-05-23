@@ -45,6 +45,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/controller/FinanceProductDetailController.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/impl/UserInfoServiceImpl.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/CorsConfig.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/config/RedisConfig.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/impl/CompanyServiceImpl.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/controller/UserInfoController.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/InterceptConfig.java
@@ -70,6 +71,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/code/SysCodeDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/BearerTokenHandle.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/sms/SmsCodeVerifyDto.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/config/CorsConfig.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/Institution.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/user/UserInfoDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/mapper/FinanceProductDetailMapper.java

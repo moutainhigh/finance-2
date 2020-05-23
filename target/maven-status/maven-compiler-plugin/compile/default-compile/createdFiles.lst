@@ -12,6 +12,7 @@ com/july/company/intercepts/TokenHandle.class
 com/july/company/entity/SysCode$SysCodeBuilder.class
 com/july/company/controller/CompanyController.class
 com/july/company/constant/SystemConstant.class
+com/july/company/config/CorsConfig.class
 com/july/company/mapper/UserInfoMapper.class
 com/july/company/controller/InstitutionController.class
 com/july/company/dto/code/SysCodeDto.class
@@ -36,6 +37,7 @@ com/july/company/service/SysCodeService.class
 com/july/company/vo/login/LoginAuthVo$LoginAuthVoBuilder.class
 com/july/company/service/UserInfoService.class
 com/july/company/intercepts/MybatisPlusConfig.class
+com/july/company/config/RedisConfig.class
 com/july/company/controller/FinanceProductController.class
 com/july/company/entity/enums/FinanceTypeEnum.class
 com/july/company/dto/user/UserImgCodeDto.class

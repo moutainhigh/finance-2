@@ -56,7 +56,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private String accessKeyId;
     @Value("${aliyun.sms.secret}")
     private String secret;
-    @Resource(name = "redisTemplate")
+    @Resource
     ValueOperations<String, Object> valueOperations;
     @Resource
     private TokenHandle tokenHandle;
@@ -90,6 +90,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 .id(checkUserInfo.getId())
                 .token(tokenDes)
                 .build();
+        System.out.println("====>" + valueOperations);
         valueOperations.set(SystemConstant.CACHE_NAME + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
         return userInfoDto;
     }

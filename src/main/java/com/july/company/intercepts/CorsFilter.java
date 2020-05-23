@@ -12,7 +12,7 @@ import java.io.IOException;
  * @program finance
  * @since 2020-05-21 18:23
  **/
-@Component
+//@Component
 public class CorsFilter {
 
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {

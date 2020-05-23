@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class LoginIntercept implements HandlerInterceptor {
 
-    @Resource(name = "redisTemplate")
+    @Resource
     ValueOperations<String, UserInfoDto> valueOperations;
     @Resource
     TokenHandle tokenHandle;
