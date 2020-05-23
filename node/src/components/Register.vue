@@ -315,7 +315,7 @@ export default {
     position:absolute;
     top:0vw;
     left:0vw;
-    width:100vw;
+    width:100%;
     height:100vh;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.75);

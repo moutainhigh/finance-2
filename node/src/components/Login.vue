@@ -24,7 +24,7 @@
             <a-card title="成都市科技金融智能服务平台" style="width:504px;border-radius:15px;">
                 <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
                 <a-form-model ref="ruleForm" :model="loginForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:18}">
-                    <a-form-model-item ref="mobile" label="帐号" prop="mobile">
+                    <a-form-model-item ref="mobile" label="帐号" prop="mobile" class="input-item">
                         <a-input v-model="loginForm.mobile" @blur="
                             () => {
                                 $refs.mobile.onFieldBlur();
@@ -32,7 +32,7 @@
                             "
                         />
                         </a-form-model-item>
-                    <a-form-model-item ref="password" label="密码" prop="password">
+                    <a-form-model-item ref="password" label="密码" prop="password" class="input-item">
                         <a-input v-model="loginForm.password" type="password" @blur="
                             () => {
                                 $refs.password.onFieldBlur();
@@ -137,8 +137,9 @@ export default {
 </script>
 <style scoped>
 *{padding:0px;margin:0px;}
-.login{width:100vw;min-height:100vh;position:absolute;top:0px;left:0px;}
+.login{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;}
 .login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28vw;height:17vw;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
+.login-box >>> .input-item{margin-bottom:20px !important;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}
 .login .login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:2.5vw 1.5vw 0.5vw;font-family: FZLTXHK;
 	font-size: 1vw;

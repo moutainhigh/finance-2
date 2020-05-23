@@ -6,7 +6,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userInfo:{userName:''}
+    userInfo:localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):{userName:''}
   },
   mutations: {
     setUserInfo (state,userInfo) {
