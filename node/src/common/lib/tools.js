@@ -3,6 +3,98 @@ axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:'ht
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=utf-8',
 }
+
+function getImageWidthAndHeight(src){
+    let img = new Image();
+    let loading = new Promise((resolve,reject)=>{
+        img.onload = function(){
+            let imgAttr = {width:this.width,height:this.height};
+            resolve(imgAttr);
+        }
+    });
+    img.src = src;
+    return loading;
+}
+/**
+ * 绘制机构
+ * @param {要绘制的区域名称} name 
+ * @param {要绘制的机构列表} companyList 
+ */
+export async function drawCompany(driver,name,companyList){
+        // 获取当前区域图片
+        // let name="彭州市";
+        var img = document.querySelector('image[name="'+ name +'"]')
+        // 获取当前高亮图层的坐标
+        let top = Number(img.style.y);
+        let left = Number(img.style.x);
+        // 获取当前高亮图层的宽高
+        let imgWidthAndHeight = await getImageWidthAndHeight(img.getAttribute('xlink:href'))
+        let width = 232;
+        let height = 245;
+        if(imgWidthAndHeight.width){
+            width = imgWidthAndHeight.width;//img.width;
+            height = imgWidthAndHeight.height;//img.height; 
+        }
+
+        // 当前高亮图层的中心
+        let companyObj = {
+            cx:left+(width/2),
+            cy:top+(height/2),
+            r:5,
+            layR:10
+        }
+        // 绘制svg
+        let svg = driver.select('#circles');
+        // 通过循环创建机构
+        if(companyList instanceof Array){
+            companyList.forEach((item,index)=>{
+                // 通过不同的角度，来设置新的圆心
+                let jd = Math.random()*1000;
+                let ncx = companyObj.cx + (companyObj.r*2*index) * Math.cos(jd*Math.PI/180); 
+                let ncy = companyObj.cy + (companyObj.r*4*index) * Math.sin(jd*Math.PI/180);
+                // console.log(ncx,ncy)
+                let bgcolor = 'rgba(255, 214, 0, 0.2)';
+                let color = 'rgba(255, 214, 0, 0.8)';
+                if(item.institutionType==1){
+                    bgcolor = "rgba(255, 90, 0,0.2)";
+                    color = "rgba(255, 90, 0,0.8)";
+                }
+                svg.append('circle').attr('cx',ncx).attr('cy',ncy).attr('r',companyObj.layR).style('fill',bgcolor);
+                svg.append('circle').attr('cx',ncx).attr('cy',ncy).attr('r',companyObj.r)
+                   .attr('comp',item.institutionName).attr('name',name).attr('did',item.id)
+                   .attr('top','c').style('fill',color).style('cursor','pointer');
+            })
+        }
+        // 给添加的点，添加点击事件监听
+        $('circle[top="c"]').click((e)=>{
+            $('image[name]').css({opacity:0});
+            $('image[name="'+e.target.getAttribute('name')+'"]').css({opacity:1});
+            $('.c-info').css({opacity:1,top:'15vw',right:'20vw',transform:'scale(0)'})
+            .animate({opacity:1,top:'4vw',right:'3.2vw'},'show','linear').css({transform:'scale(1)'});
+            // 绘画选中点
+            drawSeled(e.target.getAttribute('cx'),e.target.getAttribute('cy'));
+        }) 
+}
+/**
+ * 绘制选择图片
+ * @param {x坐标} cx 
+ * @param {y坐标} cy 
+ */
+export function drawSeled(cx,cy){
+    let ims = selsvg.getElementById('#seled');
+    if(ims){
+      ims.remove();
+    }
+    ims = document.createElementNS('http://www.w3.org/2000/svg','image')
+    ims.setAttribute('x',cx-55);
+    ims.setAttribute('y',cy-55);
+    ims.setAttribute('width',110);
+    ims.setAttribute('height',110);
+    ims.setAttribute('id',"#seled");
+    ims.href.baseVal = '/image/home/seld.png'
+    selsvg.append(ims);
+}
+
 /**
  * 分离债券和股权机构
  * @param {机构数据} data 

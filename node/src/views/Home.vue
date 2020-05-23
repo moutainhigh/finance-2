@@ -27,14 +27,14 @@
           </div>
           <div class="left-list" v-show="tabAction==0">
               <div class="list-item" v-for="(item,index) in gqjg" :key="index"
-                  @click="selComp(index)" 
+                  @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
               </div>
           </div>
           <div class="left-list" v-show="tabAction==1">
               <div class="list-item" v-for="(item,index) in zjjg" :key="index"
-                  @click="selComp(index)" 
+                  @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
               </div>
@@ -51,14 +51,17 @@
             <img class="map-s" :src="imgItem.src" v-for="(imgItem,index) in map" :key="index" :name='imgItem.name'
                  :style="{top:imgItem.top,left:imgItem.left,opacity:imgItem.opacity,...imgItem.style,position:'absolute'}"/>
             <svg class="bg-svg" id="selsvg"></svg> -->
-            <svg class="bg-svg map" width="37.4vw" height="26.61vw">
-              <image x="0" y='0' width="37.4vw" height="26.61vw" xlink:href="/image/home/cd-map.png"></image>
-              <image x="16" y='255' width="10.64vw" height="11vw" xlink:href="/image/home/彭州市.png"></image>
+            <svg width="42vw" height="55vh" style="margin:4vw auto;" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <image x="0" y='0' xlink:href="/image/home/cd-map.png"></image>
+              <image v-bind:xlink:href="imgItem.src" v-for="(imgItem,index) in cdMap" :key="index" 
+                  :name='imgItem.name'
+                  :style="{x:imgItem.top,y:imgItem.left,opacity:imgItem.opacity,...imgItem.style}"></image>
             </svg>
-            <svg class="bg-svg" id="circles" style="z-index:7;"></svg>
+            <svg class="bg-svg" id="selsvg" width="42vw" height="55vh" style="z-index:6;" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet"></svg>
+            <svg class="bg-svg" id="circles" width="42vw" height="55vh" style="z-index:7;" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" @click="selCirle"></svg>
           </div>
           <div class="c-info">
-            <div class="c-title">成都技转创投</div>
+            <div class="c-title">{{currSelItem.institutionName}}</div>
             <ul>
               <li>物联网投资基金</li>
               <li>中小企业专项投资</li>
@@ -98,37 +101,37 @@
 <script>
 import BMap from 'BMap';
 import $ from 'jQuery';
-import {filterCompany} from '@/common/lib/tools.js'
+import {filterCompany, drawCompany} from '@/common/lib/tools.js'
 export default {
   data(){
     return {
       tabAction:0,
       gqIndex:-1,
       isLogin:false,
-      isReg:false,
+      isReg:true,
       userInfo:{userName:''},
-      map:[
-        {opacity:0,top:'12.8vw',left:'22.8vw',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0,width:'5vw'}},
-        {opacity:0,top:'10.75vw',left:'3.29vw',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0,width:'16.5vw',height:'17vh'}},
-        {opacity:0,top:'11.7vw',left:'2vh',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0,width:'18vw',height:'18vh'}},
-        {opacity:0,top:'2.3vw',left:'19.6vh',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0,width:'9vw',height:'25vh'}},
-        {opacity:0,top:'15.9vw',left:'45vh',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0,width:'5vw',height:'7.5vh'}},
-        {opacity:0,top:'14.5vw',left:'49.6vh',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0,width:'16vw',height:'21vh'}},
-        {opacity:0,top:'11.7vw',left:'40.5vh',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0,width:'5.7vw',height:'9.5vh'}},
-        {opacity:0,top:'9.2vw',left:'56vh',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0,width:'13vw',height:'21vh'}},
-        {opacity:0,top:'14vw',left:'45vh',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0,width:'4vw'}},
-        {opacity:0,top:'13.3vw',left:'47.8vh',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0,width:'8.5vw',height:'13.3vh'}},
-        {opacity:0,top:'0.8vw',left:'29.3vh',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0,width:'12vw',height:'23vh'}},
-        {opacity:0,top:'8.9vw',left:'30.8vh',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0,width:'9vw',height:'13vh'}},
-        {opacity:0,top:'19.9vw',left:'14.5vh',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0,width:'10vw',height:'13vh'}},
-        {opacity:0,top:'10vw',left:'48.5vh',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0,width:'9vw',height:'14vh'}},
-        {opacity:0,top:'13.1vw',left:'38.3vh',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0,width:'5.5vw'}},
-        {opacity:0,top:'16.3vw',left:'4.5vh',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0,width:'16.5vw',height:'16.5vh'}},
-        {opacity:0,top:'14vw',left:'33.6vh',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0,width:'11.8vw',height:'20.3vh'}},
-        {opacity:0,top:'10.5vw',left:'29.5vh',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0,width:'7.5vw',height:'6.6vh'}},
-        {opacity:0,top:'14vw',left:'40.2vh',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0,width:'5vw'}},
-        {opacity:0,top:'9.2vw',left:'38vh',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0,width:'10.7vw',height:'13.6vh'}},
-        {opacity:0,top:'16.6vw',left:'30.5vh',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0,width:'6.8vw',height:'11.6vh'}},
+      cdMap:[
+        {opacity:0,top:'428',left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
+        {opacity:0,top:'68',left:'231',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0}},
+        {opacity:0,top:'19.7',left:'255',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0}},
+        {opacity:0,top:'183',left:'45.6',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0}},
+        {opacity:0,top:'428',left:'345',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
+        {opacity:0,top:'472',left:'318',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0}},
+        {opacity:0,top:'378',left:'254',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0}},
+        {opacity:0,top:'528',left:'203',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0}},
+        {opacity:0,top:'425',left:'308',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0}},
+        {opacity:0,top:'453',left:'287',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
+        {opacity:0,top:'276',left:'19',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0}},
+        {opacity:0,top:'295',left:'198',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0}},
+        {opacity:0,top:'138',left:'432',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0}},
+        {opacity:0,top:'460',left:'216.5',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0}},
+        {opacity:0,top:'360',left:'287',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0}},
+        {opacity:0,top:'43',left:'353',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
+        {opacity:0,top:'317',left:'308',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0}},
+        {opacity:0,top:'278',left:'223',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0}},
+        {opacity:0,top:'378',left:'308',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
+        {opacity:0,top:'363',left:'197',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
+        {opacity:0,top:'288',left:'362.5',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
       ],
       result:[
         {title:'企业入驻（家）',type:'companyCount',value:0},
@@ -151,7 +154,8 @@ export default {
         {institutionName:'红杉中国'},
       ],
       zjjg:[],
-      companyList:[]
+      companyList:[],
+      currSelItem:{}
     }
   },
   mounted(){
@@ -160,83 +164,23 @@ export default {
       this.$store.commit('setUserInfo',this.userInfo);
     }
     setTimeout(()=>{
-      // this.initMap();
+      this.initMap();
     },1000)
     // 获取统计结果
     this.getResult();
     // 获取推荐机构
     this.getCompany();
+
     
   },
   methods: {
-    initMap(){
-      // var map = new BMap.Map("bmap");            // 创建Map实例
-      // map.centerAndZoom("成都市",15);                
-      // map.enableScrollWheelZoom(false);  
-      // 获取当前区域图片
-      let name="彭州市";
-      var img = document.querySelector('img[name="'+ name +'"]')
-      console.log(img)
-      let vwpxVal = document.documentElement.clientWidth/100;
-      let vhpxVal = document.documentElement.clientHeight/100;
-      let top = Number(img.style.top.replace('vw',''))*vwpxVal;
-      let left = Number(img.style.left.replace('vh',''))*vhpxVal;
-      let width = img.width;
-      let height = img.height; 
-      // 绘制svg
-      // let svg = this.$d3.select('.center-map').append('svg').attr('width',width/2).attr('height',height/2)
-      //         .style('position','absolute').style('z-index',7).style('top',top+(height/4)).style('left',left+(width/4));
-      let svg = this.$d3.select('#circles');
-              // .style('position','absolute').style('top',top+(width/2)).style('left',left+(height/2))
-      // svg.append('image').attr('x',Math.random()).attr('y',Math.random()).attr('width',10).attr('height',10).attr('xlink:href','/image/home/guquan.png')
-      var cx = Math.floor(Math.random()*10+1)+20;
-      var cy = Math.floor(Math.random()*10+1)+20;
-      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-      svg.append('circle').attr('cx',left+(width/2)).attr('cy',top+(height/2)).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
-      if(false){
-        // 绘制点
-        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('name',name).attr('top','c').style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer');
-        var cx = Math.floor(Math.random()*10+10)+20;
-        var cy = Math.floor(Math.random()*10+10)+20;
-        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',10).style('fill','rgba(255, 214, 0, 0.2)')
-        svg.append('circle').attr('cx',cx).attr('cy',cy).attr('r',5).attr('top','c').attr('name',name).style('fill','rgba(255, 214, 0, 0.8)').style('cursor','pointer')
-      }
-      // 给添加的点，添加点击事件监听
-      $('circle[top="c"]').click((e)=>{
-          console.log(e)
-          $('img[name]').css({opacity:0});
-          $('img[name="'+e.target.getAttribute('name')+'"]').css({opacity:1});
-          $('.seld').css({top:(e.pageY-$('.seld').width()/2)+'px',left:(e.clientX-$('.seld').height()/2)+'px',zIndex:6})
-          $('.c-info').css({opacity:1,top:'15vw',right:'20vw',transform:'scale(0)'})
-          .animate({opacity:1,top:'4vw',right:'3.2vw'},'show','linear').css({transform:'scale(1)'});
-          // 绘画选中点
-          this.drawSeled(e.offsetX,e.offsetY);
-      })
-      // 给选中添加监听再次点击消失，然后可以点击其他的机构
-      // $('.seld').click(()=>{
-      //   $('.seld').css({zIndex:-1})
-      // })
-      
-     
-    },
-    drawSeled(cx,cy){
-      let vwpxVal = document.documentElement.clientWidth/100;
-      let vhpxVal = document.documentElement.clientHeight/100;
+    initMap(){ 
 
-      let ims = selsvg.getElementById('#seled');
-      console.log(ims)
-      if(ims){
-        ims.remove();
-      }
-      ims = document.createElementNS('http://www.w3.org/2000/svg','image')
-      ims.setAttribute('x',cx-55);
-      ims.setAttribute('y',cy-55);
-      ims.setAttribute('width',110);
-      ims.setAttribute('height',110);
-      ims.setAttribute('id',"#seled");
-      ims.href.baseVal = '/image/home/seld.png'
-      selsvg.append(ims);
+      this.cdMap.forEach(item=>{
+        let companyList = this.companyList.filter(sitem=>item.name==sitem.regionName);
+        drawCompany(this.$d3,item.name,companyList);
+      });
+     
     },
     login(){
       this.isLogin = true;
@@ -283,8 +227,13 @@ export default {
     tabChange(index){
       this.tabAction = index;
     },
-    selComp(index){
+    selComp(index,item){
+      if(index==this.gqIndex){
+        return ;
+      }
       this.gqIndex = index;
+      this.currSelItem = item;
+      $('circle[comp="'+item.institutionName+'"]').click();
     },
     getCompany(){
       // /finance/institution/getInstitutionAndRegion
@@ -294,10 +243,21 @@ export default {
           let company = filterCompany(this.companyList);
           if(company){
             this.gqjg = company.gqjg;
+            this.currSelItem = this.gqjg[0];
+            this.gqIndex = 1;
             this.zjjg = company.zjjg;
           }
         }
       })
+    },
+    selCirle(e){
+      let id = e.target.getAttribute('did');
+      if(id){
+        let currItem = this.companyList.filter(item=>item.id == id);
+        if(currItem.length==1){
+          this.currSelItem = currItem[0];
+        }
+      }
     }
 
     
@@ -564,7 +524,7 @@ export default {
         .center-map{
           width:42vw;
           height:55vh;
-          margin:4vw auto;
+          margin:2vw auto;
           position:relative;
           z-index:1;
           .cd-map{
@@ -577,7 +537,7 @@ export default {
             margin:4vw auto;
             position: absolute;
             // background:#ff993a;
-            top: -3vw;
+            top: 0vw;
             left: 0vh;
           }
         }
@@ -598,6 +558,9 @@ export default {
             letter-spacing: 0vw;
             color:#ffd600;
             position:relative;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
             &::after{
               content:'';
               width: 7vw;
@@ -654,6 +617,7 @@ export default {
           color: #abff9b;
           text-align:center;
           position:relative;
+          cursor: pointer;
           .top-img{
             width:8vw;
             height:8vw;
