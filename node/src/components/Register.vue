@@ -317,6 +317,7 @@ export default {
     left:0vw;
     width:100vw;
     height:100vh;
+    overflow: hidden;
     background-color: rgba(0, 0, 0, 0.75);
     z-index:9;
     .login-box{

@@ -254,7 +254,7 @@ export default {
 }
 </script>
 <style scoped>
-.guquan{background: #F6F6F6;}
+.guquan{background: #F6F6F6;padding:0vw;margin:0vw;overflow: hidden;}
 .guquan .top{height:342px;background:url(/image/bj-guquanrongzi.png) no-repeat;background-size:cover;position: relative;}
 .guquan .top .guquan-title{position:absolute;top:136px;left:130px;}
 .guquan .top .guquan-title div:nth-child(1){font-family: BDZYJT--GB1-0;font-size: 42px;color: #FFFFFF;}

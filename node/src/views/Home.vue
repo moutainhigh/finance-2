@@ -108,7 +108,7 @@ export default {
       tabAction:0,
       gqIndex:-1,
       isLogin:false,
-      isReg:true,
+      isReg:false,
       userInfo:{userName:''},
       cdMap:[
         {opacity:0,top:'428',left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
