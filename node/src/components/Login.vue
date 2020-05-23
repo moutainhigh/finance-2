@@ -20,7 +20,7 @@
             <div class="l-btn" @click="doLogin">登录</div>
             <div class="reg" @click="$emit('to-reg')">没有账号？去注册</div>
         </div>
-        <div class="login-box" v-if="isForm">
+        <div class="login-box" v-if="isForm" style="background:none;">
             <a-card title="成都市科技金融智能服务平台" style="width:504px;border-radius:15px;">
                 <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
                 <a-form-model ref="ruleForm" :model="loginForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:18}">
@@ -136,43 +136,49 @@ export default {
 }
 </script>
 <style scoped>
+*{padding:0px;margin:0px;}
 .login{width:100vw;min-height:100vh;position:absolute;top:0px;left:0px;}
-.login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:504px;height:290px;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
+.login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28vw;height:17vw;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}
-.login .login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:38px 26px 16px 30px;font-family: FZLTXHK;
-	font-size: 20px;
+.login .login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:2.5vw 1.5vw 0.5vw;font-family: FZLTXHK;
+	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
-	line-height: 30px;
+	line-height: 1vw;
 	letter-spacing: 0px;
 	color: #b7efff;}
-.login .login-box .l-title .close{cursor:pointer;}
-.login .login-box .l-input{display:flex;justify-content:center;align-items:center;margin-bottom:15px;}
+.login .login-box .l-title .close{cursor:pointer;width:2vw;height:2vw}
+.login .login-box .l-input{display:flex;justify-content:center;align-items:center;margin-bottom:1vw;}
 .login .login-box .l-input div{font-family: PingFangSC-Regular;
-	font-size: 14px;
+	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;
 	color: #7edcff;}
-.login .login-box .l-input div:nth-child(1){text-align:right;margin-right: 40px;}
-.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:240px;height:32px;background:url(/image/home/l-input.png) center no-repeat;padding:0px 3px;}
+.login .login-box .l-input div:nth-child(1){text-align:right;margin-right: 1.5vw;}
+.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2vw;background:url(/image/home/l-input.png) center no-repeat;padding:0px 1vw;background-size:cover;}
 .login .login-box .l-input div:nth-child(2) input:-webkit-input-placeholder{font-family: PingFangSC-Regular;
-	font-size: 12px;
+	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;
 	color: #43575e;}
-.login .login-box .l-btn{margin:20px auto 0px;width:187px;height:32px;background:url(/image/home/l-btn.png) center no-repeat;text-align:center;font-family: PingFangSC-Regular;
-	font-size: 14px;cursor:pointer;line-height:32px;
+.login .login-box .l-btn{margin:1vw auto 0px;width:13vw;height:2.3vw;background:url(/image/home/l-btn.png) center no-repeat;background-size:cover;text-align:center;font-family: PingFangSC-Regular;
+	font-size: 1vw;cursor:pointer;line-height:2.3vw;
 	font-weight: normal;
 	font-stretch: normal;
-	letter-spacing: 0px;
+	letter-spacing: 0vw;
 	color: #7edcff;}
-.login .login-box .reg{font-family: PingFangSC-Regular;margin:10px auto 0px;text-align:center;
-	font-size: 12px;
+.login .login-box .reg{font-family: PingFangSC-Regular;margin:0.5vw auto 0vw;text-align:center;
+	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
-	letter-spacing: 0px;
+	letter-spacing: 0vw;
 	color: #7edcff;}
-.login .login-box .reg{display:table;cursor:pointer;}
+.login .login-box .reg{display:table;cursor:pointer;font-family: PingFangSC-Regular;
+	font-size: 0.63vw;
+	font-weight: normal;
+	font-stretch: normal;
+	letter-spacing: 0vw;
+	color: #7edcff;}
 </style>
