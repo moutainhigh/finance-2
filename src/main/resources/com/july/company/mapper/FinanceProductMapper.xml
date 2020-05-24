@@ -5,7 +5,7 @@
     <select id="getFinanceProduct" resultType="com.july.company.vo.finance.FinanceProductVo">
         select ffp.title,ffp.mechanism,ffpd.industryDirect,ffpd.financeQuota,ffpd.financeState from fc_finance_product ffp,fc_finance_product_detail ffpd
         where
-        ffp.id = ffpd.companyId
+        ffp.id = ffpd.productId
         and ffp.deleted = 0
         <if test="param.financeQuota != null">
             and ffpd.financeQuota = #{param.financeQuota}
@@ -28,7 +28,7 @@
         <if test="param.marketOccupyRate != null">
             and ffpd.marketOccupyRate = #{param.marketOccupyRate}
         </if>
-        <if test="param.evaluateName != null">
+        <if test="param.evaluateName != null and param.evaluateName != ''">
             and ffpd.evaluateName = #{param.evaluateName}
         </if>
         <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
