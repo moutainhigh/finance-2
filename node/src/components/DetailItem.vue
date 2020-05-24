@@ -4,26 +4,26 @@
           <img src="/image/c6.png" alt="" style="width:100px;height:100px;margin-right:32px;">
       </div>
       <div class="right">
-            <div class="title">物联网投资基金</div>
+            <div class="title">{{item.title}}</div>
             <div class="desc">
                 <div class="desc-item">
                     <img src="/image/icon-suoshujigou.png" alt="" style="width:16px;height:16px;">
-                    <div><span>所属机构：</span> 红杉资本</div>
+                    <div><span>所属机构：</span> {{item.mechanism}}</div>
                 </div>
                 <div class="desc-item">
                     <img src="/image/icon-dizhi.png" alt="" style="width:16px;height:16px;">
-                    <div><span>办公地址：</span> 四川省成都市高新区交子金融中心B座103</div>
+                    <div><span>办公地址：</span>{{item.workAddress}}</div>
                 </div>
                 <div class="desc-item">
                     <img src="/image/icon-lianxi.png" alt="" style="width:16px;height:16px;">
-                    <div><span>联系方式：</span> 028-389400</div>
+                    <div><span>联系方式：</span>{{item.tel}}</div>
                 </div>
             </div>
             <div class="descs-item">
                 <img src="/image/icon-chanpingjieshao.png" alt="" style="width:16px;height:16px;">
                 <div>
                     <span>产品简介：</span> 
-                    红杉资本中国专注于科技/传媒、医疗健康、消费品/服务、工业科技四个方向的投资机遇，投资了包括阿里巴巴、贝达药业、大众点评网、德邦物流、DJI大疆创新、赶集网、高德软件、光环新网、华大基因、今日头条、京东、聚美优品、美丽说、美团网、陌陌、诺亚财富、奇虎360、万达院线、威高集团、唯品会、文思创新、新产业生物、新浪网、英雄互娱、鱼跃医疗、掌趣科技、中通快递在内的300余家企
+                    {{item.introduce}}
                 </div>
             </div>
       </div>

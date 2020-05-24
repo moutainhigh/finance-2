@@ -121,7 +121,29 @@ export function filterCompany(data){
  */
 export function matchSearchData(data){
     let dataArr = [];
-    let names = {'RZED':'融资额度','RZJD':'融资阶段','HYFX':'行业方向'};
+    let names = {
+        'RZED':'融资额度',
+        'RZJD':'融资阶段',
+        'HYFX':'行业方向',
+        'HYFX':'行业方向',
+        'REGION':'注册地址',
+        'GDBJ':'股东背景',
+        'GWRZJE':'过往融资金额',
+        'SCRLZZL':'实控人创业经历',
+        'YYSR':'营业收入',
+        'YYSRZZL':'营业收入增长率',
+        'CPMLL':'产品毛利率',
+        'JLL':'净利润',
+        'YGRS':'员工人数',
+        'SCRL':'目标市场容量',
+        'YYSRZZL':'目标市场增长率',
+        'MBKH':'目标客户',
+        'SCZYL':'预期市场占有率',
+        'FMZLSL':'发明专利数量',
+        'gsjzys':'公司竞争优势',
+        'GDLJTRZJ':'股东累计投入资金',
+        'PDCH':'公司所获评定称号',
+    };
     if(!(data instanceof Array)){
         return dataArr;
     }else{

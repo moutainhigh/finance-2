@@ -15,14 +15,14 @@
                         <span>筛选条件</span>
                     </div>
                     <div class="search">
-                        <input type="text" placeholder="请输入产品或机构名称" />
-                        <div class="search-btn">
-                            <img src="/image/search.svg" alt="" style="width:15px;height:15px;vertical-align:sub;"> 搜索
+                        <input type="text" placeholder="请输入产品或机构名称" v-model="keywords" />
+                        <div class="search-btn" @click="search">
+                            <img src="/image/search.svg" alt="" style="width:15px;height:15px;vertical-align:sub;" > 搜索
                         </div>
                     </div>
                 </div>
                 <div class="filter-body" :style="openBodyStyle">
-                    <div class="filter-item" v-for="sItem in searchFieldList" :key="sItem.codeType">
+                    <div class="filter-item" v-for="sItem in searchFieldList.slice(0,3)" :key="sItem.codeType">
                         <div class="item-title">{{sItem.name}}</div>
                         <div class="item">
                             <div class="item-list" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code"
@@ -32,20 +32,11 @@
                         </div>
                     </div>
                     <div class="filter-item more">
-                        <div class="item-title" v-for="(item,index) in selGroup" :key="index">
-                            <span>{{item.title}}：</span>
+                        <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
+                            <span>{{sItem.name}}：</span>
                             <a-select default-value="不限" style="width: 120px">
-                                <a-select-option value="jack">
-                                    Jack
-                                </a-select-option>
-                                <a-select-option value="不限">
-                                    不限
-                                </a-select-option>
-                                <a-select-option value="disabled" disabled>
-                                    Disabled
-                                </a-select-option>
-                                <a-select-option value="Yiminghe">
-                                    yiminghe
+                                <a-select-option :value="codeItem.value" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" @change="selectField(codeItem)">
+                                    {{codeItem.code}}
                                 </a-select-option>
                             </a-select>
                         </div>
@@ -85,24 +76,20 @@
                     </div>
                 </div>
                 <div class="list-items">
-                    <ListPageItem class="list-item" @to-detail="toDetail"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
+                    <ListPageItem class="list-item" @to-detail="toDetail" v-for="(item,index) in productList" :key="index"></ListPageItem>
                 </div>
                 <div class="page">
                     <div class="page-num">
-                        <a-pagination :default-current="1" :total="500" @change="onChange" />
+                        <a-pagination :default-current="1" :total="totalNum" @change="onChange" />
                     </div>
-                    <span class="total">共1000条</span>
-                    <input type="text" class="page-input">
-                    <div class="change-btn">跳转</div>
+                    <span class="total">共{{totalNum}}条</span>
+                    <input type="text" class="page-input" v-model.number="pageNo">
+                    <div class="change-btn" @click="changePage">跳转</div>
                 </div>
             </div>
         </div>
-        <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" :isForm="true"></Login>
-        <Register v-show="isReg" @to-login="login" @do-reg="doReg" @close="close" :isForm="true"></Register>
+        <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" :isForm="true"></Login>
+        <Register v-if="isReg" @to-login="login" @do-reg="doReg" @close="close" :isForm="true"></Register>
         <Footer></Footer>
     </div>
 </template>
@@ -150,20 +137,25 @@ export default {
                     "staffCount":681,
                     "marketOccupyRate":"0",
                     "evaluateName":"0",
-                    "mechanismOrProduct":"0"
+                    "mechanismOrProduct":""
                 },
                 "pager":{
                     "pageSize":20,
                     "currentPage":1
                 }
-            }
+            },
+            productList:[],
+            totalNum:0,
+            pageNo:'',
+            keywords:''
         }
     },
     created(){
         // 预先加载搜索字段
         getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
             this.searchFieldList = matchSearchData(res);
-        }).catch(err=>console.log(err))
+        }).catch(err=>console.log(err));
+        this.getProductList();
     },
     methods:{
         ...mapActions(['setUserInfo']),
@@ -238,6 +230,29 @@ export default {
                 return true;
             }
             return false;
+        },
+        getProductList(){
+            this.$http.post('/finance/financeProduct/getFinanceProduct',this.params).then(res=>{
+                this.$message.destroy();
+                if(res.data.code==0){
+                    this.productList = res.data.content.list;
+                }
+            })
+        },
+        changePage(){
+            if(this.totalNum == 0){
+                return ;
+            }
+            this.params.pager.currentPage = this.pageNo;
+            this.getProductList();
+        },
+        search(){
+            this.$message.loading('查询中',0)
+            this.$set(this.params.content,'mechanismOrProduct',this.keywords);
+            this.getProductList();
+        },
+        selectField(item){
+            console.log(item)
         }
 
     },
@@ -254,7 +269,8 @@ export default {
 }
 </script>
 <style scoped>
-.guquan{background: #F6F6F6;}
+*{padding:0px;margin:0px;}
+.guquan{background: #F6F6F6;padding:0vw;margin:0vw;overflow: hidden;}
 .guquan .top{height:342px;background:url(/image/bj-guquanrongzi.png) no-repeat;background-size:cover;position: relative;}
 .guquan .top .guquan-title{position:absolute;top:136px;left:130px;}
 .guquan .top .guquan-title div:nth-child(1){font-family: BDZYJT--GB1-0;font-size: 42px;color: #FFFFFF;}

@@ -29,12 +29,12 @@ export default {
 }
 </script>
 <style scoped>
-.user .home-userName{width:464px;height:80px;background:url(/image/home/user.png) center no-repeat;
-font-family: FZLTXHK;font-size: 20px;font-weight: normal;font-stretch: normal;line-height: 80px;letter-spacing: 0px;
-text-align: right;padding:0 20px;
+.user .home-userName{width:22.66vw;height:2.6vw;background:url(/image/home/user.png) center no-repeat;background-size: cover;
+font-family: FZLTXHK;font-size: 1.04vw;font-weight: normal;font-stretch: normal;line-height: 2.6vw;letter-spacing: 0px;
+text-align: right;padding:0 0.89vw;
 color: #9ee9ff;}
-.user .home-userName img{width:21px;height:23px;margin-right:10px;margin-left:17px;vertical-align:middle;margin-top:-4px;}
-.user .userName{width:464px;height:80px;color:#9ee9ff;font-size: 20px;font-weight: normal;font-stretch: normal;line-height: 80px;letter-spacing: 0px;
+.user .home-userName img{width:1.09vw;height:1.02vw;margin-right:0.99vw;margin-left:0.89vw;vertical-align:middle;margin-top:-0.73px;}
+.user .userName{width:22.66vw;height:2.6vw;color:#9ee9ff;font-size:1vw;font-weight: normal;font-stretch: normal;line-height:2.6vw;letter-spacing: 0px;
 text-align: right;}
-.user .userName img{width:21px;height:23px;margin-right:10px;margin-left:17px;vertical-align:middle;margin-top:-4px;}
+.user .userName img{width:1.09vw;height:1.02vw;margin-right:0.99vw;margin-left:0.89vw;vertical-align:middle;margin-top:-0.3vw;}
 </style>
