@@ -29,6 +29,12 @@ Vue.use(VueRouter)
     component: () => import('../views/Detail.vue'),
     meta:{title:'详情'}
   },
+  {
+    path: '/match',
+    name: 'Match',
+    component: () => import('../views/Match.vue'),
+    meta:{title:'一键匹配'}
+  },
 ]
 
 const router = new VueRouter({

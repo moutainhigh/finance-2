@@ -45,7 +45,11 @@
           </div>
         </div>
         <div class="center">
-          <img src="/image/home/map.png" alt="" class="center-bg">
+          <!-- <img src="/image/home/map.png" alt="" class="center-bg"> -->
+          <svg  class="center-bg" width="42vw" height="55vh" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <image x="0" y='-228' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
+              <image x="0" y='392' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
+          </svg>
           <div class="center-map">
             <!-- <img src="/image/home/cd-map.png" alt="" class="cd-map">
             <img class="map-s" :src="imgItem.src" v-for="(imgItem,index) in map" :key="index" :name='imgItem.name'
@@ -73,7 +77,7 @@
           </div>
         </div>
         <div class="right">
-            <div class="right-top">
+            <div class="right-top" @click="toPage('/match')">
               <div class="top-img"><img src="/image/home/right-top.png" alt=""></div>
               一键匹配
             </div>
@@ -94,8 +98,9 @@
     </div>
     
     <!-- <img src="/image/home/seld.png" alt="" class="seld"> -->
-    <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close"></Login>
-    <Register v-show="isReg" @to-login="login" @close="close"></Register>
+    <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget"></Login>
+    <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close"></Register>
+    <Forget v-show="isForget" @do-forget="doforget" @to-login="login" @close="close"></Forget>
   </div>
 </template>
 <script>
@@ -109,6 +114,7 @@ export default {
       gqIndex:-1,
       isLogin:false,
       isReg:false,
+      isForget:false,
       userInfo:{userName:''},
       cdMap:[
         {opacity:0,top:'494',left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
@@ -185,6 +191,7 @@ export default {
     login(){
       this.isLogin = true;
       this.isReg = false;
+      this.isForget = false;
     },
     doLogin(params){
         console.log(params)
@@ -200,13 +207,23 @@ export default {
     doReg(params){
       console.log(params)
       if(params && params.mobile){
-        console.log(params)
         this.isReg = false;
+      }
+    },
+    toForget(){
+      this.isLogin=false;
+      this.isForget=true;
+    },
+    doforget(params){
+      console.log(params)
+      if(params && params.mobile){
+        this.isForget = false;
       }
     },
     close(){
       this.isLogin = false;
       this.isReg = false;
+      this.isForget = false;
     },
     toPage(url,params){
       if(params){
@@ -266,6 +283,7 @@ export default {
     Login:()=>import("@/components/Login.vue"),
     Register:()=>import("@/components/Register.vue"),
     UserInfo:()=>import("@/components/UserInfo.vue"),
+    Forget:()=>import("@/components/Forget.vue"),
   }
 }
 </script>
@@ -513,13 +531,26 @@ export default {
         // background:blue;
         position:relative;
         .center-bg{
-          width: 60vw;
-          height: 96vh;
-          position: absolute;
-          z-index:-1;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%,-52%);
+          // width: 60vw;
+          // height: 96vh;
+          // position: absolute;
+          // z-index:-1;
+          // top: 50%;
+          // left: 50%;
+          // transform: translate(-50%,-52%);
+            width: 48vw;
+            height: 39vw;
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: url(/image/home/center.png) center no-repeat;
+            background-size: cover;
+            .light{
+              animation: dong 30s infinite;
+              animation-timing-function: ease;
+            }
         }
         .center-map{
           width:42vw;
@@ -723,6 +754,17 @@ export default {
   to {
     transform:rotate(360deg);
     opacity:1;
+  }
+}
+@keyframes dong {
+  0% {
+    x:-100;
+  }
+  50% {
+    x:500;
+  }
+  100% {
+    x:-100;
   }
 }
 </style>

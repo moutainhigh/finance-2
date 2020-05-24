@@ -1,5 +1,5 @@
 <template>
-    <div class="header">
+    <div class="header" :class="isBg?'headerbg':''">
         <div class="left">
             <!-- <div class="logo">CTG</div>
             <div>成都科技服务</div> -->
@@ -9,7 +9,7 @@
             <div class="nav-item" @click="toPage('/')" :class="$route.path=='/'?'active':''">首页</div>
             <div class="nav-item" @click="toPage('/guquan')" :class="$route.path=='/guquan'?'active':''">股权融资</div>
             <div class="nav-item" @click="toPage('/zhaiquan')" :class="$route.path=='/zhaiquan'?'active':''">债券融资</div>
-            <div class="nav-item" @click="toPage('/guquan')">一键匹配</div>
+            <div class="nav-item match" @click="toPage('/match')" :class="$route.path=='/match'?'active':''">一键匹配</div>
         </div>
         <div class="user">
             <div class="btn logo" @click="$emit('do-login')" v-show="!$store.state.userInfo.userName">登录</div>
@@ -21,6 +21,9 @@
 <script>
 export default {
     name:'Header',
+    props:{
+        isBg:{type:Boolean,default:false}
+    },
     data(){
         return {
 
@@ -37,8 +40,9 @@ export default {
 
 }
 </script>
-<style scoped>
+<style lang='scss' scoped>
 .header{padding: 13px 125px;height: 66px;display:flex;justify-content:space-between;}
+.headerbg{background:#06162c;}
 .header .left{display:flex;align-items:center;font-size:28px;color:#fff;}
 .header .left .logo{padding-top:10px;margin-right:15px;}
 .header .nav{display:flex;justify-content:flex-start;align-items:center;flex: 1;margin-left:104px;}

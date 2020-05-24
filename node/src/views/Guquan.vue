@@ -35,8 +35,8 @@
                         <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
                             <span>{{sItem.name}}：</span>
                             <a-select default-value="不限" style="width: 120px">
-                                <a-select-option :value="codeItem.value" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" @change="selectField(codeItem)">
-                                    {{codeItem.code}}
+                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" @change="selectField(codeItem)">
+                                    {{codeItem.value}}
                                 </a-select-option>
                             </a-select>
                         </div>
@@ -88,8 +88,9 @@
                 </div>
             </div>
         </div>
-        <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" :isForm="true"></Login>
-        <Register v-if="isReg" @to-login="login" @do-reg="doReg" @close="close" :isForm="true"></Register>
+        <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" :isForm="true"></Login>
+        <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close" :isForm="true"></Register>
+        <Forget v-show="isForget" @do-forget="doforget" @to-login="login" @close="close" :isForm="true"></Forget>
         <Footer></Footer>
     </div>
 </template>
@@ -103,6 +104,7 @@ export default {
         return {
             isLogin:false,
             isReg:false,
+            isForget:false,
             openMore:false,
             openStyle:{},
             openBodyStyle:{},
@@ -162,11 +164,12 @@ export default {
         login(){
             this.isLogin = true;
             this.isReg = false;
+            this.isForget = false;
         },
         doLogin(params){
             console.log(params)
             if(params && params.mobile){
-                console.log(params)
+                this.userInfo = this.$store.state.userInfo;
                 this.isLogin = false;
             }
         },
@@ -175,14 +178,25 @@ export default {
             this.isLogin = false;
         },
         doReg(params){
-            if(params && params.mobile){
             console.log(params)
-            this.isReg = false;
+            if(params && params.mobile){
+                this.isReg = false;
+            }
+        },
+        toForget(){
+            this.isLogin=false;
+            this.isForget=true;
+        },
+        doforget(params){
+            console.log(params)
+            if(params && params.mobile){
+                this.isForget = false;
             }
         },
         close(){
-        this.isLogin = false;
-        this.isReg = false;
+            this.isLogin = false;
+            this.isReg = false;
+            this.isForget = false;
         },
         initPage(){
             var params = this.params;
@@ -265,6 +279,8 @@ export default {
         Footer:()=>import("@/components/Footer.vue"),
         Login:()=>import("@/components/Login.vue"),
         Register:()=>import("@/components/Register.vue"),
+        Forget:()=>import("@/components/Forget.vue"),
+        
     }
 }
 </script>
