@@ -6,7 +6,7 @@
           <img src="/image/home/logo.png" alt="">
         </div>
         <div class="nav">
-          <div class="nav-item" @click="toPage('/')">首页</div>
+          <div class="nav-item active" @click="toPage('/')" >首页</div>
           <div class="nav-item" @click="toPage('/guquan')">股权融资</div>
           <div class="nav-item" @click="toPage('/zhaiquan')">债权融资</div>
         </div>
@@ -47,7 +47,7 @@
         <div class="center">
           <!-- <img src="/image/home/map.png" alt="" class="center-bg"> -->
           <svg  class="center-bg" width="42vw" height="55vh" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <image x="0" y='-228' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
+              <image x="0" y='-220' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
               <image x="0" y='392' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
           </svg>
           <div class="center-map">
@@ -334,6 +334,10 @@ export default {
           color: #abff9b;
           background-image:url(/image/home/btn-act.png)
         }
+      }
+      .active{
+        color: #abff9b;
+        background-image:url(/image/home/btn-act.png)
       }
     }
     .right{

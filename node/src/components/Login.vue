@@ -161,9 +161,12 @@ export default {
 	letter-spacing: 0px;
 	color: #7edcff;}
 .login .login-box .l-input div:nth-child(1){text-align:right;margin-right: 1.5vw;}
-.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2.1vw;background:url(/image/home/l-input.png) center no-repeat;padding:0px 1vw;background-size:cover;}
+.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2.1vw;
+    background:url(/image/home/l-input.png) bottom no-repeat,url(/image/home/l-input.png) top no-repeat;
+    font-size: 0.8vw;
+    padding:0px 1vw;background-size:cover;}
 .login .login-box .l-input div:nth-child(2) input:-webkit-input-placeholder{font-family: PingFangSC-Regular;
-	font-size: 1vw;
+	font-size: 0.8vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;
