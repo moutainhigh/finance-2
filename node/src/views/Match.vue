@@ -57,7 +57,7 @@
             </a-form-model>
         </a-card>
         <a-card title="业务信息" class="card-work">
-            <a-form-model ref="ruleForm" :model="matchForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:12}">
+            <a-form-model ref="matchForm" :model="matchForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:12}">
                     <a-form-model-item ref="financeState" label="融资阶段" prop="financeState" class="input-item" >
                         <a-select v-model="matchForm.financeState"  @blur="
                             () => {
@@ -66,14 +66,14 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('RZJD')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.financeState==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.financeState==5" placeholder="请输入其他的内容" v-model="financeState" @blur=" 
                             () => {
                                 $refs.financeState.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <!-- <a-form-model-item ref="financeQuota" label="融资额度" prop="financeQuota" class="input-item">
+                    <a-form-model-item ref="financeQuota" label="融资额度" prop="financeQuota" class="input-item">
                         <a-select v-model="matchForm.financeQuota"  @blur="
                             () => {
                                 $refs.financeQuota.onFieldBlur();
@@ -90,7 +90,7 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('HYFX')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.IndustryDirect==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.IndustryDirect==8" placeholder="请输入其他的内容" v-model="IndustryDirect" @blur=" 
                             () => {
                                 $refs.IndustryDirect.onFieldBlur();
                             }
@@ -105,7 +105,7 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('GDBJ')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.shareholder==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.shareholder==8" placeholder="请输入其他的内容" v-model="shareholder" @blur=" 
                             () => {
                                 $refs.shareholder.onFieldBlur();
                             }
@@ -120,7 +120,7 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CPJD')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.productState==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.productState==5" placeholder="请输入其他的内容" v-model="productState" @blur=" 
                             () => {
                                 $refs.productState.onFieldBlur();
                             }
@@ -224,12 +224,12 @@
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('MBKH')">{{item.value}}</a-select-option>
-                          <a-input v-show="matchForm.targetCustomer==1" placeholder="请输入其他的内容" @blur=" 
+                          <!-- <a-input v-show="matchForm.targetCustomer==4" placeholder="请输入其他的内容" v-model="targetCustomer" @blur=" 
                                 () => {
                                     $refs.targetCustomer.onFieldBlur();
                                 }
                                 "
-                            />
+                            /> -->
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item ref="marketOccupyRate" label="市场占有率/预期市场占有率" prop="marketOccupyRate" class="input-item">
@@ -259,26 +259,25 @@
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('FMZLSL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="advantage" label="公司竞争优势" prop="advantage" class="input-item">
-                        <a-checkbox @change="onChange">成本优势</a-checkbox>
-                        <a-select v-model="matchForm.advantage" style="width:5vw;" @blur="
+                    <a-form-model-item ref="advantage" label="公司竞争优势" prop="advantage" class="input-item" :wrapper-col="{ span: 18, offset: 0 }">
+                        <a-checkbox @change="onChange" v-model="isCheckCb">成本优势</a-checkbox>
+                        <a-select v-model="matchForm.advantage" style="width:5vw;" v-if="isCheckCb" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-checkbox @change="onChange" style="margin-left:0.3vw;">技术优势</a-checkbox>
-                        <a-select v-model="matchForm.advantage" style="width:5vw;" @blur="
+                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs">技术优势</a-checkbox>
+                        <a-select v-model="matchForm.advantage" style="width:5vw;" v-if="isCheckJs" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-checkbox-group :options="['渠道优势','先发优势','资质优势']" style="margin-left:0.3vw;"></a-checkbox-group>
-                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="matchForm.advantage" >其他</a-checkbox>
-                        <a-input v-show="matchForm.advantage" style="width:5vw;margin-left:0.3vw;"></a-input>
+                        <a-checkbox-group :options="['渠道优势','先发优势','资质优势','其他']" style="margin-left:0.3vw;" v-model="advantage"></a-checkbox-group>
+                        <a-input v-show="advantage.indexOf('其他')!=-1" style="width:8vw;margin-left:0.3vw;"></a-input>
                     </a-form-model-item>
                     <a-form-model-item ref="capitals" label="股东累计投入资金" prop="capitals" class="input-item">
                         <a-select v-model="matchForm.capitals" @blur="
@@ -297,7 +296,7 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SSSJ')">{{item.value}}</a-select-option>
                         </a-select>
-                    </a-form-model-item> -->
+                    </a-form-model-item>
                     <a-form-model-item ref="evaluateName" label="公司所获评定称号" prop="evaluateName" class="input-item">
                         <a-select v-model="matchForm.evaluateName" @blur="
                             () => {
@@ -306,7 +305,7 @@
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('PDCH')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.evaluateName==1" key="" placeholder="请输入其他内容"></a-input>
+                        <a-input v-show="matchForm.evaluateName==4" key="" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
                         <a-button type="primary" @click="onSubmit">
@@ -377,17 +376,48 @@ export default {
                 businessAddRate:""
             },
             rules:{
-                mobile:[
-                    {required:true,message:'请输入联系电话',trigger:'blur'}
-                ]
+                financeQuota:[{required:true,message:'请选择融资额度',trigger:'blur'}],
+                financeState:[{required:true,message:'请选择融资阶段',trigger:'blur'}],
+                IndustryDirect:[{required:true,message:'请选择行业方向',trigger:'blur'}],
+                registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
+                business:[{required:true,message:'请选择营业收入',trigger:'blur'}],
+                staffCount:[{required:true,message:'请选择员工人数',trigger:'blur'}],
+                marketOccupyRate:[{required:true,message:'请选择预期市场占有率',trigger:'blur'}],
+                evaluateName:[{required:true,message:'请选择公司所获评定称号',trigger:'blur'}],
+                mechanismOrProduct:[{required:true,message:'请选择产品或机构名称',trigger:'blur'}],
+                productState:[{required:true,message:'请选择产品阶段',trigger:'blur'}],
+                productRate:[{required:true,message:'请选择产品毛利率',trigger:'blur'}],
+                experience:[{required:true,message:'请选择实际控制人创业经历',trigger:'blur'}],
+                patentCount:[{required:true,message:'请选择专利发明数量',trigger:'blur'}],
+                shareholder:[{required:true,message:'请选择股东背景',trigger:'blur'}],
+                capitals:[{required:true,message:'请选择股东累计投入资金',trigger:'blur'}],
+                advantage:[{required:true,message:'请选择公司竞争优势',trigger:'blur'}],
+                oldFinanceQuota:[{required:true,message:'请选择过往融资金额',trigger:'blur'}],
+                netInterestRate:[{required:true,message:'请选择净利率',trigger:'blur'}],
+                targetCustomer:[{required:true,message:'请选择目标客户',trigger:'blur'}],
+                companyStatus:[{required:true,message:'请选择历史创业企业状态',trigger:'blur'}],
+                marketCapacity:[{required:true,message:'请选择市场容量',trigger:'blur'}],
+                marketAddRate:[{required:true,message:'请选择市场容量预期增长率',trigger:'blur'}],
+                boolBuyBack:[{required:true,message:'请选择是否接受回购条款',trigger:'blur'}],
+                timeToMarket:[{required:true,message:'请选择预计上市时间',trigger:'blur'}],
+                businessAddRate:[{required:true,message:'请选择营业收入增长率',trigger:'blur'}]
             },
             options:['成本优势','渠道优势','先发优势','资质优势'],
-            searchFieldList:[]
+            searchFieldList:[],
+            isCheckCb:false,
+            isCheckJs:false,
+            advantage:[],
+            financeState:'',//融资阶段其他
+            IndustryDirect:'',//行业方向其他
+            shareholder:'',//股东背景其他
+            productState:'',//产品阶段其他
+            targetCustomer:'',//目标客户其他
+            evaluateName:'',//预计上市时间其他
         }
     },
     created(){
         getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
-            this.searchFieldList = matchSearchData(res);
+            this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
     },
     methods:{
@@ -433,30 +463,51 @@ export default {
             }
         },
         getFieldList(codeType){
-            // let fieldItem = this.searchFieldList.filter(item=> item.codeType==codeType);
-            for(let item in this.searchFieldList){
-                console.log(codeType,Object.keys(item));
+            for(let item of this.searchFieldList){
+                // console.log(item.codeType,codeType);
                 if(item.codeType==codeType){
-                    return item['sysCodeValueVos'];
+                    return item.sysCodeValueVos;
                 }
-                return [];
             }
+            return [];
         },
         onChange(){
 
         },
         onSubmit(){
-            this.goMatch();
+            new Promise((resolve,reject)=>{
+                 this.$refs.baseForm.validate(valid => {
+                    if (valid) {
+                        resolve()
+                    } else {
+                        return false;
+                    }
+                });
+            }).then((res)=>{
+               this.$refs.matchForm.validate(valid => {
+                    if (valid) {
+                        console.log(valid)
+                        this.goMatch();
+                    } else {
+                        return false;
+                    }
+                }); 
+            })
+           
+            
         },
         goMatch(){
+            let params = Object.assign({},this.baseForm,this.matchForm);
+            console.log(params)
             // /finance/financeProduct/getOneKeyMatching
             this.$http.post('/finance/financeProduct/getOneKeyMatching',this.params).then(res=>{
+                console.log(res)
                 if(res.data.code==0){
 
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            })
+            }).catch(err=>console.log(err))
         }
     },
     components:{

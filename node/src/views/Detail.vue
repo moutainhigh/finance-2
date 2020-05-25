@@ -114,7 +114,7 @@
 </template>
 <script>
 export default {
-    name:"Guquan",
+    name:"Detail",
     data(){
         return {
             detail:{}
@@ -122,7 +122,7 @@ export default {
     },
     methods:{
         initPage(){
-            var params = this.$route.params;
+            var params = this.$route.query;
             this.$http.post('/finance/financeProduct/getFinanceProductDetail',{...params}).then(res=>{
                 if(res.data.code==0){
                     this.detail = res.data.content;

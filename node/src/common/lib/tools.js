@@ -61,7 +61,7 @@ export async function drawCompany(driver,name,companyList){
                 }
                 svg.append('circle').attr('cx',ncx).attr('cy',ncy).attr('r',companyObj.layR).style('fill',bgcolor);
                 svg.append('circle').attr('cx',ncx).attr('cy',ncy).attr('r',companyObj.r)
-                   .attr('comp',item.institutionName).attr('name',name).attr('did',item.id)
+                   .attr('comp',item.institutionName).attr('name',name).attr('did',item.id).attr('ctype',item.institutionType)
                    .attr('top','c').style('fill',color).style('cursor','pointer');
             })
         }
@@ -170,18 +170,70 @@ export function matchSearchData(data){
         YYSR:'营业收入',
         YYSRZZL:'营业收入增长率'
     };
+    names={
+        RZED:'融资额度',
+        RZJD:'融资阶段',
+        HYFX:'行业方向',
+        BOND_FMZLS:'债券融资_发明专利数量',
+        BOND_YYSR:'债券融资_营业收入',
+        CPJD:'产品阶段',
+        CPMLL:'产品毛利率',
+        CYJL:'实控人创业经历',
+        DKED:'贷款额度',
+        DKJE:'现有贷款金额',
+        DKQX:'贷款期限',
+        FCDY:'是否接受房产抵押',
+        GDBJ:'股东背景',
+        GDLJTRZJ:'股东累计投入资金',
+        GQDDE:'央企/大型国企核心供应商订单额',
+        GQTZ:'是否已引入股权投资',
+        gsjzys:'公司竞争优势',
+        GWRZJE:'过往融资金额',
+        JLL:'净利率',
+        JLR:'净利润',
+        MBKH:'目标客户',
+        NRED:'纳税额度',
+        PDCH:'公司所获评定称号',
+        QTDK:'是否有其他贷款',
+        QYZT:'历史创业企业状态',
+        QYZZ:'企业资质',
+        REGION:'成都地区',
+        SCRL:'市场容量',
+        SCRLZZL:'市场容量预期增长率',
+        SCZYL:'市场占有率',
+        SFHG:'是否接受回购条款',
+        SSSJ:'预计上市时间',
+        STOCKRIGHT_FMZLSL:'股权融资_发明专利数量',
+        STOCKRIGHT_YYSR:'股权融资_营业收入',
+        XJLJE:'上年度经营活动现金流净额',
+        YGRS:'员工人数',
+        YYSRZZL:'营业收入增长率',
+        ZFBT:'政府补贴',
+        ZFDDE:'政府订单额',
+        ZXFS:'增信方式'
+
+    }
     if(!(data instanceof Array)){
-    return dataArr;
+        return dataArr;
     }else{
         let fields = Object.keys(names);
-        data.forEach(item=>{
+        // data.forEach(item=>{
+        //     let index = fields.indexOf(item.codeType);
+        //     if(index!=-1){
+        //         item['name'] = names[item.codeType];
+        //         dataArr[index]=item;
+        //     }
+        // });
+        for (let item of data){
             let index = fields.indexOf(item.codeType);
-            if(index!=-1){
+            if(index!=-1 && index<4){
                 item['name'] = names[item.codeType];
                 dataArr[index]=item;
+            }else{
+                dataArr.push(item) 
             }
-        });
-        return dataArr;
+        };
+        return dataArr.filter(item=>item);
     }
 }
 

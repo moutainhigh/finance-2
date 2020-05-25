@@ -169,6 +169,7 @@ export default {
         getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
             this.searchFieldList = matchSearchData(res);
         }).catch(err=>console.log(err));
+        
         this.getProductList();
     },
     methods:{
@@ -230,8 +231,7 @@ export default {
 
         },
         toDetail(item){
-            console.log(22)
-            this.$router.push({path:'/detail'})
+            this.$router.push({path:'/detail',query:{id:item.id}})
         },
         selSearchField(val,item){
             let field = mapData.get(item.codeType);

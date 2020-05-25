@@ -26,14 +26,14 @@
             <div class="tab-item" :class="tabAction==1?'tab-active':''" @click="tabChange(1)">债券机构</div>
           </div>
           <div class="left-list" v-show="tabAction==0">
-              <div class="list-item" v-for="(item,index) in gqjg" :key="index"
+              <div class="list-item" v-for="(item,index) in gqjg.slice(0,10)" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
               </div>
           </div>
           <div class="left-list" v-show="tabAction==1">
-              <div class="list-item" v-for="(item,index) in zjjg" :key="index"
+              <div class="list-item" v-for="(item,index) in zjjg.slice(0,10)" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
@@ -112,7 +112,7 @@ export default {
   data(){
     return {
       tabAction:0,
-      gqIndex:-1,
+      gqIndex:0,
       isLogin:false,
       isReg:false,
       isForget:false,
@@ -270,11 +270,31 @@ export default {
     },
     selCirle(e){
       let id = e.target.getAttribute('did');
+      let ctype = e.target.getAttribute('ctype');
       if(id){
-        let currItem = this.companyList.filter(item=>item.id == id);
-        if(currItem.length==1){
-          this.currSelItem = currItem[0];
+        if(ctype==0){
+          this.tabAction=0;
+          this.gqjg.forEach((item,index)=>{
+            if(item.id == id){
+              this.currSelItem = item;;
+              this.gqIndex = index>10?this.gqIndex:index;
+              return;
+            }
+          })
+        }else{
+          this.tabAction=1
+          this.zjjg.forEach((item,index)=>{
+            if(item.id == id){
+              this.currSelItem = item;;
+              this.gqIndex = index>10?this.gqIndex:index;
+              return;
+            }
+          })
         }
+        // let currItem = this.companyList.filter(item=>item.id == id);
+        // if(currItem.length==1){
+        //   this.currSelItem = currItem[0];
+        // }
       }
     }
 

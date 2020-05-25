@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div :class="isForm?'loginx':'login'">
         <div class="login-box" v-if='!isForm'>
             <img src="/image/home/login.png" class="reg-img" />
             <div class="input-box">
@@ -245,6 +245,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.loginx{
+    position:absolute;
+    top:0vw;
+    left:0vw;
+    width:100%;
+    height:100vh;
+    overflow: hidden;
+    background-color:none;
+    z-index:9;
+}
 .login{
     position:absolute;
     top:0vw;
@@ -254,10 +264,11 @@ export default {
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.75);
     z-index:9;
+}
     .login-box{
         width:31vw;
         height:27vw;
-        position: absolute;
+        position: fixed;
         top:50%;
         left:50%;
         transform:translate(-50%,-50%);
@@ -390,5 +401,5 @@ export default {
             }
         }
     }
-}
+
 </style>
