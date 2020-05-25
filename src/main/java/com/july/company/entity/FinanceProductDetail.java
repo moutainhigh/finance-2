@@ -142,7 +142,7 @@ public class FinanceProductDetail extends BaseEntity {
     /**
      * 预计上市时间
      */
-    @TableField("预计上市时间")
+    @TableField("timeToMarket")
     private String timeToMarket;
     /**
      * 历史创业企业状态
