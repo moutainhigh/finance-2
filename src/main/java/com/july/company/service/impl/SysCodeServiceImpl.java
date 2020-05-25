@@ -67,13 +67,7 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
      */
     @Override
     public List<QuerySysCodeVo> getQuerySysCode(QuerySysCodeDto querySysCodeDto) {
-        QueryWrapper<SysCode> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("financeType", querySysCodeDto.getFinanceType())
-                .eq("boolQuery", querySysCodeDto.getBoolQuery())
-                .eq("boolShow", SystemConstant.SYS_TRUE)
-                .orderByAsc("querySort");
-        List<SysCode> sysCodes = this.list(queryWrapper);
-
+        List<SysCode> sysCodes = sysCodeMapper.getAllSysCode(querySysCodeDto);
         //存在子类
         List<SysCode> childSysCode = sysCodeMapper.getChildSysCode(querySysCodeDto.getFinanceType());
         List<QueryDetailSysCodeVo> sysCodeVoArrayList = new ArrayList<>();
@@ -109,7 +103,7 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             });
         }
 
-        List<SysCode> sysCodeList = sysCodeMapper.getQuerySysCode(querySysCodeDto.getFinanceType());
+        List<SysCode> sysCodeList = sysCodeMapper.getQuerySysCode(querySysCodeDto);
 
         List<QuerySysCodeVo> querySysCodeVos = new ArrayList<>();
         sysCodeList.stream().forEach(sysCode -> {

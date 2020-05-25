@@ -17,8 +17,10 @@
             select fsc.codeType,fsc.codeName,fsc.querySort from fc_sys_code fsc
             where
             fsc.financeType = #{financeType}
-            and boolQuery = 1
-            and boolShow = 1
+            <if test="boolQuery > 0">
+                and boolQuery = 1
+                and boolShow = 1
+            </if>
             group by fsc.codeType,fsc.codeName,fsc.querySort
         ) as t order by t.querySort asc
     </select>
@@ -29,6 +31,17 @@
         1=1
         and fsc.financeType = #{financeType}
         and fsc.pCodeType is not null
+    </select>
+
+    <select id="getAllSysCode" resultType="com.july.company.entity.SysCode">
+        select fsc.* from fc_sys_code fsc
+        where
+        fsc.financeType = #{financeType}
+        <if test="boolQuery > 0">
+            and fsc.boolQuery = 1
+            and fsc.boolShow = 1
+        </if>
+        order by fsc.querySort
     </select>
 
 </mapper>
