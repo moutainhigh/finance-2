@@ -12,28 +12,28 @@
         <div class="tis">请尽量填写更多信息，以便更精准的为您推荐相关融资产品!</div>
         <a-card title="基本信息" class="card">
             <a-form-model ref="baseForm" :model="baseForm" :rules="baseRules" :label-col="{span:4}" :wrapper-col="{span:6}">
-                    <a-form-model-item ref="mobile" label="注册地址" prop="mobile" class="input-item">
-                        <a-select v-model="baseForm.mobile" @blur="
+                    <a-form-model-item ref="registerAddress" label="注册地址" prop="registerAddress" class="input-item">
+                        <a-select v-model="baseForm.registerAddress" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.registerAddress.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="不限">不限</a-select-option>
-                          <a-select-option key="" value="不限">不限</a-select-option>
+                          <a-select-option key="" value="">不限</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('REGION')">{{item.value}}</a-select-option>
                         </a-select> 
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="办公地址" prop="mobile" class="input-item">
-                        <a-input v-model="baseForm.mobile" @blur="
+                    <a-form-model-item ref="workAddress" label="办公地址" prop="workAddress" class="input-item">
+                        <a-input v-model="baseForm.workAddress" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.workAddress.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="联系人" prop="mobile" class="input-item">
-                        <a-input v-model="baseForm.mobile" @blur="
+                    <a-form-model-item ref="username" label="联系人" prop="username" class="input-item">
+                        <a-input v-model="baseForm.username" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.username.onFieldBlur();
                             }
                             "
                         />
@@ -46,10 +46,10 @@
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="公司简介" prop="mobile" class="input-item" :wrapper-col="{ span: 12, offset: 0 }">
-                        <a-textarea v-model="baseForm.mobile" @blur="
+                    <a-form-model-item ref="desc" label="公司简介" prop="desc" class="input-item" :wrapper-col="{ span: 12, offset: 0 }">
+                        <a-textarea v-model="baseForm.desc" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.desc.onFieldBlur();
                             }
                             "
                         />
@@ -58,359 +58,255 @@
         </a-card>
         <a-card title="业务信息" class="card-work">
             <a-form-model ref="ruleForm" :model="matchForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:12}">
-                    <a-form-model-item ref="mobile" label="融资阶段" prop="mobile" class="input-item" >
-                        <a-select v-model="matchForm.mobile"  @blur="
+                    <a-form-model-item ref="financeState" label="融资阶段" prop="financeState" class="input-item" >
+                        <a-select v-model="matchForm.financeState"  @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.financeState.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="未融资">未融资</a-select-option>
-                          <a-select-option key="" value="种子期">种子期</a-select-option>
-                          <a-select-option key="" value="天使期">天使期</a-select-option>
-                          <a-select-option key="" value="成长期">成长期</a-select-option>
-                          <a-select-option key="" value="成熟期">成熟期</a-select-option>
-                          <a-select-option key="" :value="1">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('RZJD')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.mobile==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.financeState==1" placeholder="请输入其他的内容" @blur=" 
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.financeState.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="融资额度" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile"  @blur="
+                    <!-- <a-form-model-item ref="financeQuota" label="融资额度" prop="financeQuota" class="input-item">
+                        <a-select v-model="matchForm.financeQuota"  @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.financeQuota.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="100万以内">100万以内</a-select-option>
-                          <a-select-option key="" value="100-200万">100-200万</a-select-option>
-                          <a-select-option key="" value="200-500万">200-500万</a-select-option>
-                          <a-select-option key="" value="500-1000万">500-1000万</a-select-option>
-                          <a-select-option key="" value="1000万以上">1000万以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('RZED')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="行业方向" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="IndustryDirect" label="行业方向" prop="IndustryDirect" class="input-item">
+                        <a-select v-model="matchForm.IndustryDirect" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.IndustryDirect.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="未融资">医药/医疗器械</a-select-option>
-                          <a-select-option key="" value="电子信息">电子信息</a-select-option>
-                          <a-select-option key="" value="轨道交通">轨道交通</a-select-option>
-                          <a-select-option key="" value="大数据">大数据</a-select-option>
-                          <a-select-option key="" value="互联网">互联网</a-select-option>
-                          <a-select-option key="" value="新经济">新经济</a-select-option>
-                          <a-select-option key="" value="军民融合">军民融合</a-select-option>
-                          <a-select-option key="" value="人工智能">人工智能</a-select-option>
-                          <a-select-option key="" value="新经济">新经济</a-select-option>
-                          <a-select-option key="" :value="1">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('HYFX')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.mobile==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.IndustryDirect==1" placeholder="请输入其他的内容" @blur=" 
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.IndustryDirect.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="股东背景" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="shareholder" label="股东背景" prop="shareholder" class="input-item">
+                        <a-select v-model="matchForm.shareholder" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.shareholder.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无">无</a-select-option>
-                          <a-select-option key="" value="副教授">副教授</a-select-option>
-                          <a-select-option key="" value="正教授">正教授</a-select-option>
-                          <a-select-option key="" value="国家千人">国家千人</a-select-option>
-                          <a-select-option key="" value="省千人">省千人</a-select-option>
-                          <a-select-option key="" value="其他人才">其他人才</a-select-option>
-                          <a-select-option key="" value="上市公司高管">上市公司高管</a-select-option>
-                          <a-select-option key="" value="上市公司中层">上市公司中层</a-select-option>
-                          <a-select-option key="" :value="1">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('GDBJ')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.mobile==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.shareholder==1" placeholder="请输入其他的内容" @blur=" 
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.shareholder.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="产品阶段" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="productState" label="产品阶段" prop="productState" class="input-item">
+                        <a-select v-model="matchForm.productState" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.productState.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="研发">研发</a-select-option>
-                          <a-select-option key="" value="小试">小试</a-select-option>
-                          <a-select-option key="" value="中试">中试</a-select-option>
-                          <a-select-option key="" value="扩大生产">扩大生产</a-select-option>
-                          <a-select-option key="" value="不涉及">不涉及</a-select-option>
-                          <a-select-option key="" :value="1">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CPJD')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.mobile==1" placeholder="请输入其他的内容" @blur=" 
+                        <a-input v-show="matchForm.productState==1" placeholder="请输入其他的内容" @blur=" 
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.productState.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="营业收入" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="business" label="营业收入" prop="business" class="input-item">
+                        <a-select v-model="matchForm.business" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.business.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无">无</a-select-option>
-                          <a-select-option key="" value="100万以内">100万以内</a-select-option>
-                          <a-select-option key="" value="100-500万元">100-500万元</a-select-option>
-                          <a-select-option key="" value="1000-5000万元">1000-5000万元</a-select-option>
-                          <a-select-option key="" value="5000万元以上">5000万元以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('YYSR')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="营业收入增长率" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="businessAddRate" label="营业收入增长率" prop="businessAddRate" class="input-item">
+                        <a-select v-model="matchForm.businessAddRate" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.businessAddRate.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="10%以内">10%以内</a-select-option>
-                          <a-select-option key="" value="10%-20%">10%-20%</a-select-option>
-                          <a-select-option key="" value="20%-30%">20%-30%</a-select-option>
-                          <a-select-option key="" value="30%-50%">30%-50%</a-select-option>
-                          <a-select-option key="" value="50%以上">50%以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('YYSRZZL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="产品毛利率/预期产品毛利率" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="productRate" label="产品毛利率/预期产品毛利率" prop="productRate" class="input-item">
+                        <a-select v-model="matchForm.productRate" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.productRate.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="10%以内">10%以内</a-select-option>
-                          <a-select-option key="" value="10%-20%">10%-20%</a-select-option>
-                          <a-select-option key="" value="20%-30%">20%-30%</a-select-option>
-                          <a-select-option key="" value="30%-50%">30%-50%</a-select-option>
-                          <a-select-option key="" value="50%以上">50%以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CPMLL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="净利润" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="netInterestRate" label="净利润" prop="netInterestRate" class="input-item">
+                        <a-select v-model="matchForm.netInterestRate" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.netInterestRate.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="100万以内">100万以内</a-select-option>
-                          <a-select-option key="" value="100-200万">100-200万</a-select-option>
-                          <a-select-option key="" value="200-500万">200-500万</a-select-option>
-                          <a-select-option key="" value="500-1000万">500-1000万</a-select-option>
-                          <a-select-option key="" value="1000万以上">1000万以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('JLL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="过往融资金额" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="oldFinanceQuota" label="过往融资金额" prop="oldFinanceQuota" class="input-item">
+                        <a-select v-model="matchForm.oldFinanceQuota" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.oldFinanceQuota.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无">无</a-select-option>
-                          <a-select-option key="" value="100万以内">100万以内</a-select-option>
-                          <a-select-option key="" value="100-200万">100-200万</a-select-option>
-                          <a-select-option key="" value="200-500万">200-500万</a-select-option>
-                          <a-select-option key="" value="500-1000万">500-1000万</a-select-option>
-                          <a-select-option key="" value="1000万以上">1000万以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('GWRZJE')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="实控人创业经历" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="experience" label="实控人创业经历" prop="experience" class="input-item">
+                        <a-select v-model="matchForm.experience" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.experience.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无">无</a-select-option>
-                          <a-select-option key="" value="1次">1次</a-select-option>
-                          <a-select-option key="" value="2次">2次</a-select-option>
-                          <a-select-option key="" value="3次">3次</a-select-option>
-                          <a-select-option key="" value="3次以上">3次以上</a-select-option>
+                            <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CYJL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="历史创业企业状态" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="companyStatus" label="历史创业企业状态" prop="companyStatus" class="input-item">
+                        <a-select v-model="matchForm.companyStatus" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.companyStatus.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="注销">注销</a-select-option>
-                          <a-select-option key="" value="存续">存续</a-select-option>
-                          <a-select-option key="" value="获得融资">获得融资</a-select-option>
-                          <a-select-option key="" value="被并购">被并购</a-select-option>
-                          <a-select-option key="" value="pre-IPO">pre-IPO</a-select-option>
-                          <a-select-option key="" value="已上市">已上市</a-select-option>
+                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('QYZT')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="员工人数" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="staffCount" label="员工人数" prop="staffCount" class="input-item">
+                        <a-select v-model="matchForm.staffCount" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.staffCount.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="1-10人">1-10人</a-select-option>
-                          <a-select-option key="" value="10-50人">10-50人</a-select-option>
-                          <a-select-option key="" value="50-100人">50-100人</a-select-option>
-                          <a-select-option key="" value="100-500人">100-500人</a-select-option>
-                          <a-select-option key="" value="500人以上">500人以上</a-select-option>
+                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('YGRS')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="市场容量" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="marketCapacity" label="市场容量" prop="marketCapacity" class="input-item">
+                        <a-select v-model="matchForm.marketCapacity" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.marketCapacity.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="0-10亿元">0-10亿元</a-select-option>
-                          <a-select-option key="" value="10-30亿元">10-30亿元</a-select-option>
-                          <a-select-option key="" value="30-50亿元">30-50亿元</a-select-option>
-                          <a-select-option key="" value="50亿元以上">50亿元以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SCRL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="市场容量预期增长率" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="marketAddRate" label="市场容量预期增长率" prop="marketAddRate" class="input-item">
+                        <a-select v-model="matchForm.marketAddRate" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.marketAddRate.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="0-10%">0-10%</a-select-option>
-                          <a-select-option key="" value="10-20%">10-20%</a-select-option>
-                          <a-select-option key="" value="20%-30%">20%-30%</a-select-option>
-                          <a-select-option key="" value="30%-50%">30%-50%</a-select-option>
-                          <a-select-option key="" value="50%以上">50%以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SCRLZZL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="目标客户" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="targetCustomer" label="目标客户" prop="targetCustomer" class="input-item">
+                        <a-select v-model="matchForm.targetCustomer" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.targetCustomer.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="个人">个人</a-select-option>
-                          <a-select-option key="" value="企业">企业</a-select-option>
-                          <a-select-option key="" value="政府">政府</a-select-option>
-                          <a-select-option key="" value="军工">军工</a-select-option>
-                          <a-select-option key="" :value="1">其它</a-select-option>
-                          <a-input v-show="matchForm.mobile==1" placeholder="请输入其他的内容" @blur=" 
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('MBKH')">{{item.value}}</a-select-option>
+                          <a-input v-show="matchForm.targetCustomer==1" placeholder="请输入其他的内容" @blur=" 
                                 () => {
-                                    $refs.mobile.onFieldBlur();
+                                    $refs.targetCustomer.onFieldBlur();
                                 }
                                 "
                             />
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="市场占有率/预期市场占有率" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="marketOccupyRate" label="市场占有率/预期市场占有率" prop="marketOccupyRate" class="input-item">
+                        <a-select v-model="matchForm.marketOccupyRate" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.marketOccupyRate.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="0-10%">0-10%</a-select-option>
-                          <a-select-option key="" value="10%-30%">10%-30%</a-select-option>
-                          <a-select-option key="" value="30%-50%">30%-50%</a-select-option>
-                          <a-select-option key="" value="50%以上">50%以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SCZYL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="是否接受回购条款" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="boolBuyBack" label="是否接受回购条款" prop="boolBuyBack" class="input-item">
+                        <a-select v-model="matchForm.boolBuyBack" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.boolBuyBack.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="1">是</a-select-option>
-                          <a-select-option key="" value="0">否</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SFHG')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="发明专利数量" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="patentCount" label="发明专利数量" prop="patentCount" class="input-item">
+                        <a-select v-model="matchForm.patentCount" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.patentCount.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无">无</a-select-option>
-                          <a-select-option key="" value="1-3个">1-3个</a-select-option>
-                          <a-select-option key="" value="3-10个">3-10个</a-select-option>
-                          <a-select-option key="" value="10个以上">10个以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('FMZLSL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="公司竞争优势" prop="mobile" class="input-item">
+                    <a-form-model-item ref="advantage" label="公司竞争优势" prop="advantage" class="input-item">
                         <a-checkbox @change="onChange">成本优势</a-checkbox>
-                        <a-select v-model="matchForm.mobile" style="width:5vw;" @blur="
+                        <a-select v-model="matchForm.advantage" style="width:5vw;" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="成本优势">成本优势</a-select-option>
-                          <a-select-option key="" value="渠道优势">渠道优势</a-select-option>
-                          <a-select-option key="" value="先发优势">先发优势</a-select-option>
-                          <a-select-option key="" value="资质优势">资质优势</a-select-option>
-                          <a-select-option key="" value="其它">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-checkbox @change="onChange" style="margin-left:0.3vw;">技术优势</a-checkbox>
-                        <a-select v-model="matchForm.mobile" style="width:5vw;" @blur="
+                        <a-select v-model="matchForm.advantage" style="width:5vw;" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="成本优势">成本优势</a-select-option>
-                          <a-select-option key="" value="渠道优势">渠道优势</a-select-option>
-                          <a-select-option key="" value="先发优势">先发优势</a-select-option>
-                          <a-select-option key="" value="资质优势">资质优势</a-select-option>
-                          <a-select-option key="" value="其它">其它</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-checkbox-group :options="['渠道优势','先发优势','资质优势']" style="margin-left:0.3vw;"></a-checkbox-group>
-                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="matchForm.mobile" >其他</a-checkbox>
-                        <a-input v-show="matchForm.mobile" style="width:5vw;margin-left:0.3vw;"></a-input>
+                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="matchForm.advantage" >其他</a-checkbox>
+                        <a-input v-show="matchForm.advantage" style="width:5vw;margin-left:0.3vw;"></a-input>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="股东累计投入资金" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="capitals" label="股东累计投入资金" prop="capitals" class="input-item">
+                        <a-select v-model="matchForm.capitals" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.capitals.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="无投入">无投入</a-select-option>
-                          <a-select-option key="" value="0-100万元">0-100万元</a-select-option>
-                          <a-select-option key="" value="0-100万元">0-100万元</a-select-option>
-                          <a-select-option key="" value="500-1000万">500-1000万</a-select-option>
-                          <a-select-option key="" value="1000-3000万">1000-3000万</a-select-option>
-                          <a-select-option key="" value="1000-3000万">1000-3000万</a-select-option>
-                          <a-select-option key="" value="3000万元以上">3000万元以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('GDLJTRZJ')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="预计上市时间" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    <a-form-model-item ref="timeToMarket" label="预计上市时间" prop="timeToMarket" class="input-item">
+                        <a-select v-model="matchForm.timeToMarket" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.timeToMarket.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="1-2年">1-2年</a-select-option>
-                          <a-select-option key="" value="2-3年">2-3年</a-select-option>
-                          <a-select-option key="" value="3-5年">3-5年</a-select-option>
-                          <a-select-option key="" value="5年以上">5年以上</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SSSJ')">{{item.value}}</a-select-option>
                         </a-select>
-                    </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="公司所获评定称号" prop="mobile" class="input-item">
-                        <a-select v-model="matchForm.mobile" @blur="
+                    </a-form-model-item> -->
+                    <a-form-model-item ref="evaluateName" label="公司所获评定称号" prop="evaluateName" class="input-item">
+                        <a-select v-model="matchForm.evaluateName" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.evaluateName.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="瞪羚企业">瞪羚企业</a-select-option>
-                          <a-select-option key="" value="独角兽企业">独角兽企业</a-select-option>
-                          <a-select-option key="" value="平台生态型龙头企业">平台生态型龙头企业</a-select-option>
-                          <a-select-option key="" value="不涉及">不涉及</a-select-option>
-                          <a-select-option key="" :value="1">其他</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('PDCH')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.mobile==1" key="" placeholder="请输入其他内容"></a-input>
+                        <a-input v-show="matchForm.evaluateName==1" key="" placeholder="请输入其他内容"></a-input>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
                         <a-button type="primary" @click="onSubmit">
@@ -428,6 +324,8 @@
 </template>
 
 <script>
+import { getSearchField,mapData } from "@/common/commapi.js"
+import { matchSearchData} from "@/common/lib/tools.js"
 export default {
     data(){
         return {
@@ -436,23 +334,61 @@ export default {
             isForget:false,
             active:0,
             baseForm:{
-                mobile:''
+                username:'',
+                mobile:'',
+                registerAddress:'',
+                workAddress:'',
+                desc:''
             },
             baseRules:{
                 mobile:[
                     {required:true,message:'请输入联系电话',trigger:'blur'}
-                ]
+                ],
+                username:[{required:true,message:'请输入联系人',trigger:'blur'}],
+                registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
+                workAddress:[{required:true,message:'请输入办公地址',trigger:'blur'}],
+                desc:[{required:true,message:'请输入公司简介',trigger:'blur'}],
             },
             matchForm:{
-                mobile:''
+                financeQuota:"",
+                financeState:"",
+                IndustryDirect:"",
+                registerAddress:"",
+                business:"",
+                staffCount:"",
+                marketOccupyRate:"",
+                evaluateName:"",
+                mechanismOrProduct:"",
+                productState:"",
+                productRate:"",
+                experience:"",
+                patentCount:"",
+                shareholder:"",
+                capitals:"",
+                advantage:"",
+                oldFinanceQuota:"",
+                netInterestRate:"",
+                targetCustomer:"",
+                companyStatus:"",
+                marketCapacity:"",
+                marketAddRate:"",
+                boolBuyBack:"",
+                timeToMarket:"",
+                businessAddRate:""
             },
             rules:{
                 mobile:[
                     {required:true,message:'请输入联系电话',trigger:'blur'}
                 ]
             },
-            options:['成本优势','渠道优势','先发优势','资质优势']
+            options:['成本优势','渠道优势','先发优势','资质优势'],
+            searchFieldList:[]
         }
+    },
+    created(){
+        getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
+            this.searchFieldList = matchSearchData(res);
+        }).catch(err=>console.log(err));
     },
     methods:{
         tabchange(index){
@@ -496,11 +432,31 @@ export default {
                 this.isForget = false;
             }
         },
+        getFieldList(codeType){
+            // let fieldItem = this.searchFieldList.filter(item=> item.codeType==codeType);
+            for(let item in this.searchFieldList){
+                console.log(codeType,Object.keys(item));
+                if(item.codeType==codeType){
+                    return item['sysCodeValueVos'];
+                }
+                return [];
+            }
+        },
         onChange(){
 
         },
         onSubmit(){
+            this.goMatch();
+        },
+        goMatch(){
+            // /finance/financeProduct/getOneKeyMatching
+            this.$http.post('/finance/financeProduct/getOneKeyMatching',this.params).then(res=>{
+                if(res.data.code==0){
 
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            })
         }
     },
     components:{

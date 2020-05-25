@@ -45,18 +45,18 @@
           </div>
         </div>
         <div class="center">
-          <!-- <img src="/image/home/map.png" alt="" class="center-bg"> -->
-          <svg  class="center-bg" width="42vw" height="55vh" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <img src="/image/home/map.png" alt="" class="center-bg">
+          <!-- <svg  class="center-bg" width="42vw" height="55vh" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
               <image x="0" y='-220' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
               <image x="0" y='392' width="20vw" height="20vw" xlink:href="/image/home/light.png" class="light"></image>
-          </svg>
+          </svg> -->
           <div class="center-map">
             <!-- <img src="/image/home/cd-map.png" alt="" class="cd-map">
             <img class="map-s" :src="imgItem.src" v-for="(imgItem,index) in map" :key="index" :name='imgItem.name'
                  :style="{top:imgItem.top,left:imgItem.left,opacity:imgItem.opacity,...imgItem.style,position:'absolute'}"/>
             <svg class="bg-svg" id="selsvg"></svg> -->
             <svg width="42vw" height="55vh" style="margin:4vw auto;" viewBox="0 0 802 594" version="1.1" preserveAspectRatio="xMinYMin meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-              <image x="66" y='0' xlink:href="/image/home/cd-map.png"></image>
+              <image x="26" y='0' xlink:href="/image/home/cd-map.png"></image>
               <image v-bind:xlink:href="imgItem.src" v-for="(imgItem,index) in cdMap" :key="index" 
                   :name='imgItem.name'
                   :style="{x:imgItem.top,y:imgItem.left,opacity:imgItem.opacity,...imgItem.style}"></image>
@@ -107,6 +107,7 @@
 import BMap from 'BMap';
 import $ from 'jQuery';
 import {filterCompany, drawCompany} from '@/common/lib/tools.js'
+const top=40;
 export default {
   data(){
     return {
@@ -117,27 +118,27 @@ export default {
       isForget:false,
       userInfo:{userName:''},
       cdMap:[
-        {opacity:0,top:'494',left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
-        {opacity:0,top:'134',left:'231',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0}},
-        {opacity:0,top:'85.7',left:'255',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0}},
-        {opacity:0,top:'249',left:'45.6',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0}},
-        {opacity:0,top:'494',left:'345',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
-        {opacity:0,top:'538',left:'318',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0}},
-        {opacity:0,top:'444',left:'254',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0}},
-        {opacity:0,top:'595',left:'203',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0}},
-        {opacity:0,top:'491',left:'308',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0}},
-        {opacity:0,top:'519',left:'287',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
-        {opacity:0,top:'342',left:'19',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0}},
-        {opacity:0,top:'361',left:'198',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0}},
-        {opacity:0,top:'204',left:'432',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0}},
-        {opacity:0,top:'526',left:'216.5',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0}},
-        {opacity:0,top:'426',left:'287',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0}},
-        {opacity:0,top:'109',left:'353',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
-        {opacity:0,top:'383',left:'308',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0}},
-        {opacity:0,top:'344',left:'223',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0}},
-        {opacity:0,top:'444',left:'308',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
-        {opacity:0,top:'429',left:'197',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
-        {opacity:0,top:'354',left:'362.5',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
+        {opacity:0,top:494-top,left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
+        {opacity:0,top:134-top,left:'231',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0}},
+        {opacity:0,top:85.7-top,left:'255',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0}},
+        {opacity:0,top:249-top,left:'45.6',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0}},
+        {opacity:0,top:494-top,left:'345',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
+        {opacity:0,top:538-top,left:'318',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0}},
+        {opacity:0,top:444-top,left:'254',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0}},
+        {opacity:0,top:595-top,left:'203',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0}},
+        {opacity:0,top:491-top,left:'308',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0}},
+        {opacity:0,top:519-top,left:'287',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
+        {opacity:0,top:342-top,left:'19',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0}},
+        {opacity:0,top:361-top,left:'198',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0}},
+        {opacity:0,top:204-top,left:'432',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0}},
+        {opacity:0,top:526-top,left:'216.5',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0}},
+        {opacity:0,top:426-top,left:'287',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0}},
+        {opacity:0,top:109-top,left:'353',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
+        {opacity:0,top:383-top,left:'308',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0}},
+        {opacity:0,top:344-top,left:'223',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0}},
+        {opacity:0,top:444-top,left:'308',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
+        {opacity:0,top:429-top,left:'197',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
+        {opacity:0,top:354-top,left:'362.5',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
       ],
       result:[
         {title:'企业入驻（家）',type:'companyCount',value:0},
@@ -535,26 +536,26 @@ export default {
         // background:blue;
         position:relative;
         .center-bg{
-          // width: 60vw;
-          // height: 96vh;
-          // position: absolute;
-          // z-index:-1;
-          // top: 50%;
-          // left: 50%;
-          // transform: translate(-50%,-52%);
-            width: 48vw;
-            height: 39vw;
-            position: absolute;
-            z-index: -1;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: url(/image/home/center.png) center no-repeat;
-            background-size: cover;
-            .light{
-              animation: dong 30s infinite;
-              animation-timing-function: ease;
-            }
+          width: 60vw;
+          height: 96vh;
+          position: absolute;
+          z-index:-1;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-52%);
+            // width: 48vw;
+            // height: 39vw;
+            // position: absolute;
+            // z-index: -1;
+            // top: 50%;
+            // left: 50%;
+            // transform: translate(-50%, -50%);
+            // background: url(/image/home/center.png) center no-repeat;
+            // background-size: cover;
+            // .light{
+            //   animation: dong 30s infinite;
+            //   animation-timing-function: ease;
+            // }
         }
         .center-map{
           width:42vw;

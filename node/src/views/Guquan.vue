@@ -2,10 +2,7 @@
     <div class="guquan">
         <div class="top">
             <Header @do-login="login" @to-reg="reg"></Header>
-            <div class="guquan-title">
-                <div>股权融资</div>
-                <div>EQUITY FINANCING</div>
-            </div>
+            <DespComp></DespComp>
         </div>
         <div class="list-box">
             <div class="list-filter" :style="openStyle">
@@ -27,15 +24,15 @@
                         <div class="item">
                             <div class="item-list" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code"
                                 :class="getActive(codeItem)?'active':''"
-                                @click="selSearchField(codeItem)"
+                                @click="selSearchField('',codeItem)"
                                 >{{codeItem.value}}</div>
                         </div>
                     </div>
                     <div class="filter-item more">
                         <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
                             <span>{{sItem.name}}：</span>
-                            <a-select default-value="不限" style="width: 120px">
-                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" @change="selectField(codeItem)">
+                            <a-select default-value="不限" style="width: 120px" @change="selectField">
+                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" :codeType='codeItem.codeType' >
                                     {{codeItem.value}}
                                 </a-select-option>
                             </a-select>
@@ -58,27 +55,25 @@
                     <div class="search">
                         <span>排序</span>
                         <div class="search-btn">
-                            <a-select default-value="默认排序" style="width: 120px" class="sort">
-                                <a-select-option value="jack">
-                                    Jack
+                            <a-select v-model="params.content.orderByField" default-value="" style="width: 120px" class="sort" @change="changeOrder">
+                                <a-select-option value="">
+                                    默认排序
                                 </a-select-option>
-                                <a-select-option value="不限">
-                                    不限
+                                <a-select-option value="0">
+                                    融资金额
                                 </a-select-option>
-                                <a-select-option value="disabled" disabled>
-                                    Disabled
-                                </a-select-option>
-                                <a-select-option value="Yiminghe">
-                                    yiminghe
+                                <a-select-option value="1">
+                                    融资阶段
                                 </a-select-option>
                             </a-select>
                         </div>
                     </div>
                 </div>
                 <div class="list-items">
-                    <ListPageItem class="list-item" @to-detail="toDetail" v-for="(item,index) in productList" :key="index"></ListPageItem>
+                    <div v-if="!productList.length">暂无数据</div>
+                    <ListPageItem class="list-item" v-if="productList.length" @to-detail="toDetail" v-for="(item,index) in productList" :key="index"></ListPageItem>
                 </div>
-                <div class="page">
+                <div class="page" v-if="productList.length">
                     <div class="page-num">
                         <a-pagination :default-current="1" :total="totalNum" @change="onChange" />
                     </div>
@@ -95,7 +90,7 @@
     </div>
 </template>
 <script>
-import { getSearchField } from "@/common/commapi.js"
+import { getSearchField,mapData } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
 import {mapActions} from "vuex"
 export default {
@@ -131,15 +126,32 @@ export default {
             ],
             params:{
                 "content":{
-                    "financeQuota":"0",
-                    "financeState":"0",
-                    "IndustryDirect":"0",
-                    "registerAddress":"0",
-                    "business":"0",
-                    "staffCount":681,
-                    "marketOccupyRate":"0",
-                    "evaluateName":"0",
-                    "mechanismOrProduct":""
+                    "financeQuota":'',
+                    "financeState":'',
+                    "IndustryDirect":'',
+                    "registerAddress":'',
+                    "business":"",
+                    "staffCount":'',
+                    "marketOccupyRate":"",
+                    "evaluateName":"",
+                    "mechanismOrProduct":"",
+                    "productState":'',
+                    "productRate":'',
+                    "experience":'',
+                    "patentCount":'',
+                    "shareholder":'',
+                    "capitals":'',
+                    "advantage":'',
+                    "oldFinanceQuota":'',
+                    "netInterestRate":'',
+                    "targetCustomer":'',
+                    "companyStatus":'',
+                    "marketCapacity":'',
+                    "marketAddRate":'',
+                    "boolBuyBack":'',
+                    "timeToMarket":'',
+                    "businessAddRate":'',
+                    "orderByField":''
                 },
                 "pager":{
                     "pageSize":20,
@@ -221,16 +233,17 @@ export default {
             console.log(22)
             this.$router.push({path:'/detail'})
         },
-        selSearchField(item){
-            if(item.codeType=='RZED'){
-                this.params.content.financeQuota=item.code
-                this.$set(this.params.content,'financeQuota',item.code);
+        selSearchField(val,item){
+            let field = mapData.get(item.codeType);
+            if(field){
+                this.$set(this.params.content,field,item.code);
             }
-            if(item.codeType=='RZJD'){
-                this.$set(this.params.content,'financeState',item.code);
-            }
-            if(item.codeType=='HYFX'){
-                this.$set(this.params.content,'IndustryDirect',item.code);
+        },
+        selectField(val,item){
+            console.log(val,item)
+            let field = mapData.get(item.data.attrs.codeType);
+            if(field){
+                this.$set(this.params.content,field,item.data.key);
             }
         },
         getActive(item){
@@ -250,8 +263,12 @@ export default {
                 this.$message.destroy();
                 if(res.data.code==0){
                     this.productList = res.data.content.list;
+                    this.totalNum = res.data.content.pager.totalCount
                 }
             })
+        },
+        changeOrder(){
+            this.getProductList();
         },
         changePage(){
             if(this.totalNum == 0){
@@ -265,9 +282,7 @@ export default {
             this.$set(this.params.content,'mechanismOrProduct',this.keywords);
             this.getProductList();
         },
-        selectField(item){
-            console.log(item)
-        }
+        
 
     },
     mounted(){
@@ -280,6 +295,7 @@ export default {
         Login:()=>import("@/components/Login.vue"),
         Register:()=>import("@/components/Register.vue"),
         Forget:()=>import("@/components/Forget.vue"),
+        DespComp:()=>import("@/components/DespComp.vue"),
         
     }
 }

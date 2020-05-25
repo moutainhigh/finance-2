@@ -21,7 +21,7 @@
             <div class="reg"  >
                 <span style="color:#fff;" @click="$emit('to-reg')">没有账号？</span>
                 <span @click="$emit('to-reg')">去注册</span>
-                <a-button type="link" style="margin-left:1.5vw;color:#fff;" @click="$emit('to-forget')">忘记密码</a-button>
+                <span style="margin-left:1.5vw;color:#fff;" @click="$emit('to-forget')">忘记密码</span>
             </div>
         </div>
         <div class="login-box" v-if="isForm" style="background:none;">
