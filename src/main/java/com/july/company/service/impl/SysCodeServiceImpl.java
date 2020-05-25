@@ -1,10 +1,15 @@
 package com.july.company.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.july.company.constant.SystemConstant;
+import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.july.company.mapper.SysCodeMapper;
 import com.july.company.service.SysCodeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.vo.code.QueryDetailSysCodeVo;
+import com.july.company.vo.code.QuerySysCodeVo;
 import com.july.company.vo.code.SysCodeValueVo;
 import com.july.company.vo.code.SysCodeVo;
 import org.springframework.stereotype.Service;
@@ -51,6 +56,48 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             });
         }
         return sysCodeVos;
+    }
+
+    /**
+     * 获取查询条件信息
+     * @param querySysCodeDto
+     * @return java.util.List<com.july.company.vo.code.QuerySysCodeVo>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    @Override
+    public List<QuerySysCodeVo> getQuerySysCode(QuerySysCodeDto querySysCodeDto) {
+        System.out.println("=====>" + querySysCodeDto.getFinanceType());
+        QueryWrapper<SysCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("financeType", querySysCodeDto.getFinanceType())
+                .eq("boolQuery", SystemConstant.SYS_TRUE)
+                .eq("boolShow", SystemConstant.SYS_TRUE)
+                .orderByAsc("querySort");
+        List<SysCode> sysCodes = this.list(queryWrapper);
+
+        List<SysCode> sysCodeList = sysCodeMapper.getQuerySysCode(querySysCodeDto.getFinanceType());
+
+        List<QuerySysCodeVo> querySysCodeVos = new ArrayList<>();
+        sysCodeList.stream().forEach(sysCode -> {
+            QuerySysCodeVo querySysCodeVo = QuerySysCodeVo.builder()
+                    .codeType(sysCode.getCodeType())
+                    .codeName(sysCode.getCodeName())
+                    .build();
+            List<QueryDetailSysCodeVo> queryDetailSysCodeVos = new ArrayList<>();
+            sysCodes.stream().forEach(sysCode1 -> {
+                if (sysCode.getCodeType().equals(sysCode1.getCodeType())) {
+                    QueryDetailSysCodeVo queryDetailSysCodeVo = QueryDetailSysCodeVo.builder()
+                            .codeType(sysCode1.getCodeType())
+                            .code(sysCode1.getCode())
+                            .value(sysCode1.getValue())
+                            .build();
+                    queryDetailSysCodeVos.add(queryDetailSysCodeVo);
+                }
+            });
+            querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
+            querySysCodeVos.add(querySysCodeVo);
+        });
+        return querySysCodeVos;
     }
 
     /**
