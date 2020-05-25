@@ -5,7 +5,7 @@ module.exports = {
     devServer: {
         proxy: {
             '/finance':{
-                target:'http://financial.dev.bigdatacd.com:9000',//http://192.168.0.75:9001 //http://financial.dev.bigdatacd.com:9000
+                target:process.env.VUE_APP_PROXY_URL || 'http://financial.dev.bigdatacd.com:9000' ,
                 changeOrigin:true,
                 pathRewrite:{
                     '/finance':'/finance'

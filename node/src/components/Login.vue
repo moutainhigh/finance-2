@@ -18,7 +18,11 @@
                 </div>
             </div>
             <div class="l-btn" @click="doLogin">登录</div>
-            <div class="reg" @click="$emit('to-reg')">没有账号？去注册</div>
+            <div class="reg"  >
+                <span style="color:#fff;" @click="$emit('to-reg')">没有账号？</span>
+                <span @click="$emit('to-reg')">去注册</span>
+                <span style="margin-left:1.5vw;color:#fff;" @click="$emit('to-forget')">忘记密码</span>
+            </div>
         </div>
         <div class="login-box" v-if="isForm" style="background:none;">
             <a-card title="成都市科技金融智能服务平台" style="width:504px;border-radius:15px;">
@@ -44,10 +48,10 @@
                         <a-button type="primary" @click="doLogin" block size="large">
                             登录
                         </a-button>
-                        <a-button style="margin-left: 10px;" @click="$emit('to-reg')" type="link">
+                        <a-button style="margin-left: 10px;color:#7edcff;" @click="$emit('to-reg')" type="link">
                             没有帐号，去注册
                         </a-button>
-                        <a-button style="margin-left: 10px;" @click="$emit('to-forget')" type="link">
+                        <a-button style="margin-left: 10px;margin-left:1vw;" @click="$emit('to-forget')" type="link">
                             忘记密码
                         </a-button>
                     </a-form-model-item>
@@ -157,9 +161,12 @@ export default {
 	letter-spacing: 0px;
 	color: #7edcff;}
 .login .login-box .l-input div:nth-child(1){text-align:right;margin-right: 1.5vw;}
-.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2vw;background:url(/image/home/l-input.png) center no-repeat;padding:0px 1vw;background-size:cover;}
+.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2.1vw;
+    background:url(/image/home/l-input.png) bottom no-repeat,url(/image/home/l-input.png) top no-repeat;
+    font-size: 0.8vw;
+    padding:0px 1vw;background-size:cover;}
 .login .login-box .l-input div:nth-child(2) input:-webkit-input-placeholder{font-family: PingFangSC-Regular;
-	font-size: 1vw;
+	font-size: 0.8vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;

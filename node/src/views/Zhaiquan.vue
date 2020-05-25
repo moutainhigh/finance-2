@@ -1,11 +1,8 @@
 <template>
     <div class="guquan">
         <div class="top">
-            <Header></Header>
-            <div class="guquan-title">
-                <div>债券融资</div>
-                <div>Bond FINANCING</div>
-            </div>
+            <Header @do-login="login" @to-reg="reg"></Header>
+            <DespComp></DespComp>
         </div>
         <div class="list-box">
             <div class="list-filter" :style="openStyle">
@@ -15,46 +12,28 @@
                         <span>筛选条件</span>
                     </div>
                     <div class="search">
-                        <input type="text" placeholder="请输入产品或机构名称" />
-                        <div class="search-btn">
-                            <img src="/image/search.svg" alt="" style="width:15px;height:15px;vertical-align:sub;"> 搜索
+                        <input type="text" placeholder="请输入产品或机构名称" v-model="keywords" />
+                        <div class="search-btn" @click="search">
+                            <img src="/image/search.svg" alt="" style="width:15px;height:15px;vertical-align:sub;" > 搜索
                         </div>
                     </div>
                 </div>
                 <div class="filter-body" :style="openBodyStyle">
-                    <div class="filter-item">
-                        <div class="item-title">融资额度</div>
+                    <div class="filter-item" v-for="sItem in searchFieldList.slice(0,3)" :key="sItem.codeType">
+                        <div class="item-title">{{sItem.name}}</div>
                         <div class="item">
-                            <div class="item-list" v-for="(item,index) in eduList" :key="index">{{item.title}}</div>
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <div class="item-title">融资阶段</div>
-                        <div class="item">
-                            <div class="item-list " v-for="(item,index) in rzjd" :key="index">{{item.title}}</div>
-                        </div>
-                    </div>
-                    <div class="filter-item">
-                        <div class="item-title">行业方向</div>
-                        <div class="item">
-                            <div class="item-list " v-for="(item,index) in hyfx" :key="index">{{item.title}}</div>
+                            <div class="item-list" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code"
+                                :class="getActive(codeItem)?'active':''"
+                                @click="selSearchField('',codeItem)"
+                                >{{codeItem.value}}</div>
                         </div>
                     </div>
                     <div class="filter-item more">
-                        <div class="item-title" v-for="(item,index) in selGroup" :key="index">
-                            <span>{{item.title}}：</span>
-                            <a-select default-value="不限" style="width: 120px">
-                                <a-select-option value="jack">
-                                    Jack
-                                </a-select-option>
-                                <a-select-option value="不限">
-                                    不限
-                                </a-select-option>
-                                <a-select-option value="disabled" disabled>
-                                    Disabled
-                                </a-select-option>
-                                <a-select-option value="Yiminghe">
-                                    yiminghe
+                        <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
+                            <span>{{sItem.name}}：</span>
+                            <a-select default-value="不限" style="width: 120px" @change="selectField">
+                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" :codeType='codeItem.codeType' >
+                                    {{codeItem.value}}
                                 </a-select-option>
                             </a-select>
                         </div>
@@ -76,82 +55,55 @@
                     <div class="search">
                         <span>排序</span>
                         <div class="search-btn">
-                            <a-select default-value="默认排序" style="width: 120px" class="sort">
-                                <a-select-option value="jack">
-                                    Jack
+                            <a-select v-model="params.content.orderByField" default-value="" style="width: 120px" class="sort" @change="changeOrder">
+                                <a-select-option value="">
+                                    默认排序
                                 </a-select-option>
-                                <a-select-option value="不限">
-                                    不限
+                                <a-select-option value="0">
+                                    融资金额
                                 </a-select-option>
-                                <a-select-option value="disabled" disabled>
-                                    Disabled
-                                </a-select-option>
-                                <a-select-option value="Yiminghe">
-                                    yiminghe
+                                <a-select-option value="1">
+                                    融资阶段
                                 </a-select-option>
                             </a-select>
                         </div>
                     </div>
                 </div>
                 <div class="list-items">
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
-                    <ListPageItem class="list-item"></ListPageItem>
+                    <div v-if="!productList.length">暂无数据</div>
+                    <ListPageItem class="list-item" v-if="productList.length" @to-detail="toDetail" v-for="(item,index) in productList" :key="index"></ListPageItem>
                 </div>
-                <div class="page">
+                <div class="page" v-if="productList.length">
                     <div class="page-num">
-                        <a-pagination :default-current="1" :total="500" @change="onChange" />
+                        <a-pagination :default-current="1" :total="totalNum" @change="onChange" />
                     </div>
-                    <span class="total">共1000条</span>
-                    <input type="text" class="page-input">
-                    <div class="change-btn">跳转</div>
+                    <span class="total">共{{totalNum}}条</span>
+                    <input type="text" class="page-input" v-model.number="pageNo">
+                    <div class="change-btn" @click="changePage">跳转</div>
                 </div>
             </div>
         </div>
+        <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" :isForm="true"></Login>
+        <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close" :isForm="true"></Register>
+        <Forget v-show="isForget" @do-forget="doforget" @to-login="login" @close="close" :isForm="true"></Forget>
         <Footer></Footer>
     </div>
 </template>
 <script>
+import { getSearchField,mapData } from "@/common/commapi.js"
+import { matchSearchData} from "@/common/lib/tools.js"
+import {mapActions} from "vuex"
 export default {
     name:"Guquan",
     data(){
         return {
+            isLogin:false,
+            isReg:false,
+            isForget:false,
             openMore:false,
             openStyle:{},
             openBodyStyle:{},
-            eduList:[
-                {title:'不限'},
-                {title:'0-100万'},
-                {title:'100-200万'},
-                {title:'200-500万'},
-                {title:'500-1000万'},
-                {title:'1000万以上'},
-            ],
-            rzjd:[
-                {title:'不限'},
-                {title:'未融资'},
-                {title:'天使轮'},
-                {title:'Pre-A轮'},
-                {title:'B轮'},
-                {title:'C轮'},
-                {title:'D轮及以上'},
-                {title:'上市公司'},
-                {title:'其他'},
-            ],
-            hyfx:[
-                {title:'不限'},
-                {title:'医药/医疗器械'},
-                {title:'电子信息'},
-                {title:'互联网'},
-                {title:'大数据'},
-                {title:'人工智能'},
-                {title:'新经济'},
-                {title:'轨道交通'},
-                {title:'军民融合'},
-                {title:'其他'},
-            ],
+            searchFieldList:[],
             selGroup:[
                 {title:'注册地址'},
                 {title:'股东背景'},
@@ -174,24 +126,90 @@ export default {
             ],
             params:{
                 "content":{
-                    "financeQuota":"16bjij",
-                    "financeState":"u7fg8g",
-                    "IndustryDirect":"dgvs8v",
-                    "registerAddress":"Apt. 159 夏栋03号， 大庆， 青 534853",
-                    "business":"6fjgo4",
-                    "staffCount":681,
-                    "marketOccupyRate":"tduvlc",
-                    "evaluateName":"子骞.雷",
-                    "mechanismOrProduct":"ppdvnz"
+                    "financeQuota":'',
+                    "financeState":'',
+                    "IndustryDirect":'',
+                    "registerAddress":'',
+                    "business":"",
+                    "staffCount":'',
+                    "marketOccupyRate":"",
+                    "evaluateName":"",
+                    "mechanismOrProduct":"",
+                    "productState":'',
+                    "productRate":'',
+                    "experience":'',
+                    "patentCount":'',
+                    "shareholder":'',
+                    "capitals":'',
+                    "advantage":'',
+                    "oldFinanceQuota":'',
+                    "netInterestRate":'',
+                    "targetCustomer":'',
+                    "companyStatus":'',
+                    "marketCapacity":'',
+                    "marketAddRate":'',
+                    "boolBuyBack":'',
+                    "timeToMarket":'',
+                    "businessAddRate":'',
+                    "orderByField":''
                 },
                 "pager":{
-                    "pageSize":459,
-                    "currentPage":694
+                    "pageSize":20,
+                    "currentPage":1
                 }
-            }
+            },
+            productList:[],
+            totalNum:0,
+            pageNo:'',
+            keywords:''
         }
     },
+    created(){
+        // 预先加载搜索字段
+        getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
+            this.searchFieldList = matchSearchData(res);
+        }).catch(err=>console.log(err));
+        this.getProductList();
+    },
     methods:{
+        ...mapActions(['setUserInfo']),
+        login(){
+            this.isLogin = true;
+            this.isReg = false;
+            this.isForget = false;
+        },
+        doLogin(params){
+            console.log(params)
+            if(params && params.mobile){
+                this.userInfo = this.$store.state.userInfo;
+                this.isLogin = false;
+            }
+        },
+        reg(){
+            this.isReg = true;
+            this.isLogin = false;
+        },
+        doReg(params){
+            console.log(params)
+            if(params && params.mobile){
+                this.isReg = false;
+            }
+        },
+        toForget(){
+            this.isLogin=false;
+            this.isForget=true;
+        },
+        doforget(params){
+            console.log(params)
+            if(params && params.mobile){
+                this.isForget = false;
+            }
+        },
+        close(){
+            this.isLogin = false;
+            this.isReg = false;
+            this.isForget = false;
+        },
         initPage(){
             var params = this.params;
             this.$http.post('/finance/financeCompany/getFinanceCompany',{...params}).then(res=>{
@@ -211,20 +229,80 @@ export default {
         onChange(){
 
         },
+        toDetail(item){
+            console.log(22)
+            this.$router.push({path:'/detail'})
+        },
+        selSearchField(val,item){
+            let field = mapData.get(item.codeType);
+            if(field){
+                this.$set(this.params.content,field,item.code);
+            }
+        },
+        selectField(val,item){
+            console.log(val,item)
+            let field = mapData.get(item.data.attrs.codeType);
+            if(field){
+                this.$set(this.params.content,field,item.data.key);
+            }
+        },
+        getActive(item){
+            if(item.codeType=='RZED' && this.params.content.financeQuota==item.code){
+                return true;
+            }
+            if(item.codeType=='RZJD' && this.params.content.financeState==item.code){
+                return true;
+            }
+            if(item.codeType=='HYFX' && this.params.content.IndustryDirect==item.code){
+                return true;
+            }
+            return false;
+        },
+        getProductList(){
+            this.$http.post('/finance/financeProduct/getFinanceProduct',this.params).then(res=>{
+                this.$message.destroy();
+                if(res.data.code==0){
+                    this.productList = res.data.content.list;
+                    this.totalNum = res.data.content.pager.totalCount
+                }
+            })
+        },
+        changeOrder(){
+            this.getProductList();
+        },
+        changePage(){
+            if(this.totalNum == 0){
+                return ;
+            }
+            this.params.pager.currentPage = this.pageNo;
+            this.getProductList();
+        },
+        search(){
+            this.$message.loading('查询中',0)
+            this.$set(this.params.content,'mechanismOrProduct',this.keywords);
+            this.getProductList();
+        },
+        
 
     },
     mounted(){
-        this.initPage();
+        // this.initPage();
     },
     components:{
         Header:()=>{return import('@/components/Header.vue')},
         ListPageItem:()=>import("@/components/ListPageItem.vue"),
-        Footer:()=>import("@/components/Footer.vue")
+        Footer:()=>import("@/components/Footer.vue"),
+        Login:()=>import("@/components/Login.vue"),
+        Register:()=>import("@/components/Register.vue"),
+        Forget:()=>import("@/components/Forget.vue"),
+        DespComp:()=>import("@/components/DespComp.vue"),
+        
     }
 }
 </script>
 <style scoped>
-.guquan{background: #F6F6F6;}
+*{padding:0px;margin:0px;}
+.guquan{background: #F6F6F6;padding:0vw;margin:0vw;overflow: hidden;}
 .guquan .top{height:342px;background:url(/image/bj-guquanrongzi.png) no-repeat;background-size:cover;position: relative;}
 .guquan .top .guquan-title{position:absolute;top:136px;left:130px;}
 .guquan .top .guquan-title div:nth-child(1){font-family: BDZYJT--GB1-0;font-size: 42px;color: #FFFFFF;}
