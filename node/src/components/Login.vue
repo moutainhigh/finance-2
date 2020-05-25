@@ -1,5 +1,5 @@
 <template>
-    <div class="login">
+    <div :class="isForm?'loginx':'login'">
         <div class="login-box" v-if="!isForm">
             <div class="l-title">
                 <div>成都市科技金融智能服务平台</div>
@@ -142,48 +142,49 @@ export default {
 <style scoped>
 *{padding:0px;margin:0px;}
 .login{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;}
-.login-box{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:28vw;height:17vw;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
+.loginx{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;}
+.login-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:28vw;height:17vw;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
 .login-box >>> .input-item{margin-bottom:20px !important;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}
-.login .login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:2.5vw 1.5vw 0.5vw;font-family: FZLTXHK;
+.login-box .l-title{display:flex;justify-content:space-between;align-items:center;margin:2.5vw 1.5vw 0.5vw;font-family: FZLTXHK;
 	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
 	line-height: 1vw;
 	letter-spacing: 0px;
 	color: #b7efff;}
-.login .login-box .l-title .close{cursor:pointer;width:2vw;height:2vw}
-.login .login-box .l-input{display:flex;justify-content:center;align-items:center;margin-bottom:1vw;}
-.login .login-box .l-input div{font-family: PingFangSC-Regular;
+.login-box .l-title .close{cursor:pointer;width:2vw;height:2vw}
+.login-box .l-input{display:flex;justify-content:center;align-items:center;margin-bottom:1vw;}
+.login-box .l-input div{font-family: PingFangSC-Regular;
 	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;
 	color: #7edcff;}
-.login .login-box .l-input div:nth-child(1){text-align:right;margin-right: 1.5vw;}
-.login .login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2.1vw;
+.login-box .l-input div:nth-child(1){text-align:right;margin-right: 1.5vw;}
+.login-box .l-input div:nth-child(2) input{border:none;outline:none;width:16vw;height:2.1vw;
     background:url(/image/home/l-input.png) bottom no-repeat,url(/image/home/l-input.png) top no-repeat;
     font-size: 0.8vw;
     padding:0px 1vw;background-size:cover;}
-.login .login-box .l-input div:nth-child(2) input:-webkit-input-placeholder{font-family: PingFangSC-Regular;
+.login-box .l-input div:nth-child(2) input:-webkit-input-placeholder{font-family: PingFangSC-Regular;
 	font-size: 0.8vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0px;
 	color: #43575e;}
-.login .login-box .l-btn{margin:1vw auto 0px;width:13vw;height:2.3vw;background:url(/image/home/l-btn.png) center no-repeat;background-size:cover;text-align:center;font-family: PingFangSC-Regular;
+.login-box .l-btn{margin:1vw auto 0px;width:13vw;height:2.3vw;background:url(/image/home/l-btn.png) center no-repeat;background-size:cover;text-align:center;font-family: PingFangSC-Regular;
 	font-size: 1vw;cursor:pointer;line-height:2.3vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0vw;
 	color: #7edcff;}
-.login .login-box .reg{font-family: PingFangSC-Regular;margin:0.5vw auto 0vw;text-align:center;
+.login-box .reg{font-family: PingFangSC-Regular;margin:0.5vw auto 0vw;text-align:center;
 	font-size: 1vw;
 	font-weight: normal;
 	font-stretch: normal;
 	letter-spacing: 0vw;
 	color: #7edcff;}
-.login .login-box .reg{display:table;cursor:pointer;font-family: PingFangSC-Regular;
+.login-box .reg{display:table;cursor:pointer;font-family: PingFangSC-Regular;
 	font-size: 0.63vw;
 	font-weight: normal;
 	font-stretch: normal;
