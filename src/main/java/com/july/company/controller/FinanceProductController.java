@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.FinanceProductDetailDto;
 import com.july.company.dto.finance.FinanceProductDto;
+import com.july.company.dto.finance.ProductMatchDto;
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
@@ -54,6 +55,18 @@ public class FinanceProductController {
     @PostMapping("/getFinanceProductDetail")
     public ResultT<FinanceProductDetailVo> getFinanceProductDetail(@RequestBody FinanceProductDetailDto financeProductDetailDto) {
         return ResultT.ok(financeProductService.getFinanceProductDetail(financeProductDetailDto));
+    }
+
+    /**
+     * 一键匹配产品信息
+     * @param productMatchDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    @PostMapping("/getOneKeyMatching")
+    public ResultT<String> getOneKeyMatching(@RequestBody ProductMatchDto productMatchDto) {
+        return ResultT.ok(financeProductService.getOneKeyMatching(productMatchDto));
     }
 
 }

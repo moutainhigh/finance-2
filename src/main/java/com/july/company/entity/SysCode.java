@@ -46,5 +46,25 @@ public class SysCode extends BaseEntity {
      */
     @TableField("value")
     private String value;
+    /**
+     * 是否是查询条件(0=否，1=是)
+     */
+    @TableField("boolQuery")
+    private Integer boolQuery;
+    /**
+     * 是否展示(0=隐藏，1=展示)
+     */
+    @TableField("boolShow")
+    private Integer boolShow;
+    /**
+     * 查询条件顺序
+     */
+    @TableField("querySort")
+    private Integer querySort;
+    /**
+     * 融资类型(0=股权融资,1=债券融资)
+     */
+    @TableField("financeType")
+    private Integer financeType;
 
 }

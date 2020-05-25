@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.FinanceProductDetailDto;
 import com.july.company.dto.finance.FinanceProductDto;
+import com.july.company.dto.finance.ProductMatchDto;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.finance.FinanceProductDetailVo;
@@ -34,5 +35,14 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/5/20
      */
     FinanceProductDetailVo getFinanceProductDetail(FinanceProductDetailDto financeProductDetailDto);
+
+    /**
+     * 一键匹配信息
+     * @param productMatchDto
+     * @return java.lang.String
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    String getOneKeyMatching(ProductMatchDto productMatchDto);
 
 }

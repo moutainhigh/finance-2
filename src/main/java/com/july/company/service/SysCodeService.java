@@ -1,8 +1,10 @@
 package com.july.company.service;
 
+import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.code.QuerySysCodeVo;
 import com.july.company.vo.code.SysCodeVo;
 
 import java.util.List;
@@ -31,5 +33,14 @@ public interface SysCodeService extends IService<SysCode> {
      * @since 2020/5/22
      */
     void saveSysCode();
+
+    /**
+     * 获取查询条件信息
+     * @param querySysCodeDto
+     * @return java.util.List<com.july.company.vo.code.QuerySysCodeVo>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<QuerySysCodeVo> getQuerySysCode(QuerySysCodeDto querySysCodeDto);
 
 }

@@ -1,9 +1,11 @@
 package com.july.company.controller;
 
+import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.july.company.response.ResultT;
 import com.july.company.service.SysCodeService;
+import com.july.company.vo.code.QuerySysCodeVo;
 import com.july.company.vo.code.SysCodeVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,6 +52,18 @@ public class SysCodeController {
     public ResultT<String> saveSysCode() {
         sysCodeService.saveSysCode();
         return ResultT.ok("操作成功！");
+    }
+
+    /**
+     * 获取查询条件信息
+     * @param querySysCodeDto
+     * @return com.july.company.response.ResultT<java.util.List < com.july.company.vo.code.QuerySysCodeVo>>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    @PostMapping("/getQuerySysCode")
+    public ResultT<List<QuerySysCodeVo>> getQuerySysCode(@RequestBody QuerySysCodeDto querySysCodeDto) {
+        return ResultT.ok(sysCodeService.getQuerySysCode(querySysCodeDto));
     }
 
 }

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 股权融资公司信息
  * @author zengxueqi
@@ -15,8 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class FinanceProductVo {
+public class FinanceProductVo implements Serializable {
 
+    private static final long serialVersionUID = -902198834134353553L;
+    
+    /**
+     * 产品id
+     */
+    private Long id;
     /**
      * 股权融资标题
      * @mock 物联网投资基金

@@ -23,4 +23,13 @@ public interface SysCodeMapper extends BaseMapper<SysCode> {
      */
     List<SysCodeValueVo> getSysCode(SysCodeDto sysCodeDto);
 
+    /**
+     * 获取查询条件信息
+     * @param financeType
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<SysCode> getQuerySysCode(Integer financeType);
+
 }

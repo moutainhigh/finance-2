@@ -3,10 +3,13 @@ package com.july.company.mapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.FinanceProductDto;
+import com.july.company.dto.finance.ProductInfoDto;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.july.company.vo.finance.FinanceProductVo;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 产品信息 Mapper 接口
@@ -24,5 +27,14 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @since 2020/5/17
      */
     IPage<FinanceProductVo> getFinanceProduct(Page<FinanceProductVo> page, @Param("param") FinanceProductDto stockCompanyDto);
+
+    /**
+     * 获取所有的产品信息
+     * @param
+     * @return java.util.List<com.july.company.dto.finance.ProductInfoDto>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<ProductInfoDto> getAllProduct();
 
 }
