@@ -31,5 +31,9 @@ public class QueryDetailSysCodeVo {
      * 字典值
      */
     private String value;
+    /**
+     * 子类信息
+     */
+    private List<SysCodeValueVo> childSysCodes;
 
 }

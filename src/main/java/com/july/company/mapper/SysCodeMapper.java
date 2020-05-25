@@ -32,4 +32,13 @@ public interface SysCodeMapper extends BaseMapper<SysCode> {
      */
     List<SysCode> getQuerySysCode(Integer financeType);
 
+    /**
+     * 获取有子类的信息
+     * @param
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<SysCode> getChildSysCode(Integer financeType);
+
 }

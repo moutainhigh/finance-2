@@ -23,4 +23,12 @@
         ) as t order by t.querySort asc
     </select>
 
+    <select id="getChildSysCode" resultType="com.july.company.entity.SysCode">
+        select fsc.* from fc_sys_code fsc
+        where
+        1=1
+        and fsc.financeType = #{financeType}
+        and fsc.pCodeType is not null
+    </select>
+
 </mapper>

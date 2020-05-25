@@ -67,13 +67,47 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
      */
     @Override
     public List<QuerySysCodeVo> getQuerySysCode(QuerySysCodeDto querySysCodeDto) {
-        System.out.println("=====>" + querySysCodeDto.getFinanceType());
         QueryWrapper<SysCode> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("financeType", querySysCodeDto.getFinanceType())
-                .eq("boolQuery", SystemConstant.SYS_TRUE)
+                .eq("boolQuery", querySysCodeDto.getBoolQuery())
                 .eq("boolShow", SystemConstant.SYS_TRUE)
                 .orderByAsc("querySort");
         List<SysCode> sysCodes = this.list(queryWrapper);
+
+        //存在子类
+        List<SysCode> childSysCode = sysCodeMapper.getChildSysCode(querySysCodeDto.getFinanceType());
+        List<QueryDetailSysCodeVo> sysCodeVoArrayList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(childSysCode)) {
+            sysCodes.stream().forEach(sysCode -> {
+                QueryDetailSysCodeVo queryDetailSysCodeVo = QueryDetailSysCodeVo.builder()
+                        .codeType(sysCode.getCodeType())
+                        .code(sysCode.getCode())
+                        .value(sysCode.getValue())
+                        .build();
+                List<SysCodeValueVo> sysCodeValueVos = new ArrayList<>();
+                childSysCode.stream().forEach(sysCode1 -> {
+                    if (sysCode.getCodeType().equals(sysCode1.getPCodeType())) {
+                        SysCodeValueVo sysCodeValueVo = SysCodeValueVo.builder()
+                                .codeType(sysCode.getCodeType())
+                                .code(sysCode.getCode())
+                                .value(sysCode.getValue())
+                                .build();
+                        sysCodeValueVos.add(sysCodeValueVo);
+                    }
+                });
+                queryDetailSysCodeVo.setChildSysCodes(sysCodeValueVos);
+                sysCodeVoArrayList.add(queryDetailSysCodeVo);
+            });
+        } else {
+            sysCodes.stream().forEach(sysCode -> {
+                QueryDetailSysCodeVo queryDetailSysCodeVo = QueryDetailSysCodeVo.builder()
+                        .codeType(sysCode.getCodeType())
+                        .code(sysCode.getCode())
+                        .value(sysCode.getValue())
+                        .build();
+                sysCodeVoArrayList.add(queryDetailSysCodeVo);
+            });
+        }
 
         List<SysCode> sysCodeList = sysCodeMapper.getQuerySysCode(querySysCodeDto.getFinanceType());
 
@@ -84,14 +118,9 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                     .codeName(sysCode.getCodeName())
                     .build();
             List<QueryDetailSysCodeVo> queryDetailSysCodeVos = new ArrayList<>();
-            sysCodes.stream().forEach(sysCode1 -> {
+            sysCodeVoArrayList.stream().forEach(sysCode1 -> {
                 if (sysCode.getCodeType().equals(sysCode1.getCodeType())) {
-                    QueryDetailSysCodeVo queryDetailSysCodeVo = QueryDetailSysCodeVo.builder()
-                            .codeType(sysCode1.getCodeType())
-                            .code(sysCode1.getCode())
-                            .value(sysCode1.getValue())
-                            .build();
-                    queryDetailSysCodeVos.add(queryDetailSysCodeVo);
+                    queryDetailSysCodeVos.add(sysCode1);
                 }
             });
             querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
