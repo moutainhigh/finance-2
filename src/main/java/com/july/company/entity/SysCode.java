@@ -66,5 +66,10 @@ public class SysCode extends BaseEntity {
      */
     @TableField("financeType")
     private Integer financeType;
+    /**
+     * 父类型
+     */
+    @TableField("pCodeType")
+    private String pCodeType;
 
 }

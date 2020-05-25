@@ -1,5 +1,6 @@
 package com.july.company.mapper;
 
+import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -25,11 +26,29 @@ public interface SysCodeMapper extends BaseMapper<SysCode> {
 
     /**
      * 获取查询条件信息
-     * @param financeType
+     * @param querySysCodeDto
      * @return java.util.List<com.july.company.entity.SysCode>
      * @author zengxueqi
      * @since 2020/5/25
      */
-    List<SysCode> getQuerySysCode(Integer financeType);
+    List<SysCode> getQuerySysCode(QuerySysCodeDto querySysCodeDto);
+
+    /**
+     * 获取有子类的信息
+     * @param
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<SysCode> getChildSysCode(Integer financeType);
+
+    /**
+     * 获取所有的字典信息
+     * @param querySysCodeDto
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/5/25
+     */
+    List<SysCode> getAllSysCode(QuerySysCodeDto querySysCodeDto);
 
 }

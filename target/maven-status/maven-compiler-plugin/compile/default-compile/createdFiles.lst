@@ -49,6 +49,7 @@ com/july/company/mapper/SysCodeMapper.class
 com/july/company/vo/institution/InstitutionAndRegionVo$InstitutionAndRegionVoBuilder.class
 com/july/company/vo/login/UserInfoValidVo.class
 com/july/company/intercepts/InterceptConfig.class
+com/july/company/dto/code/QuerySysCodeDto$QuerySysCodeDtoBuilder.class
 com/july/company/utils/Md5Utils.class
 com/july/company/utils/UUIDUtils.class
 com/july/company/controller/FinanceProductDetailController.class

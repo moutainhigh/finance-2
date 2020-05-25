@@ -63,10 +63,7 @@ public class DictInit {
      * @since 2020/5/17
      */
     public static String getCodeValue(String codeType, String code) {
-        if (codeType.contains("_")) {
-            return dictMap.get(codeType + "_" + code);
-        }
-        return null;
+        return dictMap.get(codeType + "_" + code);
     }
 
     /**
