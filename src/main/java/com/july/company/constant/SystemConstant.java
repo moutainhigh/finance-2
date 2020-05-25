@@ -122,6 +122,10 @@ public class SystemConstant {
      */
     public static final String PDCH = "PDCH";
     /**
+     * 注册地址
+     */
+    public static final String REGION = "REGION";
+    /**
      * http正常响应状态
      */
     public static final int HTTP_STATUS = 200;
@@ -133,5 +137,70 @@ public class SystemConstant {
      * 登录过期时间(分)
      */
     public static final Integer SMS_EXPIRE_LOGIN = 3;
+
+    /**
+     * 债券融资_发明专利数量
+     */
+    public static final String BOND_FMZLS = "BOND_FMZLS";
+    /**
+     * 债券融资_营业收入
+     */
+    public static final String BOND_YYSR = "BOND_YYSR";
+    /**
+     * 贷款额度
+     */
+    public static final String DKED = "DKED";
+    /**
+     * 现有贷款金额
+     */
+    public static final String DKJE = "DKJE";
+    /**
+     * 贷款期限
+     */
+    public static final String DKQX = "DKQX";
+    /**
+     * 是否接受房产抵押
+     */
+    public static final String FCDY = "FCDY";
+    /**
+     * 央企/大型国企核心供应商订单额
+     */
+    public static final String GQDDE = "GQDDE";
+    /**
+     * 是否已引入股权投资
+     */
+    public static final String GQTZ = "GQTZ";
+    /**
+     * 净利润
+     */
+    public static final String JLR = "JLR";
+    /**
+     * 纳税额度
+     */
+    public static final String NRED = "NRED";
+    /**
+     * 是否有其他贷款
+     */
+    public static final String QTDK = "QTDK";
+    /**
+     * 企业资质
+     */
+    public static final String QYZZ = "QYZZ";
+    /**
+     * 上年度经营活动现金流净额
+     */
+    public static final String XJLJE = "XJLJE";
+    /**
+     * 政府补贴
+     */
+    public static final String ZFBT = "ZFBT";
+    /**
+     * 政府订单额
+     */
+    public static final String ZFDDE = "ZFDDE";
+    /**
+     * 增信方式
+     */
+    public static final String ZXFS = "ZXFS";
 
 }

@@ -1,3 +1,4 @@
+com/july/company/vo/finance/FinanceProductDetailVo$FinanceProductDetailVoBuilder.class
 com/july/company/service/InstitutionService.class
 com/july/company/controller/SysCodeController.class
 com/july/company/dto/finance/FinanceProductDetailDto.class
@@ -22,6 +23,7 @@ com/july/company/dto/sms/SmsCodeVerifyDto.class
 com/july/company/vo/institution/InstitutionAndRegionVo.class
 com/july/company/vo/login/LoginAuthVo.class
 com/july/company/entity/Institution$InstitutionBuilder.class
+com/july/company/dto/finance/ProductMatchDto.class
 com/july/company/entity/UserInfo.class
 com/july/company/response/ResultT.class
 com/july/company/dictionary/DictInit.class
@@ -68,6 +70,7 @@ com/july/company/intercepts/CorsConfig.class
 com/july/company/utils/DateUtils.class
 com/july/company/intercepts/LoginIntercept.class
 com/july/company/service/impl/SysCodeServiceImpl.class
+com/july/company/dto/finance/ProductInfoDto.class
 com/july/company/dto/login/LoginAuthDto.class
 com/july/company/vo/code/SysCodeValueVo.class
 com/july/company/exception/BnException.class

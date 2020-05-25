@@ -62,7 +62,7 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
      */
     @Override
     public void saveSysCode() {
-        //GDBJ	无	副教授	正教授	国家千人	省千人	其他人才	上市公司高管	上市公司中层	其它
+        /*//GDBJ	无	副教授	正教授	国家千人	省千人	其他人才	上市公司高管	上市公司中层	其它
         List<String> gdbj = Arrays.asList("无", "副教授", "正教授", "国家千人", "省千人", "其他人才", "上市公司高管", "上市公司中层", "其它");
         for (int i = 0; i < gdbj.size(); i++) {
             SysCode sysCode = SysCode.builder()
@@ -278,6 +278,182 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                     .codeType("PDCH")
                     .codeName("公司所获评定称号")
                     .code(pdch.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }*/
+        //贷款期限 1年内	1-3年	3-5年	5年以上
+        List<String> dkqx = Arrays.asList("1年内", "1-3年", "3-5年", "5年以上");
+        for (int i = 0; i < dkqx.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("DKQX")
+                    .codeName("贷款期限")
+                    .code(dkqx.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //贷款额度 100万以内	100-200万	200-500万	500-1000万	1000万以上
+        List<String> dked = Arrays.asList("100万以内", "100-200万", "200-500万", "500-1000万", "1000万以上");
+        for (int i = 0; i < dked.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("DKED")
+                    .codeName("贷款额度")
+                    .code(dked.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //增信方式 担保	不动产抵押	信用	应收账款质押	票据贴现	股权质押	知识产权质押	其他（填写）
+        List<String> zxfs = Arrays.asList("担保", "不动产抵押", "信用", "应收账款质押", "票据贴现", "股权质押", "知识产权质押", "其他");
+        for (int i = 0; i < zxfs.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("ZXFS")
+                    .codeName("增信方式")
+                    .code(zxfs.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //是否接受房产抵押
+        List<String> sfjsfcdy = Arrays.asList("是", "否");
+        for (int i = 0; i < sfjsfcdy.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("FCDY")
+                    .codeName("是否接受房产抵押")
+                    .code(sfjsfcdy.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //营业收入 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> yysr = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < yysr.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("BOND_YYSR")
+                    .codeName("营业收入")
+                    .code(yysr.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //净利润 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> jlr = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < jlr.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("JLR")
+                    .codeName("净利润")
+                    .code(jlr.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //上年度经营活动现金流净额 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> xjl = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < xjl.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("XJLJE")
+                    .codeName("上年度经营活动现金流净额")
+                    .code(xjl.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //政府订单额 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> zfdde = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < zfdde.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("ZFDDE")
+                    .codeName("政府订单额")
+                    .code(zfdde.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //央企/大型国企核心供应商订单额 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> gqdde = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < gqdde.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("GQDDE")
+                    .codeName("央企/大型国企核心供应商订单额")
+                    .code(gqdde.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //企业资质 无	高新技术企业	技术先进型服务企业	创新型企业	知识产权试点示范企业	其他
+        List<String> qyzz = Arrays.asList("无", "高新技术企业", "技术先进型服务企业", "创新型企业", "知识产权试点示范企业", "其他");
+        for (int i = 0; i < qyzz.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("QYZZ")
+                    .codeName("企业资质")
+                    .code(qyzz.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //政府补贴 无	100万以内	100-300万	300-500万	500万以上
+        List<String> zfbt = Arrays.asList("无", "100万以内", "100-300万", "300-500万", "500万以上");
+        for (int i = 0; i < zfbt.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("ZFBT")
+                    .codeName("政府补贴")
+                    .code(zfbt.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //是否已引入股权投资
+        List<String> sfyyrgqtz = Arrays.asList("是", "否");
+        for (int i = 0; i < sfyyrgqtz.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("GQTZ")
+                    .codeName("是否已引入股权投资")
+                    .code(sfyyrgqtz.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //纳税额度 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> nred = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < nred.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("NRED")
+                    .codeName("纳税额度")
+                    .code(nred.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //发明专利数量 无	0-5个	5-10个	10-20个	20个以上
+        List<String> fmzls = Arrays.asList("无", "0-5个", "5-10个", "10-20个", "20个以上");
+        for (int i = 0; i < fmzls.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("BOND_FMZLS")
+                    .codeName("股权投资_发明专利数量")
+                    .code(fmzls.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //是否有其他贷款 无	科创贷	文创通	成长贷	其他
+        List<String> sfyqtdk = Arrays.asList("无", "科创贷", "文创通", "成长贷", "其他");
+        for (int i = 0; i < sfyqtdk.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("QTDK")
+                    .codeName("是否有其他贷款")
+                    .code(sfyqtdk.get(i))
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //现有贷款金额 无	100万以内	100-500万	500-1000万	1000-3000万	3000-10000万	1亿元以上
+        List<String> xydked = Arrays.asList("无", "100万以内", "100-500万", "500-1000万", "1000-3000万", "3000-10000万", "1亿元以上");
+        for (int i = 0; i < xydked.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("DKJE")
+                    .codeName("现有贷款金额")
+                    .code(xydked.get(i))
                     .value(i + "")
                     .build();
             this.save(sysCode);

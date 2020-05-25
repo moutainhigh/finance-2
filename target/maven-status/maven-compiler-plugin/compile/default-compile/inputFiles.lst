@@ -4,6 +4,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/vo/code/SysCodeVo.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/utils/UUIDUtils.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/service/SysCodeService.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/finance/ProductInfoDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/vo/finance/FinanceProductDetailVo.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/utils/Md5Utils.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/sms/SmsCodeDto.java
@@ -71,6 +72,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/code/SysCodeDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/BearerTokenHandle.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/sms/SmsCodeVerifyDto.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/finance/ProductMatchDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/config/CorsConfig.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/entity/Institution.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/user/UserInfoDto.java

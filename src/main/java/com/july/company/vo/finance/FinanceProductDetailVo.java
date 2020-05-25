@@ -1,6 +1,9 @@
 package com.july.company.vo.finance;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -11,6 +14,9 @@ import java.io.Serializable;
  * @since 2020-05-17 10:25
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class FinanceProductDetailVo implements Serializable {
 
     private static final long serialVersionUID = 6063770983542170577L;
@@ -123,5 +129,79 @@ public class FinanceProductDetailVo implements Serializable {
      * 公司所获评定名称
      */
     private String evaluateNameStr;
+
+
+    /**
+     * 贷款期限
+     */
+    private String loanTerm;
+    /**
+     * 贷款额度
+     */
+    private String loanQuota;
+    /**
+     * 增信方式
+     */
+    private String creditType;
+    /**
+     * 房产抵押
+     */
+    private String houseMortgage;
+    /**
+     * 现金流
+     */
+    private String cashFlow;
+    /**
+     * 政府订单额
+     */
+    private String goverOrderAmount;
+    /**
+     * 国企订单额
+     */
+    private String nationOrderAmount;
+    /**
+     * 贷款期限
+     */
+    private String termLoan;
+    /**
+     * 资产总额
+     */
+    private String assetAmount;
+    /**
+     * 负债总额
+     */
+    private String liabilitiesAmount;
+    /**
+     * 所有者权益
+     */
+    private String owner;
+    /**
+     * 企业资质
+     */
+    private String qualification;
+    /**
+     * 政府补贴
+     */
+    private String subsidy;
+    /**
+     * 是否引入股权投资
+     */
+    private String boolIntroduce;
+    /**
+     * 纳税额度
+     */
+    private String taxAmount;
+    /**
+     * 是否有其他贷款
+     */
+    private String boolLoan;
+    /**
+     * 现有贷款金额
+     */
+    private String existAmount;
+    /**
+     * 净利率
+     */
+    private String jlr;
 
 }
