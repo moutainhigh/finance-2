@@ -30,14 +30,15 @@ export default {
     name:'ListPageItem',
     props:{
         item:{type:Object,default:()=>{return {
-                "title":"物联网投资基金",
-                "mechanism":"红杉资本",
-                "industryDirect":896,
-                "financeQuota":636,
-                "financeState":3,
-                "industryDirectStr":"新经济",
-                "financeQuotaStr":"500万-1000万",
-                "financeStateStr":"Pre-A轮"
+                'id':'',
+                "title":"",
+                "mechanism":"",
+                "industryDirect":'',
+                "financeQuota":'',
+                "financeState":'',
+                "industryDirectStr":"",
+                "financeQuotaStr":"",
+                "financeStateStr":""
         }}}
     },
     data(){

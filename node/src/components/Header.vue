@@ -12,8 +12,8 @@
             <div class="nav-item match" @click="toPage('/match')" :class="$route.path=='/match'?'active':''">一键匹配</div>
         </div>
         <div class="user">
-            <div class="btn logo" @click="$emit('do-login')" v-show="!$store.state.userInfo.userName">登录</div>
-            <div class="btn reg" @click="$emit('to-reg')" v-show="!$store.state.userInfo.userName">注册</div>
+            <div class="btn logo" @click="toPage('/','do-login')" v-show="!$store.state.userInfo.userName">登录</div>
+            <div class="btn reg" @click="toPage('/','to-reg')" v-show="!$store.state.userInfo.userName">注册</div>
             <UserInfo :userInfo="$store.state.userInfo" v-show="$store.state.userInfo.userName"></UserInfo>
         </div>
     </div>
@@ -30,8 +30,16 @@ export default {
         }
     },
     methods:{
-        toPage(url){
-            this.$router.push({path:url});
+        toPage(url,flag){
+            if(flag=='do-login'){
+                this.$router.push({name:'Home',params:{islogin:1}});
+            }
+            if(flag=='to-reg'){
+                this.$router.push({name:'Home',params:{isreg:1}});
+            }
+            this.$router.push({path:url})
+            // $emit('do-login')
+            // $emit('to-reg')
         }
     },
     components:{

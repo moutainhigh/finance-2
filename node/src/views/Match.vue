@@ -118,7 +118,7 @@
                                 $refs.productState.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CPJD')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('STOCKRIGHT_FMZLSL')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-input v-show="matchForm.productState==5" placeholder="请输入其他的内容" v-model="productState" @blur=" 
                             () => {
@@ -133,7 +133,7 @@
                                 $refs.business.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('YYSR')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('STOCKRIGHT_YYSR')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item ref="businessAddRate" label="营业收入增长率" prop="businessAddRate" class="input-item">
@@ -256,28 +256,28 @@
                                 $refs.patentCount.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('FMZLSL')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('STOCKRIGHT_FMZLSL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item ref="advantage" label="公司竞争优势" prop="advantage" class="input-item" :wrapper-col="{ span: 18, offset: 0 }">
                         <a-checkbox @change="onChange" v-model="isCheckCb">成本优势</a-checkbox>
-                        <a-select v-model="matchForm.advantage" style="width:5vw;" v-if="isCheckCb" @blur="
+                        <a-select v-model="cbys" style="width:5vw;" v-if="isCheckCb" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CBYS')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs">技术优势</a-checkbox>
-                        <a-select v-model="matchForm.advantage" style="width:5vw;" v-if="isCheckJs" @blur="
+                        <a-select v-model="jsys" style="width:5vw;" v-if="isCheckJs" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('gsjzys')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('JSYS')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-checkbox-group :options="['渠道优势','先发优势','资质优势','其他']" style="margin-left:0.3vw;" v-model="advantage"></a-checkbox-group>
-                        <a-input v-show="advantage.indexOf('其他')!=-1" style="width:8vw;margin-left:0.3vw;"></a-input>
+                        <a-input v-show="advantage.indexOf('其他')!=-1" style="width:8vw;margin-left:0.3vw;" v-model="advantageOther"></a-input>
                     </a-form-model-item>
                     <a-form-model-item ref="capitals" label="股东累计投入资金" prop="capitals" class="input-item">
                         <a-select v-model="matchForm.capitals" @blur="
@@ -308,7 +308,10 @@
                         <a-input v-show="matchForm.evaluateName==4" key="" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
-                        <a-button type="primary" @click="onSubmit">
+                        <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
+                            一键匹配
+                        </a-button>
+                        <a-button type="default" @click="isLogin=true" v-if="!$store.state.token">
                             一键匹配
                         </a-button>
                     </a-form-model-item>
@@ -407,18 +410,61 @@ export default {
             isCheckCb:false,
             isCheckJs:false,
             advantage:[],
+            advantageOther:'',//公司竞争优势其他
             financeState:'',//融资阶段其他
             IndustryDirect:'',//行业方向其他
             shareholder:'',//股东背景其他
             productState:'',//产品阶段其他
             targetCustomer:'',//目标客户其他
             evaluateName:'',//预计上市时间其他
+            cbys:'',//成本优势下拉
+            jsys:'',//技术优势下拉
         }
     },
     created(){
-        getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
+        getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
+    },
+    watch:{
+        advantage:function(v,o){
+            let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
+            v.forEach(item=>{
+                let obj = {type:map[item],value:map[item]};
+                if(map[item]==5){
+                    obj.value = this.advantageOther;
+                }
+                if(this.matchForm.advantage){
+                    this.matchForm.advantage.push(obj);
+                }else{
+                    this.matchForm.advantage = [];
+                    this.matchForm.advantage.push(obj);
+                }
+
+            })
+        },
+        cbys:function(v,o){
+            if(v){
+                let obj = {type:1,value:v};
+                if(this.matchForm.advantage){
+                    this.matchForm.advantage.push(obj);
+                }else{
+                    this.matchForm.advantage = [];
+                    this.matchForm.advantage.push(obj);
+                }
+            }
+        },
+        jsys:function(v,o){
+            if(v){
+                let obj = {type:1,value:v};
+                if(this.matchForm.advantage){
+                    this.matchForm.advantage.push(obj);
+                }else{
+                    this.matchForm.advantage = [];
+                    this.matchForm.advantage.push(obj);
+                }
+            }
+        },
     },
     methods:{
         tabchange(index){
@@ -466,7 +512,16 @@ export default {
             for(let item of this.searchFieldList){
                 // console.log(item.codeType,codeType);
                 if(item.codeType==codeType){
-                    return item.sysCodeValueVos;
+                    return item.queryDetailSysCodeVos;
+                }
+            }
+            return [];
+        },
+        getChildSysCodes(itemList,value){
+            for(let item of itemList){
+                // console.log(item.codeType,codeType);
+                if(item.value==value){
+                    return item.childSysCodes;
                 }
             }
             return [];
@@ -499,8 +554,34 @@ export default {
         goMatch(){
             let params = Object.assign({},this.baseForm,this.matchForm);
             console.log(params)
+            params.advantage = JSON.stringify(params.advantage);
+            if(this.financeState){
+                let financeState = JSON.stringify({type:this.matchForm.financeState,value:this.financeState})
+                params.financeState=financeState;
+            }
+            if(this.IndustryDirect){
+                let IndustryDirect = JSON.stringify({type:this.matchForm.IndustryDirect,value:this.IndustryDirect})
+                params.IndustryDirect=IndustryDirect;
+            }
+            if(this.shareholder){
+                let shareholder = JSON.stringify({type:this.matchForm.shareholder,value:this.shareholder})
+                params.shareholder=shareholder;
+            }
+            if(this.productState){
+                let productState = JSON.stringify({type:this.matchForm.productState,value:this.productState})
+                params.productState=productState;
+            }
+            if(this.targetCustomer){
+                let targetCustomer = JSON.stringify({type:this.matchForm.targetCustomer,value:this.targetCustomer})
+                params.targetCustomer=targetCustomer;
+            }
+            if(this.evaluateName){
+                let evaluateName = JSON.stringify({type:this.matchForm.evaluateName,value:this.evaluateName})
+                params.evaluateName=evaluateName;
+            }
+
             // /finance/financeProduct/getOneKeyMatching
-            this.$http.post('/finance/financeProduct/getOneKeyMatching',this.params).then(res=>{
+            this.$http.post('/finance/financeProduct/getOneKeyMatching',params).then(res=>{
                 console.log(res)
                 if(res.data.code==0){
 

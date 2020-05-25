@@ -118,27 +118,27 @@ export default {
       isForget:false,
       userInfo:{userName:''},
       cdMap:[
-        {opacity:0,top:494-top,left:'278',src:'/image/home/成华区.png',isshow:true,name:'成华区',style:{zIndex:0}},
-        {opacity:0,top:134-top,left:'231',src:'/image/home/崇州市.png',isshow:true,name:'崇州市',style:{zIndex:0}},
-        {opacity:0,top:85.7-top,left:'255',src:'/image/home/大邑县.png',isshow:true,name:'大邑县',style:{zIndex:0}},
-        {opacity:0,top:249-top,left:'45.6',src:'/image/home/都江堰.png',isshow:true,name:'都江堰',style:{zIndex:0}},
-        {opacity:0,top:494-top,left:'345',src:'/image/home/高新技术产业开发区.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
-        {opacity:0,top:538-top,left:'318',src:'/image/home/简阳市.png',isshow:true,name:'简阳市',style:{zIndex:0}},
-        {opacity:0,top:444-top,left:'254',src:'/image/home/金牛区.png',isshow:true,name:'金牛区',style:{zIndex:0}},
-        {opacity:0,top:595-top,left:'203',src:'/image/home/金堂县.png',isshow:true,name:'金堂县',style:{zIndex:0}},
-        {opacity:0,top:491-top,left:'308',src:'/image/home/锦江区.png',isshow:true,name:'锦江区',style:{zIndex:0}},
-        {opacity:0,top:519-top,left:'287',src:'/image/home/龙泉驿区.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
-        {opacity:0,top:342-top,left:'19',src:'/image/home/彭州市.png',isshow:true,name:'彭州市',style:{zIndex:0}},
-        {opacity:0,top:361-top,left:'198',src:'/image/home/郫都区.png',isshow:true,name:'郫都区',style:{zIndex:0}},
-        {opacity:0,top:204-top,left:'432',src:'/image/home/浦江县.png',isshow:true,name:'浦江县',style:{zIndex:0}},
-        {opacity:0,top:526-top,left:'216.5',src:'/image/home/青白江.png',isshow:true,name:'青白江',style:{zIndex:0}},
-        {opacity:0,top:426-top,left:'287',src:'/image/home/青羊区.png',isshow:true,name:'青羊区',style:{zIndex:0}},
-        {opacity:0,top:109-top,left:'353',src:'/image/home/邛崃市.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
-        {opacity:0,top:383-top,left:'308',src:'/image/home/天府新区.png',isshow:true,name:'天府新区',style:{zIndex:0}},
-        {opacity:0,top:344-top,left:'223',src:'/image/home/温江区.png',isshow:true,name:'温江区',style:{zIndex:0}},
-        {opacity:0,top:444-top,left:'308',src:'/image/home/武侯区.png',isshow:true,name:'武侯区',style:{zIndex:0}},
-        {opacity:0,top:429-top,left:'197',src:'/image/home/新都区.png',isshow:true,name:'新都区',style:{zIndex:0}},
-        {opacity:0,top:354-top,left:'362.5',src:'/image/home/新津县.png',isshow:true,name:'新津县',style:{zIndex:0}},
+        {opacity:0,top:494-top,left:'278',src:'/image/home/chq.png',isshow:true,name:'成华区',style:{zIndex:0}},
+        {opacity:0,top:134-top,left:'231',src:'/image/home/czs.png',isshow:true,name:'崇州市',style:{zIndex:0}},
+        {opacity:0,top:85.7-top,left:'255',src:'/image/home/dbx.png',isshow:true,name:'大邑县',style:{zIndex:0}},
+        {opacity:0,top:249-top,left:'45.6',src:'/image/home/djy.png',isshow:true,name:'都江堰',style:{zIndex:0}},
+        {opacity:0,top:494-top,left:'345',src:'/image/home/gxq.png',isshow:true,name:'高新技术产业开发区',style:{zIndex:0}},
+        {opacity:0,top:538-top,left:'318',src:'/image/home/jys.png',isshow:true,name:'简阳市',style:{zIndex:0}},
+        {opacity:0,top:444-top,left:'254',src:'/image/home/jnq.png',isshow:true,name:'金牛区',style:{zIndex:0}},
+        {opacity:0,top:595-top,left:'203',src:'/image/home/jtq.png',isshow:true,name:'金堂县',style:{zIndex:0}},
+        {opacity:0,top:491-top,left:'308',src:'/image/home/jjq.png',isshow:true,name:'锦江区',style:{zIndex:0}},
+        {opacity:0,top:519-top,left:'287',src:'/image/home/lqyq.png',isshow:true,name:'龙泉驿区',style:{zIndex:0}},
+        {opacity:0,top:342-top,left:'19',src:'/image/home/pzs.png',isshow:true,name:'彭州市',style:{zIndex:0}},
+        {opacity:0,top:361-top,left:'198',src:'/image/home/pdq.png',isshow:true,name:'郫都区',style:{zIndex:0}},
+        {opacity:0,top:204-top,left:'432',src:'/image/home/pjq.png',isshow:true,name:'浦江县',style:{zIndex:0}},
+        {opacity:0,top:526-top,left:'216.5',src:'/image/home/qbj.png',isshow:true,name:'青白江',style:{zIndex:0}},
+        {opacity:0,top:426-top,left:'287',src:'/image/home/qyq.png',isshow:true,name:'青羊区',style:{zIndex:0}},
+        {opacity:0,top:109-top,left:'353',src:'/image/home/qls.png',isshow:true,name:'邛崃市',style:{zIndex:0}},
+        {opacity:0,top:383-top,left:'308',src:'/image/home/tfxq.png',isshow:true,name:'天府新区',style:{zIndex:0}},
+        {opacity:0,top:344-top,left:'223',src:'/image/home/wjq.png',isshow:true,name:'温江区',style:{zIndex:0}},
+        {opacity:0,top:444-top,left:'308',src:'/image/home/whq.png',isshow:true,name:'武侯区',style:{zIndex:0}},
+        {opacity:0,top:429-top,left:'197',src:'/image/home/xdq.png',isshow:true,name:'新都区',style:{zIndex:0}},
+        {opacity:0,top:354-top,left:'362.5',src:'/image/home/xjx.png',isshow:true,name:'新津县',style:{zIndex:0}},
       ],
       result:[
         {title:'企业入驻（家）',type:'companyCount',value:0},
@@ -166,6 +166,14 @@ export default {
     }
   },
   mounted(){
+
+    if(this.$route.params.islogin){
+      this.isLogin = true;
+    }
+    if(this.$route.params.isreg){
+      this.isReg = true;
+    }
+
     if(localStorage.getItem('userInfo')){
       this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
       this.$store.commit('setUserInfo',this.userInfo);

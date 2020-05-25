@@ -20,9 +20,9 @@
                 </div>
                 <div class="filter-body" :style="openBodyStyle">
                     <div class="filter-item" v-for="sItem in searchFieldList.slice(0,3)" :key="sItem.codeType">
-                        <div class="item-title">{{sItem.name}}</div>
+                        <div class="item-title">{{sItem.codeName}}</div>
                         <div class="item">
-                            <div class="item-list" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code"
+                            <div class="item-list" v-for="codeItem in sItem.queryDetailSysCodeVos" :key="codeItem.code"
                                 :class="getActive(codeItem)?'active':''"
                                 @click="selSearchField('',codeItem)"
                                 >{{codeItem.value}}</div>
@@ -30,9 +30,10 @@
                     </div>
                     <div class="filter-item more">
                         <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
-                            <span>{{sItem.name}}：</span>
-                            <a-select default-value="不限" style="width: 120px" @change="selectField">
-                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.sysCodeValueVos" :key="codeItem.code" :codeType='codeItem.codeType' >
+                            <span>{{sItem.codeName}}：</span>
+                            <a-select default-value="不限" style="width: 120px" @change="selectField" allowClear>
+                                <a-select-option value="" key="">不限</a-select-option>
+                                <a-select-option :value="codeItem.code" v-for="codeItem in sItem.queryDetailSysCodeVos" :key="codeItem.code" :codeType='codeItem.codeType' >
                                     {{codeItem.value}}
                                 </a-select-option>
                             </a-select>
@@ -71,7 +72,7 @@
                 </div>
                 <div class="list-items">
                     <div v-if="!productList.length">暂无数据</div>
-                    <ListPageItem class="list-item" v-if="productList.length" @to-detail="toDetail" v-for="(item,index) in productList" :key="index"></ListPageItem>
+                    <ListPageItem class="list-item" v-if="productList.length" @to-detail="toDetail" v-for="(item,index) in productList" :item="item" :key="index"></ListPageItem>
                 </div>
                 <div class="page" v-if="productList.length">
                     <div class="page-num">
@@ -166,8 +167,8 @@ export default {
     },
     created(){
         // 预先加载搜索字段
-        getSearchField(this.$http,'/finance/sysCode/getSysCode',{codeType:''}).then(res=>{
-            this.searchFieldList = matchSearchData(res);
+        getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
+            this.searchFieldList = res;
         }).catch(err=>console.log(err));
         
         this.getProductList();
@@ -231,7 +232,7 @@ export default {
 
         },
         toDetail(item){
-            this.$router.push({path:'/detail',query:{id:item.id}})
+            this.$router.push({path:'/detail',query:{companyId:item.id}})
         },
         selSearchField(val,item){
             let field = mapData.get(item.codeType);
@@ -317,12 +318,12 @@ export default {
 font-family:PingFangSC-Regular;font-size:14px;color:#FFFFFF;text-align:center;line-height:32px;cursor:pointer;}
 .guquan .list-box .list-filter .filter-head .search .search-btn:hover{background:rgba(47,171,218,1);}
 .guquan .filter-body{height:150px;overflow:hidden;transition:all 1s;}
-.guquan .filter-body .filter-item{margin:23px 24px 22px;display:flex;flex-wrap:wrap;justify-content:flex-start;}
+.guquan .filter-body .filter-item{margin:23px 24px 22px;display:flex;flex-wrap:wrap;justify-content:flex-start;align-items: center;}
 .guquan .filter-body .filter-item .filter-title{font-size: PingFangSC-Medium;font-size: 16px;color: #333333;}
 .guquan .filter-body .more .item-title{margin-left:36px;width:calc(25% - 36px);}
 .guquan .filter-body .more .item-title:nth-child(4n+1){margin-left:0px;margin-bottom:19px;}
 .guquan .filter-body .filter-item .item{margin-left:56px;font-family: PingFangSC-Regular;font-size: 16px;color: #666666;display:flex;}
-.guquan .filter-body .filter-item .item .item-list{margin-left:29px;cursor:pointer;}
+.guquan .filter-body .filter-item .item .item-list{margin-left:29px;cursor:pointer;font-size:16px;}
 .guquan .filter-body .filter-item .item .item-list:nth-child(1){margin-left:0px;}
 .guquan .filter-body .filter-item .item .active{color: #2FABDA;}
 .guquan .adv-btns{display:flex;justify-content:center;position:relative;z-index:2;}

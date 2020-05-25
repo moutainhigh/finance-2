@@ -265,8 +265,8 @@ export function getStorage(field){
             localStorage.removeItem(field);
             return false;
         }else{
-            storage(field,date.params,2*60);
-            return date.params;
+            storage(field,data.params,2*60);
+            return data.params;
         }
     }else{
         return false;
