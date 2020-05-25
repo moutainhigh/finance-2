@@ -82,9 +82,9 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                 childSysCode.stream().forEach(sysCode1 -> {
                     if (sysCode.getCodeType().equals(sysCode1.getPCodeType())) {
                         SysCodeValueVo sysCodeValueVo = SysCodeValueVo.builder()
-                                .codeType(sysCode.getCodeType())
-                                .code(sysCode.getCode())
-                                .value(sysCode.getValue())
+                                .codeType(sysCode1.getCodeType())
+                                .code(sysCode1.getCode())
+                                .value(sysCode1.getValue())
                                 .build();
                         sysCodeValueVos.add(sysCodeValueVo);
                     }
