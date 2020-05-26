@@ -86,7 +86,7 @@ export default {
         }
     },
     methods:{
-        ...mapActions(['setUserInfo']),
+        ...mapActions(['setUserInfo','setToken']),
         doLogin(){
             if(this.isForm){
                 this.$refs.ruleForm.validate(valid => {
@@ -127,6 +127,7 @@ export default {
                 }
                 // 登录成功存储用户信息
                 storage('cdjr_token',res.data.content.token,2*60);
+                this.setToken(res.data.content.token)
                 // localStorage.setItem('cdjr_token',res.data.content.token);
                 this.setUserInfo(res.data.content.userInfo);
                 localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
