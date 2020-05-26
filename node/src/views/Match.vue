@@ -336,6 +336,15 @@ import { matchSearchData} from "@/common/lib/tools.js"
 import BoneMatch from "@/components/BoneMatch.vue"
 export default {
     data(){
+        let validateMobile = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入联系电话'));
+            } else if (!/^1[3|4|5|6|7|8|9][0-9]{9}/.test(value)) {
+                callback(new Error("请输入正确的联系电话"));
+            } else{
+                callback();
+            }
+        };
         return {
             isLogin:false,
             isReg:false,
@@ -350,7 +359,8 @@ export default {
             },
             baseRules:{
                 mobile:[
-                    {required:true,message:'请输入联系电话',trigger:'blur'}
+                    {required:true,message:'请输入联系电话',trigger:'blur'},
+                    { validator: validateMobile, trigger: 'blur' },
                 ],
                 username:[{required:true,message:'请输入联系人',trigger:'blur'}],
                 registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
@@ -598,7 +608,7 @@ export default {
                 this.$message.destroy();
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
-                    localStorage.setItem('ids',res.data.content);
+                    localStorage.setItem('zids',res.data.content);
                     this.$router.push({name:'Zhaiquan'})
                 }else{
                     this.$message.error(res.data.msg);
@@ -652,7 +662,7 @@ export default {
                 this.$message.destroy();
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
-                    localStorage.setItem('zids',res.data.content);
+                    localStorage.setItem('ids',res.data.content);
                     this.$router.push({name:'Guquan'})
                 }else{
                     this.$message.error(res.data.msg);
