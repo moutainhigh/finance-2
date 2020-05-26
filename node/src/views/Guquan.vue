@@ -235,7 +235,7 @@ export default {
         },
         selectField(val,item){
             this.getProductList();
-        },
+        }, 
         getActive(item){
             if(this.mapData[item.codeType]=='financeQuota' && this.params.content.financeQuota==item.code){
                 return true;
