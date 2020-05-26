@@ -67,9 +67,7 @@
           <div class="c-info">
             <div class="c-title">{{currSelItem.institutionName}}</div>
             <ul>
-              <li>物联网投资基金</li>
-              <li>中小企业专项投资</li>
-              <li>创新医药投资基金</li>
+              <li v-for="item in currSelItem.institutionProductVos.slice(0,3)" :key="item.productName"><div>物联网投资基金</div></li>
             </ul>
           </div>
           <div class="znz">
@@ -655,9 +653,11 @@ export default {
               font-stretch: normal;
               letter-spacing: 0vw;
               color: #ffd600;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-              overflow: hidden;
+              div{
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+              }
             }
           }
         }

@@ -92,7 +92,7 @@
     </div>
 </template>
 <script>
-import { getSearchField,mapData } from "@/common/commapi.js"
+import { getSearchField } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
 import {mapActions} from "vuex"
 export default {
@@ -227,7 +227,7 @@ export default {
             this.$router.push({path:'/detail',query:{companyId:item.id}})
         },
         selSearchField(val,item){
-            let field = mapData.get(item.codeType);
+            let field = this.mapData[item.codeType];
             if(field){
                 this.$set(this.params.content,field,item.code);
             }
@@ -237,25 +237,26 @@ export default {
             this.getProductList();
         },
         getActive(item){
-            if(item.codeType=='RZED' && this.params.content.financeQuota==item.code){
+            if(this.mapData[item.codeType]=='financeQuota' && this.params.content.financeQuota==item.code){
                 return true;
             }
-            if(item.codeType=='RZJD' && this.params.content.financeState==item.code){
+            if(this.mapData[item.codeType]=='financeState' && this.params.content.financeState==item.code){
                 return true;
             }
-            if(item.codeType=='HYFX' && this.params.content.IndustryDirect==item.code){
+            if(this.mapData[item.codeType]=='industryDirect' && this.params.content.industryDirect==item.code){
                 return true;
             }
             return false;
         },
         getProductList(){
-
+            var params = JSON.stringify(this.params);
+            params = JSON.parse(params);
             if(localStorage.getItem('ids')){
-                params.productIds= localStorage.getItem('ids').length==0?'test':localStorage.getItem('ids');
+                params.content.productIds= localStorage.getItem('ids').indexOf(',')==-1?'test':localStorage.getItem('ids');
             }
 
             this.$message.loading('加载中...',0);
-            this.$http.post('/finance/financeProduct/getFinanceStockProduct',this.params).then(res=>{
+            this.$http.post('/finance/financeProduct/getFinanceStockProduct',params).then(res=>{
                 this.$message.destroy();
                 localStorage.removeItem('ids');
                 if(res.data.code==0){

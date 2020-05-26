@@ -258,12 +258,14 @@ export default {
             }
         },
         getProductList(){
+            var params = JSON.stringify(this.params);
+            params = JSON.parse(params);
             if(localStorage.getItem('zids')){
-                params.productIds= localStorage.getItem('zids').length==0?'test':localStorage.getItem('zids');
+                params.content.productIds= localStorage.getItem('zids').indexOf(',')==-1?'test':localStorage.getItem('zids');
             }
 
             this.$message.loading('加载中...',0);
-            this.$http.post('/finance/financeProduct/getFinanceBondProduct',this.params).then(res=>{
+            this.$http.post('/finance/financeProduct/getFinanceBondProduct',params).then(res=>{
                 this.$message.destroy();
                 localStorage.removeItem('zids')
                 if(res.data.code==0){
