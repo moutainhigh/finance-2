@@ -1,5 +1,12 @@
 package com.july.company.constant;
 
+import com.july.company.dto.Node;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 系统常量
  * @author zengxueqi
@@ -60,11 +67,11 @@ public class SystemConstant {
     /**
      * 营业收入
      */
-    public static final String YYSR = "YYSR";
+    public static final String STOCKRIGHT_YYSR = "STOCKRIGHT_YYSR";
     /**
      * 营业收入增长率
      */
-    public static final String YYZZL = "YYZZL";
+    public static final String YYSRZZL = "YYSRZZL";
     /**
      * 产品毛利率/预期产品毛利率
      */
@@ -88,11 +95,11 @@ public class SystemConstant {
     /**
      * 目标市场容量
      */
-    public static final String MBSCRL = "MBSCRL";
+    public static final String SCRL = "SCRL";
     /**
      * 目标市场增长率
      */
-    public static final String MBSCZZL = "MBSCZZL";
+    public static final String SCRLZZL = "SCRLZZL";
     /**
      * 目标客户
      */
@@ -104,11 +111,11 @@ public class SystemConstant {
     /**
      * 是否接受回购条款
      */
-    public static final String SFJSHG = "SFJSHG";
+    public static final String SFHG = "SFHG";
     /**
      * 发明专利数量
      */
-    public static final String FMZLS = "FMZLS";
+    public static final String STOCKRIGHT_FMZLSL = "STOCKRIGHT_FMZLSL";
     /**
      * 公司竞争优势
      */
@@ -202,5 +209,71 @@ public class SystemConstant {
      * 增信方式
      */
     public static final String ZXFS = "ZXFS";
+    /**
+     * 行业方向
+     */
+    public static final String BOND_HYFX = "BOND_HYFX";
+    /**
+     * 股东背景
+     */
+    public static final String BOND_GDBJ = "BOND_GDBJ";
+    /**
+     * 资产负债率
+     */
+    public static final String ZCFZL = "ZCFZL";
+    /**
+     * 资产收益率
+     */
+    public static final String JZCSYL = "JZCSYL";
+    /**
+     * 净利润
+     */
+    public static final String BOND_JLR = "BOND_JLR";
+
+    public static final List<Node> getDebtratioInfo() {
+        Node node1 = Node.builder()
+                .type("1")
+                .code("0")
+                .value("20")
+                .build();
+
+        Node node2 = Node.builder()
+                .type("2")
+                .code("20")
+                .value("40")
+                .build();
+
+        Node node3 = Node.builder()
+                .type("3")
+                .code("40")
+                .value("60")
+                .build();
+
+        Node node4 = Node.builder()
+                .type("4")
+                .code("60")
+                .value("80")
+                .build();
+
+        Node node5 = Node.builder()
+                .type("5")
+                .code("80")
+                .value("100")
+                .build();
+
+        Node node6 = Node.builder()
+                .type("6")
+                .code("100")
+                .value("10000")
+                .build();
+        List<Node> nodes = new ArrayList<>();
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node5);
+        nodes.add(node6);
+        return nodes;
+    }
 
 }

@@ -2,13 +2,13 @@ package com.july.company.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.dto.finance.FinanceProductDetailDto;
-import com.july.company.dto.finance.FinanceProductDto;
+import com.july.company.dto.finance.FinanceBondProductDto;
+import com.july.company.dto.finance.FinanceStockProductDto;
 import com.july.company.dto.finance.ProductMatchDto;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.vo.finance.FinanceProductDetailVo;
-import com.july.company.vo.finance.FinanceProductVo;
+import com.july.company.vo.finance.FinanceBondProductVo;
+import com.july.company.vo.finance.FinanceStockProductVo;
 
 /**
  * 融资产品信息 服务类
@@ -20,29 +20,21 @@ public interface FinanceProductService extends IService<FinanceProduct> {
     /**
      * 获取产品列表信息
      * @param page
-     * @param stockCompanyDto
-     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.FinanceProductVo>
+     * @param financeStockProductDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.FinanceStockProductVo>
      * @author zengxueqi
-     * @since 2020/5/20
+     * @since 2020/5/26
      */
-    IPage<FinanceProductVo> getFinanceProduct(Page<FinanceProductVo> page, FinanceProductDto stockCompanyDto);
+    IPage<FinanceStockProductVo> getFinanceStockProduct(Page<FinanceStockProductVo> page, FinanceStockProductDto financeStockProductDto);
 
     /**
-     * 获取产品明细信息
-     * @param financeProductDetailDto
-     * @return com.july.company.vo.finance.FinanceProductDetailVo
+     * 获取债券产品列表信息
+     * @param page
+     * @param financeBondProductDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.FinanceBondProductVo>
      * @author zengxueqi
-     * @since 2020/5/20
+     * @since 2020/5/26
      */
-    FinanceProductDetailVo getFinanceProductDetail(FinanceProductDetailDto financeProductDetailDto);
-
-    /**
-     * 一键匹配信息
-     * @param productMatchDto
-     * @return java.lang.String
-     * @author zengxueqi
-     * @since 2020/5/25
-     */
-    String getOneKeyMatching(ProductMatchDto productMatchDto);
+    IPage<FinanceBondProductVo> getFinanceBondProduct(Page<FinanceBondProductVo> page, FinanceBondProductDto financeBondProductDto);
 
 }
