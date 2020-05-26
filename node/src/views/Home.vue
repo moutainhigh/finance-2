@@ -98,13 +98,14 @@
     </div>
     
     <!-- <img src="/image/home/seld.png" alt="" class="seld"> -->
-    <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget"></Login>
-    <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close"></Register>
-    <Forget v-show="isForget" @do-forget="doforget" @to-login="login" @close="close"></Forget>
+    <transition-group name="fade" mode="in-out">
+    <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" key="login"></Login>
+    <Register v-if="isReg" @do-reg="doReg" @to-login="login" @close="close" key="reg"></Register>
+    <Forget v-if="isForget" @do-forget="doforget" @to-login="login" @close="close" key="forget"></Forget>
+    </transition-group>
   </div>
 </template>
 <script>
-import BMap from 'BMap';
 import $ from 'jQuery';
 import {filterCompany, drawCompany} from '@/common/lib/tools.js'
 const top=40;
@@ -186,6 +187,7 @@ export default {
     // 获取推荐机构
     this.getCompany();
 
+
     
   },
   methods: {
@@ -252,6 +254,14 @@ export default {
     },
     tabChange(index){
       this.tabAction = index;
+      if(index==0){
+        this.gqIndex = 0;
+        $('circle[comp="'+this.gqjg[0].institutionName+'"]').click();
+      }
+      if(index==1){
+        this.gqIndex = 0;
+        $('circle[comp="'+this.zjjg[0].institutionName+'"]').click();
+      }
     },
     selComp(index,item){
       if(index==this.gqIndex){
@@ -270,7 +280,7 @@ export default {
           if(company){
             this.gqjg = company.gqjg;
             this.currSelItem = this.gqjg[0];
-            this.gqIndex = 1;
+            this.gqIndex = 0;
             this.zjjg = company.zjjg;
           }
         }

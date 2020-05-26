@@ -56,7 +56,7 @@
                     </a-form-model-item>
             </a-form-model>
         </a-card>
-        <a-card title="业务信息" class="card-work">
+        <a-card title="业务信息" class="card-work" v-if="active==0">
             <a-form-model ref="matchForm" :model="matchForm" :rules="rules" :label-col="{span:4}" :wrapper-col="{span:12}">
                     <a-form-model-item ref="financeState" label="融资阶段" prop="financeState" class="input-item" >
                         <a-select v-model="matchForm.financeState"  @blur="
@@ -82,17 +82,17 @@
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('RZED')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="IndustryDirect" label="行业方向" prop="IndustryDirect" class="input-item">
-                        <a-select v-model="matchForm.IndustryDirect" @blur="
+                    <a-form-model-item ref="industryDirect" label="行业方向" prop="industryDirect" class="input-item">
+                        <a-select v-model="matchForm.industryDirect" @blur="
                             () => {
-                                $refs.IndustryDirect.onFieldBlur();
+                                $refs.industryDirect.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('HYFX')">{{item.value}}</a-select-option>
                         </a-select>
-                        <a-input v-show="matchForm.IndustryDirect==8" placeholder="请输入其他的内容" v-model="IndustryDirect" @blur=" 
+                        <a-input v-show="matchForm.industryDirect==8" placeholder="请输入其他的内容" v-model="industryDirect" @blur=" 
                             () => {
-                                $refs.IndustryDirect.onFieldBlur();
+                                $refs.industryDirect.onFieldBlur();
                             }
                             "
                         />
@@ -266,7 +266,9 @@
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CBYS')">{{item.value}}</a-select-option>
+                            <template v-for="item in getFieldList('GSJZYS')">
+                            <a-select-option v-if="item.code==0" :key="sitem.code" :value="sitem.code" v-for="(sitem) in item.childSysCodes">{{sitem.value}}</a-select-option>
+                            </template>
                         </a-select>
                         <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs">技术优势</a-checkbox>
                         <a-select v-model="jsys" style="width:5vw;" v-if="isCheckJs" @blur="
@@ -274,7 +276,9 @@
                                 $refs.advantage.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('JSYS')">{{item.value}}</a-select-option>
+                            <template v-for="item in getFieldList('GSJZYS')">
+                            <a-select-option v-if="item.code==1" :key="sitem.code" :value="sitem.code" v-for="(sitem) in item.childSysCodes">{{sitem.value}}</a-select-option>
+                            </template>
                         </a-select>
                         <a-checkbox-group :options="['渠道优势','先发优势','资质优势','其他']" style="margin-left:0.3vw;" v-model="advantage"></a-checkbox-group>
                         <a-input v-show="advantage.indexOf('其他')!=-1" style="width:8vw;margin-left:0.3vw;" v-model="advantageOther"></a-input>
@@ -317,6 +321,7 @@
                     </a-form-model-item>
             </a-form-model>
         </a-card>
+        <BoneMatch v-if="active==1" @do-sub="onSubmit" @dologin="isLogin=true"></BoneMatch>
     </div>
     <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" :isForm="true"></Login>
     <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close" :isForm="true"></Register>
@@ -328,6 +333,7 @@
 <script>
 import { getSearchField,mapData } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
+import BoneMatch from "@/components/BoneMatch.vue"
 export default {
     data(){
         return {
@@ -354,7 +360,7 @@ export default {
             matchForm:{
                 financeQuota:"",
                 financeState:"",
-                IndustryDirect:"",
+                industryDirect:"",
                 registerAddress:"",
                 business:"",
                 staffCount:"",
@@ -381,7 +387,7 @@ export default {
             rules:{
                 financeQuota:[{required:true,message:'请选择融资额度',trigger:'blur'}],
                 financeState:[{required:true,message:'请选择融资阶段',trigger:'blur'}],
-                IndustryDirect:[{required:true,message:'请选择行业方向',trigger:'blur'}],
+                industryDirect:[{required:true,message:'请选择行业方向',trigger:'blur'}],
                 registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
                 business:[{required:true,message:'请选择营业收入',trigger:'blur'}],
                 staffCount:[{required:true,message:'请选择员工人数',trigger:'blur'}],
@@ -412,13 +418,14 @@ export default {
             advantage:[],
             advantageOther:'',//公司竞争优势其他
             financeState:'',//融资阶段其他
-            IndustryDirect:'',//行业方向其他
+            industryDirect:'',//行业方向其他
             shareholder:'',//股东背景其他
             productState:'',//产品阶段其他
             targetCustomer:'',//目标客户其他
             evaluateName:'',//预计上市时间其他
             cbys:'',//成本优势下拉
-            jsys:'',//技术优势下拉
+            jsys:'',//技术优势下拉,
+
         }
     },
     created(){
@@ -427,27 +434,20 @@ export default {
         }).catch(err=>console.log(err));
     },
     watch:{
-        advantage:function(v,o){
-            let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
-            v.forEach(item=>{
-                let obj = {type:map[item],value:map[item]};
-                if(map[item]==5){
-                    obj.value = this.advantageOther;
-                }
-                if(this.matchForm.advantage){
-                    this.matchForm.advantage.push(obj);
-                }else{
-                    this.matchForm.advantage = [];
-                    this.matchForm.advantage.push(obj);
-                }
-
-            })
-        },
         cbys:function(v,o){
             if(v){
-                let obj = {type:1,value:v};
+                let obj = {code:0,value:v};
                 if(this.matchForm.advantage){
-                    this.matchForm.advantage.push(obj);
+                    let ishas = this.matchForm.advantage.some(item=>item.code==0);
+                    this.matchForm.advantage.forEach(item=>{
+                        if(item.code==1){
+                            item.value=v;
+                        }else{
+                            if(!ishas){
+                                this.matchForm.advantage.push(obj);
+                            }
+                        }
+                    })
                 }else{
                     this.matchForm.advantage = [];
                     this.matchForm.advantage.push(obj);
@@ -456,13 +456,44 @@ export default {
         },
         jsys:function(v,o){
             if(v){
-                let obj = {type:1,value:v};
+                let obj = {code:1,value:v};
                 if(this.matchForm.advantage){
-                    this.matchForm.advantage.push(obj);
+                    let ishas = this.matchForm.advantage.some(item=>item.code==1);
+                    this.matchForm.advantage.forEach(item=>{
+                        if(item.code==1){
+                            item.value=v;
+                        }else{
+                            if(!ishas){
+                                this.matchForm.advantage.push(obj);
+                            }
+                        }
+                    })
                 }else{
                     this.matchForm.advantage = [];
                     this.matchForm.advantage.push(obj);
                 }
+            }
+        },
+        isCheckCb:function(v,o){
+            if(!v){
+                let adv = JSON.stringify(this.matchForm.advantage);
+                adv = JSON.parse(adv); 
+                adv.forEach((item,index)=>{
+                    if(item.code==0){
+                        this.matchForm.advantage.splice(index,1);
+                    }
+                })
+            }
+        },
+        isCheckJs:function(v,o){
+            if(!v){
+                let adv = JSON.stringify(this.matchForm.advantage);
+                adv = JSON.parse(adv);
+                adv.forEach((item,index)=>{
+                    if(item.code==1){
+                        this.matchForm.advantage.splice(index,1);
+                    }
+                })
             }
         },
     },
@@ -529,7 +560,7 @@ export default {
         onChange(){
 
         },
-        onSubmit(){
+        onSubmit(param){
             new Promise((resolve,reject)=>{
                  this.$refs.baseForm.validate(valid => {
                     if (valid) {
@@ -539,52 +570,90 @@ export default {
                     }
                 });
             }).then((res)=>{
-               this.$refs.matchForm.validate(valid => {
-                    if (valid) {
-                        console.log(valid)
-                        this.goMatch();
-                    } else {
-                        return false;
-                    }
-                }); 
+                if(this.active==0){
+                    this.$refs.matchForm.validate(valid => {
+                         if (valid) {
+                             console.log(valid)
+                             this.goMatch();
+                         } else {
+                             return false;
+                         }
+                     }); 
+                }else{
+                    this.doSub(param)
+                }
             })
            
             
         },
-        goMatch(){
+        doSub(param){//债券一键匹配
+            let params = Object.assign({},this.baseForm,param);
+            
+            let registerAddress = {code:this.baseForm.registerAddress,value:''}
+            params.registerAddress=registerAddress;
+
+            this.$message.loading('匹配中',0);
+            this.$http.post('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
+                console.log(res)
+                this.$message.destroy();
+                if(res.data.code==0){
+                    this.$message.success('匹配成功，跳转中');
+                    localStorage.setItem('ids',res.data.content);
+                    this.$router.push({name:'Zhaiquan'})
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        goMatch(){//股权一键匹配
             let params = Object.assign({},this.baseForm,this.matchForm);
-            console.log(params)
-            params.advantage = JSON.stringify(params.advantage);
-            if(this.financeState){
-                let financeState = JSON.stringify({type:this.matchForm.financeState,value:this.financeState})
-                params.financeState=financeState;
-            }
-            if(this.IndustryDirect){
-                let IndustryDirect = JSON.stringify({type:this.matchForm.IndustryDirect,value:this.IndustryDirect})
-                params.IndustryDirect=IndustryDirect;
-            }
-            if(this.shareholder){
-                let shareholder = JSON.stringify({type:this.matchForm.shareholder,value:this.shareholder})
-                params.shareholder=shareholder;
-            }
-            if(this.productState){
-                let productState = JSON.stringify({type:this.matchForm.productState,value:this.productState})
-                params.productState=productState;
-            }
-            if(this.targetCustomer){
-                let targetCustomer = JSON.stringify({type:this.matchForm.targetCustomer,value:this.targetCustomer})
-                params.targetCustomer=targetCustomer;
-            }
-            if(this.evaluateName){
-                let evaluateName = JSON.stringify({type:this.matchForm.evaluateName,value:this.evaluateName})
-                params.evaluateName=evaluateName;
+        
+            let financeState = {code:this.matchForm.financeState,value:this.financeState}
+            params.financeState=financeState;
+
+            let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
+            params.industryDirect=industryDirect;
+
+            let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
+            params.shareholder=shareholder;
+
+            let productState = {code:this.matchForm.productState,value:this.productState}
+            params.productState=productState;
+
+            let targetCustomer = {code:this.matchForm.targetCustomer,value:this.targetCustomer}
+            params.targetCustomer=targetCustomer;
+
+            let evaluateName = {code:this.matchForm.evaluateName,value:this.evaluateName}
+            params.evaluateName=evaluateName;
+            let registerAddress = {code:this.baseForm.registerAddress,value:''}
+            params.registerAddress=registerAddress;
+
+            let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
+            if(this.advantage){
+                let advantageArr = [];
+                this.advantage.forEach(item=>{
+                    let obj = {code:map[item],value:''};
+                    if(obj.code==5){
+                        obj.value=this.advantageOther;
+                    }
+                    advantageArr.push(obj);
+                });
+                if(params.advantage){
+                    params.advantage = params.advantage.concat(advantageArr);
+                }else{
+                    params.advantage = advantageArr;
+                }
             }
 
             // /finance/financeProduct/getOneKeyMatching
-            this.$http.post('/finance/financeProduct/getOneKeyMatching',params).then(res=>{
+            this.$message.loading('匹配中',0);
+            this.$http.post('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
                 console.log(res)
+                this.$message.destroy();
                 if(res.data.code==0){
-
+                    this.$message.success('匹配成功，跳转中');
+                    localStorage.setItem('zids',res.data.content);
+                    this.$router.push({name:'Guquan'})
                 }else{
                     this.$message.error(res.data.msg);
                 }
@@ -597,6 +666,7 @@ export default {
         Login:()=>import("@/components/Login.vue"),
         Register:()=>import("@/components/Register.vue"),
         Forget:()=>import("@/components/Forget.vue"),
+        BoneMatch:BoneMatch,
     }
 }
 </script>

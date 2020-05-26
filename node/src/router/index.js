@@ -27,7 +27,13 @@ Vue.use(VueRouter)
     path: '/detail',
     name: 'Detail',
     component: () => import('../views/Detail.vue'),
-    meta:{title:'详情'}
+    meta:{title:'股权详情'}
+  },
+  {
+    path: '/zdetail',
+    name: 'ZDetail',
+    component: () => import('../views/ZDetail.vue'),
+    meta:{title:'债券详情'}
   },
   {
     path: '/match',

@@ -22,6 +22,7 @@
                     <div class="filter-item" v-for="sItem in searchFieldList.slice(0,3)" :key="sItem.codeType">
                         <div class="item-title">{{sItem.codeName}}</div>
                         <div class="item">
+                            <div class="item-list" :class="getActive(sItem)?'active':''"   @click="selSearchField('',sItem)">不限</div>
                             <div class="item-list" v-for="codeItem in sItem.queryDetailSysCodeVos" :key="codeItem.code"
                                 :class="getActive(codeItem)?'active':''"
                                 @click="selSearchField('',codeItem)"
@@ -31,7 +32,7 @@
                     <div class="filter-item more">
                         <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
                             <span>{{sItem.codeName}}：</span>
-                            <a-select default-value="不限" style="width: 120px" @change="selectField" allowClear>
+                            <a-select default-value="不限" style="width: 120px" v-model="params.content[sItem.field]" @change="selectField" allowClear>
                                 <a-select-option value="" key="">不限</a-select-option>
                                 <a-select-option :value="codeItem.code" v-for="codeItem in sItem.queryDetailSysCodeVos" :key="codeItem.code" :codeType='codeItem.codeType' >
                                     {{codeItem.value}}
@@ -76,7 +77,7 @@
                 </div>
                 <div class="page" v-if="productList.length">
                     <div class="page-num">
-                        <a-pagination :default-current="1" :total="totalNum" @change="onChange" />
+                        <a-pagination :total="totalNum" @change="onChange" :current='params.pager.currentPage' :defaultPageSize='params.pager.pageSize' />
                     </div>
                     <span class="total">共{{totalNum}}条</span>
                     <input type="text" class="page-input" v-model.number="pageNo">
@@ -129,29 +130,7 @@ export default {
                 "content":{
                     "financeQuota":'',
                     "financeState":'',
-                    "IndustryDirect":'',
-                    "registerAddress":'',
-                    "business":"",
-                    "staffCount":'',
-                    "marketOccupyRate":"",
-                    "evaluateName":"",
-                    "mechanismOrProduct":"",
-                    "productState":'',
-                    "productRate":'',
-                    "experience":'',
-                    "patentCount":'',
-                    "shareholder":'',
-                    "capitals":'',
-                    "advantage":'',
-                    "oldFinanceQuota":'',
-                    "netInterestRate":'',
-                    "targetCustomer":'',
-                    "companyStatus":'',
-                    "marketCapacity":'',
-                    "marketAddRate":'',
-                    "boolBuyBack":'',
-                    "timeToMarket":'',
-                    "businessAddRate":'',
+                    "industryDirect":'',
                     "orderByField":''
                 },
                 "pager":{
@@ -162,16 +141,28 @@ export default {
             productList:[],
             totalNum:0,
             pageNo:'',
-            keywords:''
+            keywords:'',
+            mapData:{},
         }
     },
     created(){
         // 预先加载搜索字段
-        getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
+        getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0,boolQuery:1}).then(res=>{
             this.searchFieldList = res;
+            let threeData = this.searchFieldList.slice(0,3);
+            threeData.forEach((item,index)=>{
+                if(index==0) this.mapData[item.codeType] = 'financeQuota';
+                if(index==1)  this.mapData[item.codeType] = 'financeState';
+                if(index==2) this.mapData[item.codeType] = 'industryDirect';
+            })
+            let content = {}
+            this.searchFieldList.forEach(item=>{
+                content[item.field]='';
+            })
+            this.params.content=Object.assign({},this.params.content,content);
+            this.getProductList();
         }).catch(err=>console.log(err));
         
-        this.getProductList();
     },
     methods:{
         ...mapActions(['setUserInfo']),
@@ -228,8 +219,9 @@ export default {
                 this.openBodyStyle={}
             }
         },
-        onChange(){
-
+        onChange(page, pageSize){
+            this.params.pager.currentPage = page;
+            this.getProductList();
         },
         toDetail(item){
             this.$router.push({path:'/detail',query:{companyId:item.id}})
@@ -239,13 +231,10 @@ export default {
             if(field){
                 this.$set(this.params.content,field,item.code);
             }
+            this.getProductList();
         },
         selectField(val,item){
-            console.log(val,item)
-            let field = mapData.get(item.data.attrs.codeType);
-            if(field){
-                this.$set(this.params.content,field,item.data.key);
-            }
+            this.getProductList();
         },
         getActive(item){
             if(item.codeType=='RZED' && this.params.content.financeQuota==item.code){
@@ -260,9 +249,17 @@ export default {
             return false;
         },
         getProductList(){
-            this.$http.post('/finance/financeProduct/getFinanceProduct',this.params).then(res=>{
+
+            if(localStorage.getItem('ids')){
+                params.productIds= localStorage.getItem('ids').length==0?'test':localStorage.getItem('ids');
+            }
+
+            this.$message.loading('加载中...',0);
+            this.$http.post('/finance/financeProduct/getFinanceStockProduct',this.params).then(res=>{
                 this.$message.destroy();
+                localStorage.removeItem('ids');
                 if(res.data.code==0){
+                    this.$message.success('加载成功');
                     this.productList = res.data.content.list;
                     this.totalNum = res.data.content.pager.totalCount
                 }
@@ -275,11 +272,10 @@ export default {
             if(this.totalNum == 0){
                 return ;
             }
-            this.params.pager.currentPage = this.pageNo;
+            this.params.pager.currentPage = this.pageNo>0?this.pageNo:1;
             this.getProductList();
         },
         search(){
-            this.$message.loading('查询中',0)
             this.$set(this.params.content,'mechanismOrProduct',this.keywords);
             this.getProductList();
         },

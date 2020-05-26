@@ -22,12 +22,12 @@
                         <span>{{detail.registerAddressStr}}</span>
                     </div>
                     <div class="b-item">
-                        <span>融资阶段：</span>
-                        <span>{{detail.financeStateStr}}</span>
+                        <span>贷款期限：</span>
+                        <span>{{detail.loanTerm}}</span>
                     </div>
                     <div class="b-item">
-                        <span>融资额度：</span>
-                        <span>{{detail.financeQuotaStr}}</span>
+                        <span>贷款额度：</span>
+                        <span>{{detail.loanQuota}}</span>
                     </div>
                     <div class="b-item">
                         <span>行业方向：</span>
@@ -38,72 +38,68 @@
                         <span>{{detail.shareholderStr}}</span>
                     </div>
                     <div class="b-item">
-                        <span>产品阶段：</span>
-                        <span>{{detail.productStateStr}}</span>
-                    </div>
-                    <div class="b-item">
                         <span>营业收入：</span>
                         <span>{{detail.businessStr}}</span>
                     </div>
                     <div class="b-item">
-                        <span>营业收入增长率：</span>
-                        <span>{{detail.businessAddRateStr}}</span>
+                        <span>增信方式：</span>
+                        <span>{{detail.creditType}}</span>
                     </div>
                     <div class="b-item">
-                        <span>产品毛利率/预期产品毛利率：</span>
-                        <span>{{detail.productRateStr}}</span>
+                        <span>是否接受房产抵押：</span>
+                        <span>{{detail.houseMortgage}}</span>
                     </div>
                     <div class="b-item">
                         <span>净利润：</span>
-                        <span>{{detail.netInterestRateStr}}</span>
+                        <span>{{detail.jlr}}</span>
                     </div>
                     <div class="b-item">
-                        <span>过往融资金额：</span>
-                        <span>{{detail.oldFinanceQuotaStr}}</span>
+                        <span>上年度经营活动现金流净额：</span>
+                        <span>{{detail.cashFlow}}</span>
                     </div>
                     <div class="b-item">
-                        <span>实际控制人创业经历：</span>
-                        <span>{{detail.experienceStr}}</span>
+                        <span>政府订单额：</span>
+                        <span>{{detail.goverOrderAmount}}</span>
                     </div>
                     <div class="b-item">
-                        <span>员工人数：</span>
-                        <span>{{detail.staffCountStr}}</span>
+                        <span>央企/大型国企核心供应商订单额：</span>
+                        <span>{{detail.nationOrderAmount}}</span>
                     </div>
                     <div class="b-item">
-                        <span>目标市场容量：</span>
-                        <span>{{detail.marketCapacityStr}}</span>
+                        <span>资产负债率：</span>
+                        <span>{{detail.debtRatio}}</span>
                     </div>
                     <div class="b-item">
-                        <span>目标市场增长率：</span>
-                        <span>{{detail.marketAddRateStr}}</span>
+                        <span>净资产收益率：</span>
+                        <span>{{detail.yield}}</span>
                     </div>
                     <div class="b-item">
-                        <span>目标客户：</span>
-                        <span>{{detail.targetCustomerStr}}</span>
+                        <span>企业资质：</span>
+                        <span>{{detail.qualification}}</span>
                     </div>
                     <div class="b-item">
-                        <span>市场占有率/预期市场占有率：</span>
-                        <span>{{detail.marketOccupyRateStr}}</span>
+                        <span>政府补贴：</span>
+                        <span>{{detail.subsidy}}</span>
                     </div>
                     <div class="b-item">
-                        <span>是否接受回购条款：</span>
-                        <span>{{detail.boolBuyBackStr}}</span>
+                        <span>是否已引入股权投资：</span>
+                        <span>{{detail.boolIntroduce}}</span>
                     </div>
                     <div class="b-item">
-                        <span>发明专利数量</span>
+                        <span>纳税额度：</span>
+                        <span>{{detail.taxAmount}}</span>
+                    </div>
+                    <div class="b-item">
+                        <span>发明专利数量：</span>
                         <span>{{detail.patentCountStr}}</span>
                     </div>
                     <div class="b-item">
-                        <span>公司竞争优势：</span>
-                        <span>{{detail.advantageStr}}</span>
+                        <span>是否有其他贷款：</span>
+                        <span>{{detail.boolLoan}}</span>
                     </div>
                     <div class="b-item">
-                        <span>股东累计投入资金：</span>
-                        <span>{{detail.capitalsStr}}</span>
-                    </div>
-                    <div class="b-item">
-                        <span>公司所获评定称号：</span>
-                        <span>{{detail.evaluateNameStr}}</span>
+                        <span>现有贷款金额：</span>
+                        <span>{{detail.existAmount}}</span>
                     </div>
                 </div>
             </div>
@@ -123,7 +119,7 @@ export default {
     methods:{
         initPage(){
             var params = this.$route.query;
-            this.$http.post('/finance/financeStockDetail/getFinanceStockProductDetail',{...params}).then(res=>{
+            this.$http.post('/finance/financeBondDetail/getFinanceBondProductDetail',{...params}).then(res=>{
                 if(res.data.code==0){
                     this.detail = res.data.content;
                 }
