@@ -1,7 +1,6 @@
 export async function getSearchField($http,path,params){
     let res = await $http.post(path,params);
     return new Promise((resolve,reject)=>{
-        console.log(res)
         if(res.data && res.data.code==0){
             resolve(res.data.content);
         }else{
