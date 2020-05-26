@@ -26,14 +26,14 @@
             <div class="tab-item" :class="tabAction==1?'tab-active':''" @click="tabChange(1)">债券机构</div>
           </div>
           <div class="left-list" v-show="tabAction==0">
-              <div class="list-item" v-for="(item,index) in gqjg.slice(0,10)" :key="index"
+              <div class="list-item" v-for="(item,index) in gqjg" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
               </div>
           </div>
           <div class="left-list" v-show="tabAction==1">
-              <div class="list-item" v-for="(item,index) in zjjg.slice(0,10)" :key="index"
+              <div class="list-item" v-for="(item,index) in zjjg" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
                 {{item.institutionName}}
@@ -67,7 +67,7 @@
           <div class="c-info">
             <div class="c-title">{{currSelItem.institutionName}}</div>
             <ul>
-              <li v-for="item in currSelItem.institutionProductVos.slice(0,3)" :key="item.productName"><div>物联网投资基金</div></li>
+              <li v-for="item in currSelItem.institutionProductVos" :key="item.productName"><div>物联网投资基金</div></li>
             </ul>
           </div>
           <div class="znz">
