@@ -45,9 +45,9 @@ public class MarkDownTest {
         //接口地址，不设置默认为：http://localhost:8080
         config.setServerUrl("http://127.0.0.1:9001/finance");
         //指定控制器
-        config.setControllerName("com.july.company.controller.SysCodeController");
+        config.setControllerName("com.july.company.controller.InstitutionController");
         //指定控制器里面的那个接口
-        config.setMethodName("getQuerySysCode");
+        config.setMethodName("getInstitutionAndRegion");
         //show doc错误代码列表页面地址
         //config.setErrorUrl("http://api-doc.sjhh-inner.com/web/#/73?page_id=2872");
         //不指定SourcePaths默认加载代码为项目src/main/java下的
@@ -55,7 +55,7 @@ public class MarkDownTest {
         //是否生成本地markdown文件，为false时不生成本地文件，把文件上传到showdoc上
         //config.setIsOpenLocal(true);
         //放在showdoc的哪个目录
-        config.setFolder("字典信息");
+        config.setFolder("机构信息");
         //生成本地接口文档的保存地址
         config.setOutPath("./target/doc");
 

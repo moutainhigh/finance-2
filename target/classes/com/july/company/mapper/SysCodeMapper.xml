@@ -16,7 +16,8 @@
         (
             select fsc.codeType,fsc.codeName,fsc.querySort from fc_sys_code fsc
             where
-            fsc.financeType = #{financeType}
+            fsc.pCodeType is null
+            and fsc.financeType = #{financeType}
             <if test="boolQuery > 0">
                 and boolQuery = 1
                 and boolShow = 1
@@ -36,7 +37,8 @@
     <select id="getAllSysCode" resultType="com.july.company.entity.SysCode">
         select fsc.* from fc_sys_code fsc
         where
-        fsc.financeType = #{financeType}
+        fsc.pCodeType is null
+        and fsc.financeType = #{financeType}
         <if test="boolQuery > 0">
             and fsc.boolQuery = 1
             and fsc.boolShow = 1

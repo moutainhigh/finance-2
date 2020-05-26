@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 机构和地图区域信息
@@ -42,5 +43,9 @@ public class InstitutionAndRegionVo implements Serializable {
      * 地区名称
      */
     private String regionName;
+    /**
+     * 产品信息
+     */
+    private List<InstitutionProductVo> institutionProductVos;
 
 }

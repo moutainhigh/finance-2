@@ -14,6 +14,7 @@ import com.july.company.vo.code.SysCodeValueVo;
 import com.july.company.vo.code.SysCodeVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -78,18 +79,20 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                         .code(sysCode.getCode())
                         .value(sysCode.getValue())
                         .build();
-                List<SysCodeValueVo> sysCodeValueVos = new ArrayList<>();
-                childSysCode.stream().forEach(sysCode1 -> {
-                    if (sysCode.getCodeType().equals(sysCode1.getPCodeType())) {
-                        SysCodeValueVo sysCodeValueVo = SysCodeValueVo.builder()
-                                .codeType(sysCode1.getCodeType())
-                                .code(sysCode1.getCode())
-                                .value(sysCode1.getValue())
-                                .build();
-                        sysCodeValueVos.add(sysCodeValueVo);
-                    }
-                });
-                queryDetailSysCodeVo.setChildSysCodes(sysCodeValueVos);
+                if (StringUtils.isEmpty(sysCode.getPCodeType())) {
+                    List<SysCodeValueVo> sysCodeValueVos = new ArrayList<>();
+                    childSysCode.stream().forEach(sysCode1 -> {
+                        if ((sysCode.getCodeType() + "_" + sysCode.getCode()).equals(sysCode1.getPCodeType())) {
+                            SysCodeValueVo sysCodeValueVo = SysCodeValueVo.builder()
+                                    .codeType(sysCode1.getCodeType())
+                                    .code(sysCode1.getCode())
+                                    .value(sysCode1.getValue())
+                                    .build();
+                            sysCodeValueVos.add(sysCodeValueVo);
+                        }
+                    });
+                    queryDetailSysCodeVo.setChildSysCodes(sysCodeValueVos);
+                }
                 sysCodeVoArrayList.add(queryDetailSysCodeVo);
             });
         } else {
@@ -352,7 +355,7 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                     .build();
             this.save(sysCode);
         }*/
-        //贷款期限 1年内	1-3年	3-5年	5年以上
+        /*//贷款期限 1年内	1-3年	3-5年	5年以上
         List<String> dkqx = Arrays.asList("1年内", "1-3年", "3-5年", "5年以上");
         for (int i = 0; i < dkqx.size(); i++) {
             SysCode sysCode = SysCode.builder()
@@ -525,6 +528,36 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                     .codeName("现有贷款金额")
                     .code(xydked.get(i))
                     .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }*/
+        //资产负债率 不限	0-10%	10%-20%	20%-30%	30%-40%	40%以上
+        List<String> zcfzl = Arrays.asList("不限", "0-10%", "10%-20%", "20%-30%", "30%-40%", "40%以上");
+        for (int i = 0; i < zcfzl.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("ZCFZL")
+                    .codeName("资产负债率")
+                    .code(zcfzl.get(i))
+                    .boolQuery(0)
+                    .boolShow(0)
+                    .querySort(0)
+                    .financeType(1)
+                    .value(i + "")
+                    .build();
+            this.save(sysCode);
+        }
+        //净资产收益率  不限	0-10%	10%-20%	20%-30%	30%-40%	40%以上
+        List<String> jzcsyl = Arrays.asList("不限", "0-10%", "10%-20%", "20%-30%", "30%-40%", "40%以上");
+        for (int i = 0; i < jzcsyl.size(); i++) {
+            SysCode sysCode = SysCode.builder()
+                    .codeType("JZCSYL")
+                    .codeName("净资产收益率")
+                    .code(zcfzl.get(i))
+                    .value(i + "")
+                    .boolQuery(0)
+                    .boolShow(0)
+                    .querySort(0)
+                    .financeType(1)
                     .build();
             this.save(sysCode);
         }

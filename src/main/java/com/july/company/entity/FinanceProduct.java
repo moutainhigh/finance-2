@@ -54,5 +54,10 @@ public class FinanceProduct extends BaseEntity {
      */
     @TableField("financeType")
     private Integer financeType;
+    /**
+     * 机构id
+     */
+    @TableField("institutionId")
+    private Long institutionId;
 
 }

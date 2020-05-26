@@ -2,14 +2,19 @@ package com.july.company.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
+import com.july.company.dto.finance.ProductGroupDto;
 import com.july.company.dto.institution.SaveInstitutionDto;
+import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.Institution;
+import com.july.company.entity.enums.FinanceTypeEnum;
+import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.mapper.InstitutionMapper;
 import com.july.company.service.CompanyService;
 import com.july.company.service.InstitutionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.vo.finance.FinanceStatisticsVo;
 import com.july.company.vo.institution.InstitutionAndRegionVo;
+import com.july.company.vo.institution.InstitutionProductVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -30,6 +35,8 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
     private CompanyService companyService;
     @Resource
     private InstitutionMapper institutionMapper;
+    @Resource
+    private FinanceProductMapper financeProductMapper;
 
     /**
      * 保存机构信息
@@ -57,7 +64,23 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
      */
     @Override
     public List<InstitutionAndRegionVo> getInstitutionAndRegion() {
-        return institutionMapper.getInstitutionAndRegion();
+        List<InstitutionAndRegionVo> institutionAndRegionVoList = institutionMapper.getInstitutionAndRegion();
+        //获取机构与产品的对应关系
+        List<FinanceProduct> financeProducts = financeProductMapper.getInstitutionProduct();
+        List<InstitutionAndRegionVo> institutionAndRegionVos = new ArrayList<>();
+        institutionAndRegionVoList.stream().forEach(institutionAndRegionVo -> {
+            List<InstitutionProductVo> institutionProductVos = new ArrayList<>();
+            financeProducts.stream().forEach(financeProduct -> {
+                if (institutionAndRegionVo.getId().equals(financeProduct.getInstitutionId())) {
+                    institutionProductVos.add(InstitutionProductVo.builder()
+                            .productName(financeProduct.getTitle())
+                            .build());
+                }
+            });
+            institutionAndRegionVo.setInstitutionProductVos(institutionProductVos);
+            institutionAndRegionVos.add(institutionAndRegionVo);
+        });
+        return institutionAndRegionVos;
     }
 
     /**
@@ -73,10 +96,21 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
         Integer companyCount = companyService.getCompanyCount();
         //机构入驻数量
         Integer institutionCount = getInstitutionCount();
-        //TODO 股权产品数量
-        Integer stockCount = 13140;
-        //TODO 债券产品数量
+        //股权产品数量
+        Integer stockCount = 0;
+        //债券产品数量
         Integer bondCount = 1000;
+
+        List<ProductGroupDto> productGroupDtos = financeProductMapper.getProductGroupCount();
+        if (!CollectionUtils.isEmpty(productGroupDtos)) {
+            for (ProductGroupDto productGroupDto : productGroupDtos) {
+                if (FinanceTypeEnum.STOCKRIGHT.getValue().equals(productGroupDto.getFinanceType())) {
+                    stockCount = productGroupDto.getProductCount();
+                } else if (FinanceTypeEnum.BOND.getValue().equals(productGroupDto.getFinanceType())) {
+                    bondCount = productGroupDto.getProductCount();
+                }
+            }
+        }
         //TODO 匹配数量
         Integer matchCount = 10;
         //TODO 匹配金额

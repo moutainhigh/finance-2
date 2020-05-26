@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.july.company.mapper.FinanceProductMapper">
 
-    <select id="getFinanceProduct" resultType="com.july.company.vo.finance.FinanceProductVo">
+    <select id="getFinanceStockProduct" resultType="com.july.company.vo.finance.FinanceStockProductVo">
         select ffp.id,ffp.title,ffp.mechanism,ffpd.industryDirect,ffpd.financeQuota,ffpd.financeState from
-        fc_finance_product ffp,fc_finance_product_detail ffpd
+        fc_finance_product ffp,fc_finance_stock_detail ffpd
         where
         ffp.id = ffpd.productId
+        and ffp.financeType = 0
         and ffp.deleted = 0
         <if test="param.productIds != null and param.productIds != ''">
             and find_in_set(ffp.id,#{param.productIds})
@@ -127,11 +128,81 @@
         </if>
     </select>
 
-    <select id="getAllProduct" resultType="com.july.company.dto.finance.ProductInfoDto">
-        select ffp.id as productId,ffp.title,ffp.mechanism,ffpd.* from fc_finance_product ffp,fc_finance_product_detail ffpd
+    <select id="getFinanceBondProduct" resultType="com.july.company.vo.finance.FinanceBondProductVo">
+        select ffp.id,ffp.title,ffp.mechanism,ffpd.industryDirect,ffpd.loanQuota,ffpd.loanTerm from
+        fc_finance_product ffp,fc_finance_bond_detail ffpd
         where
         ffp.id = ffpd.productId
+        and ffp.financeType = 1
         and ffp.deleted = 0
+        <!--贷款期限-->
+        <if test="param.loanTerm != null and param.loanTerm != ''">
+            and ffpd.loanTerm = #{param.loanTerm}
+        </if>
+        <!--贷款额度-->
+        <if test="param.loanQuota != null and param.loanQuota != ''">
+            and ffpd.loanQuota = #{param.loanQuota}
+        </if>
+        <!--行业方向-->
+        <if test="param.industryDirect != null and param.industryDirect != ''">
+            and ffpd.industryDirect = #{param.industryDirect}
+        </if>
+        <!--股东背景-->
+        <if test="param.shareholder != null and param.shareholder != ''">
+            and ffpd.shareholder = #{param.shareholder}
+        </if>
+        <!--增信方式-->
+        <if test="param.creditType != null and param.creditType != ''">
+            and ffpd.creditType = #{param.creditType}
+        </if>
+        <!--企业资质-->
+        <if test="param.qualification != null and param.qualification != ''">
+            and ffpd.qualification = #{param.qualification}
+        </if>
+        <!--政府补贴-->
+        <if test="param.subsidy != null and param.subsidy != ''">
+            and ffpd.subsidy = #{param.subsidy}
+        </if>
+        <!--名称或机构名称-->
+        <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
+            and (
+            ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
+            or
+            ffp.title like concat('%',#{param.mechanismOrProduct},'%')
+            )
+        </if>
+        <if test="param.orderByField == 0">
+            order by ffpd.loanTerm
+        </if>
+        <if test="param.orderByField == 1">
+            order by ffpd.loanQuota
+        </if>
+    </select>
+
+    <select id="getAllBondProduct" resultType="com.july.company.dto.finance.BondProductInfoDto">
+        select ffp.id as productId,ffp.title,ffp.mechanism,ffpd.* from fc_finance_product ffp,fc_finance_bond_detail ffpd
+        where
+        ffp.id = ffpd.productId
+        and ffp.financeType = 1
+        and ffp.deleted = 0
+    </select>
+
+    <select id="getAllStockProduct" resultType="com.july.company.dto.finance.BondProductInfoDto">
+        select ffp.id as productId,ffp.title,ffp.mechanism,ffpd.* from fc_finance_product ffp,fc_finance_stock_detail ffpd
+        where
+        ffp.id = ffpd.productId
+        and ffp.financeType = 0
+        and ffp.deleted = 0
+    </select>
+
+    <select id="getInstitutionProduct" resultType="com.july.company.entity.FinanceProduct">
+        select ffp.* from fc_institution fi,fc_finance_product ffp
+        where
+        fi.id = ffp.institutionId
+    </select>
+
+    <select id="getProductGroupCount" resultType="com.july.company.dto.finance.ProductGroupDto">
+        select ffp.financeType,count(ffp.id) as productCount from fc_finance_product ffp group by ffp.financeType
     </select>
 
 </mapper>
