@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.july.company.mapper.SysCodeMapper">
+
+    <select id="getSysCode" resultType="com.july.company.vo.code.SysCodeValueVo">
+        select fsc.code,fsc.codeType,fsc.value from fc_sys_code fsc
+        where
+        1=1
+        <if test="codeType != null and codeType != ''">
+            and fsc.codeType = #{codeType}
+        </if>
+    </select>
+
+    <select id="getQuerySysCode" resultType="com.july.company.entity.SysCode">
+        select t.* from
+        (
+            select fsc.codeType,fsc.codeName,fsc.querySort from fc_sys_code fsc
+            where
+            fsc.pCodeType is null
+            and fsc.financeType = #{financeType}
+            <if test="boolQuery > 0">
+                and boolQuery = 1
+                and boolShow = 1
+            </if>
+            group by fsc.codeType,fsc.codeName,fsc.querySort
+        ) as t order by t.querySort asc
+    </select>
+
+    <select id="getChildSysCode" resultType="com.july.company.entity.SysCode">
+        select fsc.* from fc_sys_code fsc
+        where
+        1=1
+        and fsc.financeType = #{financeType}
+        and fsc.pCodeType is not null
+    </select>
+
+    <select id="getAllSysCode" resultType="com.july.company.entity.SysCode">
+        select fsc.* from fc_sys_code fsc
+        where
+        fsc.pCodeType is null
+        and fsc.financeType = #{financeType}
+        <if test="boolQuery > 0">
+            and fsc.boolQuery = 1
+            and fsc.boolShow = 1
+        </if>
+        order by fsc.querySort
+    </select>
+
+</mapper>
