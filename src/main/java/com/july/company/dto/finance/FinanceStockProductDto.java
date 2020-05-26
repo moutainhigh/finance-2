@@ -26,7 +26,7 @@ public class FinanceStockProductDto implements Serializable {
     /**
      * 行业方向
      */
-    private String IndustryDirect;
+    private String industryDirect;
     /**
      * 注册地址
      */

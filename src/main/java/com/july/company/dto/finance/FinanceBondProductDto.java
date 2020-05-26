@@ -52,5 +52,9 @@ public class FinanceBondProductDto implements Serializable {
      * 产品或机构名称
      */
     private String mechanismOrProduct;
+    /**
+     * 产品ids(逗号分隔)
+     */
+    private String productIds;
 
 }

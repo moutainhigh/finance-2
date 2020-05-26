@@ -1,8 +1,10 @@
 package com.july.company.dto.finance;
 
+import com.july.company.dto.Node;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 产品匹配信息
@@ -22,15 +24,15 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 融资阶段
      */
-    private String financeState;
+    private Node financeState;
     /**
      * 行业方向
      */
-    private String IndustryDirect;
+    private Node industryDirect;
     /**
      * 注册地址
      */
-    private String registerAddress;
+    private Node registerAddress;
     /**
      * 营业收入
      */
@@ -46,7 +48,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 公司所获评定称号
      */
-    private String evaluateName;
+    private Node evaluateName;
     /**
      * 产品或机构名称
      */
@@ -54,7 +56,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 产品阶段
      */
-    private String productState;
+    private Node productState;
     /**
      * 产品毛利率
      */
@@ -70,7 +72,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 股东背景
      */
-    private String shareholder;
+    private Node shareholder;
     /**
      * 股东累计投入资金
      */
@@ -78,7 +80,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 公司竞争优势
      */
-    private String advantage;
+    private List<Node> advantage;
     /**
      * 过往融资金额
      */
@@ -90,7 +92,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 目标客户
      */
-    private String targetCustomer;
+    private Node targetCustomer;
     /**
      * 历史创业企业状态
      */

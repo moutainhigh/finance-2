@@ -120,6 +120,9 @@
             ffp.title like concat('%',#{param.mechanismOrProduct},'%')
             )
         </if>
+        <if test="param.orderByField == null">
+            order by ffpd.financeQuota desc
+        </if>
         <if test="param.orderByField == 0">
             order by ffpd.financeQuota
         </if>
@@ -135,6 +138,9 @@
         ffp.id = ffpd.productId
         and ffp.financeType = 1
         and ffp.deleted = 0
+        <if test="param.productIds != null and param.productIds != ''">
+            and find_in_set(ffp.id,#{param.productIds})
+        </if>
         <!--贷款期限-->
         <if test="param.loanTerm != null and param.loanTerm != ''">
             and ffpd.loanTerm = #{param.loanTerm}
@@ -171,11 +177,14 @@
             ffp.title like concat('%',#{param.mechanismOrProduct},'%')
             )
         </if>
+        <if test="param.orderByField == null">
+            order by ffpd.loanQuota desc
+        </if>
         <if test="param.orderByField == 0">
-            order by ffpd.loanTerm
+            order by ffpd.loanTerm desc
         </if>
         <if test="param.orderByField == 1">
-            order by ffpd.loanQuota
+            order by ffpd.loanQuota desc
         </if>
     </select>
 
@@ -187,7 +196,7 @@
         and ffp.deleted = 0
     </select>
 
-    <select id="getAllStockProduct" resultType="com.july.company.dto.finance.BondProductInfoDto">
+    <select id="getAllStockProduct" resultType="com.july.company.dto.finance.StockProductInfoDto">
         select ffp.id as productId,ffp.title,ffp.mechanism,ffpd.* from fc_finance_product ffp,fc_finance_stock_detail ffpd
         where
         ffp.id = ffpd.productId

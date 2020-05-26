@@ -56,7 +56,6 @@ public class UserInfoController {
      */
     @PostMapping("/register")
     public ResultT<String> register(@RequestBody UserRegisterDto userRegisterDto) {
-        System.out.println("注册用户的姓名===>" + userRegisterDto.getUserName());
         userInfoService.userRegister(userRegisterDto);
         return ResultT.ok("注册成功！");
     }

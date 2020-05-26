@@ -44,5 +44,9 @@ public class UserInfoDto implements Serializable {
      * 登录key
      */
     private String token;
+    /**
+     * 公司名称
+     */
+    private String companyName;
 
 }

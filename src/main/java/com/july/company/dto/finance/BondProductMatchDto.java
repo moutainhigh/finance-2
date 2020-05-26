@@ -1,5 +1,6 @@
 package com.july.company.dto.finance;
 
+import com.july.company.dto.Node;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -18,11 +19,11 @@ public class BondProductMatchDto implements Serializable {
     /**
      * 行业方向
      */
-    private String IndustryDirect;
+    private Node industryDirect;
     /**
      * 注册地址
      */
-    private String registerAddress;
+    private Node registerAddress;
     /**
      * 专利发明数量
      */
@@ -30,7 +31,7 @@ public class BondProductMatchDto implements Serializable {
     /**
      * 股东背景
      */
-    private String shareholder;
+    private Node shareholder;
     /**
      * 贷款期限
      */
@@ -46,7 +47,7 @@ public class BondProductMatchDto implements Serializable {
     /**
      * 增信方式
      */
-    private String creditType;
+    private Node creditType;
     /**
      * 房产抵押
      */
@@ -82,7 +83,7 @@ public class BondProductMatchDto implements Serializable {
     /**
      * 企业资质
      */
-    private String qualification;
+    private Node qualification;
     /**
      * 政府补贴
      */
@@ -98,7 +99,7 @@ public class BondProductMatchDto implements Serializable {
     /**
      * 是否有其他贷款
      */
-    private String boolLoan;
+    private Node boolLoan;
     /**
      * 现有贷款金额
      */

@@ -2,6 +2,7 @@ package com.july.company.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
+import com.july.company.dto.Node;
 import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
 import com.july.company.entity.SysCode;
@@ -123,6 +124,26 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
             querySysCodeVos.add(querySysCodeVo);
         });
+        List<QuerySysCodeVo> querySysCodeVoList  = new ArrayList<>();
+        if(SystemConstant.SYS_FALSE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())){
+            querySysCodeVos.stream().forEach(querySysCodeVo -> {
+                SystemConstant.getStockField().stream().forEach(node -> {
+                    if(querySysCodeVo.getCodeType().equals(node.getCode())){
+                        querySysCodeVo.setField(node.getValue());
+                    }
+                });
+                querySysCodeVoList.add(querySysCodeVo);
+            });
+        }else if(SystemConstant.SYS_TRUE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())){
+            querySysCodeVos.stream().forEach(querySysCodeVo -> {
+                SystemConstant.getBondField().stream().forEach(node -> {
+                    if(querySysCodeVo.getCodeType().equals(node.getCode())){
+                        querySysCodeVo.setField(node.getValue());
+                    }
+                });
+                querySysCodeVoList.add(querySysCodeVo);
+            });
+        }
         return querySysCodeVos;
     }
 

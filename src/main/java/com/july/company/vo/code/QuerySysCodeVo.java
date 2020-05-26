@@ -28,6 +28,10 @@ public class QuerySysCodeVo {
      */
     private String codeName;
     /**
+     * 字段名称
+     */
+    private String field;
+    /**
      * 字典详细信息
      */
     private List<QueryDetailSysCodeVo> queryDetailSysCodeVos;

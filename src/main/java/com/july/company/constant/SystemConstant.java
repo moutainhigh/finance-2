@@ -2,10 +2,7 @@ package com.july.company.constant;
 
 import com.july.company.dto.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 系统常量
@@ -274,6 +271,80 @@ public class SystemConstant {
         nodes.add(node5);
         nodes.add(node6);
         return nodes;
+    }
+
+    /**
+     * 债券融资查询字段匹配
+     * @return
+     */
+    public static final List<Node> getBondField() {
+        List<Node> bondField = Arrays.asList(
+                //贷款期限
+                Node.builder().code("DKQX").value("loanTerm").build(),
+                //贷款额度
+                Node.builder().code("DKED").value("loanQuota").build(),
+                //行业方向
+                Node.builder().code("BOND_HYFX").value("industryDirect").build(),
+                //股东背景
+                Node.builder().code("BOND_GDBJ").value("shareholder").build(),
+                //增信方式
+                Node.builder().code("ZXFS").value("creditType").build(),
+                //企业资质
+                Node.builder().code("QYZZ").value("qualification").build(),
+                //政府补贴
+                Node.builder().code("ZFBT").value("subsidy").build()
+        );
+        return bondField;
+    }
+
+    /**
+     * 股权融资查询字段匹配
+     * @return
+     */
+    public static final List<Node> getStockField() {
+        List<Node> stockField = Arrays.asList(
+                //融资额度
+                Node.builder().code("RZED").value("financeQuota").build(),
+                //融资阶段
+                Node.builder().code("RZJD").value("financeState").build(),
+                //行业方向
+                Node.builder().code("HYFX").value("industryDirect").build(),
+                //注册地址
+                Node.builder().code("REGION").value("registerAddress").build(),
+                //股东背景
+                Node.builder().code("GDBJ").value("shareholder").build(),
+                //过往融资金额
+                Node.builder().code("GWRZJE").value("oldFinanceQuota").build(),
+                //实控人创业经历
+                Node.builder().code("CYJL").value("experience").build(),
+                //营业收入
+                Node.builder().code("STOCKRIGHT_YYSR").value("business").build(),
+                //营业收入增长率
+                Node.builder().code("YYSRZZL").value("businessAddRate").build(),
+                //产品毛利率
+                Node.builder().code("CPMLL").value("productRate").build(),
+                //净利率
+                Node.builder().code("JLL").value("netInterestRate").build(),
+                //员工人数
+                Node.builder().code("YGRS").value("staffCount").build(),
+                //市场容量
+                Node.builder().code("SCRL").value("marketCapacity").build(),
+                //市场容量预期增长率
+                Node.builder().code("SCRLZZL").value("marketAddRate").build(),
+                //目标客户
+                Node.builder().code("MBKH").value("targetCustomer").build(),
+                //市场占有率
+                Node.builder().code("SCZYL").value("marketOccupyRate").build(),
+                //发明专利数量
+                Node.builder().code("STOCKRIGHT_FMZLSL").value("patentCount").build(),
+                //公司竞争优势
+                Node.builder().code("GSJZYS").value("advantage").build(),
+                //股东累计投入资金
+                Node.builder().code("GDLJTRZJ").value("capitals").build(),
+                //公司所获评定称号
+                Node.builder().code("PDCH").value("evaluateName").build()
+        );
+        return stockField;
     }
 
 }

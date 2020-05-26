@@ -18,6 +18,7 @@ import com.july.company.service.FinanceProductService;
 import com.july.company.vo.finance.FinanceBondProductDetailVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -160,15 +161,15 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
             for (BondProductInfoDto productInfoDto : productInfoDtos) {
                 double matchingRate = 0.0;
                 //注册地址
-                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress())) {
+                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
                     matchingRate += everyOne;
                 }
                 //行业方向
-                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect())) {
+                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect().getCode()) && StringUtils.isEmpty(productMatchDto.getIndustryDirect().getValue())) {
                     matchingRate += everyOne;
                 }
                 //股东背景
-                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder())) {
+                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder().getCode()) && StringUtils.isEmpty(productMatchDto.getShareholder().getValue())) {
                     matchingRate += everyOne;
                 }
                 //营业收入
@@ -184,7 +185,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }
                 //增信方式
-                if (productInfoDto.getCreditType().equals(productMatchDto.getCreditType())) {
+                if (productInfoDto.getCreditType().equals(productMatchDto.getCreditType().getCode()) && StringUtils.isEmpty(productMatchDto.getCreditType().getValue())) {
                     matchingRate += everyOne;
                 }
                 //房产抵押
@@ -218,7 +219,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }*/
                 //企业资质
-                if (productInfoDto.getQualification().equals(productMatchDto.getQualification())) {
+                if (productInfoDto.getQualification().equals(productMatchDto.getQualification().getCode()) && StringUtils.isEmpty(productMatchDto.getQualification().getValue())) {
                     matchingRate += everyOne;
                 }
                 //政府补贴
@@ -234,7 +235,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }
                 //是否有其他贷款
-                if (productInfoDto.getBoolLoan().equals(productMatchDto.getBoolLoan())) {
+                if (productInfoDto.getBoolLoan().equals(productMatchDto.getBoolLoan().getCode()) && StringUtils.isEmpty(productMatchDto.getBoolLoan().getValue())) {
                     matchingRate += everyOne;
                 }
                 //现有贷款金额

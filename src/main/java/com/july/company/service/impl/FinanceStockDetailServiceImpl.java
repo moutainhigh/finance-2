@@ -3,6 +3,7 @@ package com.july.company.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
+import com.july.company.dto.Node;
 import com.july.company.dto.finance.FinanceProductDetailDto;
 import com.july.company.dto.finance.BondProductInfoDto;
 import com.july.company.dto.finance.StockProductInfoDto;
@@ -18,6 +19,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.vo.finance.FinanceStockProductDetailVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -127,11 +129,11 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
             for (StockProductInfoDto productInfoDto : productInfoDtos) {
                 double matchingRate = 0.0;
                 //注册地址
-                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress())) {
+                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
                     matchingRate += everyOne;
                 }
                 //融资阶段
-                if (productInfoDto.getFinanceState().equals(productMatchDto.getFinanceState())) {
+                if (productInfoDto.getFinanceState().equals(productMatchDto.getFinanceState().getCode()) && StringUtils.isEmpty(productMatchDto.getFinanceState().getValue())) {
                     matchingRate += everyOne;
                 }
                 //融资额度
@@ -139,11 +141,11 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //行业方向
-                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect())) {
+                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect().getCode()) && StringUtils.isEmpty(productMatchDto.getIndustryDirect().getValue())) {
                     matchingRate += everyOne;
                 }
                 //股东背景
-                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder())) {
+                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder().getCode()) && StringUtils.isEmpty(productMatchDto.getShareholder().getValue())) {
                     matchingRate += everyOne;
                 }
                 //营业收入
@@ -151,7 +153,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //产品阶段
-                if (productInfoDto.getProductState().equals(productMatchDto.getProductState())) {
+                if (productInfoDto.getProductState().equals(productMatchDto.getProductState().getCode()) && StringUtils.isEmpty(productMatchDto.getProductState().getValue())) {
                     matchingRate += everyOne;
                 }
                 //营业收入增长率
@@ -187,7 +189,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //目标客户
-                if (productInfoDto.getTargetCustomer().equals(productMatchDto.getTargetCustomer())) {
+                if (productInfoDto.getTargetCustomer().equals(productMatchDto.getTargetCustomer().getCode()) && StringUtils.isEmpty(productMatchDto.getTargetCustomer().getValue())) {
                     matchingRate += everyOne;
                 }
                 //市场占有率/预期市场占有率
@@ -202,16 +204,21 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                 if (productInfoDto.getPatentCount().equals(productMatchDto.getPatentCount())) {
                     matchingRate += everyOne;
                 }
-                //公司竞争优势
-                if (productInfoDto.getAdvantage().equals(productMatchDto.getAdvantage())) {
-                    matchingRate += everyOne;
+                //公司竞争优势 productInfoDto.getAdvantage() = {"code":"1","value":"1"}  node = {"code":"1","value":"1"}
+                List<Node> nodes = productMatchDto.getAdvantage();
+                if (!CollectionUtils.isEmpty(nodes)) {
+                    for (Node node : nodes) {
+                        if (productInfoDto.getAdvantage().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                        }
+                    }
                 }
                 //股东累计投入资金
                 if (productInfoDto.getCapitals().equals(productMatchDto.getCapitals())) {
                     matchingRate += everyOne;
                 }
                 //公司所获评定名称
-                if (productInfoDto.getEvaluateName().equals(productMatchDto.getEvaluateName())) {
+                if (productInfoDto.getEvaluateName().equals(productMatchDto.getEvaluateName().getCode()) && StringUtils.isEmpty(productMatchDto.getEvaluateName())) {
                     matchingRate += everyOne;
                 }
                 //预计上市时间

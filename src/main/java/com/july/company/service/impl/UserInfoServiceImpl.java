@@ -82,6 +82,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         String token = UUIDUtils.getReplaceUuid();
         String tokenDes = tokenHandle.encryptAuth(token, checkUserInfo.getId());
 
+        Company company = companyService.getById(checkUserInfo.getCompanyId());
+
         UserInfoDto userInfoDto = UserInfoDto.builder()
                 .userName(checkUserInfo.getUsername())
                 .avatar(checkUserInfo.getAvatar())
@@ -89,8 +91,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 .sex(checkUserInfo.getSex())
                 .id(checkUserInfo.getId())
                 .token(tokenDes)
+                .companyName(company != null ? company.getCompanyName() : "")
                 .build();
-        System.out.println("====>" + valueOperations);
         valueOperations.set(SystemConstant.CACHE_NAME + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
         return userInfoDto;
     }
@@ -135,6 +137,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public void sendSmsCode(SmsCodeDto smsCodeDto) {
+        if(SystemConstant.SYS_FALSE.equals(smsCodeDto.getUsageType())){
+            UserInfo userInfo = getUserInfoByMobile(smsCodeDto.getMobile());
+            BnException.of(userInfo != null,"当前手机号已经注册过，请直接登录！");
+        }
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
 
