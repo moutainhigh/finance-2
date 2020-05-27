@@ -1,9 +1,6 @@
 package com.july.company.service;
 
-import com.july.company.dto.login.ForgetPasswordDto;
-import com.july.company.dto.login.LoginAuthDto;
-import com.july.company.dto.login.UserInfoValidDto;
-import com.july.company.dto.login.UserRegisterDto;
+import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.dto.user.UserInfoDto;
@@ -81,5 +78,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/19
      */
     void forgetPassword(ForgetPasswordDto forgetPasswordDto);
+
+    /**
+     * 用户退出
+     * @param
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    void logout();
 
 }

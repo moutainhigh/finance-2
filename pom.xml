@@ -30,7 +30,7 @@
         <powermock.version>2.0.4</powermock.version>
         <hutool.version>5.0.6</hutool.version>
         <beetl.version>3.0.15.RELEASE</beetl.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.60</fastjson.version>
         <aliyun-verison>4.5.0</aliyun-verison>
         <hutool-all-version>5.0.0</hutool-all-version>
         <jjwt-version>0.6.0</jjwt-version>
