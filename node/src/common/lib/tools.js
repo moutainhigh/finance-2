@@ -1,8 +1,49 @@
-import axios from 'axios'
-axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:'http://financial.dev.bigdatacd.com:9000';
+import axios from 'axios';
+import store from '../../store';
+import router from '../../router';
+import {message} from 'ant-design-vue';
+// axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:location.origin  //本地  ;
+axios.defaults.baseURL = process.env.NODE_ENV=="development"?location.origin:'http://financial.dev.bigdatacd.com:9000';  //本地  ;
 axios.defaults.headers = {
   'Content-Type': 'application/json;charset=utf-8',
 }
+axios.interceptors.response.use((response)=>{
+  if(response.data.code==408){
+    store.state.token='';
+    store.state.userInfo='';
+    localStorage.removeItem('cdjr_token');
+    localStorage.removeItem('userInfo');
+    message.error(response.data.msg);
+    router.push({name:"Home",params:{islogin:1}});
+    return ;
+  }
+  if(response.data.code==409){
+    store.state.token='';
+    store.state.userInfo='';
+    localStorage.removeItem('cdjr_token');
+    localStorage.removeItem('userInfo');
+    message.error(response.data.msg);
+    router.push({path:"/"});
+    return ;
+  }
+  return response;
+}, function (error) {
+  return Promise.reject(error);
+});
+
+// 封装请求
+export const http = {
+    post:(url,params)=>{
+        return axios.post(url,params);
+    },
+    postWithAuth:(url,params)=>{
+        return axios.post(url,params,{headers:{'Authorization':'Bearer '+store.state.token}});
+    }
+}
+
+
+
+
 
 function getImageWidthAndHeight(src){
     let img = new Image();
