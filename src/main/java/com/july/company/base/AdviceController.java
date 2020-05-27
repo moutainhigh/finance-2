@@ -18,7 +18,7 @@ import javax.validation.ValidationException;
 
 /**
  * 公共异常处理并返回前端的json数据
- * @author cqyhm
+ * @author zengxueqi
  */
 @Slf4j
 @RestControllerAdvice
@@ -44,7 +44,7 @@ public class AdviceController {
      * spring.resources.add-mappings=false                          关闭工程中的资源文件建立映射
      * @param be
      * @return 异常处理结果
-     * @author cqyhm
+     * @author zengxueqi
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResultT noHandlerFoundException(NoHandlerFoundException be) {

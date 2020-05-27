@@ -5,6 +5,7 @@ import cn.hutool.core.net.NetUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.user.UserInfoDto;
+import com.july.company.entity.UserInfo;
 import com.july.company.exception.BnException;
 import com.july.company.service.UserInfoService;
 import com.july.company.utils.UserUtils;
@@ -66,15 +67,29 @@ public class LoginIntercept implements HandlerInterceptor {
             throw new BnException(SystemConstant.LOGIN_EXCEPTION, "登录信息不存在");
         }
         String loginKey = tokenHandle.decodeAuth(authToken);
+        Long userInfoId = tokenHandle.decodeUserId(authToken);
 
         Object userIdObj = valueOperations.get(SystemConstant.CACHE_NAME + loginKey);
-        if (userIdObj == null) {
-            throw new BnException(SystemConstant.LOGIN_EXCEPTION, "未登录");
+        Object tokenUserIdObj = valueOperations.get(SystemConstant.CACHE_NAME + userInfoId);
+        if (userIdObj == null && userInfoId == null) {
+            throw new BnException(BnException.LOGIN_ERR, "未登录");
         }
+
+        //用户禁用时，判断用户是否登录，如果登录了，则把login_token缓存删除，login_userId还存在，其他任务时候都是login_token+login_userId一起缓存并同时存在
+        if (userIdObj == null && tokenUserIdObj != null) {
+            throw new BnException(BnException.USER_ERR, "当前账号已经被禁用，无法正常使用！");
+            /*UserInfo userInfo = userInfoService.getById(userInfoId);
+            if (userInfo != null) {
+                if (SystemConstant.SYS_TRUE.equals(userInfo.getStatus())) {
+                    throw new BnException(BnException.USER_ERR, "当前账号已经被禁用，无法正常使用！");
+                }
+            }*/
+        }
+
         String userId = String.valueOf(userIdObj);
         UserInfoDto userJsonObj = valueOperations.get(SystemConstant.CACHE_NAME + userId);
         if (userJsonObj == null) {
-            throw new BnException(SystemConstant.LOGIN_EXCEPTION, "未登录");
+            throw new BnException(BnException.LOGIN_ERR, "未登录");
         }
         updateExpire(loginKey);
         UserUtils.setUser(userJsonObj);

@@ -3,6 +3,7 @@ package com.july.company.controller;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
@@ -118,6 +119,19 @@ public class UserInfoController {
     public ResultT<String> logout() {
         userInfoService.logout();
         return ResultT.ok("退出成功！");
+    }
+
+    /**
+     * 用户禁用
+     * @param userDisableDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    @PostMapping("/disableUser")
+    public ResultT<String> disableUser(@RequestBody UserDisableDto userDisableDto) {
+        userInfoService.disableUser(userDisableDto);
+        return ResultT.ok("用户禁用成功！");
     }
 
 }

@@ -13,6 +13,7 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
 import com.july.company.entity.UserInfo;
@@ -71,9 +72,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         log.trace("用户手机:{},登录系统", loginAuthDto.getMobile());
         //数据库匹配用户
         UserInfo userInfo = this.getUserInfoByMobile(loginAuthDto.getMobile());
-        if (userInfo == null) {
-            throw BnException.on("用户不存在");
-        }
         UserInfo checkUserInfo = this.getUserInfoByMobileAndPassword(mobile, loginAuthDto.getEncryptPassword(userInfo.getPwdSalt()));
         if (checkUserInfo == null) {
             throw BnException.on("用户名或密码错误");
@@ -102,13 +100,13 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     /**
      * 更新缓存信息
-     * @param user
+     * @param userInfoDto
      * @return void
      * @author zengxueqi
      * @since 2020/5/27
      */
-    private void updateCache(UserInfoDto user) {
-        valueOperations.set(SystemConstant.CACHE_NAME + user.getId(), user, Duration.ofHours(8));
+    private void updateCache(UserInfoDto userInfoDto) {
+        valueOperations.set(SystemConstant.CACHE_NAME + userInfoDto.getId(), userInfoDto, Duration.ofHours(8));
     }
 
     /**
@@ -285,8 +283,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public UserInfo getUserInfoByMobile(String mobile) {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mobile", mobile)
+                //未禁用
+                //.eq("status", SystemConstant.SYS_FALSE)
+                //未删除
                 .eq("deleted", SystemConstant.SYS_FALSE);
-        return this.getOne(queryWrapper);
+        UserInfo userInfo = this.getOne(queryWrapper);
+        BnException.of(userInfo == null, "用户不存在");
+        BnException.of(SystemConstant.SYS_TRUE.equals(userInfo.getStatus()), "当前账号已经被禁用，请联系管理员！");
+        return userInfo;
     }
 
     /**
@@ -301,8 +305,36 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("mobile", mobile)
                 .eq("password", password)
+                .eq("status", SystemConstant.SYS_FALSE)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
+    }
+
+    /**
+     * 禁用用户信息
+     * @param userDisableDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    @Override
+    public void disableUser(UserDisableDto userDisableDto) {
+        UserInfo userInfo = this.getById(userDisableDto.getUserId());
+        BnException.of(userInfo == null, "没有找到该用户信息！");
+
+        //禁用
+        userInfo.setStatus(SystemConstant.SYS_TRUE);
+        this.updateById(userInfo);
+
+        //判断当前账号是否登录，如果登录则删除token缓存
+        UserInfoDto userInfoDto = (UserInfoDto) valueOperations.get(SystemConstant.CACHE_NAME + userInfo.getId());
+        if (userInfoDto != null) {
+            String tokenUUID = tokenHandle.decodeAuth(userInfoDto.getToken());
+            Object object = valueOperations.get(SystemConstant.CACHE_NAME + tokenUUID);
+            if (object != null) {
+                redisTemplate.delete(SystemConstant.CACHE_NAME + tokenUUID);
+            }
+        }
     }
 
 }

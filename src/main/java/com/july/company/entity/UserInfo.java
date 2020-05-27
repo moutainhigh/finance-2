@@ -64,5 +64,10 @@ public class UserInfo extends BaseEntity {
      */
     @TableField("companyId")
     private Long companyId;
+    /**
+     * 用户状态（0=启用，1=禁用）
+     */
+    @TableField("status")
+    private Integer status;
 
 }

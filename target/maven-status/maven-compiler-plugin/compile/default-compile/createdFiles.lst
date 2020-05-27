@@ -1,4 +1,5 @@
 com/july/company/service/InstitutionService.class
+com/july/company/dto/user/UserDisableDto.class
 com/july/company/controller/SysCodeController.class
 com/july/company/dto/finance/FinanceProductDetailDto.class
 com/july/company/vo/code/SysCodeValueVo$SysCodeValueVoBuilder.class
@@ -56,6 +57,7 @@ com/july/company/entity/enums/FinanceTypeEnum.class
 com/july/company/dto/user/UserImgCodeDto.class
 com/july/company/mapper/SysCodeMapper.class
 com/july/company/vo/institution/InstitutionAndRegionVo$InstitutionAndRegionVoBuilder.class
+com/july/company/dto/login/UserLogoutDto.class
 com/july/company/vo/login/UserInfoValidVo.class
 com/july/company/intercepts/InterceptConfig.class
 com/july/company/dto/code/QuerySysCodeDto$QuerySysCodeDtoBuilder.class

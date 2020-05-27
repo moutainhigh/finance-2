@@ -123,7 +123,7 @@ public class ResultT<T> implements Serializable {
 
     /**
      * 成功默认成功状态，有业务数据
-     * @param data 业务数据可以是List、Entity等数据
+     * @param content 业务数据可以是List、Entity等数据
      * @return 正确结果
      */
     public static <T> ResultT<T> ok(T content) {
@@ -175,7 +175,7 @@ public class ResultT<T> implements Serializable {
      * @param <T>  对象
      * @param page mybatis的分页对象
      * @return 接口结果
-     * @author cqyhm
+     * @author zengxueqi
      */
     public static <T> ResultT<Page<T>> ok(IPage<T> page) {
         return ResultT.ok(page.getRecords(), new PageVo<>(page.getCurrent(), page.getSize(), page.getTotal()));
@@ -211,7 +211,7 @@ public class ResultT<T> implements Serializable {
     /**
      * 获取结果编码
      * @return 结果编码
-     * @author cqyhm
+     * @author zengxueqi
      */
     public Integer getCode() {
         return code;
@@ -221,7 +221,7 @@ public class ResultT<T> implements Serializable {
      * 设置结果编码
      * @param code 结果编码
      * @return
-     * @author cqyhm
+     * @author zengxueqi
      */
     public ResultT<T> setCode(Integer code) {
         this.code = code;
@@ -231,7 +231,7 @@ public class ResultT<T> implements Serializable {
     /**
      * 获取消息提示
      * @return 消息提示
-     * @author cqyhm
+     * @author zengxueqi
      */
     public String getMsg() {
         return msg;
@@ -241,7 +241,7 @@ public class ResultT<T> implements Serializable {
      * 设置消息提示
      * @param msg 消息提示
      * @return 对象
-     * @author cqyhm
+     * @author zengxueqi
      */
     public ResultT<T> setMsg(String msg) {
         this.msg = msg;
@@ -251,7 +251,7 @@ public class ResultT<T> implements Serializable {
     /**
      * 获取业务数据
      * @return 业务数据
-     * @author cqyhm
+     * @author zengxueqi
      */
     public T getContent() {
         return content;
@@ -261,7 +261,7 @@ public class ResultT<T> implements Serializable {
      * 设置业务数据
      * @param content 业务数据
      * @return 结果数据
-     * @author cqyhm
+     * @author zengxueqi
      */
     public ResultT<T> setContent(T content) {
         this.content = content;
