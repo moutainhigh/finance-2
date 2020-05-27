@@ -254,10 +254,12 @@ export default {
       this.tabAction = index;
       if(index==0){
         this.gqIndex = 0;
+        this.currSelItem = this.gqjg[0];
         $('circle[comp="'+this.gqjg[0].institutionName+'"]').click();
       }
       if(index==1){
         this.gqIndex = 0;
+        this.currSelItem = this.zjjg[0];
         $('circle[comp="'+this.zjjg[0].institutionName+'"]').click();
       }
     },

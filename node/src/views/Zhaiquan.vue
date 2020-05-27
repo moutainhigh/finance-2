@@ -269,7 +269,7 @@ export default {
                 this.$message.destroy();
                 localStorage.removeItem('zids')
                 if(res.data.code==0){
-                    this.$message.success('加载成功',1);
+                    // this.$message.success('加载成功',1);
                     this.productList = res.data.content.list;
                     this.totalNum = res.data.content.pager.totalCount
                 }

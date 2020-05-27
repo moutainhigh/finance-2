@@ -18,7 +18,7 @@
                                 $refs.registerAddress.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="">不限</a-select-option>
+                          <a-select-option key="" value="test">不限</a-select-option>
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('REGION')">{{item.value}}</a-select-option>
                         </a-select> 
                     </a-form-model-item>
@@ -270,7 +270,7 @@
                             <a-select-option v-if="item.code==0" :key="sitem.code" :value="sitem.code" v-for="(sitem) in item.childSysCodes">{{sitem.value}}</a-select-option>
                             </template>
                         </a-select>
-                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs">技术优势</a-checkbox>
+                        <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs" >技术优势</a-checkbox>
                         <a-select v-model="jsys" style="width:5vw;" v-if="isCheckJs" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
@@ -487,27 +487,43 @@ export default {
         isCheckCb:function(v,o){
             if(!v){
                 let adv = JSON.stringify(this.matchForm.advantage);
-                adv = JSON.parse(adv); 
-                adv.forEach((item,index)=>{
-                    if(item.code==0){
-                        this.matchForm.advantage.splice(index,1);
-                    }
-                })
+                try{
+                    adv = JSON.parse(adv); 
+                    adv.forEach((item,index)=>{
+                        if(item.code==0){
+                            this.matchForm.advantage.splice(index,1);
+                        }
+                    })
+                }catch(err){}
             }
+            (this.isCheckCb==false && this.isCheckJs==false) ? this.$refs.matchForm.clearValidate('advantage'):'';
         },
         isCheckJs:function(v,o){
             if(!v){
                 let adv = JSON.stringify(this.matchForm.advantage);
-                adv = JSON.parse(adv);
-                adv.forEach((item,index)=>{
-                    if(item.code==1){
-                        this.matchForm.advantage.splice(index,1);
-                    }
-                })
+                try {
+                    adv = JSON.parse(adv);
+                    adv.forEach((item,index)=>{
+                        if(item.code==1){
+                            this.matchForm.advantage.splice(index,1);
+                        }
+                    })
+                } catch (error) {
+                    
+                }
             }
+            (this.isCheckCb==false && this.isCheckJs==false) ? this.$refs.matchForm.clearValidate('advantage'):'';
         },
+        'matchForm.advantage':function(v,o){
+            console.log(v)
+        }
     },
     methods:{
+        validatefun(form,prop,message){
+            this.$t(message);
+            console.log(this.$refs[prop].value)
+            this.$refs[form].clearValidate(prop)
+        },
         tabchange(index){
             this.active = index;
         },
@@ -576,6 +592,9 @@ export default {
                     if (valid) {
                         resolve()
                     } else {
+                        setTimeout(()=>{
+                            this.$refs.baseForm.clearValidate();
+                        },1000)
                         return false;
                     }
                 });
@@ -586,6 +605,9 @@ export default {
                              console.log(valid)
                              this.goMatch();
                          } else {
+                             setTimeout(()=>{
+                                this.$refs.matchForm.clearValidate();
+                            },1000)
                              return false;
                          }
                      }); 
@@ -753,5 +775,8 @@ $minHeight:100vw;
             }
         }
     }
+}
+.ant-form-explain{
+    animation: all 1s initial 1s;
 }
 </style>
