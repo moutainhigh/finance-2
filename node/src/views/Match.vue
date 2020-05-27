@@ -3,7 +3,7 @@
     <Header @do-login="login" @to-reg="reg" :isBg="true"></Header>
     <div class="match-body">
         <div class="match-top">
-            <div class="back">返回</div>
+            <!-- <div class="back">返回</div> -->
             <div class="tab">
                 <div :class="active==0?'active':''" @click="tabchange(0)">股权融资</div>
                 <div :class="active==1?'active':''" @click="tabchange(1)">债权融资</div>
