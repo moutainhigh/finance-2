@@ -184,7 +184,13 @@ export default {
     this.getResult();
     // 获取推荐机构
     this.getCompany();
-
+    // 进入这个页面首次点击原点定时器
+    let clickVal = setInterval(()=>{
+      if($('circle[comp="'+this.currSelItem.institutionName+'"]').length){
+        $('circle[comp="'+this.currSelItem.institutionName+'"]').click();
+        clearInterval(clickVal);
+      }
+    },1000)
 
     
   },
@@ -235,6 +241,10 @@ export default {
       this.isForget = false;
     },
     toPage(url,params){
+      if(url=='/match' && !this.$store.state.token){
+        this.isLogin = true;
+        return;
+      }
       if(params){
         this.$router.push({path:url,params:params});
       }else{

@@ -24,6 +24,10 @@ const store = new Vuex.Store({
     },
     setToken(context,token){
         context.commit('setToken',token);
+    },
+    clearUserInfo(content){
+      context.commit('setUserInfo','');
+      context.commit('setToken','');
     }
   }
 });

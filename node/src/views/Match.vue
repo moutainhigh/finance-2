@@ -18,7 +18,7 @@
                                 $refs.registerAddress.onFieldBlur();
                             }
                             ">
-                          <a-select-option key="" value="test">不限</a-select-option>
+                          <!-- <a-select-option key="" value="test">不限</a-select-option> -->
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('REGION')">{{item.value}}</a-select-option>
                         </a-select> 
                     </a-form-model-item>
@@ -334,6 +334,7 @@
 import { getSearchField,mapData } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
 import BoneMatch from "@/components/BoneMatch.vue"
+import lodash from 'lodash'
 export default {
     data(){
         let validateMobile = (rule, value, callback) => {
@@ -439,25 +440,68 @@ export default {
         }
     },
     created(){
+        if(!this.$store.state.token){
+            this.$router.push({name:'Home',params:{islogin:1}});
+            return ;
+        }
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
     },
     watch:{
+        advantage:function(v,o){
+            let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
+
+            if(v.length && !this.matchForm.advantage){
+                let items = [];
+                v.forEach((item)=>{
+                    let obj = {code:map[item],value:''};
+                    if(obj.code==5){
+                        obj.value = this.advantageOther;
+                    }
+                    items.push(obj);
+                })
+                this.matchForm.advantage = items;
+            }else if(v.length && this.matchForm.advantage){
+                let advantage = JSON.stringify(this.matchForm.advantage);
+                advantage = JSON.parse(advantage);
+                lodash.remove(advantage,aitem=>[2,3,4,5].some(sitem=>sitem==aitem.code));
+                this.$set(this.matchForm,'advantage',advantage);
+                console.log(advantage)
+                v.forEach((item)=>{
+                    let obj = {code:map[item],value:''};
+                    if(obj.code==5){
+                        obj.value = this.advantageOther;
+                    }
+                    this.matchForm.advantage.push(obj)
+                })
+            }else if(!v.length && this.matchForm.advantage){
+                let advantage = JSON.stringify(this.matchForm.advantage);
+                advantage = JSON.parse(advantage);
+                lodash.remove(advantage,aitem=> lodash.findIndex([2,3,4,5],sItem=>sItem==aitem.code));
+                this.$set(this.matchForm,'advantage',advantage);
+            }
+        },
         cbys:function(v,o){
             if(v){
                 let obj = {code:0,value:v};
                 if(this.matchForm.advantage){
-                    let ishas = this.matchForm.advantage.some(item=>item.code==0);
-                    this.matchForm.advantage.forEach(item=>{
-                        if(item.code==1){
-                            item.value=v;
-                        }else{
-                            if(!ishas){
-                                this.matchForm.advantage.push(obj);
-                            }
-                        }
-                    })
+                    let index = lodash.findIndex(this.matchForm.advantage,item=>item.code==0);
+                    if(index!=-1){
+                        this.$set(this.matchForm.advantage,index,obj);
+                    }else{
+                        this.matchForm.advantage.push(obj);
+                    }
+                    // let ishas = this.matchForm.advantage.some(item=>item.code==0);
+                    // this.matchForm.advantage.forEach(item=>{
+                    //     if(item.code==1){
+                    //         item.value=v;
+                    //     }else{
+                    //         if(!ishas){
+                    //             this.matchForm.advantage.push(obj);
+                    //         }
+                    //     }
+                    // })
                 }else{
                     this.matchForm.advantage = [];
                     this.matchForm.advantage.push(obj);
@@ -468,16 +512,22 @@ export default {
             if(v){
                 let obj = {code:1,value:v};
                 if(this.matchForm.advantage){
-                    let ishas = this.matchForm.advantage.some(item=>item.code==1);
-                    this.matchForm.advantage.forEach(item=>{
-                        if(item.code==1){
-                            item.value=v;
-                        }else{
-                            if(!ishas){
-                                this.matchForm.advantage.push(obj);
-                            }
-                        }
-                    })
+                    let index = lodash.findIndex(this.matchForm.advantage,item=>item.code==1);
+                    if(index!=-1){
+                        this.$set(this.matchForm.advantage,index,obj);
+                    }else{
+                        this.matchForm.advantage.push(obj);
+                    }
+                    // let ishas = this.matchForm.advantage.some(item=>item.code==1);
+                    // this.matchForm.advantage.forEach(item=>{
+                    //     if(item.code==1){
+                    //         item.value=v;
+                    //     }else{
+                    //         if(!ishas){
+                    //             this.matchForm.advantage.push(obj);
+                    //         }
+                    //     }
+                    // })
                 }else{
                     this.matchForm.advantage = [];
                     this.matchForm.advantage.push(obj);
@@ -491,6 +541,7 @@ export default {
                     adv = JSON.parse(adv); 
                     adv.forEach((item,index)=>{
                         if(item.code==0){
+                            this.cbys = '';
                             this.matchForm.advantage.splice(index,1);
                         }
                     })
@@ -505,6 +556,7 @@ export default {
                     adv = JSON.parse(adv);
                     adv.forEach((item,index)=>{
                         if(item.code==1){
+                            this.jsys = '';
                             this.matchForm.advantage.splice(index,1);
                         }
                     })
@@ -514,16 +566,8 @@ export default {
             }
             (this.isCheckCb==false && this.isCheckJs==false) ? this.$refs.matchForm.clearValidate('advantage'):'';
         },
-        'matchForm.advantage':function(v,o){
-            console.log(v)
-        }
     },
     methods:{
-        validatefun(form,prop,message){
-            this.$t(message);
-            console.log(this.$refs[prop].value)
-            this.$refs[form].clearValidate(prop)
-        },
         tabchange(index){
             this.active = index;
         },
@@ -587,6 +631,7 @@ export default {
 
         },
         onSubmit(param){
+            
             new Promise((resolve,reject)=>{
                  this.$refs.baseForm.validate(valid => {
                     if (valid) {
@@ -625,7 +670,7 @@ export default {
             params.registerAddress=registerAddress;
 
             this.$message.loading('匹配中',0);
-            this.$http.post('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
                 console.log(res)
                 this.$message.destroy();
                 if(res.data.code==0){
@@ -660,26 +705,26 @@ export default {
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
-            let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
-            if(this.advantage){
-                let advantageArr = [];
-                this.advantage.forEach(item=>{
-                    let obj = {code:map[item],value:''};
-                    if(obj.code==5){
-                        obj.value=this.advantageOther;
-                    }
-                    advantageArr.push(obj);
-                });
-                if(params.advantage){
-                    params.advantage = params.advantage.concat(advantageArr);
-                }else{
-                    params.advantage = advantageArr;
-                }
-            }
+            // let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
+            // if(this.advantage){
+            //     let advantageArr = [];
+            //     this.advantage.forEach(item=>{
+            //         let obj = {code:map[item],value:''};
+            //         if(obj.code==5){
+            //             obj.value=this.advantageOther;
+            //         }
+            //         advantageArr.push(obj);
+            //     });
+            //     if(params.advantage){
+            //         params.advantage = params.advantage.concat(advantageArr);
+            //     }else{
+            //         params.advantage = advantageArr;
+            //     }
+            // }
 
             // /finance/financeProduct/getOneKeyMatching
             this.$message.loading('匹配中',0);
-            this.$http.post('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
                 console.log(res)
                 this.$message.destroy();
                 if(res.data.code==0){
