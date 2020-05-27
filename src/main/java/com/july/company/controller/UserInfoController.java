@@ -1,9 +1,6 @@
 package com.july.company.controller;
 
-import com.july.company.dto.login.ForgetPasswordDto;
-import com.july.company.dto.login.LoginAuthDto;
-import com.july.company.dto.login.UserInfoValidDto;
-import com.july.company.dto.login.UserRegisterDto;
+import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.dto.user.UserInfoDto;
@@ -108,6 +105,19 @@ public class UserInfoController {
     public ResultT<String> forgetPassword(@RequestBody ForgetPasswordDto forgetPasswordDto) {
         userInfoService.forgetPassword(forgetPasswordDto);
         return ResultT.ok("密码修改成功！");
+    }
+
+    /**
+     * 用户退出
+     * @param
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    @PostMapping("/logout")
+    public ResultT<String> logout() {
+        userInfoService.logout();
+        return ResultT.ok("退出成功！");
     }
 
 }

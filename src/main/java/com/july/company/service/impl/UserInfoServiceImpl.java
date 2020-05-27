@@ -10,10 +10,7 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
-import com.july.company.dto.login.ForgetPasswordDto;
-import com.july.company.dto.login.LoginAuthDto;
-import com.july.company.dto.login.UserInfoValidDto;
-import com.july.company.dto.login.UserRegisterDto;
+import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.dto.user.UserInfoDto;
@@ -28,16 +25,19 @@ import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.Md5Utils;
 import com.july.company.utils.UUIDUtils;
+import com.july.company.utils.UserUtils;
 import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -58,6 +58,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private String secret;
     @Resource
     ValueOperations<String, Object> valueOperations;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private TokenHandle tokenHandle;
     @Resource
@@ -94,7 +96,32 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 .companyName(company != null ? company.getCompanyName() : "")
                 .build();
         valueOperations.set(SystemConstant.CACHE_NAME + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
+        updateCache(userInfoDto);
         return userInfoDto;
+    }
+
+    /**
+     * 更新缓存信息
+     * @param user
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    private void updateCache(UserInfoDto user) {
+        valueOperations.set(SystemConstant.CACHE_NAME + user.getId(), user, Duration.ofHours(8));
+    }
+
+    /**
+     * 用户退出
+     * @param userLogoutDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    @Override
+    public void logout() {
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
     }
 
     /**
@@ -137,9 +164,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      */
     @Override
     public void sendSmsCode(SmsCodeDto smsCodeDto) {
-        if(SystemConstant.SYS_FALSE.equals(smsCodeDto.getUsageType())){
+        if (SystemConstant.SYS_FALSE.equals(smsCodeDto.getUsageType())) {
             UserInfo userInfo = getUserInfoByMobile(smsCodeDto.getMobile());
-            BnException.of(userInfo != null,"当前手机号已经注册过，请直接登录！");
+            BnException.of(userInfo != null, "当前手机号已经注册过，请直接登录！");
         }
         DefaultProfile profile = DefaultProfile.getProfile(regionId, accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);

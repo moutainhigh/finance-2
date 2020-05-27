@@ -39,8 +39,24 @@ public class SystemConstant {
     /**
      * 排除指定url，不进行登录验证
      */
-    public static String[] LOGIN_VERIFY_EXCLUDE_URL = {"/userInfo/login", "/userInfo/forgetPassword",
-            "/userInfo/sendForgetPasswordCode", "/userInfo/generatorImgCode", "/authorize", "/userInfo/getAuthRedirect", "/enum/**"};
+    public static String[] LOGIN_VERIFY_EXCLUDE_URL = {
+            "/userInfo/login",
+            "/userInfo/forgetPassword",
+            "/userInfo/sendSmsCode",
+            "/userInfo/register",
+            "//userInfo/verifySmsCode",
+            "/userInfo/getAuthRedirect",
+            "/userInfo/getUserInfoForForgetPassword",
+            "/sysCode/getSysCode",
+            "/sysCode/getQuerySysCode",
+            "/financeProduct/getFinanceStockProduct",
+            "/financeProduct/getFinanceBondProduct",
+            "/financeBondDetail/getFinanceBondProductDetail",
+            "/financeStockDetail/getFinanceStockProductDetail",
+            "/institution/getInstitutionAndRegion",
+            "/institution/getFinanceStatistics",
+            "/enum/**"
+    };
     /**
      * 行业方向
      */

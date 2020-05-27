@@ -23,7 +23,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 拦截用户登录信息
- * @author ganlt
+ * @author zengxueqi
+ * @since 2020/05/20
  */
 @Component
 @Slf4j
@@ -48,7 +49,6 @@ public class LoginIntercept implements HandlerInterceptor {
         if (NetUtil.isInnerIP(remoteIp) && StringUtils.isEmpty(authToken)) {
             //允许内网直接调用接口
             Map<String, String> paramMap = ServletUtil.getParamMap(request);
-            Long centerId = Convert.toLong(paramMap.getOrDefault("centerId", ""));
             Long userId = Convert.toLong(paramMap.getOrDefault("userId", ""));
             UserInfoDto userInfoDto = userInfoService.getUserInfo(userId);
             log.info("登录用户信息:{}", userInfoDto);
@@ -59,7 +59,7 @@ public class LoginIntercept implements HandlerInterceptor {
                 userJsonObj.setId(userId);
                 UserUtils.setUser(userJsonObj);
             }
-            log.info("ip:{},内网调用接口:调用接口地址:{},centerId:{}, userId:{}", remoteIp, request.getRequestURI(), centerId, userId);
+            log.info("ip:{},内网调用接口:调用接口地址:{},userId:{}", remoteIp, request.getRequestURI(), userId);
             return true;
         }
         if (StringUtils.isEmpty(authToken)) {
@@ -71,7 +71,13 @@ public class LoginIntercept implements HandlerInterceptor {
         if (userIdObj == null) {
             throw new BnException(SystemConstant.LOGIN_EXCEPTION, "未登录");
         }
+        String userId = String.valueOf(userIdObj);
+        UserInfoDto userJsonObj = valueOperations.get(SystemConstant.CACHE_NAME + userId);
+        if (userJsonObj == null) {
+            throw new BnException(SystemConstant.LOGIN_EXCEPTION, "未登录");
+        }
         updateExpire(loginKey);
+        UserUtils.setUser(userJsonObj);
         return true;
     }
 
@@ -81,7 +87,7 @@ public class LoginIntercept implements HandlerInterceptor {
      * @return 测试服ip转为内网ip
      */
     private String envConvertInner(String ip) {
-        if ("112.124.93.39".equalsIgnoreCase(ip)) {
+        if ("172.16.181.205".equalsIgnoreCase(ip)) {
             return "127.0.0.1";
         }
         return ip;
