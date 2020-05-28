@@ -194,6 +194,10 @@ export default {
     // 进入这个页面首次点击原点定时器
     let clickVal = setInterval(()=>{
       if($('circle[comp="'+this.currSelItem.institutionName+'"]').length){
+        //设置选中动画
+        this.$d3.selectAll('circle').attr('class',null);
+        this.$d3.select('circle[comp="'+this.currSelItem.institutionName+'"]').attr('class','seld');
+
         $('circle[comp="'+this.currSelItem.institutionName+'"]').click();
         clearInterval(clickVal);
       }
@@ -286,6 +290,9 @@ export default {
       }
       this.gqIndex = index;
       this.currSelItem = item;
+      //设置选中动画
+      this.$d3.selectAll('circle').attr('class',null);
+      this.$d3.select('circle[comp="'+this.currSelItem.institutionName+'"]').attr('class','seld');
       $('circle[comp="'+item.institutionName+'"]').click();
     },
     getCompany(){
@@ -819,15 +826,19 @@ export default {
     opacity:1;
   }
 }
-@keyframes dong {
-  0% {
-    x:-100;
+.seld{
+  animation:bigs 1s infinite;
+  animation-timing-function: ease-in;
+  fill:green !important;
+}
+@keyframes bigs {
+  from {
+    r:0;
+    opacity:1;
   }
-  50% {
-    x:500;
-  }
-  100% {
-    x:-100;
+  to {
+    r:20;
+    opacity:0;
   }
 }
 </style>
