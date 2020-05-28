@@ -25,9 +25,11 @@ const store = new Vuex.Store({
     setToken(context,token){
         context.commit('setToken',token);
     },
-    clearUserInfo(content){
-      context.commit('setUserInfo','');
+    clearUserInfo(context){
+      context.commit('setUserInfo',{userName:''});
       context.commit('setToken','');
+      localStorage.removeItem('userInfo');
+      localStorage.removeItem('cdjr_token');
     }
   }
 });

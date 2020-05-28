@@ -132,7 +132,7 @@
     </div>
 </template>
 <script>
-import { sendSms,checkSmsCode } from "@/common/lib/tools"
+import { sendSms,checkSmsCode,creditCode } from "@/common/lib/tools"
 export default {
     name:'Reg',
     props:{
@@ -146,6 +146,15 @@ export default {
                 callback(new Error("密码和确认密码不一致"));
             } else if(String(value).length!=8) {
                 callback(new Error("请输入8位密码，包含字母、数字"));
+            } else{
+                callback();
+            }
+        };
+        let creditCodeValidate = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入统一社会信用代码'));
+            } else if (creditCode.verify(value)) {
+                callback(new Error("请输入正确的统一社会信用代码"));
             } else{
                 callback();
             }
@@ -184,6 +193,7 @@ export default {
                 ],
                 creditCode: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
+                    { validator:creditCodeValidate, trigger: 'blur' },
                 ],
                 code: [
                     { required: true, message: '请输入验证码', trigger: 'blur' },

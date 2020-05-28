@@ -115,7 +115,7 @@ export default {
       isLogin:false,
       isReg:false,
       isForget:false,
-      userInfo:{userName:''},
+      // userInfo:{userName:''},
       cdMap:[
         {opacity:0,top:494-top,left:'278',src:'/image/home/chq.png',isshow:true,name:'成华区',style:{zIndex:0}},
         {opacity:0,top:134-top,left:'231',src:'/image/home/czs.png',isshow:true,name:'崇州市',style:{zIndex:0}},
@@ -164,6 +164,11 @@ export default {
       currSelItem:{}
     }
   },
+  computed:{
+    userInfo(){
+      return this.$store.state.userInfo
+    }
+  },
   mounted(){
 
     if(this.$route.params.islogin){
@@ -173,10 +178,7 @@ export default {
       this.isReg = true;
     }
 
-    if(localStorage.getItem('userInfo')){
-      this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
-      this.$store.commit('setUserInfo',this.userInfo);
-    }
+    
     setTimeout(()=>{
       this.initMap();
     },1000)
