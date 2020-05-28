@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="login-box" v-if='isForm' style="background:none;min-height:27vw;height:auto;">
-            <a-card title="注册" style="width:31vw;border-radius:1vw;">
+            <a-card title="" style="width:31vw;border-radius:1vw;">
                 <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
                 <a-form-model ref="ruleForm" :model="regForm" :rules="rules" :label-col="{span:6}" :wrapper-col="{span:16}">
                     <a-form-model-item ref="companyName" label="企业名称" prop="companyName">
