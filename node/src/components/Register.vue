@@ -36,7 +36,8 @@
                     <div>
                         <input type="password" ref="rpass" v-model="regForm.password" @blur='()=>{
                             if(!this.regForm.password || String(this.regForm.password).length != 8 ){
-                                this.$message.error("请输入8位密码，包含字母、数字");
+                                this.$message.destroy();
+                                this.$message.error("请输入8位密码，包含字母、数字",1);
                                 return ;
                             }
                         }' placeholder="请输入密码"/>
@@ -47,7 +48,8 @@
                     <div>
                         <input type="password" v-model="regForm.repassword" @blur='()=>{
                             if(!this.regForm.repassword || String(this.regForm.password).length != 8 || this.regForm.repassword!==this.regForm.password ){
-                                this.$message.error("请输入8位正确的确认密码，包含字母、数字");
+                                this.$message.destroy();
+                                this.$message.error("请输入8位正确的确认密码，包含字母、数字",1);
                                 return ;
                             }
                         }'  placeholder="请确认密码"/>
@@ -216,15 +218,17 @@ export default {
         validateCreditCode(){
             let validator = new creditCode();
             if(!validator.verify(this.regForm.creditCode)){
-                this.$message.error('请输入正确的统一社会信用代码');
-                this.$refs.rcreditCode.focus();
+                this.$message.destroy();
+                this.$message.error('请输入正确的统一社会信用代码',1);
+                // this.$refs.rcreditCode.focus();
                 return ;
             }
         },
         validatePhone(){
             if(!/^1[3|4|5|6|7|8|9][0-9]{9}/.test(this.regForm.mobile)){
-                this.$message.error('请输入正确的联系人电话');
-                this.$refs.rmobile.focus();
+                this.$message.destroy();
+                this.$message.error('请输入正确的联系人电话',1);
+                // this.$refs.rmobile.focus();
                 return ;
             }
         },
