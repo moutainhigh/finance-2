@@ -72,6 +72,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         log.trace("用户手机:{},登录系统", loginAuthDto.getMobile());
         //数据库匹配用户
         UserInfo userInfo = this.getUserInfoByMobile(loginAuthDto.getMobile());
+
+        BnException.of(userInfo == null, "用户不存在");
+        BnException.of(SystemConstant.SYS_TRUE.equals(userInfo.getStatus()), "当前账号已经被禁用，请联系管理员！");
+
         UserInfo checkUserInfo = this.getUserInfoByMobileAndPassword(mobile, loginAuthDto.getEncryptPassword(userInfo.getPwdSalt()));
         if (checkUserInfo == null) {
             throw BnException.on("用户名或密码错误");
@@ -132,9 +136,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void userRegister(UserRegisterDto userRegisterDto) {
-        UserInfo userInfoExist = getUserInfoByMobile(userRegisterDto.getMobile());
-        BnException.of(userInfoExist != null, "当前手机号以前存在，请直接登录！");
-
         //保存企业信息
         Company company = new Company();
         company.setCompanyName(userRegisterDto.getCompanyName());
@@ -287,10 +288,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 //.eq("status", SystemConstant.SYS_FALSE)
                 //未删除
                 .eq("deleted", SystemConstant.SYS_FALSE);
-        UserInfo userInfo = this.getOne(queryWrapper);
-        BnException.of(userInfo == null, "用户不存在");
-        BnException.of(SystemConstant.SYS_TRUE.equals(userInfo.getStatus()), "当前账号已经被禁用，请联系管理员！");
-        return userInfo;
+        return this.getOne(queryWrapper);
     }
 
     /**
