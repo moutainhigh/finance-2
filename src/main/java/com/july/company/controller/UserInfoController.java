@@ -36,6 +36,7 @@ public class UserInfoController {
      */
     @PostMapping("/login")
     public ResultT<LoginAuthVo> login(@Valid @RequestBody LoginAuthDto loginAuthDto) {
+        double i = 1 / 0;
         //验证参数值
         UserInfoDto userInfoDto = userInfoService.login(loginAuthDto);
         LoginAuthVo loginAuthVo = LoginAuthVo.builder()

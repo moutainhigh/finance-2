@@ -1,10 +1,12 @@
 package com.july.company.base;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.ValidationException;
+
 import com.july.company.exception.BnException;
 import com.july.company.response.ResultT;
-import lombok.extern.slf4j.Slf4j;
+import com.july.company.utils.StringUtils;
 import org.springframework.http.converter.HttpMessageConversionException;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * 公共异常处理并返回前端的json数据
@@ -23,7 +24,6 @@ import javax.validation.ValidationException;
 @Slf4j
 @RestControllerAdvice
 public class AdviceController {
-
     private static final String UNIFIED_FAIL_MSG = "服务器内部错误";
 
     /**
