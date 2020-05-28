@@ -96,11 +96,13 @@
     </div>
     
     <!-- <img src="/image/home/seld.png" alt="" class="seld"> -->
-    <transition-group name="fade" mode="in-out">
-    <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" key="login"></Login>
-    <Register v-if="isReg" @do-reg="doReg" @to-login="login" @close="close" key="reg"></Register>
-    <Forget v-if="isForget" @do-forget="doforget" @to-login="login" @close="close" key="forget"></Forget>
-    </transition-group>
+    <!-- <transition-group name="fade" mode="in-out"> -->
+    <a-modal v-model="openModal" title="" centered  :footer="null" :closable="false">
+      <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" key="login"></Login>
+      <Register v-if="isReg" @do-reg="doReg" @to-login="login" @close="close" key="reg"></Register>
+      <Forget v-if="isForget" @do-forget="doforget" @to-login="login" @close="close" key="forget"></Forget>
+    </a-modal>
+    <!-- </transition-group> -->
   </div>
 </template>
 <script>
@@ -167,6 +169,9 @@ export default {
   computed:{
     userInfo(){
       return this.$store.state.userInfo
+    },
+    openModal(){
+      return this.isLogin || this.isReg || this.isForget;
     }
   },
   mounted(){
@@ -340,6 +345,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 *{padding:0px;margin:0px;}
+/deep/ .ant-modal-content{background:none;}
 .home-box{
   width:100vw;height: 100vh;background:url(/image/home/bg.png) no-repeat;background-size:cover;
   .header{

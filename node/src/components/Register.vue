@@ -325,8 +325,8 @@ export default {
     position:absolute;
     top:0vw;
     left:0vw;
-    width:100%;
-    height:100vh;
+    // width:100%;
+    // height:100vh;
     overflow: hidden;
     z-index:9;
     background-color: none;
@@ -335,8 +335,8 @@ export default {
     position:absolute;
     top:0vw;
     left:0vw;
-    width:100%;
-    height:100vh;
+    // width:100%;
+    // height:100vh;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
     z-index:9;
