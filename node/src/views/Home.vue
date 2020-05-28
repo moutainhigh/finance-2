@@ -96,11 +96,13 @@
     </div>
     
     <!-- <img src="/image/home/seld.png" alt="" class="seld"> -->
-    <transition-group name="fade" mode="in-out">
-    <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" key="login"></Login>
-    <Register v-if="isReg" @do-reg="doReg" @to-login="login" @close="close" key="reg"></Register>
-    <Forget v-if="isForget" @do-forget="doforget" @to-login="login" @close="close" key="forget"></Forget>
-    </transition-group>
+    <!-- <transition-group name="fade" mode="in-out"> -->
+    <a-modal v-model="openModal" title="" centered  :footer="null" :closable="false">
+      <Login v-if="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" key="login"></Login>
+      <Register v-if="isReg" @do-reg="doReg" @to-login="login" @close="close" key="reg"></Register>
+      <Forget v-if="isForget" @do-forget="doforget" @to-login="login" @close="close" key="forget"></Forget>
+    </a-modal>
+    <!-- </transition-group> -->
   </div>
 </template>
 <script>
@@ -115,7 +117,7 @@ export default {
       isLogin:false,
       isReg:false,
       isForget:false,
-      userInfo:{userName:''},
+      // userInfo:{userName:''},
       cdMap:[
         {opacity:0,top:494-top,left:'278',src:'/image/home/chq.png',isshow:true,name:'成华区',style:{zIndex:0}},
         {opacity:0,top:134-top,left:'231',src:'/image/home/czs.png',isshow:true,name:'崇州市',style:{zIndex:0}},
@@ -164,6 +166,14 @@ export default {
       currSelItem:{}
     }
   },
+  computed:{
+    userInfo(){
+      return this.$store.state.userInfo
+    },
+    openModal(){
+      return this.isLogin || this.isReg || this.isForget;
+    }
+  },
   mounted(){
 
     if(this.$route.params.islogin){
@@ -173,10 +183,7 @@ export default {
       this.isReg = true;
     }
 
-    if(localStorage.getItem('userInfo')){
-      this.userInfo =JSON.parse(localStorage.getItem('userInfo'));
-      this.$store.commit('setUserInfo',this.userInfo);
-    }
+    
     setTimeout(()=>{
       this.initMap();
     },1000)
@@ -338,6 +345,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 *{padding:0px;margin:0px;}
+/deep/ .ant-modal-content{background:none;}
 .home-box{
   width:100vw;height: 100vh;background:url(/image/home/bg.png) no-repeat;background-size:cover;
   .header{

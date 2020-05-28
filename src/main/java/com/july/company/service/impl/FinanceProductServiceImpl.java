@@ -63,7 +63,6 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      */
     @Override
     public IPage<FinanceBondProductVo> getFinanceBondProduct(Page<FinanceBondProductVo> page, FinanceBondProductDto financeBondProductDto) {
-        System.out.println("paixu====> " + financeBondProductDto.getOrderByField());
         IPage<FinanceBondProductVo> companyVoIPage = financeProductMapper.getFinanceBondProduct(page, financeBondProductDto);
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceBondProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {

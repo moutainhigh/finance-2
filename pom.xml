@@ -160,6 +160,12 @@
             <artifactId>aliyun-java-sdk-core</artifactId>
             <version>${aliyun-verison}</version>
         </dependency>
+        <!-- 钉钉消息推送 -->
+        <dependency>
+            <groupId>cn.snowheart</groupId>
+            <artifactId>spring-boot-dingtalk-robot-starter</artifactId>
+            <version>1.0.2.RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>com.github.zengxueqi-yu</groupId>
             <artifactId>july-doc</artifactId>
