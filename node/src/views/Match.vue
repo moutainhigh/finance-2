@@ -312,12 +312,14 @@
                         <a-input v-show="matchForm.evaluateName==4" key="" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
+                        <a-spin :spinning="spinning">
                         <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
                             一键匹配
                         </a-button>
                         <a-button type="default" @click="isLogin=true" v-if="!$store.state.token">
                             一键匹配
                         </a-button>
+                        </a-spin>
                     </a-form-model-item>
             </a-form-model>
         </a-card>
@@ -347,6 +349,7 @@ export default {
             }
         };
         return {
+            spinning:false,
             isLogin:false,
             isReg:false,
             isForget:false,
@@ -669,10 +672,10 @@ export default {
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
-            this.$message.loading('匹配中',0);
+            this.spinning=true
             this.$http.postWithAuth('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
                 console.log(res)
-                this.$message.destroy();
+                this.spinning=false;
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('zids',res.data.content);
@@ -723,10 +726,10 @@ export default {
             // }
 
             // /finance/financeProduct/getOneKeyMatching
-            this.$message.loading('匹配中',0);
+            this.spinning=true
             this.$http.postWithAuth('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
                 console.log(res)
-                this.$message.destroy();
+                this.spinning=false
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('ids',res.data.content);

@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="login-box" v-if='isForm' style="background:none;min-height:27vw;height:auto;">
-            <a-card title="注册" style="width:31vw;border-radius:1vw;">
+            <a-card title="" style="width:31vw;border-radius:1vw;">
                 <a slot="extra" href="#"><img src="/image/home/close.png" class="close" @click="$emit('close')" style="padding:0px;width:27px;"/></a>
                 <a-form-model ref="ruleForm" :model="regForm" :rules="rules" :label-col="{span:6}" :wrapper-col="{span:16}">
                     <a-form-model-item ref="companyName" label="企业名称" prop="companyName">
@@ -132,7 +132,7 @@
     </div>
 </template>
 <script>
-import { sendSms,checkSmsCode } from "@/common/lib/tools"
+import { sendSms,checkSmsCode,creditCode } from "@/common/lib/tools"
 export default {
     name:'Reg',
     props:{
@@ -146,6 +146,15 @@ export default {
                 callback(new Error("密码和确认密码不一致"));
             } else if(String(value).length!=8) {
                 callback(new Error("请输入8位密码，包含字母、数字"));
+            } else{
+                callback();
+            }
+        };
+        let creditCodeValidate = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入统一社会信用代码'));
+            } else if (creditCode.verify(value)) {
+                callback(new Error("请输入正确的统一社会信用代码"));
             } else{
                 callback();
             }
@@ -184,6 +193,7 @@ export default {
                 ],
                 creditCode: [
                     { required: true, message: '请输入统一社会信用代码', trigger: 'blur' },
+                    { validator:creditCodeValidate, trigger: 'blur' },
                 ],
                 code: [
                     { required: true, message: '请输入验证码', trigger: 'blur' },
@@ -315,8 +325,8 @@ export default {
     position:absolute;
     top:0vw;
     left:0vw;
-    width:100%;
-    height:100vh;
+    // width:100%;
+    // height:100vh;
     overflow: hidden;
     z-index:9;
     background-color: none;
@@ -325,8 +335,8 @@ export default {
     position:absolute;
     top:0vw;
     left:0vw;
-    width:100%;
-    height:100vh;
+    // width:100%;
+    // height:100vh;
     overflow: hidden;
     background-color: rgba(0, 0, 0, 0.5);
     z-index:9;

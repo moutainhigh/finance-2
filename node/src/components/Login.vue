@@ -142,8 +142,8 @@ export default {
 </script>
 <style scoped>
 *{padding:0px;margin:0px;}
-.login{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;}
-.loginx{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;}
+.login{position:absolute;top:0px;left:0px;}
+/* .loginx{width:100%;min-height:100vh;position:absolute;top:0px;left:0px;} */
 .login-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:28vw;height:17vw;background:url(/image/home/login.png) center no-repeat;z-index:9;background-size: cover;}
 .login-box >>> .input-item{margin-bottom:20px !important;}
 .login:after{content:'';width:100%;height:100%;position:absolute;top:0px;left:0px;z-index:8;background:#000;opacity:0.5;}

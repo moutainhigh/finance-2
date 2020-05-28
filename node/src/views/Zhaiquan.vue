@@ -71,10 +71,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="list-items">
+                <a-spin :spinning="spinning" class="list-items">
                     <div v-if="!productList.length">暂无数据</div>
                     <ListPageItem class="list-item" v-if="productList.length" @to-detail="toDetail" v-for="(item,index) in productList" :item="item" :key="index" :type="1"></ListPageItem>
-                </div>
+                </a-spin>
                 <div class="page" v-if="productList.length">
                     <div class="page-num">
                         <a-pagination :total="totalNum" @change="onChange" :current='params.pager.currentPage' :defaultPageSize='params.pager.pageSize' />
@@ -143,6 +143,7 @@ export default {
             pageNo:'',
             keywords:'',
             mapData:{},
+            spinning:false
         }
     },
     created(){
@@ -264,9 +265,9 @@ export default {
                 params.content.productIds= localStorage.getItem('zids').indexOf(',')==-1?'test':localStorage.getItem('zids');
             }
 
-            this.$message.loading('加载中...',0);
+            this.spinning=true;
             this.$http.post('/finance/financeProduct/getFinanceBondProduct',params).then(res=>{
-                this.$message.destroy();
+                this.spinning=false;
                 localStorage.removeItem('zids')
                 if(res.data.code==0){
                     // this.$message.success('加载成功',1);
@@ -348,6 +349,7 @@ font-family:PingFangSC-Regular;font-size:14px;color:#FFFFFF;text-align:center;li
 .guquan .lists-box .filter-head .search .sort{background: #F6F6F6;border-radius: 16px;border-radius: 16px;margin-left:25px;}
 .guquan .lists-box .filter-head .search .sort >>> .ant-select-selection{background-color: #F6F6F6;border: 1px solid #F6F6F6;border-top-width: 1.02px;border-radius: 28px;}
 .guquan .lists-box .list-items{padding:32px 27px 0px;display:flex;justify-content:flex-start;flex-wrap:wrap;}
+.guquan .lists-box .list-items >>> .ant-spin-container{display:flex;width:100%;}
 .guquan .lists-box .list-items .list-item{width:calc(50% - 24px);margin-bottom:24px;}
 .guquan .lists-box .list-items .list-item:nth-child(2n+2){margin-left:24px;}
 
