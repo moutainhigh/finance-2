@@ -16,7 +16,7 @@
                 <div class="l-input">
                     <div>* 统一社会信用代码</div>
                     <div>
-                        <input type="text" v-model="regForm.creditCode" placeholder="请输入统一社会信用代码"/>
+                        <input type="text" ref="rcreditCode" v-model="regForm.creditCode" @blur="validateCreditCode()" placeholder="请输入统一社会信用代码"/>
                     </div>
                 </div>
                 <div class="l-input">
@@ -28,19 +28,31 @@
                 <div class="l-input">
                     <div>* 联系电话</div>
                     <div>
-                        <input type="text" v-model.number="regForm.mobile" placeholder="请输入联系人电话"/>
+                        <input type="text" ref="rmobile" v-model.number="regForm.mobile" @blur="validatePhone" placeholder="请输入联系人电话"/>
                     </div>
                 </div>
                 <div class="l-input">
                     <div>* 密码</div>
                     <div>
-                        <input type="password" v-model="regForm.password" placeholder="请输入密码"/>
+                        <input type="password" ref="rpass" v-model="regForm.password" @blur='()=>{
+                            if(!this.regForm.password || String(this.regForm.password).length != 8 ){
+                                this.$message.destroy();
+                                this.$message.error("请输入8位密码，包含字母、数字",1);
+                                return ;
+                            }
+                        }' placeholder="请输入密码"/>
                     </div>
                 </div>
                 <div class="l-input">
                     <div>* 确认密码</div>
                     <div>
-                        <input type="password" v-model="regForm.repassword" placeholder="请确认密码"/>
+                        <input type="password" v-model="regForm.repassword" @blur='()=>{
+                            if(!this.regForm.repassword || String(this.regForm.password).length != 8 || this.regForm.repassword!==this.regForm.password ){
+                                this.$message.destroy();
+                                this.$message.error("请输入8位正确的确认密码，包含字母、数字",1);
+                                return ;
+                            }
+                        }'  placeholder="请确认密码"/>
                     </div>
                 </div>
                 <div class="l-input l-input-code">
@@ -153,7 +165,7 @@ export default {
         let creditCodeValidate = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入统一社会信用代码'));
-            } else if (creditCode.verify(value)) {
+            } else if ((new creditCode()).verify(value)) {
                 callback(new Error("请输入正确的统一社会信用代码"));
             } else{
                 callback();
@@ -203,6 +215,23 @@ export default {
         }
     },
     methods:{
+        validateCreditCode(){
+            let validator = new creditCode();
+            if(!validator.verify(this.regForm.creditCode)){
+                this.$message.destroy();
+                this.$message.error('请输入正确的统一社会信用代码',1);
+                // this.$refs.rcreditCode.focus();
+                return ;
+            }
+        },
+        validatePhone(){
+            if(!/^1[3|4|5|6|7|8|9][0-9]{9}/.test(this.regForm.mobile)){
+                this.$message.destroy();
+                this.$message.error('请输入正确的联系人电话',1);
+                // this.$refs.rmobile.focus();
+                return ;
+            }
+        },
         doReg(){
             if(this.isForm){
                 this.$refs.ruleForm.validate(valid => {
