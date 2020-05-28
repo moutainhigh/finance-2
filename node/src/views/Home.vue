@@ -167,10 +167,10 @@ export default {
     }
   },
   computed:{
-    userInfo(){
+    userInfo:function(){
       return this.$store.state.userInfo
     },
-    openModal(){
+    openModal:function(){
       return this.isLogin || this.isReg || this.isForget;
     }
   },
