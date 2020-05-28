@@ -37,7 +37,7 @@ export const http = {
         return axios.post(url,params);
     },
     postWithAuth:(url,params)=>{
-        return axios.post(url,params,{headers:{'Authorization':'Bearer '+store.state.token}});
+        return axios.post(url,params,{headers:{'Authorization':store.state.token?'Bearer '+store.state.token:''}});
     }
 }
 
