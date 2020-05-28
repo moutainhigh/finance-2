@@ -37,23 +37,36 @@ public class SystemConstant {
      */
     public static final Integer LOGIN_EXCEPTION = -1000;
     /**
-     * 排除指定url，不进行登录验证
+     * 排除指定url，不进行token验证
      */
     public static String[] LOGIN_VERIFY_EXCLUDE_URL = {
+            //用户登录
             "/userInfo/login",
+            //忘记密码
             "/userInfo/forgetPassword",
+            //发送短信
             "/userInfo/sendSmsCode",
+            //注册
             "/userInfo/register",
-            "//userInfo/verifySmsCode",
-            "/userInfo/getAuthRedirect",
+            //验证短信有效性
+            "/userInfo/verifySmsCode",
+            //忘记密码时查询用户是否存在
             "/userInfo/getUserInfoForForgetPassword",
+            //获取字典信息
             "/sysCode/getSysCode",
+            //获取指定字典信息
             "/sysCode/getQuerySysCode",
+            //股权融资列表信息
             "/financeProduct/getFinanceStockProduct",
+            //债券融资列表信息
             "/financeProduct/getFinanceBondProduct",
+            //债券融资详细信息
             "/financeBondDetail/getFinanceBondProductDetail",
+            //股权融资详细信息
             "/financeStockDetail/getFinanceStockProductDetail",
+            //机构与地图对应信息
             "/institution/getInstitutionAndRegion",
+            //统计信息
             "/institution/getFinanceStatistics",
             "/enum/**"
     };

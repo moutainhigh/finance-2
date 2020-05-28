@@ -20,7 +20,7 @@ import java.util.Map;
 public class BearerTokenHandle implements TokenHandle {
 
     private static final String TOKEN_STR = "token";
-    private static final String CENTER_ID_STR = "centerId";
+    private static final String USER_ID_STR = "userId";
     private static final String SIGNAL_HEAD = "Bearer ";
     @Value("${spring.application.name}")
     private String appName = "appName";
@@ -29,7 +29,7 @@ public class BearerTokenHandle implements TokenHandle {
     public String encryptAuth(String rawStr, Long userId) {
         Map<String, Object> map = MapUtil.newHashMap();
         map.put(TOKEN_STR, rawStr);
-        map.put(CENTER_ID_STR, userId);
+        map.put(USER_ID_STR, userId);
         return JwtUtils.signature(map, "", "", appName);
     }
 
@@ -54,7 +54,7 @@ public class BearerTokenHandle implements TokenHandle {
         if (claims == null) {
             throw new BnException(-1000, "加密解析失败");
         }
-        return Convert.toLong(claims.get(CENTER_ID_STR));
+        return Convert.toLong(claims.get(USER_ID_STR));
     }
-    
+
 }

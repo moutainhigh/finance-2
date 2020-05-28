@@ -3,6 +3,7 @@ package com.july.company.service;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -87,5 +88,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/27
      */
     void logout();
+
+    /**
+     * 禁用用户信息
+     * @param userDisableDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/5/27
+     */
+    void disableUser(UserDisableDto userDisableDto);
 
 }

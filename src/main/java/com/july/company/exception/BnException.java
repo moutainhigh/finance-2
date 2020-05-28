@@ -15,7 +15,9 @@ import java.util.Properties;
  * @since 2020-05-16 01:28
  **/
 public class BnException extends RuntimeException {
+
     private static final long serialVersionUID = -1494138156106032736L;
+
     /**
      * 属性对象
      */
@@ -36,7 +38,14 @@ public class BnException extends RuntimeException {
      * 错误编码10001
      */
     public static final Integer NONBLANK = 10001; // 不允许长度为0
-
+    /**
+     * 未登录
+     */
+    public static final Integer LOGIN_ERR = 408;
+    /**
+     * 用户信息异常
+     */
+    public static final Integer USER_ERR = 409;
     /**
      * 异常编码,默认编码99999
      */
@@ -149,7 +158,7 @@ public class BnException extends RuntimeException {
      * 输出异常的堆栈的关键信息
      * @param ex 异常类型
      * @return 异常类型的字符串
-     * @author cqyhm
+     * @author zengxueqi
      */
     public static String stackTrace(Exception ex) {
         try (StringWriter out = new StringWriter();
