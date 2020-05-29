@@ -118,7 +118,7 @@
                                 $refs.productState.onFieldBlur();
                             }
                             ">
-                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('STOCKRIGHT_FMZLSL')">{{item.value}}</a-select-option>
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CPJD')">{{item.value}}</a-select-option>
                         </a-select>
                         <a-input v-show="matchForm.productState==5" placeholder="请输入其他的内容" v-model="productState" @blur=" 
                             () => {
@@ -573,6 +573,7 @@ export default {
     methods:{
         tabchange(index){
             this.active = index;
+            this.$refs.baseForm.clearValidate();
         },
         login(){
             this.isLogin = true;
@@ -580,9 +581,7 @@ export default {
             this.isForget = false;
         },
         doLogin(params){
-            console.log(params)
             if(params && params.mobile){
-                console.log(params)
                 this.isLogin = false;
             }
         },
@@ -593,7 +592,6 @@ export default {
         },
         doReg(params){
             if(params && params.mobile){
-            console.log(params)
             this.isReg = false;
             }
         },
@@ -607,14 +605,12 @@ export default {
             this.isForget=true;
         },
         doforget(params){
-            console.log(params)
             if(params && params.mobile){
                 this.isForget = false;
             }
         },
         getFieldList(codeType){
             for(let item of this.searchFieldList){
-                // console.log(item.codeType,codeType);
                 if(item.codeType==codeType){
                     return item.queryDetailSysCodeVos;
                 }
@@ -623,7 +619,6 @@ export default {
         },
         getChildSysCodes(itemList,value){
             for(let item of itemList){
-                // console.log(item.codeType,codeType);
                 if(item.value==value){
                     return item.childSysCodes;
                 }
@@ -635,34 +630,63 @@ export default {
         },
         onSubmit(param){
             
-            new Promise((resolve,reject)=>{
-                 this.$refs.baseForm.validate(valid => {
+            // new Promise((resolve,reject)=>{
+            //      this.$refs.baseForm.validate(valid => {
+            //         if (valid) {
+            //             resolve()
+            //         } else {
+            //             setTimeout(()=>{
+            //                 this.$refs.baseForm.clearValidate();
+            //             },1000)
+            //             return false;
+            //         }
+            //     });
+            // }).then((res)=>{
+            //     if(this.active==0){
+            //         this.$refs.matchForm.validate(valid => {
+            //              if (valid) {
+            //                  console.log(valid)
+            //                  this.goMatch();
+            //              } else {
+            //                  setTimeout(()=>{
+            //                     this.$refs.matchForm.clearValidate();
+            //                 },1000)
+            //                  return false;
+            //              }
+            //          }); 
+            //     }else{
+            //         this.doSub(param)
+            //     }
+            // })
+            let baseFormPromise = new Promise((resolve,reject)=>{
+                this.$refs.baseForm.validate(valid => {
                     if (valid) {
-                        resolve()
+                        resolve();
                     } else {
-                        setTimeout(()=>{
-                            this.$refs.baseForm.clearValidate();
-                        },1000)
-                        return false;
+                        reject();
                     }
                 });
-            }).then((res)=>{
+            })
+            let matchFormPromise = new Promise((resolve,reject)=>{
                 if(this.active==0){
                     this.$refs.matchForm.validate(valid => {
-                         if (valid) {
-                             console.log(valid)
-                             this.goMatch();
-                         } else {
-                             setTimeout(()=>{
-                                this.$refs.matchForm.clearValidate();
-                            },1000)
-                             return false;
-                         }
-                     }); 
+                        if (valid) {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    });
+                }else{
+                    resolve();
+                }
+            })
+            Promise.all([baseFormPromise,matchFormPromise]).then(res=>{
+                if(this.active==0){
+                    this.goMatch();
                 }else{
                     this.doSub(param)
                 }
-            })
+            }).catch(err=>console.log(err))
            
             
         },
