@@ -2,7 +2,7 @@
   <div class="match-box">
     <Header @do-login="login" @to-reg="reg" :isBg="true"></Header>
     <div class="match-body">
-        <div class="match-top">
+        <div class="match-top" style="position:sticky;top:0px;z-index:1;">
             <!-- <div class="back">返回</div> -->
             <div class="tab">
                 <div :class="active==0?'active':''" @click="tabchange(0)">股权融资</div>
