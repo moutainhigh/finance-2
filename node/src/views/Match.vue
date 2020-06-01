@@ -335,7 +335,7 @@
                     </a-form-model-item>
             </a-form-model>
         </a-card>
-        <BoneMatch v-if="active==1" @do-sub="onSubmit" @dologin="isLogin=true"></BoneMatch>
+        <BoneMatch v-if="active==1" @do-sub="onSubmit" @dologin="isLogin=true" :spinning="spinning"></BoneMatch>
     </div>
     <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" :isForm="true"></Login>
     <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close" :isForm="true"></Register>
