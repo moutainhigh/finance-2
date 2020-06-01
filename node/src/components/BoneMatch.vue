@@ -265,12 +265,14 @@
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
+                        <a-spin :spinning="spinning">
                         <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
                             一键匹配
                         </a-button>
                         <a-button type="default" @click="$emit('dologin',true)" v-if="!$store.state.token">
                             一键匹配
                         </a-button>
+                        </a-spin>
                     </a-form-model-item>
             </a-form-model>
         </a-card>
@@ -281,6 +283,9 @@
 import { getSearchField,mapData } from "@/common/commapi.js"
 export default {
     name:'BoneMatch',
+    props:{
+        spinning:{type:Boolean,default:false},
+    },
     data(){
         return {
             baseForm:{
@@ -365,7 +370,6 @@ export default {
             shareholders:[],//股东背景其他
             boolLoan:'',//是否有其他贷款其他
             boolLoans:[],//是否有其他贷款其他
-
         }
     },
     created(){
@@ -553,7 +557,6 @@ export default {
             // params.boolLoan=boolLoan;
 
 
-            console.log(params)
 
             this.$emit('do-sub',params);
 
