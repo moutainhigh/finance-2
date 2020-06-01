@@ -22,7 +22,7 @@ public class BearerTokenHandle implements TokenHandle {
     private static final String TOKEN_STR = "token";
     private static final String USER_ID_STR = "userId";
     private static final String SIGNAL_HEAD = "Bearer ";
-    @Value("${spring.application.name}")
+    @Value("${jwt.accessKeyId}")
     private String appName = "appName";
 
     @Override

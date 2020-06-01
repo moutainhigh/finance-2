@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @author zengxueqi
  * @since 2020/05/20
  */
-@Component
+//@Component
 @Slf4j
 public class LoginIntercept implements HandlerInterceptor {
 
@@ -45,9 +45,9 @@ public class LoginIntercept implements HandlerInterceptor {
         //通过header 获取token
         String remoteIp = envConvertInner(ServletUtil.getClientIP(request));
         final String authorization = "Authorization";
-
+        String requestPath = request.getServletPath();
         String authToken = request.getHeader(authorization);
-        if (NetUtil.isInnerIP(remoteIp) && StringUtils.isEmpty(authToken)) {
+        if (NetUtil.isInnerIP(remoteIp) && StringUtils.isEmpty(authToken) && !SystemConstant.LOGIN_OUT.equals(requestPath)) {
             //允许内网直接调用接口
             Map<String, String> paramMap = ServletUtil.getParamMap(request);
             Long userId = Convert.toLong(paramMap.getOrDefault("userId", ""));
@@ -64,7 +64,7 @@ public class LoginIntercept implements HandlerInterceptor {
             return true;
         }
         if (StringUtils.isEmpty(authToken)) {
-            throw new BnException(SystemConstant.LOGIN_EXCEPTION, "登录信息不存在");
+            throw new BnException(BnException.LOGIN_ERR, "登录信息不存在");
         }
         String loginKey = tokenHandle.decodeAuth(authToken);
         Long userInfoId = tokenHandle.decodeUserId(authToken);

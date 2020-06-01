@@ -376,4 +376,9 @@ public class SystemConstant {
         return stockField;
     }
 
+    /**
+     * 用户退出api url
+     */
+    public static final String LOGIN_OUT = "/userInfo/logout";
+
 }
