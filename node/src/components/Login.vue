@@ -8,7 +8,7 @@
             <div class="l-input">
                 <div>帐号</div>
                 <div>
-                    <input type="text" v-model.number="loginForm.mobile" placeholder="请输入手机号或统一社会信用代码"/>
+                    <input type="text" v-model.trim="loginForm.mobile" placeholder="请输入手机号或统一社会信用代码"/>
                 </div>
             </div>
             <div class="l-input">

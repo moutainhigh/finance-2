@@ -37,7 +37,7 @@ export const http = {
         return axios.post(url,params);
     },
     postWithAuth:(url,params)=>{
-        return axios.post(url,params,{headers:{'Authorization':'Bearer '+store.state.token}});
+        return axios.post(url,params,{headers:{'Authorization':store.state.token?'Bearer '+store.state.token:''}});
     }
 }
 
@@ -247,6 +247,9 @@ export async function drawCompany(driver,name,companyList){
             $('image[name="'+e.target.getAttribute('name')+'"]').css({opacity:1});
             $('.c-info').css({opacity:1,top:'15vw',right:'20vw',transform:'scale(0)'})
             .animate({opacity:1,top:'4vw',right:'3.2vw'},'show','linear').css({transform:'scale(1)'});
+            //设置选中动画
+            driver.selectAll('circle').attr('class',null);
+            driver.select('circle[comp="'+e.target.getAttribute('comp')+'"]').attr('class','seld');
             // 绘画选中点
             drawSeled(e.target.getAttribute('cx'),e.target.getAttribute('cy'));
         }) 
