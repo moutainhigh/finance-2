@@ -9,8 +9,6 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.company.util.sms.AliyunSmsProperties;
-import com.company.util.sms.AliyunSmsUtils;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
