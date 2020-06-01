@@ -189,8 +189,15 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //目标客户
-                if (productInfoDto.getTargetCustomer().equals(productMatchDto.getTargetCustomer().getCode()) && StringUtils.isEmpty(productMatchDto.getTargetCustomer().getValue())) {
-                    matchingRate += everyOne;
+                //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
+                List<Node> nodes1 = productMatchDto.getTargetCustomer();
+                if (!CollectionUtils.isEmpty(nodes1)) {
+                    for (Node node : nodes1) {
+                        if (productInfoDto.getTargetCustomer().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //市场占有率/预期市场占有率
                 if (productInfoDto.getMarketOccupyRate().equals(productMatchDto.getMarketOccupyRate())) {
@@ -205,11 +212,13 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //公司竞争优势 productInfoDto.getAdvantage() = {"code":"1","value":"1"}  node = {"code":"1","value":"1"}
+                //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
                 List<Node> nodes = productMatchDto.getAdvantage();
                 if (!CollectionUtils.isEmpty(nodes)) {
                     for (Node node : nodes) {
                         if (productInfoDto.getAdvantage().equals(node) && StringUtils.isEmpty(node.getValue())) {
                             matchingRate += everyOne;
+                            break;
                         }
                     }
                 }
@@ -218,8 +227,15 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                     matchingRate += everyOne;
                 }
                 //公司所获评定名称
-                if (productInfoDto.getEvaluateName().equals(productMatchDto.getEvaluateName().getCode()) && StringUtils.isEmpty(productMatchDto.getEvaluateName())) {
-                    matchingRate += everyOne;
+                //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
+                List<Node> nodes2 = productMatchDto.getEvaluateName();
+                if (!CollectionUtils.isEmpty(nodes2)) {
+                    for (Node node : nodes2) {
+                        if (productInfoDto.getEvaluateName().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //预计上市时间
                 if (productInfoDto.getTimeToMarket().equals(productMatchDto.getTimeToMarket())) {
