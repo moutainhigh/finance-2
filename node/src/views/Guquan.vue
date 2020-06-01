@@ -253,7 +253,7 @@ export default {
             var params = JSON.stringify(this.params);
             params = JSON.parse(params);
             if(localStorage.getItem('ids')){
-                params.content.productIds= localStorage.getItem('ids').indexOf(',')==-1?'test':localStorage.getItem('ids');
+                params.content.productIds= localStorage.getItem('ids')=='null'?'test':localStorage.getItem('ids');
             }
             this.spinning=true;
             // this.$message.loading('加载中...',0);

@@ -798,11 +798,15 @@ export default {
             let productState = {code:this.matchForm.productState,value:this.productState}
             params.productState=productState;
 
-            // let targetCustomer = {code:this.matchForm.targetCustomer,value:this.targetCustomer}
-            // params.targetCustomer=targetCustomer;
+            if(!this.matchForm.targetCustomer){
+                let targetCustomer = [{code:'',value:''}]
+                params.targetCustomer=targetCustomer;
+            }
 
-            // let evaluateName = {code:this.matchForm.evaluateName,value:this.evaluateName}
-            // params.evaluateName=evaluateName;
+            if(!this.matchForm.evaluateName){
+                let evaluateName = [{code:'',value:''}]
+                params.evaluateName=evaluateName;
+            }
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
