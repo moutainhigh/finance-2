@@ -9,6 +9,8 @@ import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.company.util.sms.AliyunSmsProperties;
+import com.company.util.sms.AliyunSmsUtils;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
@@ -57,6 +59,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private String accessKeyId;
     @Value("${aliyun.sms.secret}")
     private String secret;
+    @Value("${aliyun.sms.siginName}")
+    private String siginName;
+    @Value("${aliyun.sms.templateCode}")
+    private String templateCode;
     @Resource
     ValueOperations<String, Object> valueOperations;
     @Resource
@@ -178,10 +184,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         request.setSysDomain("dysmsapi.aliyuncs.com");
         request.setSysVersion("2017-05-25");
         request.setSysAction("SendSms");
-        request.putQueryParameter("RegionId", "cn-hangzhou");
+        request.putQueryParameter("RegionId", regionId);
         request.putQueryParameter("PhoneNumbers", smsCodeDto.getMobile());
-        request.putQueryParameter("SignName", "成都大数据产业技术研究院");
-        request.putQueryParameter("TemplateCode", "SMS_135033715");
+        request.putQueryParameter("SignName", siginName);
+        request.putQueryParameter("TemplateCode", templateCode);
         request.putQueryParameter("TemplateParam", "{\"code\":\"" + verifyCode + "\"}");
 
         try {
