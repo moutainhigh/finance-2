@@ -16,5 +16,4 @@ public class CompanyApplication {
         TimeZone.setDefault(TimeZone.getTimeZone("Asia/Shanghai"));
         SpringApplication.run(CompanyApplication.class, args);
     }
-
 }
