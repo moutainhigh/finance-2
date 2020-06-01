@@ -262,7 +262,7 @@ export default {
             var params = JSON.stringify(this.params);
             params = JSON.parse(params);
             if(localStorage.getItem('zids')){
-                params.content.productIds= localStorage.getItem('zids').indexOf(',')==-1?'test':localStorage.getItem('zids');
+                params.content.productIds= localStorage.getItem('zids')=='null'?'test':localStorage.getItem('zids');
             }
 
             this.spinning=true;
