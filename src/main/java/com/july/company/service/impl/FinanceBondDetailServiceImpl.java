@@ -152,7 +152,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
      */
     public List<String> oneKeyMatchingData(BondProductMatchDto productMatchDto) {
         //TODO 目前按照匹配字段平均分配 100/21
-        double everyOne = 4.7;
+        double everyOne = 4.5;
 
         List<BondProductInfoDto> productInfoDtos = financeProductMapper.getAllBondProduct();
         //匹配上的产品
@@ -222,8 +222,12 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 if (productInfoDto.getQualification().equals(productMatchDto.getQualification().getCode()) && StringUtils.isEmpty(productMatchDto.getQualification().getValue())) {
                     matchingRate += everyOne;
                 }
-                //政府补贴
+                //本年度政府补贴
                 if (productInfoDto.getSubsidy().equals(productMatchDto.getSubsidy())) {
+                    matchingRate += everyOne;
+                }
+                //上一年度政府补贴
+                if (productInfoDto.getLastSubsidy().equals(productMatchDto.getLastSubsidy())) {
                     matchingRate += everyOne;
                 }
                 //是否引入股权投资

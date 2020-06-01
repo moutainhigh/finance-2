@@ -84,9 +84,13 @@ public class BondProductInfoDto implements Serializable {
      */
     private String qualification;
     /**
-     * 政府补贴
+     * 本年度政府补贴
      */
     private String subsidy;
+    /**
+     * 上一年度年度政府补贴
+     */
+    private String lastSubsidy;
     /**
      * 是否引入股权投资
      */
