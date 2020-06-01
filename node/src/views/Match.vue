@@ -175,13 +175,14 @@
                     <a-form-model-item ref="experience" label="实控人创业经历" prop="experience" class="input-item">
                         <a-select v-model="matchForm.experience" @blur="
                             () => {
+                                $refs.matchForm.clearValidate('companyStatus');
                                 $refs.experience.onFieldBlur();
                             }
                             ">
                             <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('CYJL')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="companyStatus" label="历史创业企业状态" prop="companyStatus" class="input-item">
+                    <a-form-model-item ref="companyStatus" label="历史创业企业状态" prop="companyStatus" :required="matchForm.experience!=0" class="input-item">
                         <a-select v-model="matchForm.companyStatus" @blur="
                             () => {
                                 $refs.companyStatus.onFieldBlur();
@@ -218,19 +219,25 @@
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item ref="targetCustomer" label="目标客户" prop="targetCustomer" class="input-item">
-                        <a-select v-model="matchForm.targetCustomer" @blur="
+                        <!-- <a-select v-model="matchForm.targetCustomer" @blur="
                             () => {
                                 $refs.targetCustomer.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('MBKH')">{{item.value}}</a-select-option>
-                          <!-- <a-input v-show="matchForm.targetCustomer==4" placeholder="请输入其他的内容" v-model="targetCustomer" @blur=" 
+                          <a-input v-show="matchForm.targetCustomer==4" placeholder="请输入其他的内容" v-model="targetCustomer" @blur=" 
                                 () => {
                                     $refs.targetCustomer.onFieldBlur();
                                 }
                                 "
-                            /> -->
-                        </a-select>
+                            />
+                        </a-select> -->
+                        <a-checkbox-group :options="getFieldList('MBKH').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="targetCustomers">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="targetCustomers.indexOf('4')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="targetCustomer"></a-input>
                     </a-form-model-item>
                     <a-form-model-item ref="marketOccupyRate" label="市场占有率/预期市场占有率" prop="marketOccupyRate" class="input-item">
                         <a-select v-model="matchForm.marketOccupyRate" @blur="
@@ -261,7 +268,7 @@
                     </a-form-model-item>
                     <a-form-model-item ref="advantage" label="公司竞争优势" prop="advantage" class="input-item" :wrapper-col="{ span: 18, offset: 0 }">
                         <a-checkbox @change="onChange" v-model="isCheckCb">成本优势</a-checkbox>
-                        <a-select v-model="cbys" style="width:5vw;" v-if="isCheckCb" @blur="
+                        <a-select v-model="cbys" style="width:10vw;" v-if="isCheckCb" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
@@ -271,7 +278,7 @@
                             </template>
                         </a-select>
                         <a-checkbox @change="onChange" style="margin-left:0.3vw;" v-model="isCheckJs" >技术优势</a-checkbox>
-                        <a-select v-model="jsys" style="width:5vw;" v-if="isCheckJs" @blur="
+                        <a-select v-model="jsys" style="width:10vw;" v-if="isCheckJs" @blur="
                             () => {
                                 $refs.advantage.onFieldBlur();
                             }
@@ -301,15 +308,20 @@
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('SSSJ')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="evaluateName" label="公司所获评定称号" prop="evaluateName" class="input-item">
-                        <a-select v-model="matchForm.evaluateName" @blur="
+                    <a-form-model-item ref="evaluateName" label="公司所获评定称号" prop="evaluateName" class="input-item" :wrapper-col="{ span: 20 }">
+                        <!-- <a-select v-model="matchForm.evaluateName" @blur="
                             () => {
                                 $refs.evaluateName.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('PDCH')">{{item.value}}</a-select-option>
-                        </a-select>
-                        <a-input v-show="matchForm.evaluateName==4" key="" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
+                        </a-select> -->
+                        <a-checkbox-group :options="getFieldList('PDCH').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="evaluateNames">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="evaluateNames.indexOf('4')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
                         <a-spin :spinning="spinning">
@@ -348,6 +360,13 @@ export default {
                 callback();
             }
         };
+        let validateStatus = (rule,value,callback)=>{
+            if (this.matchForm.experience != 0 && value==='') {
+                callback(new Error('请选择历史创业企业状态'));
+            } else{
+                callback();
+            }
+        }
         return {
             spinning:false,
             isLogin:false,
@@ -405,12 +424,12 @@ export default {
                 registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
                 business:[{required:true,message:'请选择营业收入',trigger:'blur'}],
                 staffCount:[{required:true,message:'请选择员工人数',trigger:'blur'}],
-                marketOccupyRate:[{required:true,message:'请选择预期市场占有率',trigger:'blur'}],
-                evaluateName:[{required:true,message:'请选择公司所获评定称号',trigger:'blur'}],
+                // marketOccupyRate:[{required:true,message:'请选择预期市场占有率',trigger:'blur'}],
+                // evaluateName:[{required:true,message:'请选择公司所获评定称号',trigger:'blur'}],
                 mechanismOrProduct:[{required:true,message:'请选择产品或机构名称',trigger:'blur'}],
                 productState:[{required:true,message:'请选择产品阶段',trigger:'blur'}],
-                productRate:[{required:true,message:'请选择产品毛利率',trigger:'blur'}],
-                experience:[{required:true,message:'请选择实际控制人创业经历',trigger:'blur'}],
+                // productRate:[{required:true,message:'请选择产品毛利率',trigger:'blur'}],
+                // experience:[{required:true,message:'请选择实际控制人创业经历',trigger:'blur'}],
                 patentCount:[{required:true,message:'请选择专利发明数量',trigger:'blur'}],
                 shareholder:[{required:true,message:'请选择股东背景',trigger:'blur'}],
                 capitals:[{required:true,message:'请选择股东累计投入资金',trigger:'blur'}],
@@ -418,12 +437,13 @@ export default {
                 oldFinanceQuota:[{required:true,message:'请选择过往融资金额',trigger:'blur'}],
                 netInterestRate:[{required:true,message:'请选择净利率',trigger:'blur'}],
                 targetCustomer:[{required:true,message:'请选择目标客户',trigger:'blur'}],
-                companyStatus:[{required:true,message:'请选择历史创业企业状态',trigger:'blur'}],
-                marketCapacity:[{required:true,message:'请选择市场容量',trigger:'blur'}],
-                marketAddRate:[{required:true,message:'请选择市场容量预期增长率',trigger:'blur'}],
+                // companyStatus:[{required:true,message:'请选择历史创业企业状态',trigger:'blur'}],
+                companyStatus:[{validator:validateStatus,trigger:'blur'}],
+                // marketCapacity:[{required:true,message:'请选择市场容量',trigger:'blur'}],
+                // marketAddRate:[{required:true,message:'请选择市场容量预期增长率',trigger:'blur'}],
                 boolBuyBack:[{required:true,message:'请选择是否接受回购条款',trigger:'blur'}],
-                timeToMarket:[{required:true,message:'请选择预计上市时间',trigger:'blur'}],
-                businessAddRate:[{required:true,message:'请选择营业收入增长率',trigger:'blur'}]
+                // timeToMarket:[{required:true,message:'请选择预计上市时间',trigger:'blur'}],
+                // businessAddRate:[{required:true,message:'请选择营业收入增长率',trigger:'blur'}]
             },
             options:['成本优势','渠道优势','先发优势','资质优势'],
             searchFieldList:[],
@@ -436,9 +456,11 @@ export default {
             shareholder:'',//股东背景其他
             productState:'',//产品阶段其他
             targetCustomer:'',//目标客户其他
+            targetCustomers:[],//目标客户复选
             evaluateName:'',//预计上市时间其他
             cbys:'',//成本优势下拉
             jsys:'',//技术优势下拉,
+            evaluateNames:[],//公司称号多选
 
         }
     },
@@ -569,6 +591,56 @@ export default {
             }
             (this.isCheckCb==false && this.isCheckJs==false) ? this.$refs.matchForm.clearValidate('advantage'):'';
         },
+        evaluateNames:function(v,o){
+            this.matchForm.evaluateName = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==4){
+                        obj.value=this.evaluateName;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'evaluateName',items);
+            }else{
+                this.evaluateName="";
+            }
+        },
+        evaluateName:function(v,o){
+            if(v){
+                this.matchForm.evaluateName.forEach(item=>{
+                    if(item.code==4){
+                        item.value = v;
+                    }
+                })
+            }
+        },
+        targetCustomers:function(v,o){
+            this.matchForm.targetCustomer = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==4){
+                        obj.value=this.targetCustomer;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'targetCustomer',items);
+            }else{
+                this.targetCustomer="";
+            }
+        },
+        targetCustomer:function(v,o){
+            if(v){
+                this.matchForm.targetCustomer.forEach(item=>{
+                    if(item.code==4){
+                        item.value = v;
+                    }
+                })
+            }
+        }
     },
     methods:{
         tabchange(index){
@@ -684,7 +756,9 @@ export default {
                 if(this.active==0){
                     this.goMatch();
                 }else{
-                    this.doSub(param)
+                    if(param){
+                        this.doSub(param)
+                    }
                 }
             }).catch(err=>console.log(err))
            
@@ -724,11 +798,11 @@ export default {
             let productState = {code:this.matchForm.productState,value:this.productState}
             params.productState=productState;
 
-            let targetCustomer = {code:this.matchForm.targetCustomer,value:this.targetCustomer}
-            params.targetCustomer=targetCustomer;
+            // let targetCustomer = {code:this.matchForm.targetCustomer,value:this.targetCustomer}
+            // params.targetCustomer=targetCustomer;
 
-            let evaluateName = {code:this.matchForm.evaluateName,value:this.evaluateName}
-            params.evaluateName=evaluateName;
+            // let evaluateName = {code:this.matchForm.evaluateName,value:this.evaluateName}
+            // params.evaluateName=evaluateName;
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
@@ -776,6 +850,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 $minHeight:100vw;
+/deep/ .ant-checkbox-group{margin:9px 0 0;}
+/deep/ .ant-form-item label{overflow:hidden;}
 .match-box{
     background:#f6f6f6;
     .match-body{

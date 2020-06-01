@@ -253,6 +253,8 @@ export default {
     },
     toPage(url,params){
       if(url=='/match' && !this.$store.state.token){
+        this.$store.commit('setUserInfo',{userName:''});
+        localStorage.removeItem('userInfo');
         this.isLogin = true;
         return;
       }
