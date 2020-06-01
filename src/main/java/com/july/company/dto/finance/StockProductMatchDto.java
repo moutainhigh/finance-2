@@ -48,7 +48,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 公司所获评定称号
      */
-    private Node evaluateName;
+    private List<Node> evaluateName;
     /**
      * 产品或机构名称
      */
@@ -92,7 +92,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 目标客户
      */
-    private Node targetCustomer;
+    private List<Node> targetCustomer;
     /**
      * 历史创业企业状态
      */

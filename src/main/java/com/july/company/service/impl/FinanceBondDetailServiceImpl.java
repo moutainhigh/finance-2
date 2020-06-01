@@ -165,12 +165,24 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }
                 //行业方向
-                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect().getCode()) && StringUtils.isEmpty(productMatchDto.getIndustryDirect().getValue())) {
-                    matchingRate += everyOne;
+                List<Node> nodes1 = productMatchDto.getIndustryDirect();
+                if (!CollectionUtils.isEmpty(nodes1)) {
+                    for (Node node : nodes1) {
+                        if (productInfoDto.getIndustryDirect().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //股东背景
-                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder().getCode()) && StringUtils.isEmpty(productMatchDto.getShareholder().getValue())) {
-                    matchingRate += everyOne;
+                List<Node> nodes2 = productMatchDto.getShareholder();
+                if (!CollectionUtils.isEmpty(nodes2)) {
+                    for (Node node : nodes2) {
+                        if (productInfoDto.getShareholder().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //营业收入
                 if (productInfoDto.getBusiness().equals(productMatchDto.getBusiness())) {
@@ -185,8 +197,14 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }
                 //增信方式
-                if (productInfoDto.getCreditType().equals(productMatchDto.getCreditType().getCode()) && StringUtils.isEmpty(productMatchDto.getCreditType().getValue())) {
-                    matchingRate += everyOne;
+                List<Node> nodes3 = productMatchDto.getCreditType();
+                if (!CollectionUtils.isEmpty(nodes3)) {
+                    for (Node node : nodes3) {
+                        if (productInfoDto.getCreditType().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //房产抵押
                 if (productInfoDto.getHouseMortgage().equals(productMatchDto.getHouseMortgage())) {
@@ -219,8 +237,14 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }*/
                 //企业资质
-                if (productInfoDto.getQualification().equals(productMatchDto.getQualification().getCode()) && StringUtils.isEmpty(productMatchDto.getQualification().getValue())) {
-                    matchingRate += everyOne;
+                List<Node> nodes4 = productMatchDto.getQualification();
+                if (!CollectionUtils.isEmpty(nodes4)) {
+                    for (Node node : nodes4) {
+                        if (productInfoDto.getQualification().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //本年度政府补贴
                 if (productInfoDto.getSubsidy().equals(productMatchDto.getSubsidy())) {
@@ -239,8 +263,14 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                     matchingRate += everyOne;
                 }
                 //是否有其他贷款
-                if (productInfoDto.getBoolLoan().equals(productMatchDto.getBoolLoan().getCode()) && StringUtils.isEmpty(productMatchDto.getBoolLoan().getValue())) {
-                    matchingRate += everyOne;
+                List<Node> nodes5 = productMatchDto.getBoolLoan();
+                if (!CollectionUtils.isEmpty(nodes5)) {
+                    for (Node node : nodes5) {
+                        if (productInfoDto.getBoolLoan().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                            matchingRate += everyOne;
+                            break;
+                        }
+                    }
                 }
                 //现有贷款金额
                 if (productInfoDto.getExistAmount().equals(productMatchDto.getExistAmount())) {
