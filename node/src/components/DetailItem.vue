@@ -1,7 +1,7 @@
 <template>
   <div class="page-item-box" @click="$emit('to-detail',item)">
       <div class="logo">
-          <img src="/image/c6.png" alt="" style="width:100px;height:100px;margin-right:32px;">
+          <img src="/image/c6.png" alt="" style="width:7vw;height:7vw;">
       </div>
       <div class="right">
             <div class="title">{{item.title}}</div>
@@ -48,7 +48,7 @@ export default {
 </script>
 <style scoped>
 .page-item-box{padding:28px 27px 26px;background: #ffffff;;border-radius: 4px;border-radius: 4px;display:flex;justify-content:flex-start;}
-.page-item-box .logo{background: #F6F6F6;width:160px;height:160px;text-align:center;line-height:160px;margin-right:53px;}
+.page-item-box .logo{background: #F6F6F6;width:12vw;height:12vw;text-align:center;line-height:12vw;margin-right:53px;}
 .page-item-box .right{flex:1;}
 .page-item-box .title{font-family: PingFangSC-Medium;font-size: 24px;color: #333333;}
 .page-item-box .desc{display:flex;flex-wrap:wrap;margin-top:16px;flex:1;}

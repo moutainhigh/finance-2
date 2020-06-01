@@ -53,7 +53,7 @@ export default {
             this.spinning = true;
             this.$http.postWithAuth("/finance/userInfo/logout").then(res=>{
                 this.spinning = false;
-                if(res.data.code==0){
+                if(!res || res.data.code==0){
                     this.clearUserInfo();
                     this.msg = '已退出，正在跳转到首页';
                     setTimeout(()=>{

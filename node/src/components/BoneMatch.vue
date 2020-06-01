@@ -348,10 +348,9 @@ export default {
         onSubmit(){
             this.$refs.matchForm.validate(valid => {
                 if (valid) {
-                    console.log(valid)
                     this.goMatch();
                 } else {
-                    return false;
+                   this.$emit('do-sub');;
                 }
             });
            
