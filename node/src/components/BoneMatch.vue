@@ -20,8 +20,8 @@
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('DKED')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item ref="industryDirect" label="行业方向" prop="industryDirect" class="input-item">
-                        <a-select v-model="matchForm.industryDirect" @blur="
+                    <a-form-model-item ref="industryDirect" label="行业方向" prop="industryDirect" class="input-item" :wrapper-col="{span:20}">
+                        <!-- <a-select v-model="matchForm.industryDirect" @blur="
                             () => {
                                 $refs.industryDirect.onFieldBlur();
                             }
@@ -33,10 +33,17 @@
                                 $refs.industryDirect.onFieldBlur();
                             }
                             "
-                        />
+                        /> -->
+                        <a-checkbox-group :options="getFieldList('BOND_HYFX').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="industryDirects">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="industryDirects.indexOf('8')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="industryDirect"></a-input>
+                    
                     </a-form-model-item>
-                    <a-form-model-item ref="shareholder" label="股东背景" prop="shareholder" class="input-item">
-                        <a-select v-model="matchForm.shareholder" @blur="
+                    <a-form-model-item ref="shareholder" label="股东背景" prop="shareholder" class="input-item" :wrapper-col="{span:20}">
+                        <!-- <a-select v-model="matchForm.shareholder" @blur="
                             () => {
                                 $refs.shareholder.onFieldBlur();
                             }
@@ -48,10 +55,16 @@
                                 $refs.shareholder.onFieldBlur();
                             }
                             "
-                        />
+                        /> -->
+                        <a-checkbox-group :options="getFieldList('BOND_GDBJ').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="shareholders">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="shareholders.indexOf('8')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="shareholder"></a-input>
                     </a-form-model-item>
-                    <a-form-model-item ref="creditType" label="增信方式" prop="creditType" class="input-item">
-                        <a-select v-model="matchForm.creditType" @blur="
+                    <a-form-model-item ref="creditType" label="增信方式" prop="creditType" class="input-item" :wrapper-col="{span:20}">
+                        <!-- <a-select v-model="matchForm.creditType" @blur="
                             () => {
                                 $refs.creditType.onFieldBlur();
                             }
@@ -63,7 +76,14 @@
                                 $refs.creditType.onFieldBlur();
                             }
                             "
-                        />
+                        /> -->
+                        <a-checkbox-group :options="getFieldList('ZXFS').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="creditTypes">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="creditTypes.indexOf('7')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="creditType"></a-input>
+                    
                     </a-form-model-item>
                     <a-form-model-item ref="houseMortgage" label="是否接受房产抵押" prop="houseMortgage" class="input-item">
                         <a-select v-model="matchForm.houseMortgage" @blur="
@@ -140,8 +160,8 @@
                             }
                             " />
                     </a-form-model-item>
-                    <a-form-model-item ref="qualification" label="企业资质" prop="qualification" class="input-item">
-                        <a-select v-model="matchForm.qualification" @blur="
+                    <a-form-model-item ref="qualification" label="企业资质" prop="qualification" class="input-item" :wrapper-col="{span:20}">
+                        <!-- <a-select v-model="matchForm.qualification" @blur="
                             () => {
                                 $refs.qualification.onFieldBlur();
                             }
@@ -153,12 +173,28 @@
                                 $refs.qualification.onFieldBlur();
                             }
                             "
-                        />
+                        /> -->
+                        <a-checkbox-group :options="getFieldList('QYZZ').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="qualifications">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="qualifications.indexOf('5')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="qualification"></a-input>
+                    
                     </a-form-model-item>
-                    <a-form-model-item ref="subsidy" label="政府补贴" prop="subsidy" class="input-item">
+                    <a-form-model-item ref="subsidy" label="本年度政府补贴" prop="subsidy" class="input-item">
                         <a-select v-model="matchForm.subsidy" @blur="
                             () => {
                                 $refs.subsidy.onFieldBlur();
+                            }
+                            ">
+                          <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('ZFBT')">{{item.value}}</a-select-option>
+                        </a-select>
+                    </a-form-model-item>
+                    <a-form-model-item ref="lastSubsidy" label="上一年度政府补贴" prop="lastSubsidy" class="input-item">
+                        <a-select v-model="matchForm.lastSubsidy" @blur="
+                            () => {
+                                $refs.lastSubsidy.onFieldBlur();
                             }
                             ">
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('ZFBT')">{{item.value}}</a-select-option>
@@ -198,7 +234,7 @@
                         </a-select>
                     </a-form-model-item>
                     <a-form-model-item ref="boolLoan" label="是否有其他贷款" prop="boolLoan" class="input-item">
-                        <a-select v-model="matchForm.boolLoan" @blur="
+                        <!-- <a-select v-model="matchForm.boolLoan" @blur="
                             () => {
                                 $refs.boolLoan.onFieldBlur();
                             }
@@ -210,7 +246,14 @@
                                 $refs.boolLoan.onFieldBlur();
                             }
                             "
-                        />
+                        /> -->
+                        <a-checkbox-group :options="getFieldList('QTDK').map((item)=>{
+                            return {label:item.value,value:item.code};
+                        })" :default-value="[]" @change="onChange" v-model="boolLoans">
+                            <span slot="label" slot-scope="{ code }">{{ value }}</span>
+                        </a-checkbox-group>
+                        <a-input v-show="boolLoans.indexOf('4')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="boolLoan"></a-input>
+                    
                     </a-form-model-item>
                     <a-form-model-item ref="existAmount" label="现有贷款金额" prop="existAmount" class="input-item">
                         <a-select v-model="matchForm.existAmount" @blur="
@@ -257,7 +300,7 @@ export default {
                 desc:[{required:true,message:'请输入公司简介',trigger:'blur'}],
             },
             matchForm:{
-                industryDirect:'',
+                industryDirect:[],
                 registerAddress:'',
                 patentCount:'',
                 shareholder:'',
@@ -275,6 +318,7 @@ export default {
                 owner:'',
                 qualification:'',
                 subsidy:'',
+                lastSubsidy:'',
                 boolIntroduce:'',
                 taxAmount:'',
                 boolLoan:'',
@@ -299,7 +343,8 @@ export default {
                 liabilitiesAmount:[{required:true,message:'请选择负债总额',trigger:'blur'}],
                 owner:[{required:true,message:'请选择所有者权益',trigger:'blur'}],
                 qualification:[{required:true,message:'请选择企业资质',trigger:'blur'}],
-                subsidy:[{required:true,message:'请选择政府补贴',trigger:'blur'}],
+                subsidy:[{required:true,message:'请选择本年度政府补贴',trigger:'blur'}],
+                lastSubsidy:[{required:true,message:'请选择上一年度政府补贴',trigger:'blur'}],
                 boolIntroduce:[{required:true,message:'请选择是否引入股权投资',trigger:'blur'}],
                 taxAmount:[{required:true,message:'请选择纳税额度',trigger:'blur'}],
                 boolLoan:[{required:true,message:'请选择是否有其他贷款',trigger:'blur'}],
@@ -311,10 +356,15 @@ export default {
             isCheckJs:false,
             advantage:[],
             creditType:'',//增信方式其他
+            creditTypes:[],//增信方式其他
             qualification:'',//企业资质其他
+            qualifications:[],//企业资质其他
             industryDirect:'',//行业方向其他
+            industryDirects:[],//行业方向
             shareholder:'',//股东背景其他
+            shareholders:[],//股东背景其他
             boolLoan:'',//是否有其他贷款其他
+            boolLoans:[],//是否有其他贷款其他
 
         }
     },
@@ -322,6 +372,133 @@ export default {
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:1}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
+    },
+    watch:{
+        industryDirects:function(v,o){
+            this.matchForm.industryDirect = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==8){
+                        obj.value=this.industryDirect;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'industryDirect',items);
+            }else{
+                this.industryDirect="";
+            }
+        },
+        industryDirect:function(v,o){
+            if(v){
+                this.matchForm.industryDirect.forEach(item=>{
+                    if(item.code==8){
+                        item.value = v;
+                    }
+                })
+            }
+        },
+        shareholders:function(v,o){
+            this.matchForm.shareholder = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==8){
+                        obj.value=this.shareholder;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'shareholder',items);
+            }else{
+                this.shareholder="";
+            }
+        },
+        shareholder:function(v,o){
+            if(v){
+                this.matchForm.shareholder.forEach(item=>{
+                    if(item.code==8){
+                        item.value = v;
+                    }
+                })
+            }
+        },
+        creditTypes:function(v,o){
+            this.matchForm.creditType = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==7){
+                        obj.value=this.creditType;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'creditType',items);
+            }else{
+                this.creditType="";
+            }
+        },
+        creditType:function(v,o){
+            if(v){
+                this.matchForm.creditType.forEach(item=>{
+                    if(item.code==7){
+                        item.value = v;
+                    }
+                })
+            }
+        },
+        qualifications:function(v,o){
+            this.matchForm.qualification = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==5){
+                        obj.value=this.qualification;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'qualification',items);
+            }else{
+                this.qualification="";
+            }
+        },
+        qualification:function(v,o){
+            if(v){
+                this.matchForm.qualification.forEach(item=>{
+                    if(item.code==5){
+                        item.value = v;
+                    }
+                })
+            }
+        },
+        boolLoans:function(v,o){
+            this.matchForm.boolLoan = [];
+            if(v.length>0){
+                let items = [];
+                v.forEach(item=>{
+                    let obj = {code:Number(item),value:''};
+                    if(Number(item)==4){
+                        obj.value=this.boolLoan;
+                    }
+                    items.push(obj);
+                });
+                this.$set(this.matchForm,'boolLoan',items);
+            }else{
+                this.boolLoan="";
+            }
+        },
+        boolLoan:function(v,o){
+            if(v){
+                this.matchForm.boolLoan.forEach(item=>{
+                    if(item.code==4){
+                        item.value = v;
+                    }
+                })
+            }
+        },
     },
     methods:{
         getFieldList(codeType){
@@ -360,20 +537,20 @@ export default {
             let params = Object.assign({},this.matchForm);
             
 
-            let creditType = {code:this.matchForm.creditType,value:this.creditType}
-            params.creditType=creditType;
+            // let creditType = {code:this.matchForm.creditType,value:this.creditType}
+            // params.creditType=creditType;
 
-            let qualification = {code:this.matchForm.qualification,value:this.qualification}
-            params.qualification=qualification;
+            // let qualification = {code:this.matchForm.qualification,value:this.qualification}
+            // params.qualification=qualification;
 
-            let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
-            params.industryDirect=industryDirect;
+            // let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
+            // params.industryDirect=industryDirect;
 
-            let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
-            params.shareholder=shareholder;
+            // let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
+            // params.shareholder=shareholder;
 
-            let boolLoan = {code:this.matchForm.boolLoan,value:this.boolLoan}
-            params.boolLoan=boolLoan;
+            // let boolLoan = {code:this.matchForm.boolLoan,value:this.boolLoan}
+            // params.boolLoan=boolLoan;
 
 
             console.log(params)
