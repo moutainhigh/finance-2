@@ -127,7 +127,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     @Override
     public void logout() {
         UserInfoDto userInfoDto = UserUtils.getUser();
-        redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
+        if (userInfoDto != null) {
+            redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
+        }
     }
 
     /**

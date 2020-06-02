@@ -1,4 +1,4 @@
-delete from `finance`.`fc_sys_code` where codeType = 'SSSJ'
+delete from `finance`.`fc_sys_code` where codeType = 'SSSJ';
 INSERT INTO `finance`.`fc_sys_code`( `pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES ( NULL, 'SSSJ', '预计上市时间', '0', '1年', 0, 0, 0, 0, 1590386275, 1590386275, 0);
 INSERT INTO `finance`.`fc_sys_code`( `pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES ( NULL, 'SSSJ', '预计上市时间', '1', '2年', 0, 0, 0, 0, 1590386275, 1590386275, 0);
 INSERT INTO `finance`.`fc_sys_code`( `pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES ( NULL, 'SSSJ', '预计上市时间', '2', '3年', 0, 0, 0, 0, 1590386275, 1590386275, 0);
@@ -8,7 +8,7 @@ INSERT INTO `finance`.`fc_sys_code`( `pCodeType`, `codeType`, `codeName`, `code`
 INSERT INTO `finance`.`fc_sys_code`( `pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES ( NULL, 'SSSJ', '预计上市时间', '6', '无上市计划', 0, 0, 0, 0, 1590386275, 1590386275, 0);
 COMMIT;
 
-delete from `finance`.`fc_sys_code` where codeType = 'DKQX'
+delete from `finance`.`fc_sys_code` where codeType = 'DKQX';
 INSERT INTO `finance`.`fc_sys_code`(`pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES (NULL, 'DKQX', '贷款期限', '0', '1年', 1, 1, 1, 1, 1590386275, 1590386275, 0);
 INSERT INTO `finance`.`fc_sys_code`(`pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES (NULL, 'DKQX', '贷款期限', '1', '2年', 1, 1, 1, 1, 1590386275, 1590386275, 0);
 INSERT INTO `finance`.`fc_sys_code`(`pCodeType`, `codeType`, `codeName`, `code`, `value`, `boolQuery`, `boolShow`, `querySort`, `financeType`, `createdTime`, `updatedTime`, `deleted`) VALUES (NULL, 'DKQX', '贷款期限', '2', '3年', 1, 1, 1, 1, 1590386275, 1590386275, 0);
