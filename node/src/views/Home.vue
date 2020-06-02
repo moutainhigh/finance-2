@@ -658,7 +658,7 @@ export default {
           background:url(/image/home/info.png) center no-repeat;
           background-size:cover;
           .c-title{
-            margin:1.5vw 1vw;
+            margin:1.5vw 1vw 0.35vw;
             font-family: PingFangSC-Medium;
             font-size: 1vw;
             font-weight: normal;
