@@ -325,6 +325,9 @@
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
                         <a-spin :spinning="spinning">
+                        <a-button type="default" class="save-btn" @click="saveInfo" v-if="$store.state.token">
+                            保 存
+                        </a-button>
                         <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
                             一键匹配
                         </a-button>
@@ -335,7 +338,9 @@
                     </a-form-model-item>
             </a-form-model>
         </a-card>
-        <BoneMatch v-if="active==1" @do-sub="onSubmit" @dologin="isLogin=true" :spinning="spinning"></BoneMatch>
+        <BoneMatch v-if="active==1" :spinning="spinning" @do-sub="onSubmit" 
+                    @save-info="saveInfo"
+                    @dologin="isLogin=true"></BoneMatch>
     </div>
     <Login v-show="isLogin" @do-login="doLogin" @to-reg="reg" @close="close" @to-forget="toForget" :isForm="true"></Login>
     <Register v-show="isReg" @do-reg="doReg" @to-login="login" @close="close" :isForm="true"></Register>
@@ -345,7 +350,7 @@
 </template>
 
 <script>
-import { getSearchField,mapData } from "@/common/commapi.js"
+import { getSearchField } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
 import BoneMatch from "@/components/BoneMatch.vue"
 import lodash from 'lodash'
@@ -472,6 +477,8 @@ export default {
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
+        // 获取保存信息
+        this.getSaveInfo();
     },
     watch:{
         advantage:function(v,o){
@@ -765,10 +772,16 @@ export default {
             
         },
         doSub(param){//债券一键匹配
-            let params = Object.assign({},this.baseForm,param);
+            let params = Object.assign({},this.baseForm,param.matchForm);
             
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
+
+            // 保存债券匹配信息
+            param.data.baseForm=this.baseForm;
+            let info = param.data;
+            this.doSaveInfo(info,false);
+
 
             this.spinning=true
             this.$http.postWithAuth('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
@@ -827,15 +840,88 @@ export default {
             //     }
             // }
 
+            // 股权匹配信息保存
+            let info = this.$data;
+            this.doSaveInfo(info,false);
+
             // /finance/financeProduct/getOneKeyMatching
             this.spinning=true
             this.$http.postWithAuth('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
-                console.log(res)
                 this.spinning=false
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('ids',res.data.content);
                     this.$router.push({name:'Guquan'})
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        getSaveInfo(){
+            // 获取保存在服务器的一键匹配数据
+            this.$http.postWithAuth('/finance/operateData/findMatchData',{userId:this.$store.state.userInfo.id}).then(res=>{
+                this.spinning=false
+                if(res.data.code==0){
+                    // return;
+                    let contentList = res.data.content;
+                    if(contentList.length==0){
+                        return ;
+                    }
+                    let infos = contentList.filter(item=>item.operateType==0);
+                    if(infos.length==0){
+                        return ;
+                    }
+                    let info = infos[0];
+                    // let info = localStorage.getItem('mathData');
+                    // info = JSON.parse(info);
+                    info.content = JSON.parse(info.content);
+                    this.baseForm = info.content.baseForm;
+                    if(info.operateType==0){
+                        this.matchForm = info.content.matchForm;
+                        this.isCheckCb= info.content.isCheckCb;
+                        this.isCheckJs=info.content.isCheckJs;
+                        this.advantage=info.content.advantage;
+                        this.advantageOther=info.content.advantageOther;//公司竞争优势其他
+                        this.financeState=info.content.financeState;//融资阶段其他
+                        this.industryDirect=info.content.industryDirect;//行业方向其他
+                        this.shareholder=info.content.shareholder;//股东背景其他
+                        this.productState=info.content.productState;//产品阶段其他
+                        this.targetCustomer=info.content.targetCustomer;//目标客户其他
+                        this.targetCustomers=info.content.targetCustomers;//目标客户复选
+                        this.evaluateName=info.content.evaluateName;//预计上市时间其他
+                        this.cbys=info.content.cbys;//成本优势下拉
+                        this.jsys=info.content.jsys;//技术优势下拉;
+                        this.evaluateNames=info.content.evaluateNames;//公司称号多选
+                    } 
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        saveInfo(params){
+            // 保存匹配信息
+            let info = {baseForm:this.baseForm,matchForm:{}};
+            if(params.matchForm){
+              params.matchForm.baseForm=this.baseForm;
+              info = params.matchForm;
+            }else{
+               info = this.$data;
+            }
+            this.spinning=true;
+            this.doSaveInfo(info);
+        },
+        doSaveInfo(params,flag=true){
+            // 实际保存匹配信息
+            let param = {content:JSON.stringify(params),operateType:this.active==0?0:1,userId:this.$store.state.userInfo.id};
+            localStorage.setItem('mathData',JSON.stringify(param));
+            this.spinning=false
+            // return false;
+            this.$http.postWithAuth('/finance/operateData/saveOrUpdateMatchData',param).then(res=>{
+                this.spinning=false
+                if(res.data.code==0){
+                    if(flag){
+                        this.$message.success('操作成功');
+                    }
                 }else{
                     this.$message.error(res.data.msg);
                 }
@@ -925,6 +1011,13 @@ $minHeight:100vw;
                     margin-left:0.3vw;
                 }
             }
+        }
+        .save-btn{
+            background:orange;
+            border:1px solid orange;
+            color:white;
+            margin-right:5vw;
+            width: 96px;
         }
     }
 }

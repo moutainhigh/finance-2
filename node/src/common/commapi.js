@@ -13,6 +13,7 @@ export async function getSearchField($http,path,params){
     })
 }
 
+// 废弃基本没用
 export const mapData = new Map([
     ['RZED','financeQuota'],
     ['RZJD','financeState'],
