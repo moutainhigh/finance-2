@@ -40,7 +40,7 @@ public class OperateDataServiceImpl extends ServiceImpl<OperateDataMapper, Opera
             for (OperateData data : matchDataList) {
                 if (data.getOperateType() == operateMatchDto.getOperateType()){
                     data.setContent(operateMatchDto.getContent());
-                    this.save(data);
+                    this.updateById(data);
                     return ;
                 }
             }
