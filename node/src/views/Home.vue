@@ -23,20 +23,20 @@
         <div class="left">
           <div class="tab">
             <div class="tab-item" :class="tabAction==0?'tab-active':''" @click="tabChange(0)">股权机构</div>
-            <div class="tab-item" :class="tabAction==1?'tab-active':''" @click="tabChange(1)">债券机构</div>
+            <div class="tab-item" :class="tabAction==1?'tab-active':''" @click="tabChange(1)">债权机构</div>
           </div>
           <div class="left-list" v-show="tabAction==0">
               <div class="list-item" v-for="(item,index) in gqjg" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
-                {{item.institutionName}}
+                <div class="item-title">{{item.institutionName}}</div>
               </div>
           </div>
           <div class="left-list" v-show="tabAction==1">
               <div class="list-item" v-for="(item,index) in zjjg" :key="index"
                   @click="selComp(index,item)" 
                   :class="index==gqIndex?'item-active':''">
-                {{item.institutionName}}
+                <div class="item-title">{{item.institutionName}}</div>
               </div>
           </div>
           <div class="left-anima">
@@ -67,7 +67,7 @@
           <div class="c-info">
             <div class="c-title">{{currSelItem.institutionName}}</div>
             <ul>
-              <li v-for="item in currSelItem.institutionProductVos" :key="item.productName"><div>物联网投资基金</div></li>
+              <li v-for="item in (currSelItem.institutionProductVos).slice(0,3)" :key="item.productName"><div>{{item.productName}}</div></li>
             </ul>
           </div>
           <div class="znz">
@@ -163,7 +163,7 @@ export default {
       ],
       zjjg:[],
       companyList:[],
-      currSelItem:{}
+      currSelItem:{institutionProductVos:[]}
     }
   },
   computed:{
@@ -526,6 +526,13 @@ export default {
             text-align:center;
             line-height:5vh;
             cursor:pointer;
+            .item-title{
+              width: 10vw;
+              margin:0 auto;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
             &:hover::before{
               content:'';
               width:17vw;
@@ -651,7 +658,7 @@ export default {
           background:url(/image/home/info.png) center no-repeat;
           background-size:cover;
           .c-title{
-            margin:1.5vw 1vw;
+            margin:1.5vw 1vw 0.35vw;
             font-family: PingFangSC-Medium;
             font-size: 1vw;
             font-weight: normal;
