@@ -13,6 +13,7 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.ChangePasswordDto;
 import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
@@ -24,6 +25,7 @@ import com.july.company.mapper.UserInfoMapper;
 import com.july.company.service.CompanyService;
 import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.UserRoleService;
 import com.july.company.utils.Md5Utils;
 import com.july.company.utils.UUIDUtils;
 import com.july.company.utils.UserUtils;
@@ -338,6 +340,29 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             if (object != null) {
                 redisTemplate.delete(SystemConstant.CACHE_NAME + tokenUUID);
             }
+        }
+    }
+
+    /**
+     * 修改密码
+     * @param changePasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/5
+     */
+    @Override
+    public void changePassword(ChangePasswordDto changePasswordDto) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("mobile", changePasswordDto.getMobile())
+                .eq("status", SystemConstant.SYS_FALSE);
+        UserInfo userInfo = this.getOne(queryWrapper);
+        BnException.of(userInfo == null, "没有找到手机号为{}的用户！", changePasswordDto.getMobile());
+
+        String passwordSalt = Md5Utils.generatePassword(changePasswordDto.getOldPassword(), userInfo.getPwdSalt());
+        BnException.of(!userInfo.getPassword().equals(passwordSalt), "");
+        //加密后的密码相等
+        if (userInfo.getPassword().equals(passwordSalt)) {
+            userInfo.setPassword(Md5Utils.generatePassword(changePasswordDto.getNewPassword(), userInfo.getPwdSalt()));
         }
     }
 

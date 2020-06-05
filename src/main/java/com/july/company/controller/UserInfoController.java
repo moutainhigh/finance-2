@@ -1,10 +1,14 @@
 package com.july.company.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.ChangePasswordDto;
 import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
+import com.july.company.entity.UserInfo;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.july.company.vo.login.LoginAuthVo;
@@ -132,6 +136,10 @@ public class UserInfoController {
     public ResultT<String> disableUser(@RequestBody UserDisableDto userDisableDto) {
         userInfoService.disableUser(userDisableDto);
         return ResultT.ok("用户禁用成功！");
+    }
+
+    public ResultT<String> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        return ResultT.ok("密码修改成功！");
     }
 
 }

@@ -52,6 +52,14 @@ public class IndexController {
         return "/admin/company/list";
     }
 
+    /**
+     * 查询产品信息
+     * @param id
+     * @param model
+     * @return java.lang.String
+     * @author zengxueqi
+     * @since 2020/6/5
+     */
     @GetMapping("/product/queryProduct")
     public String edit(Long id, Model model) {
         FinanceProductDetailDto financeProductDetailDto = new FinanceProductDetailDto();
@@ -70,4 +78,10 @@ public class IndexController {
         model.addAttribute("company", companyVo);
         return "/admin/company/edit";
     }
+
+    @GetMapping("changePassword")
+    public String changePassword() {
+        return "admin/system/user/changePassword";
+    }
+
 }

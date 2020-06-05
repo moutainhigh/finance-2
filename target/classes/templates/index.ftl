@@ -106,7 +106,7 @@
                         <dd><a href="javascript:" data-url="${base}/finance/admin/system/user/userinfo"><i
                                         class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a>
                         </dd>
-                        <dd><a href="javascript:" data-url="${base}/finance/admin/system/user/changePassword"><i
+                        <dd><a href="javascript:" data-url="${base}/finance/changePassword"><i
                                         class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a>
                         </dd>
                         <dd><a href="javascript:" class="changeSkin"><i
