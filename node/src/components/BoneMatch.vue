@@ -266,6 +266,9 @@
                     </a-form-model-item>
                     <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
                         <a-spin :spinning="spinning">
+                        <a-button type="default" class="save-btn" @click="saveInfo" v-if="$store.state.token">
+                            保 存
+                        </a-button>
                         <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
                             一键匹配
                         </a-button>
@@ -280,7 +283,7 @@
 </template>
 
 <script>
-import { getSearchField,mapData } from "@/common/commapi.js"
+import { getSearchField } from "@/common/commapi.js"
 export default {
     name:'BoneMatch',
     props:{
@@ -376,6 +379,7 @@ export default {
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:1}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
         }).catch(err=>console.log(err));
+        this.getSaveInfo();
     },
     watch:{
         industryDirects:function(v,o){
@@ -558,7 +562,7 @@ export default {
 
 
 
-            this.$emit('do-sub',params);
+            this.$emit('do-sub',{matchForm:params,data:this.$data});
 
             // // /finance/financeProduct/getOneKeyMatching
             // this.$http.post('/finance/financeProduct/getOneKeyMatching',params).then(res=>{
@@ -569,8 +573,50 @@ export default {
             //         this.$message.error(res.data.msg);
             //     }
             // }).catch(err=>console.log(err))
+        },
+        getSaveInfo(){
+            // 获取保存在服务器的一键匹配数据
+            this.$http.postWithAuth('/finance/operateData/findMatchData',{userId:this.$store.state.userInfo.id}).then(res=>{
+                this.spinning=false
+                if(res.data.code==0){
+                    let contentList = res.data.content;
+                    if(contentList.length==0){
+                        return ;
+                    }
+                    let infos = contentList.filter(item=>item.operateType==1);
+                    if(infos.length==0){
+                        return ;
+                    }
+                    let info = infos[0];
+                    // let info = localStorage.getItem('mathData');
+                    // info = JSON.parse(info);
+                    info.content = JSON.parse(info.content);
+                    if(info.operateType==1){
+                        this.matchForm = info.content.matchForm;
+                        this.isCheckCb= info.content.isCheckCb;
+                        this.isCheckJs=info.content.isCheckJs;
+                        this.advantage= info.content.advantage;
+                        this.creditType= info.content.creditType;//增信方式其他
+                        this.creditTypes= info.content.creditTypes;//增信方式其他
+                        this.qualification= info.content.qualification;//企业资质其他
+                        this.qualifications= info.content.qualifications;//企业资质其他
+                        this.industryDirect= info.content.industryDirect;//行业方向其他
+                        this.industryDirects= info.content.industryDirects;//行业方向
+                        this.shareholder= info.content.shareholder;//股东背景其他
+                        this.shareholders= info.content.shareholders;//股东背景其他
+                        this.boolLoan= info.content.boolLoan;//是否有其他贷款其他
+                        this.boolLoans= info.content.boolLoans;//是否有其他贷款其他
+                    } 
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        saveInfo(){
+            // 保存匹配信息
+            this.$emit('save-info',{matchForm:this.$data});
         }
-    }
+    },
 }
 </script>
 <style lang="scss" scoped>
@@ -592,5 +638,12 @@ export default {
             margin-left:0.3vw;
         }
     }
+}
+.save-btn{
+    background:orange;
+    border:1px solid orange;
+    color:white;
+    margin-right:5vw;
+    width: 96px;
 }
 </style>
