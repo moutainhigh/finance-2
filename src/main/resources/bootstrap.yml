@@ -1,6 +1,6 @@
 spring:
   application:
-    name: com.july.company.finance
+    name: com.company.finance
   profiles:
     active: dev
   main:

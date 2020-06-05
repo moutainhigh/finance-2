@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.FinanceBondProductDto;
 import com.july.company.dto.finance.FinanceStockProductDto;
+import com.july.company.dto.finance.OneProductDto;
 import com.july.company.dto.finance.ProductMatchDto;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -36,5 +37,14 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/5/26
      */
     IPage<FinanceBondProductVo> getFinanceBondProduct(Page<FinanceBondProductVo> page, FinanceBondProductDto financeBondProductDto);
+
+    /**
+     * 删除产品信息
+     * @param oneProductDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/4
+     */
+    void deleteProduct(OneProductDto oneProductDto);
 
 }
