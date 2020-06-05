@@ -15,32 +15,35 @@
     <meta name="keywords" content="${site.keywords}"/>
     <!-- 网页作者 -->
     <meta name="author" content="${site.author}"/>
-    <link rel="stylesheet" href="${base}/finance/static/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="${base}/finance/static/layui/css/layui.css" media="all"/>
 </head>
 <body class="childrenBody">
 <form class="layui-form changePwd">
     <div class="layui-form-item">
-        <label class="layui-form-label">用户名</label>
+        <label class="layui-form-label">手机号</label>
         <div class="layui-input-block">
-            <input type="text" value="<#if currentUser.nickName!''>${currentUser.nickName}<#else>${currentUser.loginName}</#if>" disabled class="layui-input layui-disabled">
+            <input type="text" disabled id="user-mobile" class="layui-input layui-disabled">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">旧密码</label>
         <div class="layui-input-block">
-            <input type="password" name="oldPwd" placeholder="请输入旧密码" lay-verify="required|oldPwd" class="layui-input pwd">
+            <input type="password" name="oldPwd" placeholder="请输入旧密码" lay-verify="required|oldPwd"
+                   class="layui-input pwd">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">新密码</label>
         <div class="layui-input-block">
-            <input type="password" name="newPwd" placeholder="请输入新密码" lay-verify="required|newPwd" id="oldPwd" class="layui-input pwd">
+            <input type="password" name="newPwd" placeholder="请输入新密码" lay-verify="required|newPwd" id="oldPwd"
+                   class="layui-input pwd">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">确认密码</label>
         <div class="layui-input-block">
-            <input type="password" name="confirmPwd" placeholder="请确认密码" lay-verify="required|confirmPwd" class="layui-input pwd">
+            <input type="password" name="confirmPwd" placeholder="请确认密码" lay-verify="required|confirmPwd"
+                   class="layui-input pwd">
         </div>
     </div>
     <div class="layui-form-item">
@@ -52,39 +55,42 @@
 </form>
 <script type="text/javascript" src="${base}/finance/static/layui/layui.js"></script>
 <script>
-    layui.use(['form','jquery','layer'],function(){
+    layui.use(['form', 'jquery', 'layer'], function () {
         var form = layui.form,
-        $    = layui.jquery,
-        layer = layui.layer;
+            $ = layui.jquery,
+            layer = layui.layer;
 
         //添加验证规则
         form.verify({
-            newPwd : function(value, item){
-                if(value.length < 6){
-                    return "密码长度不能小于6位";
+            newPwd: function (value, item) {
+                if (value.length != 8) {
+                    return "密码长度只能为8位";
                 }
             },
-            confirmPwd : function(value, item){
-                if(!new RegExp($("#oldPwd").val()).test(value)){
+            confirmPwd: function (value, item) {
+                if (!new RegExp($("#oldPwd").val()).test(value)) {
                     return "两次输入密码不一致，请重新输入！";
                 }
             }
         });
 
-        form.on("submit(changePwd)",function(data){
-            $.post("${base}/finance/admin/system/user/changePassword",data.field,function(res){
-                if(res.success){
-                    layer.msg("密码修改成功,请重新登录",{"time":1000},function(){
+        form.on("submit(changePwd)", function (data) {
+            $.post("${base}/finance/admin/system/user/changePassword", data.field, function (res) {
+                if (res.success) {
+                    layer.msg("密码修改成功,请重新登录", {"time": 1000}, function () {
                         sessionStorage.clear();
                         localStorage.clear();
                         parent.location.href = "${base}/finance/systemLogout";
                     })
-                }else{
+                } else {
                     layer.msg(res.message);
                 }
             });
             return false;
         });
+        var userInfo = localStorage.getItem("userinfo");
+        var userInfoJSON = JSON.parse(userInfo);
+        $("#user-mobile").val(userInfoJSON.userInfo.mobile);
     });
 </script>
 </body>

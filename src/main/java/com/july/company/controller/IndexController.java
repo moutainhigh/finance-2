@@ -42,12 +42,25 @@ public class IndexController {
         return "admin/system/rescource/list";
     }
 
+    /**
+     * 查询产品信息
+     * @param id
+     * @param model
+     * @return java.lang.String
+     * @author zengxueqi
+     * @since 2020/6/5
+     */
     @GetMapping("/product/queryProduct")
     public String edit(Long id, Model model) {
         FinanceProductDetailDto financeProductDetailDto = new FinanceProductDetailDto();
         financeProductDetailDto.setCompanyId(id);
         model.addAttribute("product", financeStockDetailService.getFinanceStockProductDetail(financeProductDetailDto));
         return "admin/system/rescource/edit";
+    }
+
+    @GetMapping("changePassword")
+    public String changePassword() {
+        return "admin/system/user/changePassword";
     }
 
 }

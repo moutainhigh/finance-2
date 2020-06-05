@@ -30,7 +30,7 @@ public class MyGenerator {
     private String author = "zengxueqi";  //代码注释中的作者
     private String url = "jdbc:mysql://127.0.0.1:3306/finance?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai";
     private String username = "root";
-    private String password = "123456";
+    private String password = "root";
     private String moduleName = null; //子模块的名称
     private String basePackageName = "com.july.company"; //基础包的名称
     private String[] tablePrefix = {"fc"};
@@ -241,7 +241,7 @@ public class MyGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        return new String[]{"fc_sys_menu"};
+        return new String[]{"fc_sys_role","fc_user_role"};
     }
 
 }

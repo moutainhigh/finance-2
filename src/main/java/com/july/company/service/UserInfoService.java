@@ -3,6 +3,7 @@ package com.july.company.service;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
+import com.july.company.dto.user.ChangePasswordDto;
 import com.july.company.dto.user.UserDisableDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.UserInfo;
@@ -97,5 +98,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/5/27
      */
     void disableUser(UserDisableDto userDisableDto);
+
+    /**
+     * 修改密码
+     * @param changePasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/5
+     */
+    void changePassword(ChangePasswordDto changePasswordDto);
 
 }
