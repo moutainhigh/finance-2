@@ -27,7 +27,7 @@
     <!-- 顶部 -->
     <div class="layui-header header">
         <div class="layui-main">
-            <a href="#" class="logo">丽笙科技</a>
+            <a href="#" class="logo">成都科技金融</a>
             <!-- 显示/隐藏菜单 -->
             <a href="javascript:" class="iconfont hideMenu icon-menu1"></a>
             <#--<!-- 搜索 &ndash;&gt;-->
@@ -124,9 +124,9 @@
             <a class="img" title="我的头像"><img
                         src="<#if (currentUser.icon??)>${currentUser.icon}<#else>${base}/finance/static/images/face.jpg</#if>"></a>
             <p>
-                你好！<span
+                你好，<span
                         id="userName"></span>,
-                欢迎登录</p>
+                欢迎登录！</p>
         </div>
         <div class="navBar layui-side-scroll"></div>
     </div>
@@ -164,19 +164,21 @@
 </div>
 <script type="text/javascript" src="${base}/finance/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/finance/static/js/jquery.bcat.bgswitcher.js"></script>
+<script type="text/javascript" src="${base}/finance/static/layui/layui.js"></script>
 <script>
     const baseUrl = "${base}/finance";
     $(function () {
-        const userinfo = JSON.parse(localStorage.getItem("userinfo"));
-        console.log(userinfo.userInfo);
-        $("#userName").html(userinfo.userInfo.userName);
+        var userinfo = JSON.parse(localStorage.getItem("userinfo"));
+        if (userinfo != null) {
+            $("#userName").html(userinfo.userInfo.userName);
+        }
     });
 </script>
 <!-- 移动导航 -->
 <div class="site-tree-mobile layui-hide"><i class="layui-icon">&#xe602;</i></div>
 <div class="site-mobile-shade"></div>
-<script type="text/javascript" src="${base}/finance/static/layui/layui.js"></script>
 <script type="text/javascript" src="${base}/finance/static/js/leftNav.js?v=2.0"></script>
 <script type="text/javascript" src="${base}/finance/static/js/index.js?t=3.0"></script>
+<script type="text/javascript" src="${base}/finance/static/js/token.js"></script>
 </body>
 </html>

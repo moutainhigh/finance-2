@@ -60,9 +60,6 @@
         <button class="layui-btn login_btn login_btn1" lay-submit="" lay-filter="login">登录</button>
     </form>
 </div>
-<div class="loginTip">
-    <span>用户名:test &nbsp;&nbsp;&nbsp;密码:1</span>
-</div>
 <script type="text/javascript" src="${base}/finance/static/layui/layui.js"></script>
 <script type="text/javascript" src="${base}/finance/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="${base}/finance/static/js/jquery.bcat.bgswitcher.js"></script>
@@ -109,6 +106,9 @@
                 data: JSON.stringify(data.field),
                 success: function (res) {
                     if (res.code == 0) {
+                        //设置用户信息缓存时间：30分钟
+                        var expireTime = Math.floor((new Date().getTime() + 1800000) / 1000);
+                        res.content["time"] = expireTime;
                         //缓存信息
                         localStorage.setItem('userinfo', JSON.stringify(res.content));
 
@@ -122,6 +122,20 @@
             });
             return false;
         });
+    });
+    $(function () {
+        var data = localStorage.getItem("userinfo");
+        console.log(data);
+        if (data != null) {
+            layui.use(['layer'], function () {
+                //弹层
+                var layer = layui.layer;
+                layer.msg("你已经登录过，无需重复登录！", {time: 1000}, function () {
+                    //跳转首页
+                    location.href = "${base}/finance/index";
+                });
+            });
+        }
     });
 </script>
 </body>
