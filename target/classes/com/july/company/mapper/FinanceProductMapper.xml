@@ -213,5 +213,129 @@
     <select id="getProductGroupCount" resultType="com.july.company.dto.finance.ProductGroupDto">
         select ffp.financeType,count(ffp.id) as productCount from fc_finance_product ffp group by ffp.financeType
     </select>
-
+    <select id="getStockList" resultType="com.july.company.vo.finance.FinanceStockProductDetailVo">
+        select ffp.id,ffp.title,ffp.mechanism,ffp.workAddress,ffpd.industryDirect,ffpd.financeQuota,ffpd.financeState from
+        fc_finance_product ffp,fc_finance_stock_detail ffpd
+        where
+        ffp.id = ffpd.productId
+        and ffp.financeType = 0
+        and ffp.deleted = 0
+<!--        &lt;!&ndash;融资额度&ndash;&gt;-->
+<!--        <if test="param.financeQuota != null and param.financeQuota != ''">-->
+<!--            and ffpd.financeQuota = #{param.financeQuota}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;融资阶段&ndash;&gt;-->
+<!--        <if test="param.financeState != null and param.financeState != ''">-->
+<!--            and ffpd.financeState = #{param.financeState}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;行业方向&ndash;&gt;-->
+<!--        <if test="param.industryDirect != null and param.industryDirect != ''">-->
+<!--            and ffpd.industryDirect = #{param.industryDirect}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;注册地址&ndash;&gt;-->
+<!--        <if test="param.registerAddress != null and param.registerAddress != ''">-->
+<!--            and ffpd.registerAddress = #{param.registerAddress}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;营业收入&ndash;&gt;-->
+<!--        <if test="param.business != null and param.business != ''">-->
+<!--            and ffpd.business = #{param.business}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;员工人数&ndash;&gt;-->
+<!--        <if test="param.staffCount != null and param.staffCount != ''">-->
+<!--            and ffpd.staffCount = #{param.staffCount}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;市场占有率&ndash;&gt;-->
+<!--        <if test="param.marketOccupyRate != null and param.marketOccupyRate != ''">-->
+<!--            and ffpd.marketOccupyRate = #{param.marketOccupyRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;评定名称&ndash;&gt;-->
+<!--        <if test="param.evaluateName != null and param.evaluateName != ''">-->
+<!--            and ffpd.evaluateName = #{param.evaluateName}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;产品阶段&ndash;&gt;-->
+<!--        <if test="param.productState != null and param.productState != ''">-->
+<!--            and ffpd.productState = #{param.productState}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;产品毛利率&ndash;&gt;-->
+<!--        <if test="param.productRate != null and param.productRate != ''">-->
+<!--            and ffpd.productRate = #{param.productRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;实控人创业经历&ndash;&gt;-->
+<!--        <if test="param.experience != null and param.experience != ''">-->
+<!--            and ffpd.experience = #{param.experience}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;发明专利数&ndash;&gt;-->
+<!--        <if test="param.patentCount != null and param.patentCount != ''">-->
+<!--            and ffpd.patentCount = #{param.patentCount}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;股东背景&ndash;&gt;-->
+<!--        <if test="param.shareholder != null and param.shareholder != ''">-->
+<!--            and ffpd.shareholder = #{param.shareholder}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;股东累计投入资金&ndash;&gt;-->
+<!--        <if test="param.capitals != null and param.capitals != ''">-->
+<!--            and ffpd.capitals = #{param.capitals}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;公司竞争优势&ndash;&gt;-->
+<!--        <if test="param.advantage != null and param.advantage != ''">-->
+<!--            and ffpd.advantage = #{param.advantage}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;历史创业企业状态&ndash;&gt;-->
+<!--        <if test="param.companyStatus != null and param.companyStatus != ''">-->
+<!--            and ffpd.companyStatus = #{param.companyStatus}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;市场容量&ndash;&gt;-->
+<!--        <if test="param.marketCapacity != null and param.marketCapacity != ''">-->
+<!--            and ffpd.marketCapacity = #{param.marketCapacity}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;市场预期容量增长率&ndash;&gt;-->
+<!--        <if test="param.marketAddRate != null and param.marketAddRate != ''">-->
+<!--            and ffpd.marketAddRate = #{param.marketAddRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;市场占有率&ndash;&gt;-->
+<!--        <if test="param.marketOccupyRate != null and param.marketOccupyRate != ''">-->
+<!--            and ffpd.marketOccupyRate = #{param.marketOccupyRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;是否接受回购条款&ndash;&gt;-->
+<!--        <if test="param.boolBuyBack != null and param.boolBuyBack != ''">-->
+<!--            and ffpd.boolBuyBack = #{param.boolBuyBack}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;预计上市时间&ndash;&gt;-->
+<!--        <if test="param.timeToMarket != null and param.timeToMarket != ''">-->
+<!--            and ffpd.timeToMarket = #{param.timeToMarket}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;营业收入增长率&ndash;&gt;-->
+<!--        <if test="param.businessAddRate != null and param.businessAddRate != ''">-->
+<!--            and ffpd.businessAddRate = #{param.businessAddRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;过往融资金额&ndash;&gt;-->
+<!--        <if test="param.oldFinanceQuota != null and param.oldFinanceQuota != ''">-->
+<!--            and ffpd.oldFinanceQuota = #{param.oldFinanceQuota}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;净利率&ndash;&gt;-->
+<!--        <if test="param.netInterestRate != null and param.netInterestRate != ''">-->
+<!--            and ffpd.netInterestRate = #{param.netInterestRate}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;目标客户&ndash;&gt;-->
+<!--        <if test="param.targetCustomer != null and param.targetCustomer != ''">-->
+<!--            and ffpd.targetCustomer = #{param.targetCustomer}-->
+<!--        </if>-->
+<!--        &lt;!&ndash;名称或机构名称&ndash;&gt;-->
+<!--        <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">-->
+<!--            and (-->
+<!--            ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')-->
+<!--            or-->
+<!--            ffp.title like concat('%',#{param.mechanismOrProduct},'%')-->
+<!--            )-->
+<!--        </if>-->
+<!--        <if test="param.orderByField == null">-->
+<!--            order by ffpd.financeQuota desc-->
+<!--        </if>-->
+<!--        <if test="param.orderByField == 0">-->
+<!--            order by ffpd.financeQuota-->
+<!--        </if>-->
+<!--        <if test="param.orderByField == 1">-->
+<!--            order by ffpd.financeState-->
+<!--        </if>-->
+    </select>
 </mapper>

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.FinanceBondProductDto;
+import com.july.company.dto.finance.FinanceStockProductDetailDto;
 import com.july.company.dto.finance.FinanceStockProductDto;
 import com.july.company.dto.finance.OneProductDto;
 import com.july.company.entity.FinanceProduct;
@@ -14,6 +15,7 @@ import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.service.FinanceProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.vo.finance.FinanceBondProductVo;
+import com.july.company.vo.finance.FinanceStockProductDetailVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,6 +101,26 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             financeProduct.setDeleted(SystemConstant.SYS_TRUE);
             this.updateById(financeProduct);
         });
+    }
+
+    /**
+     * 获取股权融资信息分页（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    @Override
+    public IPage<FinanceStockProductDetailVo> getStockList(Page<FinanceStockProductDetailDto> page, FinanceStockProductDetailDto financeStockProductDetailDto) {
+        IPage<FinanceStockProductDetailVo> financeStockProductDetailVoIPage = financeProductMapper.getStockList(page, financeStockProductDetailDto);
+//        if (!CollectionUtils.isEmpty(financeStockProductDetailVoIPage.getRecords())) {
+//            List<FinanceStockProductDetailVo> financeStockProductDetailVos = financeStockProductDetailVoIPage.getRecords().stream().map(financeStockProductDetailVos -> {
+//                financeStockProductDetailVos.setLoanQuotaStr(DictInit.getCodeValue(SystemConstant.DKED, financeStockProductDetailVos.getLoanQuota() + ""));
+//                financeStockProductDetailVos.setLoanTermStr(DictInit.getCodeValue(SystemConstant.DKQX, financeStockProductDetailVos.getLoanTerm() + ""));
+//                financeStockProductDetailVos.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, financeStockProductDetailVos.getIndustryDirect() + ""));
+//                return stockCompanyVo;
+//            }).collect(Collectors.toList());
+//            companyVoIPage.setRecords(stockCompanyVos);
+//        }
+        return financeStockProductDetailVoIPage;
     }
 
 }

@@ -73,7 +73,7 @@ public class CompanyController {
      * @author xia.junwei
      * @since 2020/6/5
      */
-    @PostMapping("/updateCompany")
+    @PutMapping ("/updateCompany")
     public LayerData<CompanyVo> updateCompany(@RequestBody Company company){
         LayerData<CompanyVo> data = new LayerData<CompanyVo>();
         boolean result = companyService.updateCompany(company);
@@ -89,7 +89,7 @@ public class CompanyController {
      * @author zengxueqi
      * @since 2020/6/4
      */
-    @PostMapping("/deleteCompany")
+    @DeleteMapping ("/deleteCompany")
     public ResultT<String> deleteCompany(@RequestBody CompanyIdsDto companyIdsDto) {
         companyService.deleteCompany(companyIdsDto);
         return ResultT.ok("删除成功！");

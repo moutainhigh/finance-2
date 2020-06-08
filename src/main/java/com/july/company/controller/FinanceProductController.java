@@ -3,15 +3,16 @@ package com.july.company.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
+import com.july.company.entity.Company;
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.FinanceProductService;
 import com.july.company.utils.LayerData;
-import com.july.company.vo.finance.FinanceBondProductDetailVo;
+import com.july.company.vo.company.CompanyVo;
 import com.july.company.vo.finance.FinanceBondProductVo;
+import com.july.company.vo.finance.FinanceStockProductDetailVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
 
@@ -117,6 +118,18 @@ public class FinanceProductController {
     public ResultT<String> updateStockProduct(@RequestBody FinanceStockProductDetailDto financeStockProductDetailDto) {
         System.out.println("保存信息===>" + financeStockProductDetailDto.getTitle());
         return ResultT.ok("保存成功！");
+    }
+    /**
+     * 获取股权融资信息分页（后台）
+     * @param pageParamVo
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    @PostMapping("/getStockList")
+    public ResultT<ResultT.Page<FinanceStockProductDetailVo>> getStockList(@RequestBody PageParamVo<FinanceStockProductDetailDto> pageParamVo) {
+        PageVo<FinanceStockProductDetailDto> pager = pageParamVo.getPager();
+        IPage<FinanceStockProductDetailVo> recordVos = financeProductService.getStockList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+        return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
     }
 
 }
