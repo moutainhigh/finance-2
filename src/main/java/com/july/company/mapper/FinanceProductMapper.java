@@ -5,9 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.july.company.vo.finance.FinanceBondProductVo;
-import com.july.company.vo.finance.FinanceStockProductDetailVo;
-import com.july.company.vo.finance.FinanceStockProductVo;
+import com.july.company.vo.finance.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -79,5 +77,11 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @author xia.junwei
      * @since 2020/6/8
      */
-    IPage<FinanceStockProductDetailVo> getStockList(Page<FinanceStockProductDetailDto> page, @Param("param")FinanceStockProductDetailDto financeStockProductDetailDto);
+    IPage<StockListVo> getStockList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
+    /**
+     * 获取债权融资信息分页（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    IPage<BondListVo> getBondList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
 }

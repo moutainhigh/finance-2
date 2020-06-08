@@ -5,18 +5,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
-import com.july.company.dto.finance.FinanceBondProductDto;
-import com.july.company.dto.finance.FinanceStockProductDetailDto;
-import com.july.company.dto.finance.FinanceStockProductDto;
-import com.july.company.dto.finance.OneProductDto;
+import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
+import com.july.company.entity.FinanceStockDetail;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.service.FinanceProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.july.company.vo.finance.FinanceBondProductVo;
-import com.july.company.vo.finance.FinanceStockProductDetailVo;
-import com.july.company.vo.finance.FinanceStockProductVo;
+import com.july.company.vo.finance.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -109,18 +105,57 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      * @since 2020/6/8
      */
     @Override
-    public IPage<FinanceStockProductDetailVo> getStockList(Page<FinanceStockProductDetailDto> page, FinanceStockProductDetailDto financeStockProductDetailDto) {
-        IPage<FinanceStockProductDetailVo> financeStockProductDetailVoIPage = financeProductMapper.getStockList(page, financeStockProductDetailDto);
-//        if (!CollectionUtils.isEmpty(financeStockProductDetailVoIPage.getRecords())) {
-//            List<FinanceStockProductDetailVo> financeStockProductDetailVos = financeStockProductDetailVoIPage.getRecords().stream().map(financeStockProductDetailVos -> {
-//                financeStockProductDetailVos.setLoanQuotaStr(DictInit.getCodeValue(SystemConstant.DKED, financeStockProductDetailVos.getLoanQuota() + ""));
-//                financeStockProductDetailVos.setLoanTermStr(DictInit.getCodeValue(SystemConstant.DKQX, financeStockProductDetailVos.getLoanTerm() + ""));
-//                financeStockProductDetailVos.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, financeStockProductDetailVos.getIndustryDirect() + ""));
-//                return stockCompanyVo;
-//            }).collect(Collectors.toList());
-//            companyVoIPage.setRecords(stockCompanyVos);
-//        }
-        return financeStockProductDetailVoIPage;
+    public IPage<StockListVo> getStockList(Page<ListConditionDto> page, ListConditionDto listConditionDto) {
+        IPage<StockListVo> stockList = financeProductMapper.getStockList(page, listConditionDto);
+        if (!CollectionUtils.isEmpty(stockList.getRecords())) {
+            //字典转换
+            List<StockListVo> stockListVos = stockList.getRecords().stream().map(stockListVo -> {
+                //注册地址
+                stockListVo.setRegisterAddressStr(DictInit.getCodeValue(SystemConstant.REGION, stockListVo.getRegisterAddress() + ""));
+                //融资阶段
+                stockListVo.setFinanceStateStr(DictInit.getCodeValue(SystemConstant.RZJD, stockListVo.getFinanceState() + ""));
+                //融资额度
+                stockListVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
+                //行业方向
+                stockListVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getIndustryDirect() + ""));
+                //股东背景
+                stockListVo.setShareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, stockListVo.getShareholder() + ""));
+                return stockListVo;
+            }).collect(Collectors.toList());
+            stockList.setRecords(stockListVos);
+        }
+        return stockList;
+    }
+
+    @Override
+    public FinanceProduct getFinanceProductById(Long id) {
+        QueryWrapper<FinanceProduct> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(id != null, "id", id)
+                .eq("deleted", SystemConstant.SYS_FALSE);
+        return this.getOne(queryWrapper);
+    }
+
+    @Override
+    public IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto) {
+        IPage<BondListVo> bondList = financeProductMapper.getBondList(page, listConditionDto);
+        if (!CollectionUtils.isEmpty(bondList.getRecords())) {
+            //字典转换
+            List<BondListVo> bondListVos = bondList.getRecords().stream().map(bondListVo -> {
+                //注册地址
+                bondListVo.setRegisterAddressStr(DictInit.getCodeValue(SystemConstant.REGION, bondListVo.getRegisterAddress() + ""));
+                //营业收入
+                bondListVo.setBusinessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
+                //发明专利数量
+                bondListVo.setPatentCountStr(DictInit.getCodeValue(SystemConstant.BOND_FMZLS, bondListVo.getPatentCount() + ""));
+                //行业方向
+                bondListVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, bondListVo.getIndustryDirect() + ""));
+                //股东背景
+                bondListVo.setShareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, bondListVo.getShareholder() + ""));
+                return bondListVo;
+            }).collect(Collectors.toList());
+            bondList.setRecords(bondListVos);
+        }
+        return bondList;
     }
 
 }
