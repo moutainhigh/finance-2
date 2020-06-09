@@ -44,10 +44,11 @@ public class FinanceBondDetailController {
      * @return com.july.company.response.ResultT<java.lang.String>
      * @author zengxueqi
      * @since 2020/5/26
+     * @deprecated
      */
     @PostMapping("/getBondOneKeyMatching")
     public ResultT<String> getBondOneKeyMatching(@RequestBody BondProductMatchDto bondProductMatchDto) {
-        return ResultT.ok(financeBondDetailService.getBondOneKeyMatching(bondProductMatchDto));
+        return ResultT.ok();//ResultT.ok(financeBondDetailService.getBondOneKeyMatching(bondProductMatchDto));
     }
 
 }

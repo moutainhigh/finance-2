@@ -22,13 +22,4 @@ public interface FinanceBondDetailService extends IService<FinanceBondDetail> {
      */
     FinanceBondProductDetailVo getFinanceBondProductDetail(FinanceProductDetailDto financeProductDetailDto);
 
-    /**
-     * 一键匹配债券产品信息
-     * @param bondProductMatchDto
-     * @return java.lang.String
-     * @author zengxueqi
-     * @since 2020/5/25
-     */
-    String getBondOneKeyMatching(BondProductMatchDto bondProductMatchDto);
-
 }

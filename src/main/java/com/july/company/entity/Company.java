@@ -37,4 +37,10 @@ public class Company extends BaseEntity {
     @TableField("creditCode")
     private String creditCode;
 
+    /**
+     * 企业状态(0=正常,1=禁用)
+     */
+    @TableField("status")
+    private Integer status;
+
 }

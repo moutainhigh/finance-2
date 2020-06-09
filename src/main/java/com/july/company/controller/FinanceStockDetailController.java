@@ -46,7 +46,7 @@ public class FinanceStockDetailController {
      */
     @PostMapping("/getStockOneKeyMatching")
     public ResultT<String> getStockOneKeyMatching(@RequestBody StockProductMatchDto stockProductMatchDto) {
-        return ResultT.ok(financeStockDetailService.getStockOneKeyMatching(stockProductMatchDto));
+        return ResultT.ok();//ResultT.ok(financeStockDetailService.getStockOneKeyMatching(stockProductMatchDto));
     }
 
 }

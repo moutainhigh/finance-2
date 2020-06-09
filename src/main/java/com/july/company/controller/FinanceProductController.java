@@ -7,17 +7,11 @@ import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.FinanceProductService;
-import com.july.company.utils.LayerData;
-import com.july.company.vo.finance.FinanceBondProductDetailVo;
 import com.july.company.vo.finance.FinanceBondProductVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.WebUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletRequest;
-import java.util.Map;
 
 /**
  * 产品信息 前端控制器
@@ -59,27 +53,6 @@ public class FinanceProductController {
         return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
     }
 
-    @PostMapping("/list")
-    public LayerData<FinanceStockProductVo> list_bak(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                     @RequestParam(value = "limit", defaultValue = "10") Long limit,
-                                                     ServletRequest request) {
-        PageParamVo<FinanceStockProductDto> pageParamVo = new PageParamVo();
-        PageVo<FinanceStockProductDto> productDtoPageVo = new PageVo<>();
-        productDtoPageVo.setCurrent(page);
-        productDtoPageVo.setSize(limit);
-        pageParamVo.setPager(productDtoPageVo);
-        Map map = WebUtils.getParametersStartingWith(request, "s_");
-        //System.out.println("====>" + map.get("type"));
-        FinanceStockProductDto financeStockProductDto = new FinanceStockProductDto();
-        pageParamVo.setContent(financeStockProductDto);
-        LayerData<FinanceStockProductVo> layerData = new LayerData<>();
-        PageVo<FinanceStockProductDto> pager = pageParamVo.getPager();
-        IPage<FinanceStockProductVo> recordVos = financeProductService.getFinanceStockProduct(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
-        layerData.setCount(recordVos.getTotal());
-        layerData.setData(recordVos.getRecords());
-        return layerData;
-    }
-
     /**
      * 删除产品信息
      * @param oneProductDto
@@ -102,7 +75,6 @@ public class FinanceProductController {
      */
     @PostMapping("/updateBondProduct")
     public ResultT<String> updateBondProduct(@RequestBody FinanceBondProductDetailDto financeBondProductDetailDto) {
-        System.out.println("保存信息===>" + financeBondProductDetailDto.getTel());
         return ResultT.ok("保存成功！");
     }
 
@@ -115,7 +87,6 @@ public class FinanceProductController {
      */
     @PostMapping("/updateStockProduct")
     public ResultT<String> updateStockProduct(@RequestBody FinanceStockProductDetailDto financeStockProductDetailDto) {
-        System.out.println("保存信息===>" + financeStockProductDetailDto.getTitle());
         return ResultT.ok("保存成功！");
     }
 

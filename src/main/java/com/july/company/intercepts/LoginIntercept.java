@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  * @author zengxueqi
  * @since 2020/05/20
  */
-//@Component
+@Component
 @Slf4j
 public class LoginIntercept implements HandlerInterceptor {
 

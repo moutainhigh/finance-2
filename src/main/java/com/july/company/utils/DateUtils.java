@@ -527,5 +527,18 @@ public class DateUtils {
         return time;
     }
 
+    /**
+     * 将时间戳转为对应的日期格式
+     * @param timeStamp
+     * @return
+     */
+    public static String timeStamp2Date(Long timeStamp) {
+        if (timeStamp == null) {
+            return "";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(DEFAULT_DATE);
+        return sdf.format(new Date(Long.valueOf(timeStamp * 1000)));
+    }
+
 }
 

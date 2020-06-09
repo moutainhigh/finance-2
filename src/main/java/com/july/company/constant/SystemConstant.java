@@ -380,5 +380,9 @@ public class SystemConstant {
      * 用户退出api url
      */
     public static final String LOGIN_OUT = "/userInfo/logout";
+    /**
+     * 开关(on=开)
+     */
+    public static final String SWITCH_ON = "on";
 
 }

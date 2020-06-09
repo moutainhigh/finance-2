@@ -21,14 +21,5 @@ public interface FinanceStockDetailService extends IService<FinanceStockDetail> 
      * @since 2020/5/20
      */
     FinanceStockProductDetailVo getFinanceStockProductDetail(FinanceProductDetailDto financeProductDetailDto);
-
-    /**
-     * 一键匹配股权产品信息
-     * @param stockProductMatchDto
-     * @return java.lang.String
-     * @author zengxueqi
-     * @since 2020/5/25
-     */
-    String getStockOneKeyMatching(StockProductMatchDto stockProductMatchDto);
-
+    
 }
