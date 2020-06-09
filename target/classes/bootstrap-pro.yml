@@ -10,6 +10,5 @@ spring:
 #日志
 logging:
   config: classpath:log/logback.xml
-  path: /Users/zengxueqi/IdeaProjects/finance/logs
-
+  path: /data/web/finance/logs
 
