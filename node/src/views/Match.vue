@@ -784,7 +784,7 @@ export default {
 
 
             this.spinning=true
-            this.$http.postWithAuth('/finance/financeBondDetail/getBondOneKeyMatching',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeBondMatch/getBondOneKeyMatching',params).then(res=>{
                 console.log(res)
                 this.spinning=false;
                 if(res.data.code==0){
@@ -846,7 +846,7 @@ export default {
 
             // /finance/financeProduct/getOneKeyMatching
             this.spinning=true
-            this.$http.postWithAuth('/finance/financeStockDetail/getStockOneKeyMatching',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeStockMatch/getStockOneKeyMatching',params).then(res=>{
                 this.spinning=false
                 if(res.data.code==0){
                     this.$message.success('匹配成功，跳转中');
