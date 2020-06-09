@@ -8,13 +8,14 @@ import java.io.Serializable;
 
 /**
  * 登录参数
- * @author ganlt
- * @version v1.0
+ * @author zengxueqi
  * @date 2019/11/25
  */
 @Data
 public class LoginAuthDto implements Serializable {
+
     private static final long serialVersionUID = -5901244272109941519L;
+
     /**
      * 登录手机号
      * @mock 14708222420
@@ -27,6 +28,10 @@ public class LoginAuthDto implements Serializable {
      */
     @NotNull(message = "密码不能为空")
     private String password;
+    /**
+     * 登录类型(=1表示后台登录)
+     */
+    private Integer loginType;
 
     /**
      * 获取密码对应的加密值
