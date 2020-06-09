@@ -780,7 +780,7 @@ export default {
             // 保存债券匹配信息
             param.data.baseForm=this.baseForm;
             let info = param.data;
-            this.doSaveInfo(info,false);
+            this.doSaveInfo(info,params,false);
 
 
             this.spinning=true
@@ -842,7 +842,7 @@ export default {
 
             // 股权匹配信息保存
             let info = this.$data;
-            this.doSaveInfo(info,false);
+            this.doSaveInfo(info,params,false);
 
             // /finance/financeProduct/getOneKeyMatching
             this.spinning=true
@@ -901,31 +901,81 @@ export default {
         saveInfo(params){
             // 保存匹配信息
             let info = {baseForm:this.baseForm,matchForm:{}};
-            if(params.matchForm){
-              params.matchForm.baseForm=this.baseForm;
-              info = params.matchForm;
-            }else{
-               info = this.$data;
-            }
+            // if(params.matchForm){
+            //   params.matchForm.baseForm=this.baseForm;
+            //   info = params.matchForm;
+            // }else{
+            //     }
             this.spinning=true;
-            this.doSaveInfo(info);
-        },
-        doSaveInfo(params,flag=true){
-            // 实际保存匹配信息
-            let param = {content:JSON.stringify(params),operateType:this.active==0?0:1,userId:this.$store.state.userInfo.id};
-            localStorage.setItem('mathData',JSON.stringify(param));
-            this.spinning=false
-            // return false;
-            this.$http.postWithAuth('/finance/operateData/saveOrUpdateMatchData',param).then(res=>{
-                this.spinning=false
-                if(res.data.code==0){
-                    if(flag){
-                        this.$message.success('操作成功');
-                    }
-                }else{
-                    this.$message.error(res.data.msg);
+            let paramsCurrent = {};
+            if(this.active==0){
+                // 对股权匹配进行处理
+                info = this.$data;
+                paramsCurrent = Object.assign({},this.baseForm,this.matchForm);
+            
+                let financeState = {code:this.matchForm.financeState,value:this.financeState}
+                paramsCurrent.financeState=financeState;
+    
+                let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
+                paramsCurrent.industryDirect=industryDirect;
+    
+                let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
+                paramsCurrent.shareholder=shareholder;
+    
+                let productState = {code:this.matchForm.productState,value:this.productState}
+                paramsCurrent.productState=productState;
+    
+                if(!this.matchForm.targetCustomer){
+                    let targetCustomer = [{code:'',value:''}]
+                    paramsCurrent.targetCustomer=targetCustomer;
                 }
-            }).catch(err=>console.log(err))
+    
+                if(!this.matchForm.evaluateName){
+                    let evaluateName = [{code:'',value:''}]
+                    paramsCurrent.evaluateName=evaluateName;
+                }
+                let registerAddress = {code:this.baseForm.registerAddress,value:''}
+                paramsCurrent.registerAddress=registerAddress;
+            }else if(this.active==1){
+                // 对债券匹配进行数据处理
+                paramsCurrent = Object.assign({},this.baseForm,params.matchForm.matchForm);
+                params.matchForm.baseForm=this.baseForm;
+                info = params.matchForm;
+                let registerAddress = {code:this.baseForm.registerAddress,value:''};
+                paramsCurrent.registerAddress=registerAddress;
+            }
+
+            this.doSaveInfo(info,paramsCurrent);
+        },
+        doSaveInfo(info,params,flag=true){
+            // 实际保存匹配信息
+            let param = {content:JSON.stringify(info),operateType:this.active==0?0:1,userId:this.$store.state.userInfo.id};
+            localStorage.setItem('mathData',JSON.stringify(param));
+            params.operateMatchDto = param;
+            this.spinning=false;
+            if(this.active==0){
+                this.$http.postWithAuth('/finance/financeStockMatch/saveStockOneKeyMatching',params).then(res=>{
+                    if(res.data.code==0){
+                       if(flag){
+                        this.$message.success('操作成功');
+                       }
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                }).catch(err=>console.log(err))
+            }else if(this.active==1){
+                this.$http.postWithAuth('/finance/financeBondMatch/saveBondOneKeyMatching',params).then(res=>{
+                    console.log(res)
+                    this.spinning=false;
+                    if(res.data.code==0){
+                       if(flag){
+                          this.$message.success('操作成功');
+                       }
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                }).catch(err=>console.log(err))
+            }
         }
     },
     components:{
