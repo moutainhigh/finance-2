@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userInfo:localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):{userName:''},
+    userInfo:getStorage('cdjr_token') && localStorage.getItem('userInfo')?JSON.parse(localStorage.getItem('userInfo')):{userName:''},
     token:getStorage('cdjr_token')?getStorage('cdjr_token'):''
   },
   mutations: {
