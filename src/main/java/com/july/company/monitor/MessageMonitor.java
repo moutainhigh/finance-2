@@ -16,15 +16,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 /**
- * @author ganlt<br>
- * @since 2019/07/02 8:57 <br>
+ * @author zengxueqi
+ * @since 2019/07/02
  */
 @Slf4j
 @Component
 public class MessageMonitor implements Monitor {
+
     @Resource
     private MonitorHandler monitorHandler;
-
 
     @Override
     public Object processMonitor(ProceedingJoinPoint pjp) throws Throwable {
@@ -74,7 +74,7 @@ public class MessageMonitor implements Monitor {
             if (log.isDebugEnabled()) {
                 //log.debug("{}", monitorRequest.afterFormatDump());
             }
-            // MDC.remove(SESSION_ID);
+            //MDC.remove(SESSION_ID);
             return result;
         } catch (Throwable throwable) {
             monitorHandler.advice(throwable, monitorRequest);

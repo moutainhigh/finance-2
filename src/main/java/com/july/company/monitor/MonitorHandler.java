@@ -2,8 +2,8 @@ package com.july.company.monitor;
 
 /**
  * 监控异常通知
- * @author ganlt<br>
- * @since 2019/07/02 9:12 <br>
+ * @author zengxueqi
+ * @since 2019/07/02
  */
 public interface MonitorHandler {
 

@@ -51,10 +51,7 @@ public class DingMonitorHandler implements MonitorHandler {
 
             String title = "环境:[" + SpringHelper.getProfile() + "] " + "项目:" + appName + "发生异常[" + throwable.toString() + "]";
             String message = assembleMessage(monitorRequest, title, printStackStr);
-
-            System.out.println("====>" + title);
-            System.out.println("====>" + message);
-
+            
             if (enabled) {
                 dingTalkRobotClient.sendActionCardMessage(title, message);
             }

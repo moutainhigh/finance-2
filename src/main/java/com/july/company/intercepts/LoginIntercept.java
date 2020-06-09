@@ -70,7 +70,7 @@ public class LoginIntercept implements HandlerInterceptor {
         Long userInfoId = tokenHandle.decodeUserId(authToken);
         Integer loginType = tokenHandle.decodeLoginType(authToken);
 
-        log.info("缓存的用户id{0},登录类型{1}", userInfoId, loginType);
+        log.info("缓存的userId:{},loginType:{}", userInfoId, loginType);
 
         Object userIdObj = valueOperations.get(SystemConstant.CACHE_NAME + loginType + "_" + loginKey);
         if (userIdObj == null && userInfoId == null) {

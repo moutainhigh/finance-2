@@ -109,16 +109,17 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         String tokenDes = tokenHandle.encryptAuth(token, loginAuthDto.getLoginType(), checkUserInfo.getId());
 
         Company company = companyService.getById(checkUserInfo.getCompanyId());
-
         UserInfoDto userInfoDto = UserInfoDto.builder()
                 .userName(checkUserInfo.getUsername())
                 .avatar(checkUserInfo.getAvatar())
                 .mobile(checkUserInfo.getMobile())
-                .sex(checkUserInfo.getSex())
                 .id(checkUserInfo.getId())
                 .token(tokenDes)
+                .loginType(loginAuthDto.getLoginType())
                 .companyName(company != null ? company.getCompanyName() : "")
                 .build();
+
+        //格式为：login_1_948B2032A6F34492B5F0633E1D441F27
         valueOperations.set(SystemConstant.CACHE_NAME + loginAuthDto.getLoginType() + "_" + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
         updateCache(userInfoDto, loginAuthDto.getLoginType());
         return userInfoDto;
@@ -132,6 +133,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @since 2020/5/27
      */
     private void updateCache(UserInfoDto userInfoDto, Integer loginType) {
+        //格式为：login_1_4
         valueOperations.set(SystemConstant.CACHE_NAME + loginType + "_" + userInfoDto.getId(), userInfoDto, Duration.ofHours(8));
     }
 
@@ -146,8 +148,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public void logout() {
         UserInfoDto userInfoDto = UserUtils.getUser();
         if (userInfoDto != null) {
-            redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
-            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getId());
+            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getLoginType() + "_" + tokenHandle.decodeAuth(userInfoDto.getToken()));
+            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getLoginType() + "_" + userInfoDto.getId());
         }
     }
 
@@ -293,7 +295,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             userInfoDto.setId(userInfo.getId());
             userInfoDto.setAvatar(userInfo.getAvatar());
             userInfoDto.setMobile(userInfo.getMobile());
-            userInfoDto.setSex(userInfo.getSex());
             userInfoDto.setUserName(userInfo.getUsername());
         }
         return userInfoDto;

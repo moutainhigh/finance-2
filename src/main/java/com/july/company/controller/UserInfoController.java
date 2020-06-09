@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 前端控制器
@@ -170,6 +172,19 @@ public class UserInfoController {
     public ResultT<String> updateUserInfo(@RequestBody UpdateUserDto updateUserDto) {
         userInfoService.updateUserInfo(updateUserDto);
         return ResultT.ok("用户信息更新成功！");
+    }
+
+    /**
+     * 获取日志信息(首页-测试)
+     * @param
+     * @return com.july.company.response.ResultT<java.util.List < java.lang.Integer>>
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
+    @PostMapping("/getLogInfo")
+    public ResultT<List<Integer>> getLogInfo() {
+        List<Integer> logs = Arrays.asList(5, 6, 8);
+        return ResultT.ok(logs);
     }
 
 }
