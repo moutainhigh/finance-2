@@ -1,19 +1,15 @@
 package com.july.company.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
-import com.july.company.dto.user.ChangePasswordDto;
-import com.july.company.dto.user.UserDisableDto;
-import com.july.company.dto.user.UserInfoDto;
-import com.july.company.entity.UserInfo;
+import com.july.company.dto.user.*;
 import com.july.company.response.ResultT;
 import com.july.company.service.UserInfoService;
 import com.july.company.vo.login.LoginAuthVo;
 import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
+import com.july.company.vo.user.SelectUserVo;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -138,8 +134,42 @@ public class UserInfoController {
         return ResultT.ok("用户禁用成功！");
     }
 
+    /**
+     * 修改用户密码
+     * @param changePasswordDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    @PostMapping("/changePassword")
     public ResultT<String> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+        userInfoService.changePassword(changePasswordDto);
         return ResultT.ok("密码修改成功！");
+    }
+
+    /**
+     * 获取用户信息
+     * @param selectUserDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.user.SelectUserVo>
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    @PostMapping("/getUserInfo")
+    public ResultT<SelectUserVo> getUserInfo(@RequestBody SelectUserDto selectUserDto) {
+        return ResultT.ok(userInfoService.getUserInfo(selectUserDto));
+    }
+
+    /**
+     * 更新用户信息
+     * @param updateUserDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    @PostMapping("/updateUserInfo")
+    public ResultT<String> updateUserInfo(@RequestBody UpdateUserDto updateUserDto) {
+        userInfoService.updateUserInfo(updateUserDto);
+        return ResultT.ok("用户信息更新成功！");
     }
 
 }

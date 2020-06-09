@@ -13,9 +13,7 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
-import com.july.company.dto.user.ChangePasswordDto;
-import com.july.company.dto.user.UserDisableDto;
-import com.july.company.dto.user.UserInfoDto;
+import com.july.company.dto.user.*;
 import com.july.company.entity.Company;
 import com.july.company.entity.UserInfo;
 import com.july.company.entity.enums.SmsCodeEnum;
@@ -25,12 +23,12 @@ import com.july.company.mapper.UserInfoMapper;
 import com.july.company.service.CompanyService;
 import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.july.company.service.UserRoleService;
 import com.july.company.utils.Md5Utils;
 import com.july.company.utils.UUIDUtils;
 import com.july.company.utils.UserUtils;
 import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
+import com.july.company.vo.user.SelectUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -121,7 +119,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     /**
      * 用户退出
-     * @param userLogoutDto
+     * @param
      * @return void
      * @author zengxueqi
      * @since 2020/5/27
@@ -131,6 +129,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         UserInfoDto userInfoDto = UserUtils.getUser();
         if (userInfoDto != null) {
             redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
+            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getId());
         }
     }
 
@@ -359,10 +358,52 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         BnException.of(userInfo == null, "没有找到手机号为{}的用户！", changePasswordDto.getMobile());
 
         String passwordSalt = Md5Utils.generatePassword(changePasswordDto.getOldPassword(), userInfo.getPwdSalt());
-        BnException.of(!userInfo.getPassword().equals(passwordSalt), "");
+        BnException.of(!userInfo.getPassword().equals(passwordSalt), "旧密码错误，请重新输入！");
         //加密后的密码相等
-        if (userInfo.getPassword().equals(passwordSalt)) {
-            userInfo.setPassword(Md5Utils.generatePassword(changePasswordDto.getNewPassword(), userInfo.getPwdSalt()));
+        userInfo.setPassword(Md5Utils.generatePassword(changePasswordDto.getNewPassword(), userInfo.getPwdSalt()));
+        this.updateById(userInfo);
+    }
+
+    /**
+     * 获取用户信息
+     * @param selectUserDto
+     * @return com.july.company.vo.user.SelectUserVo
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    @Override
+    public SelectUserVo getUserInfo(SelectUserDto selectUserDto) {
+        BnException.of(selectUserDto.getUserId() == null, "用户id不能为空！");
+        UserInfo userInfo = this.getById(selectUserDto.getUserId());
+        if (userInfo != null) {
+            Company company = companyService.getById(userInfo.getCompanyId());
+
+            return SelectUserVo.builder()
+                    .userId(userInfo.getId())
+                    .companyName(company.getCompanyName())
+                    .mobile(userInfo.getMobile())
+                    .userName(userInfo.getUsername())
+                    .sex(userInfo.getSex())
+                    .build();
+        }
+        return SelectUserVo.builder().build();
+    }
+
+    /**
+     * 更新用户信息
+     * @param updateUserDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    @Override
+    public void updateUserInfo(UpdateUserDto updateUserDto) {
+        BnException.of(updateUserDto.getUserId() == null, "用户id不能为空！");
+        UserInfo userInfo = this.getById(updateUserDto.getUserId());
+        if (userInfo != null) {
+            userInfo.setUsername(updateUserDto.getUserName());
+            userInfo.setSex(updateUserDto.getSex());
+            this.updateById(userInfo);
         }
     }
 

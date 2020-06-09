@@ -241,7 +241,7 @@ public class MyGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
-        return new String[]{"fc_sys_role","fc_user_role"};
+        return new String[]{"fc_finance_bond_match", "fc_finance_stock_match"};
     }
 
 }

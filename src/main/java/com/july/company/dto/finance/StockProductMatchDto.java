@@ -18,6 +18,22 @@ public class StockProductMatchDto implements Serializable {
     private static final long serialVersionUID = -8152047767416797656L;
 
     /**
+     * 办公地址
+     */
+    private String workAddress;
+    /**
+     * 联系方式
+     */
+    private String tel;
+    /**
+     * 联系人
+     */
+    private String contact;
+    /**
+     * 公司介绍
+     */
+    private String introduce;
+    /**
      * 融资额度
      */
     private String financeQuota;
@@ -60,7 +76,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 产品毛利率
      */
-    private Integer productRate;
+    private String productRate;
     /**
      * 实际控制人创业经历
      */
@@ -189,5 +205,9 @@ public class StockProductMatchDto implements Serializable {
      * 净利率
      */
     private String jlr;
+    /**
+     * 保存一键匹配json信息
+     */
+    private OperateMatchDto operateMatchDto;
 
 }

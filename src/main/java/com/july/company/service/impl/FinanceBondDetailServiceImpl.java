@@ -34,8 +34,6 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
     @Resource
     private FinanceProductService financeProductService;
-    @Resource
-    private FinanceProductMapper financeProductMapper;
 
     /**
      * 获取债券融资产品明细信息
@@ -112,6 +110,18 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 .build();
     }
 
+    @Override
+    public void updateFinanceBondProductDetailById(Long Id, FinanceBondDetail financeBondDetail) {
+        QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+        queryWrapper.eq("id", Id);
+        FinanceBondDetail detail = this.getOne(queryWrapper);
+        BnException.of(detail == null, "融资产品详情信息为空");
+        financeBondDetail.setId(detail.getId());
+        this.updateById(financeBondDetail);
+    }
+
+
     /**
      * 获取债券产品的明细信息
      * @param productId
@@ -124,169 +134,6 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         queryWrapper.eq(productId != null, "productId", productId)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
-    }
-
-
-    /**
-     * 一键匹配债券产品信息
-     * @param bondProductMatchDto
-     * @return java.lang.String
-     * @author zengxueqi
-     * @since 2020/5/25
-     */
-    @Override
-    public String getBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
-        List<String> matchingData = oneKeyMatchingData(bondProductMatchDto);
-        if (!CollectionUtils.isEmpty(matchingData)) {
-            return String.join(",", matchingData);
-        }
-        return null;
-    }
-
-    /**
-     * 一键匹配的债券产品数据
-     * @param productMatchDto
-     * @return java.util.List<java.lang.Long>
-     * @author zengxueqi
-     * @since 2020/5/25
-     */
-    public List<String> oneKeyMatchingData(BondProductMatchDto productMatchDto) {
-        //TODO 目前按照匹配字段平均分配 100/21
-        double everyOne = 4.5;
-
-        List<BondProductInfoDto> productInfoDtos = financeProductMapper.getAllBondProduct();
-        //匹配上的产品
-        List<String> matchingProducts = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(productInfoDtos)) {
-            for (BondProductInfoDto productInfoDto : productInfoDtos) {
-                double matchingRate = 0.0;
-                //注册地址
-                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
-                    matchingRate += everyOne;
-                }
-                //行业方向
-                List<Node> nodes1 = productMatchDto.getIndustryDirect();
-                if (!CollectionUtils.isEmpty(nodes1)) {
-                    for (Node node : nodes1) {
-                        if (productInfoDto.getIndustryDirect().equals(node) && StringUtils.isEmpty(node.getValue())) {
-                            matchingRate += everyOne;
-                            break;
-                        }
-                    }
-                }
-                //股东背景
-                List<Node> nodes2 = productMatchDto.getShareholder();
-                if (!CollectionUtils.isEmpty(nodes2)) {
-                    for (Node node : nodes2) {
-                        if (productInfoDto.getShareholder().equals(node) && StringUtils.isEmpty(node.getValue())) {
-                            matchingRate += everyOne;
-                            break;
-                        }
-                    }
-                }
-                //营业收入
-                if (productInfoDto.getBusiness().equals(productMatchDto.getBusiness())) {
-                    matchingRate += everyOne;
-                }
-                //贷款期限
-                if (productInfoDto.getLoanTerm().equals(productMatchDto.getLoanTerm())) {
-                    matchingRate += everyOne;
-                }
-                //贷款额度
-                if (productInfoDto.getLoanQuota().equals(productMatchDto.getLoanQuota())) {
-                    matchingRate += everyOne;
-                }
-                //增信方式
-                List<Node> nodes3 = productMatchDto.getCreditType();
-                if (!CollectionUtils.isEmpty(nodes3)) {
-                    for (Node node : nodes3) {
-                        if (productInfoDto.getCreditType().equals(node) && StringUtils.isEmpty(node.getValue())) {
-                            matchingRate += everyOne;
-                            break;
-                        }
-                    }
-                }
-                //房产抵押
-                if (productInfoDto.getHouseMortgage().equals(productMatchDto.getHouseMortgage())) {
-                    matchingRate += everyOne;
-                }
-                //现金流
-                if (productInfoDto.getCashFlow().equals(productMatchDto.getCashFlow())) {
-                    matchingRate += everyOne;
-                }
-                //政府订单额
-                if (productInfoDto.getGoverOrderAmount().equals(productMatchDto.getGoverOrderAmount())) {
-                    matchingRate += everyOne;
-                }
-                //国企订单额
-                if (productInfoDto.getNationOrderAmount().equals(productMatchDto.getNationOrderAmount())) {
-                    matchingRate += everyOne;
-                }
-                //资产负债率=负债总额/资产总额
-                String debtRatio = String.format("%.2f", Double.parseDouble(productMatchDto.getLiabilitiesAmount()) / Double.parseDouble(productMatchDto.getAssetAmount()));
-                int a = (int) (Double.parseDouble(debtRatio) * 100);
-                List<Node> nodes = SystemConstant.getDebtratioInfo();
-                for (Node node : nodes) {
-                    if (node.getType().equals(productInfoDto.getDebtRatio()) && Integer.parseInt(node.getCode()) <= a && a < Integer.parseInt(node.getValue())) {
-                        matchingRate += everyOne;
-                        break;
-                    }
-                }
-                //所有者权益 TODO 暂时不匹配
-                /*if (productInfoDto.getOwner().equals(productMatchDto.getOwner())) {
-                    matchingRate += everyOne;
-                }*/
-                //企业资质
-                List<Node> nodes4 = productMatchDto.getQualification();
-                if (!CollectionUtils.isEmpty(nodes4)) {
-                    for (Node node : nodes4) {
-                        if (productInfoDto.getQualification().equals(node) && StringUtils.isEmpty(node.getValue())) {
-                            matchingRate += everyOne;
-                            break;
-                        }
-                    }
-                }
-                //本年度政府补贴
-                if (productInfoDto.getSubsidy().equals(productMatchDto.getSubsidy())) {
-                    matchingRate += everyOne;
-                }
-                //上一年度政府补贴
-                if (productInfoDto.getLastSubsidy().equals(productMatchDto.getLastSubsidy())) {
-                    matchingRate += everyOne;
-                }
-                //是否引入股权投资
-                if (productInfoDto.getBoolIntroduce().equals(productMatchDto.getBoolIntroduce())) {
-                    matchingRate += everyOne;
-                }
-                //纳税额度
-                if (productInfoDto.getTaxAmount().equals(productMatchDto.getTaxAmount())) {
-                    matchingRate += everyOne;
-                }
-                //是否有其他贷款
-                List<Node> nodes5 = productMatchDto.getBoolLoan();
-                if (!CollectionUtils.isEmpty(nodes5)) {
-                    for (Node node : nodes5) {
-                        if (productInfoDto.getBoolLoan().equals(node) && StringUtils.isEmpty(node.getValue())) {
-                            matchingRate += everyOne;
-                            break;
-                        }
-                    }
-                }
-                //现有贷款金额
-                if (productInfoDto.getExistAmount().equals(productMatchDto.getExistAmount())) {
-                    matchingRate += everyOne;
-                }
-                //净利润
-                if (productInfoDto.getJlr().equals(productMatchDto.getJlr())) {
-                    matchingRate += everyOne;
-                }
-
-                if (matchingRate > 50) {
-                    matchingProducts.add(productInfoDto.getProductId().toString());
-                }
-            }
-        }
-        return matchingProducts;
     }
 
 }

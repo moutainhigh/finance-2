@@ -2,16 +2,17 @@ package com.july.company.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.entity.Company;
+import com.july.company.dto.company.CompanyDto;
+import com.july.company.dto.company.DeleteCompanyDto;
+import com.july.company.dto.company.SelectCompanyDto;
+import com.july.company.dto.company.UpdateCompanyDto;
+
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.CompanyService;
 import com.july.company.vo.company.CompanyVo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -28,16 +29,55 @@ public class CompanyController {
     private CompanyService companyService;
 
     /**
-     * 获取公司列表信息
+     * 获取公司列表信息(admin)
+     * 获取公司列表信息分页
      * @param pageParamVo
      * @author xia.junwei
      * @since 2020/5/28
      */
     @PostMapping("/getCompanyList")
-    public ResultT<ResultT.Page<CompanyVo>> getCompanyList(@RequestBody PageParamVo<Company> pageParamVo) {
-        PageVo<Company> pager = pageParamVo.getPager();
+    public ResultT<ResultT.Page<CompanyVo>> getCompanyList(@RequestBody PageParamVo<CompanyDto> pageParamVo) {
+        PageVo<CompanyDto> pager = pageParamVo.getPager();
         IPage<CompanyVo> recordVos = companyService.getCompanyList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
         return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
+    }
+
+    /**
+     * 获取某个企业的信息(admin)
+     * @param selectCompanyDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyVo>
+     * @author zengxueqi
+     * @since 2020/6/7
+     */
+    @PostMapping("/getCompanyInfo")
+    public ResultT<CompanyVo> getCompanyInfo(@RequestBody SelectCompanyDto selectCompanyDto) {
+        return ResultT.ok(companyService.getCompanyInfo(selectCompanyDto));
+    }
+
+    /**
+     * 修改企业信息(admin)
+     * @param updateCompanyDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/7
+     */
+    @PostMapping("/updateCompany")
+    public ResultT<String> updateCompany(@RequestBody UpdateCompanyDto updateCompanyDto) {
+        companyService.updateCompany(updateCompanyDto);
+        return ResultT.ok("修改成功！");
+    }
+
+    /**
+     * 删除企业信息(admin)
+     * @param deleteCompanyDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/7
+     */
+    @PostMapping("/deleteCompany")
+    public ResultT<String> deleteCompany(@RequestBody DeleteCompanyDto deleteCompanyDto) {
+        companyService.deleteCompany(deleteCompanyDto);
+        return ResultT.ok("修改成功！");
     }
 
 }

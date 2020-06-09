@@ -59,4 +59,7 @@ public class PageParamVo<T> {
         }
     }
 
+    private Long pageSize;
+    private Long currentPage;
+
 }

@@ -18,6 +18,22 @@ public class BondProductMatchDto implements Serializable {
     private static final long serialVersionUID = -8152047767416797656L;
 
     /**
+     * 办公地址
+     */
+    private String workAddress;
+    /**
+     * 联系方式
+     */
+    private String tel;
+    /**
+     * 联系人
+     */
+    private String contact;
+    /**
+     * 公司介绍
+     */
+    private String introduce;
+    /**
      * 行业方向
      */
     private List<Node> industryDirect;
@@ -113,5 +129,16 @@ public class BondProductMatchDto implements Serializable {
      * 净利率
      */
     private String jlr;
-
+    /**
+     * 资产负债率
+     */
+    private String debtRatio;
+    /**
+     * 净资产收益率
+     */
+    private String yield;
+    /**
+     * 保存一键匹配json信息
+     */
+    private OperateMatchDto operateMatchDto;
 }

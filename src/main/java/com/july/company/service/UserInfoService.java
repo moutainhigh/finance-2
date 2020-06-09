@@ -3,13 +3,12 @@ package com.july.company.service;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
-import com.july.company.dto.user.ChangePasswordDto;
-import com.july.company.dto.user.UserDisableDto;
-import com.july.company.dto.user.UserInfoDto;
+import com.july.company.dto.user.*;
 import com.july.company.entity.UserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.login.UserInfoValidVo;
 import com.july.company.vo.sms.SmsCodeVo;
+import com.july.company.vo.user.SelectUserVo;
 
 /**
  * 用户服务
@@ -107,5 +106,23 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/6/5
      */
     void changePassword(ChangePasswordDto changePasswordDto);
+
+    /**
+     * 获取用户信息
+     * @param selectUserDto
+     * @return com.july.company.vo.user.SelectUserVo
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    SelectUserVo getUserInfo(SelectUserDto selectUserDto);
+
+    /**
+     * 更新用户信息
+     * @param updateUserDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/8
+     */
+    void updateUserInfo(UpdateUserDto updateUserDto);
 
 }

@@ -18,8 +18,8 @@ import java.io.Serializable;
 @Builder
 public class CompanyVo implements Serializable {
 
-
     private static final long serialVersionUID = -8194209243144086586L;
+
     /**
      * 公司id
      */
@@ -32,5 +32,13 @@ public class CompanyVo implements Serializable {
      * 统一信用代码
      */
     private String creditCode;
+    /**
+     * 注册时间
+     */
+    private String registerTime;
+    /**
+     * 企业状态(0=正常,1=禁用)
+     */
+    private Integer status;
 
 }
