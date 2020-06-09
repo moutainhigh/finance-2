@@ -46,10 +46,10 @@
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="desc" label="公司简介" prop="desc" class="input-item" :wrapper-col="{ span: 12, offset: 0 }">
-                        <a-textarea v-model="baseForm.desc" @blur="
+                    <a-form-model-item ref="introduce" label="公司简介" prop="introduce" class="input-item" :wrapper-col="{ span: 12, offset: 0 }">
+                        <a-textarea v-model="baseForm.introduce" @blur="
                             () => {
-                                $refs.desc.onFieldBlur();
+                                $refs.introduce.onFieldBlur();
                             }
                             "
                         />
@@ -383,17 +383,17 @@ export default {
                 tel:'',
                 registerAddress:'',
                 workAddress:'',
-                desc:''
+                introduce:''
             },
             baseRules:{
                 tel:[
                     {required:true,message:'请输入联系电话',trigger:'blur'},
                     { validator: validateMobile, trigger: 'blur' },
                 ],
-                username:[{required:true,message:'请输入联系人',trigger:'blur'}],
+                contact:[{required:true,message:'请输入联系人',trigger:'blur'}],
                 registerAddress:[{required:true,message:'请选择注册地址',trigger:'blur'}],
                 workAddress:[{required:true,message:'请输入办公地址',trigger:'blur'}],
-                desc:[{required:true,message:'请输入公司简介',trigger:'blur'}],
+                introduce:[{required:true,message:'请输入公司简介',trigger:'blur'}],
             },
             matchForm:{
                 financeQuota:"",
