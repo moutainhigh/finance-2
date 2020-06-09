@@ -14,7 +14,7 @@
         where
         m.parent_id  = 0
         and m.is_show = true
-        order by m.sort desc
+        order by m.sort asc
     </select>
 
     <select id="getAllSysMenu" resultType="com.july.company.entity.SysMenu">
@@ -24,7 +24,7 @@
         fc_sys_menu m
         where
         m.is_show = true
-        order by m.sort desc
+        order by m.sort asc
     </select>
 
     <resultMap type="com.july.company.entity.SysMenu" id="getSelf">
@@ -79,7 +79,7 @@
         <if test="isShow == true">
             and is_show = #{isShow}
         </if>
-        order by sort desc
+        order by sort asc
     </select>
 
 </mapper>

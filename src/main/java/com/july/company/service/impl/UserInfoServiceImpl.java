@@ -11,6 +11,7 @@ import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.login.*;
+import com.july.company.dto.role.UserRoleDto;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
 import com.july.company.dto.user.*;
@@ -23,6 +24,7 @@ import com.july.company.mapper.UserInfoMapper;
 import com.july.company.service.CompanyService;
 import com.july.company.service.UserInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.UserRoleService;
 import com.july.company.utils.Md5Utils;
 import com.july.company.utils.UUIDUtils;
 import com.july.company.utils.UserUtils;
@@ -35,10 +37,12 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.time.Duration;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -69,13 +73,27 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     private TokenHandle tokenHandle;
     @Resource
     private CompanyService companyService;
+    @Resource
+    private UserRoleService userRoleService;
 
+    /**
+     * 用户登录信息
+     * @param loginAuthDto
+     * @return com.july.company.dto.user.UserInfoDto
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
     @Override
     public UserInfoDto login(LoginAuthDto loginAuthDto) {
         String mobile = loginAuthDto.getMobile();
         log.trace("用户手机:{},登录系统", loginAuthDto.getMobile());
         //数据库匹配用户
         UserInfo userInfo = this.getUserInfoByMobile(loginAuthDto.getMobile());
+
+        if (SystemConstant.SYS_TRUE.equals(loginAuthDto.getLoginType())) {
+            List<UserRoleDto> userRoleDtos = userRoleService.getUserRole(userInfo.getId());
+            BnException.of(CollectionUtils.isEmpty(userRoleDtos), "你不是系统管理员，无法登录后台！");
+        }
 
         BnException.of(userInfo == null, "用户不存在");
         BnException.of(SystemConstant.SYS_TRUE.equals(userInfo.getStatus()), "当前账号已经被禁用，请联系管理员！");
@@ -88,21 +106,22 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             throw BnException.on("账号已被删除");
         }
         String token = UUIDUtils.getReplaceUuid();
-        String tokenDes = tokenHandle.encryptAuth(token, checkUserInfo.getId());
+        String tokenDes = tokenHandle.encryptAuth(token, loginAuthDto.getLoginType(), checkUserInfo.getId());
 
         Company company = companyService.getById(checkUserInfo.getCompanyId());
-
         UserInfoDto userInfoDto = UserInfoDto.builder()
                 .userName(checkUserInfo.getUsername())
                 .avatar(checkUserInfo.getAvatar())
                 .mobile(checkUserInfo.getMobile())
-                .sex(checkUserInfo.getSex())
                 .id(checkUserInfo.getId())
                 .token(tokenDes)
+                .loginType(loginAuthDto.getLoginType())
                 .companyName(company != null ? company.getCompanyName() : "")
                 .build();
-        valueOperations.set(SystemConstant.CACHE_NAME + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
-        updateCache(userInfoDto);
+
+        //格式为：login_1_948B2032A6F34492B5F0633E1D441F27
+        valueOperations.set(SystemConstant.CACHE_NAME + loginAuthDto.getLoginType() + "_" + token, userInfoDto.getId(), SystemConstant.EXPIRE_LOGIN, TimeUnit.MINUTES);
+        updateCache(userInfoDto, loginAuthDto.getLoginType());
         return userInfoDto;
     }
 
@@ -113,8 +132,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
      * @author zengxueqi
      * @since 2020/5/27
      */
-    private void updateCache(UserInfoDto userInfoDto) {
-        valueOperations.set(SystemConstant.CACHE_NAME + userInfoDto.getId(), userInfoDto, Duration.ofHours(8));
+    private void updateCache(UserInfoDto userInfoDto, Integer loginType) {
+        //格式为：login_1_4
+        valueOperations.set(SystemConstant.CACHE_NAME + loginType + "_" + userInfoDto.getId(), userInfoDto, Duration.ofHours(8));
     }
 
     /**
@@ -128,8 +148,8 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public void logout() {
         UserInfoDto userInfoDto = UserUtils.getUser();
         if (userInfoDto != null) {
-            redisTemplate.delete(SystemConstant.CACHE_NAME + tokenHandle.decodeAuth(userInfoDto.getToken()));
-            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getId());
+            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getLoginType() + "_" + tokenHandle.decodeAuth(userInfoDto.getToken()));
+            redisTemplate.delete(SystemConstant.CACHE_NAME + userInfoDto.getLoginType() + "_" + userInfoDto.getId());
         }
     }
 
@@ -275,7 +295,6 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             userInfoDto.setId(userInfo.getId());
             userInfoDto.setAvatar(userInfo.getAvatar());
             userInfoDto.setMobile(userInfo.getMobile());
-            userInfoDto.setSex(userInfo.getSex());
             userInfoDto.setUserName(userInfo.getUsername());
         }
         return userInfoDto;

@@ -33,10 +33,6 @@ public class UserInfoDto implements Serializable {
      */
     private String avatar;
     /**
-     * 性别
-     */
-    private Integer sex;
-    /**
      * 用户ID
      */
     private Long id;
@@ -48,5 +44,9 @@ public class UserInfoDto implements Serializable {
      * 公司名称
      */
     private String companyName;
+    /**
+     * 登录类型(0=前台登录，1=后台登录)
+     */
+    private Integer loginType;
 
 }
