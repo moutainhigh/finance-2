@@ -4,19 +4,18 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
-import com.july.company.dictionary.DictInit;
 import com.july.company.dto.company.CompanyDto;
 import com.july.company.dto.company.DeleteCompanyDto;
 import com.july.company.dto.company.SelectCompanyDto;
 import com.july.company.dto.company.UpdateCompanyDto;
 import com.july.company.entity.Company;
+
 import com.july.company.exception.BnException;
 import com.july.company.mapper.CompanyMapper;
 import com.july.company.service.CompanyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.DateUtils;
 import com.july.company.vo.company.CompanyVo;
-import com.july.company.vo.finance.FinanceStockProductVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -130,7 +129,6 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
         companyIdList.stream().forEach(s -> {
             Company company = this.getById(Long.parseLong(s));
             BnException.of(company == null, "没有找到该企业信息！");
-
             company.setDeleted(SystemConstant.SYS_TRUE);
             this.updateById(company);
         });

@@ -1,15 +1,14 @@
 package com.july.company.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.dto.finance.FinanceBondProductDto;
-import com.july.company.dto.finance.FinanceStockProductDto;
-import com.july.company.dto.finance.OneProductDto;
-import com.july.company.dto.finance.ProductMatchDto;
+import com.july.company.constant.SystemConstant;
+import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.vo.finance.FinanceBondProductVo;
-import com.july.company.vo.finance.FinanceStockProductVo;
+import com.july.company.entity.FinanceStockDetail;
+import com.july.company.vo.finance.*;
 
 /**
  * 融资产品信息 服务类
@@ -47,4 +46,25 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      */
     void deleteProduct(OneProductDto oneProductDto);
 
+    /**
+     * 获取股权融资信息分页（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    IPage<StockListVo> getStockList(Page<ListConditionDto> page, ListConditionDto content);
+
+    /**
+     * 获取股权产品的信息
+     * @param id
+     * @author xiajunwei
+     * @since 2020/6/8
+     */
+    public FinanceProduct getFinanceProductById(Long id);
+
+    /**
+     * 获取债权融资信息分页（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto);
 }

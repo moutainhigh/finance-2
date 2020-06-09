@@ -6,16 +6,13 @@ import com.july.company.dto.company.CompanyDto;
 import com.july.company.dto.company.DeleteCompanyDto;
 import com.july.company.dto.company.SelectCompanyDto;
 import com.july.company.dto.company.UpdateCompanyDto;
-import com.july.company.entity.Company;
+
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.CompanyService;
 import com.july.company.vo.company.CompanyVo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -33,6 +30,7 @@ public class CompanyController {
 
     /**
      * 获取公司列表信息(admin)
+     * 获取公司列表信息分页
      * @param pageParamVo
      * @author xia.junwei
      * @since 2020/5/28

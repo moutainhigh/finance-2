@@ -9,7 +9,6 @@ import com.july.company.dto.company.UpdateCompanyDto;
 import com.july.company.entity.Company;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.company.CompanyVo;
-import com.july.company.vo.finance.FinanceStockProductVo;
 
 /**
  * 注册的公司信息 服务类
