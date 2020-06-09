@@ -1,22 +1,26 @@
 package com.july.company.entity;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.july.company.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
+
 /**
  * 融资公司明细信息
  * @author zengxueqi
  * @since 2020-05-26
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("fc_finance_stock_detail")
-public class FinanceStockDetail extends BaseEntity{
+public class FinanceStockDetail extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

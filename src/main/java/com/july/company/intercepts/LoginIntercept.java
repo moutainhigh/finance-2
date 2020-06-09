@@ -76,7 +76,7 @@ public class LoginIntercept implements HandlerInterceptor {
         }
 
         //用户禁用时，判断用户是否登录，如果登录了，则把login_token缓存删除，login_userId还存在，其他任务时候都是login_token+login_userId一起缓存并同时存在
-        if (userIdObj == null && tokenUserIdObj != null) {
+        if (userIdObj == null && tokenUserIdObj == null) {
             throw new BnException(BnException.USER_ERR, "当前账号已经被禁用，无法正常使用！");
             /*UserInfo userInfo = userInfoService.getById(userInfoId);
             if (userInfo != null) {

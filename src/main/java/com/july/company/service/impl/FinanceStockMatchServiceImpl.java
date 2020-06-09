@@ -5,6 +5,7 @@ import com.july.company.dto.finance.StockProductInfoDto;
 import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
+import com.july.company.entity.FinanceStockDetail;
 import com.july.company.entity.FinanceStockMatch;
 import com.july.company.entity.UserInfo;
 import com.july.company.exception.BnException;
@@ -207,13 +208,21 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "用户信息获取失败！");
 
+        FinanceStockDetail financeStockDetail = FinanceStockDetail.builder()
+                //id,productId,registerAddress,financeState,financeQuota,industryDirect,shareholder,business,productState,businessAddRate,productRate,netInterestRate,oldFinanceQuota,experience,staffCount,marketCapacity,marketAddRate,targetCustomer,marketOccupyRate,boolBuyBack,patentCount,advantage,capitals,evaluateName,timeToMarket,companyStatus,createdTime,updatedTime,deleted
+                .build();
+
         //获取公司信息并更新
         UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
         Company company = companyService.getById(userInfo.getCompanyId());
 
-        //保存公司信息
+        //更新公司信息
         company.setRegisterAddress(stockProductMatchDto.getRegisterAddress().getValue());
-        //company.setWorkAddress(stockProductMatchDto.get)
+        company.setWorkAddress(stockProductMatchDto.getWorkAddress());
+        company.setContact(stockProductMatchDto.getContact());
+        company.setTel(stockProductMatchDto.getTel());
+        company.setIntroduce(stockProductMatchDto.getIntroduce());
+        companyService.updateById(company);
     }
 
 }
