@@ -19,10 +19,12 @@ public interface FinanceBondMatchService extends IService<FinanceBondMatch> {
      * @since 2020/5/25
      */
     String getBondOneKeyMatching(BondProductMatchDto bondProductMatchDto);
+
     /**
      * 一键匹配保存债券产品信息
      * @author xiajunwei
      * @since 2020/6/9
      */
     void saveBondOneKeyMatching(BondProductMatchDto bondProductMatchDto);
+
 }

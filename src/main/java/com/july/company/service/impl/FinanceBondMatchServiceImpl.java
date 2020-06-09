@@ -1,6 +1,5 @@
 package com.july.company.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.BondProductInfoDto;
@@ -41,6 +40,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     private FinanceBondDetailService financeBondDetailService;
     @Resource
     private OperateDataService operateDataService;
+
     /**
      * 一键匹配债券产品信息
      * @param bondProductMatchDto
@@ -61,9 +61,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     public void saveBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "用户信息获取失败！");
-        //获取公司信息并更新
+
+        //获取公司信息
         UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
         Company company = companyService.getById(userInfo.getCompanyId());
+
         //保存债权融资匹配信息
         FinanceBondDetail financeBondDetail = FinanceBondDetail.builder()
                 .registerAddress(getCode(bondProductMatchDto.getRegisterAddress().getCode(), bondProductMatchDto.getRegisterAddress().getValue()))
@@ -278,25 +280,6 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             }
         }
         return matchingProducts;
-    }
-
-    /**
-     * 保存匹配数据
-     * @param bondProductMatchDto
-     * @return void
-     * @author zengxueqi
-     * @since 2020/6/8
-     */
-    public void saveMatchingData(BondProductMatchDto bondProductMatchDto) {
-        UserInfoDto userInfoDto = UserUtils.getUser();
-        BnException.of(userInfoDto == null, "用户信息获取失败！");
-
-
-        FinanceBondMatch financeBondMatch = new FinanceBondMatch();
-        BeanUtils.copyProperties(bondProductMatchDto, financeBondMatch);
-
-        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
-        Company company = companyService.getById(userInfo.getCompanyId());
     }
 
 }
