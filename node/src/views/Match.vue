@@ -788,7 +788,7 @@ export default {
                 console.log(res)
                 this.spinning=false;
                 if(res.data.code==0){
-                    this.$message.success('匹配成功，跳转中');
+                    // this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('zids',res.data.content);
                     this.$router.push({name:'Zhaiquan'})
                 }else{
@@ -849,7 +849,7 @@ export default {
             this.$http.postWithAuth('/finance/financeStockMatch/getStockOneKeyMatching',params).then(res=>{
                 this.spinning=false
                 if(res.data.code==0){
-                    this.$message.success('匹配成功，跳转中');
+                    // this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('ids',res.data.content);
                     this.$router.push({name:'Guquan'})
                 }else{
