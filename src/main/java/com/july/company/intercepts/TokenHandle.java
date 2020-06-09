@@ -13,7 +13,7 @@ public interface TokenHandle {
      * @param rawStr 原始字符串
      * @return 加密后的内容
      */
-    String encryptAuth(String rawStr, Long userId);
+    String encryptAuth(String rawStr, Integer loginType, Long userId);
 
     /**
      * 解密认证
@@ -28,5 +28,12 @@ public interface TokenHandle {
      * @return 解密后的内容
      */
     Long decodeUserId(String authStr);
+
+    /**
+     * 解密获取loginType
+     * @param authStr 加密后传入的字符串
+     * @return 解密后的内容
+     */
+    Integer decodeLoginType(String authStr);
 
 }

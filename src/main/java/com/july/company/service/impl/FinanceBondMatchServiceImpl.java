@@ -12,7 +12,6 @@ import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.UserUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
