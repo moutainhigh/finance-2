@@ -43,4 +43,30 @@ public class Company extends BaseEntity {
     @TableField("status")
     private Integer status;
 
+    /**
+     * 注册地址
+     */
+    @TableField("registerAddress")
+    private String registerAddress;
+    /**
+     * 办公地址
+     */
+    @TableField("workAddress")
+    private String workAddress;
+    /**
+     * 联系方式
+     */
+    @TableField("tel")
+    private String tel;
+    /**
+     * 公司介绍
+     */
+    @TableField("introduce")
+    private String introduce;
+    /**
+     * 联系人
+     */
+    @TableField("contact")
+    private String contact;
+
 }

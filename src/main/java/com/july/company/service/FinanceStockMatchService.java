@@ -20,4 +20,13 @@ public interface FinanceStockMatchService extends IService<FinanceStockMatch> {
      */
     String getStockOneKeyMatching(StockProductMatchDto stockProductMatchDto);
 
+    /**
+     * 保存股权融资匹配信息
+     * @param stockProductMatchDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
+    void saveStockOneKeyMatching(StockProductMatchDto stockProductMatchDto);
+
 }

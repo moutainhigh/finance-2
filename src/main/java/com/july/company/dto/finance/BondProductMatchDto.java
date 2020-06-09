@@ -18,6 +18,22 @@ public class BondProductMatchDto implements Serializable {
     private static final long serialVersionUID = -8152047767416797656L;
 
     /**
+     * 办公地址
+     */
+    private String workAddress;
+    /**
+     * 联系方式
+     */
+    private String tel;
+    /**
+     * 联系人
+     */
+    private String contact;
+    /**
+     * 公司介绍
+     */
+    private String introduce;
+    /**
      * 行业方向
      */
     private List<Node> industryDirect;

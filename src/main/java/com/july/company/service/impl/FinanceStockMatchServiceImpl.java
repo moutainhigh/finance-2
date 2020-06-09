@@ -3,11 +3,18 @@ package com.july.company.service.impl;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.StockProductInfoDto;
 import com.july.company.dto.finance.StockProductMatchDto;
+import com.july.company.dto.user.UserInfoDto;
+import com.july.company.entity.Company;
 import com.july.company.entity.FinanceStockMatch;
+import com.july.company.entity.UserInfo;
+import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.mapper.FinanceStockMatchMapper;
+import com.july.company.service.CompanyService;
 import com.july.company.service.FinanceStockMatchService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.UserInfoService;
+import com.july.company.utils.UserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -26,6 +33,10 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
 
     @Resource
     private FinanceProductMapper financeProductMapper;
+    @Resource
+    private UserInfoService userInfoService;
+    @Resource
+    private CompanyService companyService;
 
     /**
      * 一键匹配股权产品信息
@@ -183,6 +194,26 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
             }
         }
         return matchingProducts;
+    }
+
+    /**
+     * 保存股权融资匹配信息
+     * @param stockProductMatchDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
+    public void saveStockOneKeyMatching(StockProductMatchDto stockProductMatchDto) {
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        BnException.of(userInfoDto == null, "用户信息获取失败！");
+
+        //获取公司信息并更新
+        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
+        Company company = companyService.getById(userInfo.getCompanyId());
+
+        //保存公司信息
+        company.setRegisterAddress(stockProductMatchDto.getRegisterAddress().getValue());
+        //company.setWorkAddress(stockProductMatchDto.get)
     }
 
 }
