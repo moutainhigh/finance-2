@@ -72,7 +72,8 @@ export default {
         return {
             loginForm:{
                 mobile:'',
-                password:''
+                password:'',
+                loginType:0
             },
             rules: {
                 mobile: [
