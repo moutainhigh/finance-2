@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.july.company.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -15,6 +14,9 @@ import lombok.experimental.Accessors;
  * @since 2020-06-08
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("fc_finance_bond_match")
@@ -54,5 +56,11 @@ public class FinanceBondMatch extends BaseEntity {
      */
     @TableField("owner")
     private String owner;
+
+    /**
+     * 企业id
+     */
+    @TableField("companyId")
+    private Long companyId;
 
 }

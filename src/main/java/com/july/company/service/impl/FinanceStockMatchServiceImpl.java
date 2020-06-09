@@ -1,20 +1,16 @@
 package com.july.company.service.impl;
 
 import com.july.company.dto.Node;
+import com.july.company.dto.finance.OperateMatchDto;
 import com.july.company.dto.finance.StockProductInfoDto;
 import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.dto.user.UserInfoDto;
-import com.july.company.entity.Company;
-import com.july.company.entity.FinanceStockDetail;
-import com.july.company.entity.FinanceStockMatch;
-import com.july.company.entity.UserInfo;
+import com.july.company.entity.*;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.mapper.FinanceStockMatchMapper;
-import com.july.company.service.CompanyService;
-import com.july.company.service.FinanceStockMatchService;
+import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.july.company.service.UserInfoService;
 import com.july.company.utils.UserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -23,6 +19,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 股权融资一键匹配 服务实现类
@@ -38,6 +35,10 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
     private UserInfoService userInfoService;
     @Resource
     private CompanyService companyService;
+    @Resource
+    private FinanceStockDetailService financeStockDetailService;
+    @Resource
+    private OperateDataService operateDataService;
 
     /**
      * 一键匹配股权产品信息
@@ -204,17 +205,54 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
      * @author zengxueqi
      * @since 2020/6/9
      */
+    @Override
     public void saveStockOneKeyMatching(StockProductMatchDto stockProductMatchDto) {
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "用户信息获取失败！");
 
-        FinanceStockDetail financeStockDetail = FinanceStockDetail.builder()
-                //id,productId,registerAddress,financeState,financeQuota,industryDirect,shareholder,business,productState,businessAddRate,productRate,netInterestRate,oldFinanceQuota,experience,staffCount,marketCapacity,marketAddRate,targetCustomer,marketOccupyRate,boolBuyBack,patentCount,advantage,capitals,evaluateName,timeToMarket,companyStatus,createdTime,updatedTime,deleted
-                .build();
-
         //获取公司信息并更新
         UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
         Company company = companyService.getById(userInfo.getCompanyId());
+
+        //保存股权融资匹配信息
+        FinanceStockDetail financeStockDetail = FinanceStockDetail.builder()
+                .financeState(getCode(stockProductMatchDto.getFinanceState().getCode(), stockProductMatchDto.getFinanceState().getValue()))
+                .financeQuota(stockProductMatchDto.getFinanceQuota())
+                .industryDirect(getCode(stockProductMatchDto.getIndustryDirect().getCode(), stockProductMatchDto.getIndustryDirect().getValue()))
+                .shareholder(getCode(stockProductMatchDto.getShareholder().getCode(), stockProductMatchDto.getShareholder().getValue()))
+                .business(stockProductMatchDto.getBusiness())
+                .productState(getCode(stockProductMatchDto.getProductState().getCode(), stockProductMatchDto.getProductState().getValue()))
+                .businessAddRate(stockProductMatchDto.getBusinessAddRate())
+                .productRate(stockProductMatchDto.getProductRate())
+                .netInterestRate(stockProductMatchDto.getNetInterestRate())
+                .oldFinanceQuota(stockProductMatchDto.getOldFinanceQuota())
+                .experience(stockProductMatchDto.getExperience())
+                .staffCount(stockProductMatchDto.getStaffCount())
+                .marketCapacity(stockProductMatchDto.getMarketCapacity())
+                .marketAddRate(stockProductMatchDto.getMarketAddRate())
+                .targetCustomer(getListStr(stockProductMatchDto.getTargetCustomer()))
+                .marketOccupyRate(stockProductMatchDto.getMarketOccupyRate())
+                .boolBuyBack(stockProductMatchDto.getBoolBuyBack())
+                .patentCount(stockProductMatchDto.getPatentCount())
+                .advantage(getListStr(stockProductMatchDto.getAdvantage()))
+                .capitals(stockProductMatchDto.getCapitals())
+                .evaluateName(getListStr(stockProductMatchDto.getEvaluateName()))
+                //.timeToMarket(stockProductMatchDto.getTimeToMarket())
+                //.companyStatus(stockProductMatchDto.getCompanyStatus())
+                .build();
+        financeStockDetailService.save(financeStockDetail);
+
+        //保存一键匹配的信息
+        FinanceStockMatch financeStockMatch = FinanceStockMatch.builder()
+                .companyId(company.getId())
+                .detailId(financeStockDetail.getId())
+                .companyStatus(stockProductMatchDto.getCompanyStatus())
+                .timeToMarket(stockProductMatchDto.getTimeToMarket())
+                .build();
+        this.save(financeStockMatch);
+
+        //保存一键匹配json信息
+        operateDataService.saveOrUpdateMatchData(stockProductMatchDto.getOperateMatchDto());
 
         //更新公司信息
         company.setRegisterAddress(stockProductMatchDto.getRegisterAddress().getValue());
@@ -223,6 +261,22 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
         company.setTel(stockProductMatchDto.getTel());
         company.setIntroduce(stockProductMatchDto.getIntroduce());
         companyService.updateById(company);
+    }
+
+    public String getCode(String code, String value) {
+        if (StringUtils.isEmpty(value)) {
+            return code;
+        } else {
+            return value;
+        }
+    }
+
+    public String getListStr(List<Node> nodes) {
+        if (!CollectionUtils.isEmpty(nodes)) {
+            List<String> codes = nodes.stream().map(node -> getCode(node.getCode(), node.getValue())).collect(Collectors.toList());
+            return String.join(",", codes);
+        }
+        return "";
     }
 
 }

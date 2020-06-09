@@ -45,9 +45,9 @@ public class MarkDownTest {
         //接口地址，不设置默认为：http://localhost:8080
         config.setServerUrl("http://127.0.0.1:9001/finance");
         //指定控制器
-        config.setControllerName("com.july.company.controller.OperateDataController");
+        config.setControllerName("com.july.company.controller.FinanceStockMatchController");
         //指定控制器里面的那个接口
-        config.setMethodName("saveOrUpdateMatchData");
+        config.setMethodName("saveStockOneKeyMatching");
         //show doc错误代码列表页面地址
         //config.setErrorUrl("http://api-doc.sjhh-inner.com/web/#/73?page_id=2872");
         //不指定SourcePaths默认加载代码为项目src/main/java下的

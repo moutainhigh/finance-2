@@ -76,7 +76,7 @@ public class StockProductMatchDto implements Serializable {
     /**
      * 产品毛利率
      */
-    private Integer productRate;
+    private String productRate;
     /**
      * 实际控制人创业经历
      */

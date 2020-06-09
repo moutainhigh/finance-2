@@ -4,8 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.july.company.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 /**
  * <p>
@@ -16,6 +15,9 @@ import lombok.experimental.Accessors;
  * @since 2020-06-08
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("fc_finance_stock_match")
@@ -27,6 +29,12 @@ public class FinanceStockMatch extends BaseEntity{
     private Long id;
 
     /**
+     * 企业id
+     */
+    @TableField("companyId")
+    private Long companyId;
+
+    /**
      * 股权融资产品id
      */
     @TableField("detailId")
@@ -36,12 +44,12 @@ public class FinanceStockMatch extends BaseEntity{
      * 企业状态
      */
     @TableField("companyStatus")
-    private Integer companyStatus;
+    private String companyStatus;
 
     /**
      * 预计上市时间
      */
     @TableField("timeToMarket")
-    private Integer timeToMarket;
+    private String timeToMarket;
 
 }

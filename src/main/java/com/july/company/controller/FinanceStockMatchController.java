@@ -46,6 +46,7 @@ public class FinanceStockMatchController {
      */
     @PostMapping("/saveStockOneKeyMatching")
     public ResultT<String> saveStockOneKeyMatching(@RequestBody StockProductMatchDto stockProductMatchDto) {
+        financeStockMatchService.saveStockOneKeyMatching(stockProductMatchDto);
         return ResultT.ok("保存成功！");
     }
 
