@@ -30,18 +30,18 @@
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="username" label="联系人" prop="username" class="input-item">
-                        <a-input v-model="baseForm.username" @blur="
+                    <a-form-model-item ref="contact" label="联系人" prop="contact" class="input-item">
+                        <a-input v-model="baseForm.contact" @blur="
                             () => {
-                                $refs.username.onFieldBlur();
+                                $refs.contact.onFieldBlur();
                             }
                             "
                         />
                     </a-form-model-item>
-                    <a-form-model-item ref="mobile" label="联系方式" prop="mobile" class="input-item">
-                        <a-input v-model="baseForm.mobile" @blur="
+                    <a-form-model-item ref="tel" label="联系方式" prop="tel" class="input-item">
+                        <a-input v-model="baseForm.tel" @blur="
                             () => {
-                                $refs.mobile.onFieldBlur();
+                                $refs.tel.onFieldBlur();
                             }
                             "
                         />
@@ -379,14 +379,14 @@ export default {
             isForget:false,
             active:0,
             baseForm:{
-                username:'',
-                mobile:'',
+                contact:'',
+                tel:'',
                 registerAddress:'',
                 workAddress:'',
                 desc:''
             },
             baseRules:{
-                mobile:[
+                tel:[
                     {required:true,message:'请输入联系电话',trigger:'blur'},
                     { validator: validateMobile, trigger: 'blur' },
                 ],
