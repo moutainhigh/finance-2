@@ -45,6 +45,7 @@ public class FinanceBondMatchController {
      */
     @PostMapping("/saveBondOneKeyMatching")
     public ResultT<String> saveBondOneKeyMatching(@RequestBody BondProductMatchDto bondProductMatchDto) {
+        financeBondMatchService.saveBondOneKeyMatching(bondProductMatchDto);
         return ResultT.ok("保存成功！");
     }
 

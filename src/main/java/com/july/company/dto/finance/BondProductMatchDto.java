@@ -129,5 +129,16 @@ public class BondProductMatchDto implements Serializable {
      * 净利率
      */
     private String jlr;
-
+    /**
+     * 资产负债率
+     */
+    private String debtRatio;
+    /**
+     * 净资产收益率
+     */
+    private String yield;
+    /**
+     * 保存一键匹配json信息
+     */
+    private OperateMatchDto operateMatchDto;
 }

@@ -8,6 +8,7 @@ import com.july.company.dto.company.CompanyDto;
 import com.july.company.dto.company.DeleteCompanyDto;
 import com.july.company.dto.company.SelectCompanyDto;
 import com.july.company.dto.company.UpdateCompanyDto;
+import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
 
 import com.july.company.exception.BnException;
@@ -133,5 +134,21 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
             this.updateById(company);
         });
     }
+    /**
+     * 通过用户查询公司信息
+     * @author xiajunwei
+     * @since 2020/6/9
+     */
+    public Company getCompanyByUser(UserInfoDto userInfoDto){
+        QueryWrapper<Company> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+        queryWrapper.eq("companyName", userInfoDto.getCompanyName());
+        Company company = this.getOne(queryWrapper);
+        return company;
+    }
 
+    @Override
+    public void updateCompanyForSaveOneMatch(Company company) {
+        this.updateById(company);
+    }
 }

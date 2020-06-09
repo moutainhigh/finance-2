@@ -6,6 +6,7 @@ import com.july.company.dto.company.CompanyDto;
 import com.july.company.dto.company.DeleteCompanyDto;
 import com.july.company.dto.company.SelectCompanyDto;
 import com.july.company.dto.company.UpdateCompanyDto;
+import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.company.CompanyVo;
@@ -60,5 +61,18 @@ public interface CompanyService extends IService<Company> {
      * @since 2020/6/7
      */
     void deleteCompany(DeleteCompanyDto deleteCompanyDto);
+    /**
+     * 通过用户查询公司信息
+     * @author xiajunwei
+     * @since 2020/6/9
+     */
+    public Company getCompanyByUser(UserInfoDto userInfoDto);
 
+    /**
+     * 一件匹配保存修改企业信息
+     * @return void
+     * @author xiajunwei
+     * @since 2020/6/9
+     */
+    void updateCompanyForSaveOneMatch(Company company);
 }

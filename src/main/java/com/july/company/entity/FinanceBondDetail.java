@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.july.company.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,6 +17,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("fc_finance_bond_detail")
+@Builder
 public class FinanceBondDetail extends BaseEntity{
 
     private static final long serialVersionUID = 1L;
@@ -178,5 +180,11 @@ public class FinanceBondDetail extends BaseEntity{
      */
     @TableField("yield")
     private String yield;
+    /**
+     * 上一年度政府补贴
+     */
+    @TableField("lastSubsidy")
+    private String lastSubsidy;
+
 
 }
