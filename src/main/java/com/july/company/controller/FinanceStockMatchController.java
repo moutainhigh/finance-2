@@ -37,4 +37,16 @@ public class FinanceStockMatchController {
         return ResultT.ok(financeStockMatchService.getStockOneKeyMatching(stockProductMatchDto));
     }
 
+    /**
+     * 保存股权融资匹配信息
+     * @param stockProductMatchDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
+    @PostMapping("/saveStockOneKeyMatching")
+    public ResultT<String> saveStockOneKeyMatching(@RequestBody StockProductMatchDto stockProductMatchDto) {
+        return ResultT.ok("保存成功！");
+    }
+
 }

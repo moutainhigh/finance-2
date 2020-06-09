@@ -36,4 +36,16 @@ public class FinanceBondMatchController {
         return ResultT.ok(financeBondMatchService.getBondOneKeyMatching(bondProductMatchDto));
     }
 
+    /**
+     * 保存债券融资匹配信息
+     * @param bondProductMatchDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/9
+     */
+    @PostMapping("/saveBondOneKeyMatching")
+    public ResultT<String> saveBondOneKeyMatching(@RequestBody BondProductMatchDto bondProductMatchDto) {
+        return ResultT.ok("保存成功！");
+    }
+
 }

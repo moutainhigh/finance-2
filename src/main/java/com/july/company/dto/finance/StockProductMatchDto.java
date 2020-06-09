@@ -189,5 +189,9 @@ public class StockProductMatchDto implements Serializable {
      * 净利率
      */
     private String jlr;
+    /**
+     * 保存一键匹配json信息
+     */
+    private OperateMatchDto operateMatchDto;
 
 }

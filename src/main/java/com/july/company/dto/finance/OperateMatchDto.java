@@ -1,10 +1,8 @@
 package com.july.company.dto.finance;
 
-import com.july.company.dto.Node;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 产品匹配信息
@@ -29,4 +27,5 @@ public class OperateMatchDto implements Serializable {
      * 操作数据
      */
     private String content;
+
 }
