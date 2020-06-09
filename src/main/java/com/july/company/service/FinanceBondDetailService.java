@@ -22,4 +22,11 @@ public interface FinanceBondDetailService extends IService<FinanceBondDetail> {
      */
     FinanceBondProductDetailVo getFinanceBondProductDetail(FinanceProductDetailDto financeProductDetailDto);
 
+    /**
+     * 获取根据Id更改融资产品明细信息
+     * @author xiajunwei
+     * @since 2020/6/9
+     */
+    void updateFinanceBondProductDetailById(Long Id, FinanceBondDetail financeBondDetail);
+
 }

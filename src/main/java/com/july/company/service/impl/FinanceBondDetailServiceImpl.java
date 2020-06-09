@@ -110,6 +110,18 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 .build();
     }
 
+    @Override
+    public void updateFinanceBondProductDetailById(Long Id, FinanceBondDetail financeBondDetail) {
+        QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+        queryWrapper.eq("id", Id);
+        FinanceBondDetail detail = this.getOne(queryWrapper);
+        BnException.of(detail == null, "融资产品详情信息为空");
+        financeBondDetail.setId(detail.getId());
+        this.updateById(financeBondDetail);
+    }
+
+
     /**
      * 获取债券产品的明细信息
      * @param productId

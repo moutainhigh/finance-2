@@ -1,20 +1,17 @@
 package com.july.company.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.BondProductInfoDto;
 import com.july.company.dto.finance.BondProductMatchDto;
 import com.july.company.dto.user.UserInfoDto;
-import com.july.company.entity.Company;
-import com.july.company.entity.FinanceBondMatch;
-import com.july.company.entity.UserInfo;
+import com.july.company.entity.*;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceBondMatchMapper;
 import com.july.company.mapper.FinanceProductMapper;
-import com.july.company.service.CompanyService;
-import com.july.company.service.FinanceBondMatchService;
+import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.july.company.service.UserInfoService;
 import com.july.company.utils.UserUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -24,6 +21,7 @@ import org.springframework.util.StringUtils;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 债券融资一键匹配 服务实现类
@@ -39,7 +37,10 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     private UserInfoService userInfoService;
     @Resource
     private CompanyService companyService;
-
+    @Resource
+    private FinanceBondDetailService financeBondDetailService;
+    @Resource
+    private OperateDataService operateDataService;
     /**
      * 一键匹配债券产品信息
      * @param bondProductMatchDto
@@ -54,6 +55,83 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             return String.join(",", matchingData);
         }
         return null;
+    }
+
+    @Override
+    public void saveBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        BnException.of(userInfoDto == null, "用户信息获取失败！");
+        //获取公司信息并更新
+        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
+        Company company = companyService.getById(userInfo.getCompanyId());
+        //保存债权融资匹配信息
+        FinanceBondDetail financeBondDetail = FinanceBondDetail.builder()
+                .registerAddress(getCode(bondProductMatchDto.getRegisterAddress().getCode(), bondProductMatchDto.getRegisterAddress().getValue()))
+                .industryDirect(getListStr(bondProductMatchDto.getIndustryDirect()))
+                .shareholder(getListStr(bondProductMatchDto.getShareholder()))
+                .business(bondProductMatchDto.getBusiness())
+                .patentCount(bondProductMatchDto.getPatentCount())
+                .loanTerm(bondProductMatchDto.getLoanTerm())
+                .loanQuota(bondProductMatchDto.getLoanQuota())
+                .creditType(getListStr(bondProductMatchDto.getCreditType()))
+                .houseMortgage(bondProductMatchDto.getHouseMortgage())
+                .cashFlow(bondProductMatchDto.getCashFlow())
+                .goverOrderAmount(bondProductMatchDto.getGoverOrderAmount())
+                .nationOrderAmount(bondProductMatchDto.getNationOrderAmount())
+                .termLoan(bondProductMatchDto.getTermLoan())
+                .assetAmount(bondProductMatchDto.getAssetAmount())
+                .liabilitiesAmount(bondProductMatchDto.getLiabilitiesAmount())
+                .owner(bondProductMatchDto.getOwner())
+                .qualification(getListStr(bondProductMatchDto.getQualification()))
+                .subsidy(bondProductMatchDto.getSubsidy())
+                .boolIntroduce(bondProductMatchDto.getBoolIntroduce())
+                .taxAmount(bondProductMatchDto.getTaxAmount())
+                .boolLoan(getListStr(bondProductMatchDto.getBoolLoan()))
+                .existAmount(bondProductMatchDto.getExistAmount())
+                .jlr(bondProductMatchDto.getJlr())
+                .debtRatio(bondProductMatchDto.getDebtRatio())
+                .yield(bondProductMatchDto.getYield())
+                .lastSubsidy(bondProductMatchDto.getLastSubsidy())
+                .build();
+        financeBondDetailService.save(financeBondDetail);
+
+        //保存一键匹配的信息
+        FinanceBondMatch financeBondMatch = FinanceBondMatch.builder()
+                .companyId(company.getId())
+                .detailId(financeBondDetail.getId())
+                .lastSubsidy(bondProductMatchDto.getLastSubsidy())
+                .liabilitiesAmount(bondProductMatchDto.getLiabilitiesAmount())
+                .assetAmount(bondProductMatchDto.getAssetAmount())
+                .owner(bondProductMatchDto.getOwner())
+                .build();
+        this.save(financeBondMatch);
+
+        //保存一键匹配json信息
+        operateDataService.saveOrUpdateMatchData(bondProductMatchDto.getOperateMatchDto());
+
+        //更新公司信息
+        company.setRegisterAddress(bondProductMatchDto.getRegisterAddress().getValue());
+        company.setWorkAddress(bondProductMatchDto.getWorkAddress());
+        company.setContact(bondProductMatchDto.getContact());
+        company.setTel(bondProductMatchDto.getTel());
+        company.setIntroduce(bondProductMatchDto.getIntroduce());
+        companyService.updateById(company);
+    }
+
+    public String getCode(String code, String value) {
+        if (StringUtils.isEmpty(value)) {
+            return code;
+        } else {
+            return value;
+        }
+    }
+
+    public String getListStr(List<Node> nodes) {
+        if (!CollectionUtils.isEmpty(nodes)) {
+            List<String> codes = nodes.stream().map(node -> getCode(node.getCode(), node.getValue())).collect(Collectors.toList());
+            return String.join(",", codes);
+        }
+        return "";
     }
 
     /**
