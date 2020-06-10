@@ -246,13 +246,22 @@
         ffp.id = ffpd.productId
         and ffp.financeType = 1
         and ffp.deleted = 0
-        <!--股权融资标题-->
-        <if test="param != null and param.title != null and param.title != ''">
-            and ffp.title like "%"#{param.title}"%"
+        and ffp.status != 4
+        <!--产品名称或者机构-->
+        <if test="param != null and param.titleOrMechanism != null and param.titleOrMechanism != ''">
+            and (
+            ffp.mechanism like concat('%',#{param.titleOrMechanism},'%')
+            or
+            ffp.title like concat('%',#{param.titleOrMechanism},'%')
+            )
         </if>
-        <!--融资阶段-->
-        <if test="param != null and param.mechanism != null and param.mechanism != ''">
-            and ffp.mechanism like "%"#{param.mechanism}"%"
+        <!--注册地址-->
+        <if test="param != null and param.registerAddress != null and param.registerAddress != ''">
+            and ffpd.registerAddress = #{param.registerAddress}
+        </if>
+        <!--营业收入-->
+        <if test="param != null and param.business != null and param.business != ''">
+            and ffpd.business = #{param.business}
         </if>
     </select>
 

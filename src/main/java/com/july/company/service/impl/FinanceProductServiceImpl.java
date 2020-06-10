@@ -140,16 +140,9 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         if (!CollectionUtils.isEmpty(bondList.getRecords())) {
             //字典转换
             List<BondListVo> bondListVos = bondList.getRecords().stream().map(bondListVo -> {
-                //注册地址
-                bondListVo.setRegisterAddressStr(DictInit.getCodeValue(SystemConstant.REGION, bondListVo.getRegisterAddress() + ""));
                 //营业收入
                 bondListVo.setBusinessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
-                //发明专利数量
-                bondListVo.setPatentCountStr(DictInit.getCodeValue(SystemConstant.BOND_FMZLS, bondListVo.getPatentCount() + ""));
-                //行业方向
-                bondListVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, bondListVo.getIndustryDirect() + ""));
-                //股东背景
-                bondListVo.setShareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, bondListVo.getShareholder() + ""));
+                bondListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(bondListVo.getCreatedTime()));
                 return bondListVo;
             }).collect(Collectors.toList());
             bondList.setRecords(bondListVos);
