@@ -125,6 +125,21 @@ public class FinanceProductController {
     }
 
     /**
+     * 债权融资信息根据产品ID查询（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    @PostMapping("/getBondByProductId")
+    public ResultT<StockListVo> getBondByProductId(@RequestBody Long id) {
+        FinanceProduct financeProduct = financeProductService.getFinanceProductById(id);
+        FinanceStockDetail financeProductDetail = financeStockDetailService.getFinanceProductDetail(id);
+        StockListVo stockListVo = new StockListVo();
+        BeanUtils.copyProperties(financeProductDetail, stockListVo);
+        BeanUtils.copyProperties(financeProduct, stockListVo);
+        return ResultT.ok(stockListVo);
+    }
+
+    /**
      * 股权融资信息根据产品ID查询（后台）
      * @author xia.junwei
      * @since 2020/6/8
