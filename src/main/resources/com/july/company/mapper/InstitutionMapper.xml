@@ -8,4 +8,19 @@
         fi.regionId = fsc.code
     </select>
 
+    <select id="getInstitution" resultType="com.july.company.vo.institution.ListInstitutionVo">
+        select fi.institutionName,fi.institutionCode,fi.institutionType,fi.regionId as regionName from fc_institution fi
+        where
+        1=1
+        <if test="param.institutionType != null">
+            and fi.institutionType = #{param.institutionType}
+        </if>
+        <if test="param.regionId != null and param.regionId != ''">
+            and fi.regionId = #{param.regionId}
+        </if>
+        <if test="param.institutionName != null and param.institutionName != ''">
+            and fi.institutionName like concat('%',#{param.institutionName},'%')
+        </if>
+    </select>
+
 </mapper>

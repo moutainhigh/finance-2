@@ -1,12 +1,16 @@
 package com.july.company.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.july.company.dto.institution.ListInstitutionDto;
 import com.july.company.dto.institution.SaveInstitutionDto;
-import com.july.company.entity.Institution;
-import com.july.company.entity.enums.InstitutionTypeEnum;
+import com.july.company.response.PageParamVo;
+import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.InstitutionService;
 import com.july.company.vo.finance.FinanceStatisticsVo;
 import com.july.company.vo.institution.InstitutionAndRegionVo;
+import com.july.company.vo.institution.ListInstitutionVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -62,8 +65,22 @@ public class InstitutionController {
      * @since 2020/5/21
      */
     @PostMapping("/getFinanceStatistics")
-    public ResultT<FinanceStatisticsVo> getFinanceStatistics(){
+    public ResultT<FinanceStatisticsVo> getFinanceStatistics() {
         return ResultT.ok(institutionService.getFinanceStatistics());
+    }
+
+    /**
+     * 获取机构列表信息
+     * @param pageParamVo
+     * @return com.july.company.response.ResultT<com.july.company.response.ResultT.Page < com.july.company.vo.institution.ListInstitutionVo>>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @PostMapping("/getInstitution")
+    public ResultT<ResultT.Page<ListInstitutionVo>> getInstitution(@RequestBody PageParamVo<ListInstitutionDto> pageParamVo) {
+        PageVo<ListInstitutionDto> pager = pageParamVo.getPager();
+        IPage<ListInstitutionVo> recordVos = institutionService.getInstitution(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+        return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
     }
 
 }

@@ -59,5 +59,10 @@ public class FinanceProduct extends BaseEntity {
      */
     @TableField("institutionId")
     private Long institutionId;
+    /**
+     * 产品状态(驳回=-1，保存=0，待审核=1，已发布=2，已下线=3，已删除=4)
+     */
+    @TableField("status")
+    private Integer status;
 
 }

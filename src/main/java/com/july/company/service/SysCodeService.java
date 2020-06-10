@@ -43,4 +43,22 @@ public interface SysCodeService extends IService<SysCode> {
      */
     List<QuerySysCodeVo> getQuerySysCode(QuerySysCodeDto querySysCodeDto);
 
+    /**
+     * 获取字典类型获取字典信息
+     * @param codeType
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    List<SysCode> getSysCodeByType(String codeType);
+
+    /**
+     * 获取字典类型获取字典信息
+     * @param codeType
+     * @return java.util.List<com.july.company.vo.code.SysCodeVo>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    List<SysCodeVo> getSysCodeByTypes(String codeType);
+
 }

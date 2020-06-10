@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2020-06-04 16:58
  **/
 @Data
-public class ListConditionDto implements Serializable {
+public class ListStockConditionDto implements Serializable {
 
 
     private static final long serialVersionUID = -4325862433210768997L;

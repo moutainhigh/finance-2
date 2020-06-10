@@ -105,8 +105,8 @@ public class FinanceProductController {
      * @since 2020/6/8
      */
     @PostMapping("/getStockList")
-    public ResultT<ResultT.Page<StockListVo>> getStockList(@RequestBody PageParamVo<ListConditionDto> pageParamVo) {
-        PageVo<ListConditionDto> pager = pageParamVo.getPager();
+    public ResultT<ResultT.Page<StockListVo>> getStockList(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) {
+        PageVo<ListStockConditionDto> pager = pageParamVo.getPager();
         IPage<StockListVo> recordVos = financeProductService.getStockList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
         return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
     }

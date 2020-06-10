@@ -8,10 +8,12 @@ import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
+import com.july.company.entity.enums.ProductStatusEnum;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.service.FinanceProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.utils.DateUtils;
 import com.july.company.vo.finance.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,25 +103,22 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
 
     /**
      * 获取股权融资信息分页（后台）
-     * @author xia.junwei
-     * @since 2020/6/8
+     * @param page
+     * @param listStockConditionDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.StockListVo>
+     * @author zengxueqi
+     * @since 2020/6/10
      */
     @Override
-    public IPage<StockListVo> getStockList(Page<ListConditionDto> page, ListConditionDto listConditionDto) {
-        IPage<StockListVo> stockList = financeProductMapper.getStockList(page, listConditionDto);
+    public IPage<StockListVo> getStockList(Page<StockListVo> page, ListStockConditionDto listStockConditionDto) {
+        IPage<StockListVo> stockList = financeProductMapper.getStockList(page, listStockConditionDto);
         if (!CollectionUtils.isEmpty(stockList.getRecords())) {
-            //字典转换
             List<StockListVo> stockListVos = stockList.getRecords().stream().map(stockListVo -> {
-                //注册地址
-                stockListVo.setRegisterAddressStr(DictInit.getCodeValue(SystemConstant.REGION, stockListVo.getRegisterAddress() + ""));
-                //融资阶段
-                stockListVo.setFinanceStateStr(DictInit.getCodeValue(SystemConstant.RZJD, stockListVo.getFinanceState() + ""));
                 //融资额度
                 stockListVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
-                //行业方向
-                stockListVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getIndustryDirect() + ""));
-                //股东背景
-                stockListVo.setShareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, stockListVo.getShareholder() + ""));
+                //产品状态
+                stockListVo.setStatusStr(ProductStatusEnum.getDescByValue(stockListVo.getStatus()));
+                stockListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(stockListVo.getCreatedTime()));
                 return stockListVo;
             }).collect(Collectors.toList());
             stockList.setRecords(stockListVos);
