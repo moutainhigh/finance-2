@@ -134,7 +134,10 @@ export default {
                 localStorage.setItem('userInfo',JSON.stringify(res.data.content.userInfo));
                 this.$message.loading('登录成功',1).then(()=>{
                     // 处理完后关闭登录窗口
-                    this.$emit('do-login',this.loginForm)
+                    this.$emit('do-login',this.loginForm);
+                    if(this.$route.params.isBack){
+                        this.$router.go(-1);
+                    }
                 });
             });
         }

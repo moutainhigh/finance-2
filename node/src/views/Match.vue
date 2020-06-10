@@ -323,7 +323,7 @@
                         </a-checkbox-group>
                         <a-input v-show="evaluateNames.indexOf('4')!=-1" style="width:200px;margin-left:15px;" placeholder="请输入其他内容" v-model="evaluateName"></a-input>
                     </a-form-model-item>
-                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
+                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }" v-if="!$route.params.isSub">
                         <a-spin :spinning="spinning">
                         <a-button type="default" class="save-btn" @click="saveInfo" v-if="$store.state.token">
                             保 存
@@ -333,6 +333,13 @@
                         </a-button>
                         <a-button type="default" @click="isLogin=true" v-if="!$store.state.token">
                             一键匹配
+                        </a-button>
+                        </a-spin>
+                    </a-form-model-item>
+                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }" v-if="$route.params.isSub">
+                        <a-spin :spinning="spinning">
+                        <a-button type="primary" @click="subMatch" v-if="$store.state.token">
+                            提 交
                         </a-button>
                         </a-spin>
                     </a-form-model-item>
@@ -470,6 +477,9 @@ export default {
         }
     },
     created(){
+        if(this.$route.params.active==1){
+            this.active=1;
+        }
         if(!this.$store.state.token){
             this.$router.push({name:'Home',params:{islogin:1}});
             return ;
@@ -777,9 +787,29 @@ export default {
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
+
+
             // 保存债券匹配信息
             param.data.baseForm=this.baseForm;
             let info = param.data;
+            // 提交操作，不是保存和匹配
+            if(this.$route.params.isSub){
+                            // isSub表示是要提交，不是保存和匹配
+                let postData = {
+                    userId:this.$store.state.userInfo.id,
+                    productId:this.$route.params.productId,
+                    financeType:this.active,
+                    operateMatchDto:{
+                        userId:this.$store.state.userInfo.id,
+                        operateType:this.active,
+                        content:JSON.stringify(info)
+                    },
+                    bondProductMatchDto:params
+                }
+                this.doBoneMatch(postData);
+                return ;
+            }
+            // 保存债券匹配信息
             this.doSaveInfo(info,params,false);
 
 
@@ -823,23 +853,6 @@ export default {
             let registerAddress = {code:this.baseForm.registerAddress,value:''}
             params.registerAddress=registerAddress;
 
-            // let map = {'渠道优势':2,'先发优势':3,'资质优势':4,'其他':5}
-            // if(this.advantage){
-            //     let advantageArr = [];
-            //     this.advantage.forEach(item=>{
-            //         let obj = {code:map[item],value:''};
-            //         if(obj.code==5){
-            //             obj.value=this.advantageOther;
-            //         }
-            //         advantageArr.push(obj);
-            //     });
-            //     if(params.advantage){
-            //         params.advantage = params.advantage.concat(advantageArr);
-            //     }else{
-            //         params.advantage = advantageArr;
-            //     }
-            // }
-
             // 股权匹配信息保存
             let info = this.$data;
             this.doSaveInfo(info,params,false);
@@ -852,6 +865,68 @@ export default {
                     // this.$message.success('匹配成功，跳转中');
                     localStorage.setItem('ids',res.data.content);
                     this.$router.push({name:'Guquan'})
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        doBoneMatch(params){//提交债权申请
+            this.spinning=true
+            this.$http.postWithAuth('/finance/financeApply/commitProductApply',params).then(res=>{
+                this.spinning=false
+                if(res.data.code==0){
+                    this.$router.push({name:'Result',params:{path:'/zhaiquan',msg:'提交成功'}})
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        subMatch(){//股权提交
+            let params = Object.assign({},this.baseForm,this.matchForm);
+        
+            let financeState = {code:this.matchForm.financeState,value:this.financeState}
+            params.financeState=financeState;
+
+            let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
+            params.industryDirect=industryDirect;
+
+            let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
+            params.shareholder=shareholder;
+
+            let productState = {code:this.matchForm.productState,value:this.productState}
+            params.productState=productState;
+
+            if(!this.matchForm.targetCustomer){
+                let targetCustomer = [{code:'',value:''}]
+                params.targetCustomer=targetCustomer;
+            }
+
+            if(!this.matchForm.evaluateName){
+                let evaluateName = [{code:'',value:''}]
+                params.evaluateName=evaluateName;
+            }
+            let registerAddress = {code:this.baseForm.registerAddress,value:''}
+            params.registerAddress=registerAddress;
+
+            let postData = {
+                userId:this.$store.state.userInfo.id,
+                productId:this.$route.params.productId,
+                financeType:this.active,
+                operateMatchDto:{
+                    userId:this.$store.state.userInfo.id,
+                    operateType:this.active,
+                    content:JSON.stringify(this.$data)
+                },
+                stockProductMatchDto:params
+            }
+            // 股权匹配信息保存
+            // let info = this.$data;
+            // this.doSaveInfo(info,params,false);
+            this.spinning=true
+            this.$http.postWithAuth('/finance/financeApply/commitProductApply',postData).then(res=>{
+                this.spinning=false
+                if(res.data.code==0){
+                    this.$router.push({name:'Result',params:{path:'/guquan',msg:'提交成功'}})
                 }else{
                     this.$message.error(res.data.msg);
                 }

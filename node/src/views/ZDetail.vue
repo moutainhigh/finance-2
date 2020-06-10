@@ -15,6 +15,9 @@
                         <img src="/image/icon-chaxunliebiao.png" alt="" style="width:20px;height:21px;vertical-align:sub;">
                         <span>资质要求</span>
                     </div>
+                    <a-spin :spinning="spinning">
+                    <a-button type="primary" @click="subMatch">立即申请</a-button>
+                    </a-spin>
                 </div>
                 <div class="detail-body">
                     <div class="b-item">
@@ -102,8 +105,7 @@
                         <span>{{detail.existAmount}}</span>
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         </div>
         <Footer></Footer>
     </div>
@@ -113,7 +115,8 @@ export default {
     name:"Detail",
     data(){
         return {
-            detail:{}
+            detail:{},
+            spinning:false
         }
     },
     methods:{
@@ -122,6 +125,54 @@ export default {
             this.$http.post('/finance/financeBondDetail/getFinanceBondProductDetail',{...params}).then(res=>{
                 if(res.data.code==0){
                     this.detail = res.data.content;
+                }
+            }).catch(err=>console.log(err))
+        },
+        subMatch(){
+            if(!this.$store.state.token){
+                this.$router.push({name:'Home',params:{islogin:1,isBack:1}});
+                return ;
+            }
+            // 股权申请
+            let params = {userId:this.$store.state.userInfo.id,productType:1};
+            this.spinning=true;
+            // /finance/company/getCompanyBoolMatch
+            this.$http.post('/finance/company/getCompanyBoolMatch',params).then(res=>{
+                this.spinning=false;
+                if(res.data.code==0){
+                    if(res.data.content.boolMatch==0){
+                        this.$router.push({name:'Match',params:{active:1,isSub:true,productId:this.$route.query.companyId}});
+                    }else{
+                        this.$confirm({
+                            title:'温馨提示',
+                            content:'是否确认提交申请吗？',
+                            centered:true,
+                            okText:"确定",
+                            cancelText:'取消',
+                            onOk:()=>{
+                                this.doSubMatch();
+                            },
+                            onCancel:()=>{
+
+                            }
+                        })
+                    }
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>console.log(err))
+        },
+        doSubMatch(){
+            // 债权申请
+            let params = {productId:this.$route.query.companyId,userId:this.$store.state.userInfo.id};
+            // /finance/financeApply/saveProductApply
+            this.spinning=true;
+            this.$http.post('/finance/financeApply/saveProductApply',params).then(res=>{
+                this.spinning=false;
+                if(res.data.code==0){
+                    this.$router.push({name:'Result',params:{path:"/zhaiquan",msg:"申请成功"}});
+                }else{
+                    this.$message.error(res.data.msg);
                 }
             }).catch(err=>console.log(err))
         }

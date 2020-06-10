@@ -264,7 +264,7 @@
                           <a-select-option :key="item.code" :value="item.code" v-for="(item,index) in getFieldList('DKJE')">{{item.value}}</a-select-option>
                         </a-select>
                     </a-form-model-item>
-                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }">
+                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }" v-if="!$route.params.isSub">
                         <a-spin :spinning="spinning">
                         <a-button type="default" class="save-btn" @click="saveInfo" v-if="$store.state.token">
                             保 存
@@ -274,6 +274,13 @@
                         </a-button>
                         <a-button type="default" @click="$emit('dologin',true)" v-if="!$store.state.token">
                             一键匹配
+                        </a-button>
+                        </a-spin>
+                    </a-form-model-item>
+                    <a-form-model-item :wrapper-col="{ span: 8, offset: 4 }" v-if="$route.params.isSub">
+                        <a-spin :spinning="spinning">
+                        <a-button type="primary" @click="onSubmit" v-if="$store.state.token">
+                            提 交
                         </a-button>
                         </a-spin>
                     </a-form-model-item>
