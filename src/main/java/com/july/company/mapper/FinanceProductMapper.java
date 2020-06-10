@@ -81,11 +81,7 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @author zengxueqi
      * @since 2020/6/10
      */
-<<<<<<< HEAD
     IPage<StockListVo> getStockList(Page<StockListVo> page, @Param("param") ListStockConditionDto listStockConditionDto);
-=======
-    IPage<StockListVo> getStockList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
->>>>>>> 739b95626fb5f233a50ab9dc10c85babec9f0a6b
 
     /**
      * 获取债权融资信息分页（后台）
