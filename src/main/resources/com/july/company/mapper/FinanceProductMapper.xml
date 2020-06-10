@@ -238,8 +238,8 @@
     </select>
 
     <select id="getBondList" resultType="com.july.company.vo.finance.BondListVo">
-        select ffp.id,ffp.title,ffp.mechanism,ffp.workAddress,ffp.introduce,
-        ffpd.registerAddress,ffpd.business,ffpd.patentCount,ffpd.industryDirect,ffpd.shareholder
+        select ffp.id,ffp.title,ffp.mechanism,ffp.tel,ffp.createdTime,ffp.status,
+        ffpd.business
         from
         fc_finance_product ffp,fc_finance_bond_detail ffpd
         where

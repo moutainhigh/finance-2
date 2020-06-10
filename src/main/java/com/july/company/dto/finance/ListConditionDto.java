@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Data
 public class ListConditionDto implements Serializable {
 
-
     private static final long serialVersionUID = -4325862433210768997L;
+
     /**
      * 产品/机构名称
      */
@@ -24,8 +24,8 @@ public class ListConditionDto implements Serializable {
      */
     private String registerAddress;
     /**
-     * 融资额度
+     * 营业收入
      */
-    private String financeQuota;
+    private String business;
 
 }
