@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: cn.snowheart:spring-boot-dingtalk-robot-starter:1.0.2.RELEASE">
     <CLASSES>
-      <root url="jar://D:/repository1/financial/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/repository1/financial/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/repository1/financial/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/cn/snowheart/spring-boot-dingtalk-robot-starter/1.0.2.RELEASE/spring-boot-dingtalk-robot-starter-1.0.2.RELEASE-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

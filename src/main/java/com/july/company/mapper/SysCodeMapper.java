@@ -51,4 +51,13 @@ public interface SysCodeMapper extends BaseMapper<SysCode> {
      */
     List<SysCode> getAllSysCode(QuerySysCodeDto querySysCodeDto);
 
+    /**
+     * 获取字典类型对应的字典信息
+     * @param codeType
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    List<SysCode> getSysCodeByType(String codeType);
+
 }

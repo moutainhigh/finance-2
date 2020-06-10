@@ -48,10 +48,13 @@ public interface FinanceProductService extends IService<FinanceProduct> {
 
     /**
      * 获取股权融资信息分页（后台）
-     * @author xia.junwei
-     * @since 2020/6/8
+     * @param page
+     * @param content
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.StockListVo>
+     * @author zengxueqi
+     * @since 2020/6/10
      */
-    IPage<StockListVo> getStockList(Page<ListConditionDto> page, ListConditionDto content);
+    IPage<StockListVo> getStockList(Page<StockListVo> page, ListStockConditionDto content);
 
     /**
      * 获取股权产品的信息
@@ -59,7 +62,7 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @author xiajunwei
      * @since 2020/6/8
      */
-    public FinanceProduct getFinanceProductById(Long id);
+    FinanceProduct getFinanceProductById(Long id);
 
     /**
      * 获取债权融资信息分页（后台）
@@ -67,4 +70,5 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/6/8
      */
     IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto);
+
 }

@@ -213,27 +213,33 @@
     <select id="getProductGroupCount" resultType="com.july.company.dto.finance.ProductGroupDto">
         select ffp.financeType,count(ffp.id) as productCount from fc_finance_product ffp group by ffp.financeType
     </select>
+
     <select id="getStockList" resultType="com.july.company.vo.finance.StockListVo">
-        select ffp.id,ffp.title,ffp.mechanism,ffp.workAddress,ffp.introduce,
-        ffpd.registerAddress,ffpd.financeState,ffpd.financeQuota,ffpd.industryDirect,ffpd.shareholder
+        select ffp.id as productId,ffp.title as productName,ffp.mechanism,ffp.tel,ffpd.financeQuota,ffp.createdTime,ffp.status
         from
         fc_finance_product ffp,fc_finance_stock_detail ffpd
         where
         ffp.id = ffpd.productId
         and ffp.financeType = 0
         and ffp.deleted = 0
-        <!--股权融资标题-->
-        <if test="param != null and param.title != null and param.title != ''">
-            and ffp.title like "%"#{param.title}"%"
+        <if test="param.financeQuota != null and param.financeQuota != ''">
+            and ffpd.financeQuota = #{param.financeQuota}
         </if>
-        <!--融资阶段-->
-        <if test="param != null and param.mechanism != null and param.mechanism != ''">
-            and ffp.mechanism like "%"#{param.mechanism}"%"
+        <if test="param.registerAddress != null and param.registerAddress != ''">
+            and ffp.registerAddress = #{param.registerAddress}
+        </if>
+        <if test="param.titleOrMechanism != null and param.titleOrMechanism != ''">
+            and (
+                ffp.mechanism like concat('%',#{param.titleOrMechanism},'%')
+                or
+                ffp.title like concat('%',#{param.titleOrMechanism},'%')
+            )
         </if>
     </select>
+
     <select id="getBondList" resultType="com.july.company.vo.finance.BondListVo">
-        select ffp.id,ffp.title,ffp.mechanism,ffp.workAddress,ffp.introduce,
-        ffpd.registerAddress,ffpd.business,ffpd.patentCount,ffpd.industryDirect,ffpd.shareholder
+        select ffp.id,ffp.title,ffp.mechanism,ffp.tel,ffp.createdTime,ffp.status,
+        ffpd.business
         from
         fc_finance_product ffp,fc_finance_bond_detail ffpd
         where
@@ -249,4 +255,5 @@
             and ffp.mechanism like "%"#{param.mechanism}"%"
         </if>
     </select>
+
 </mapper>

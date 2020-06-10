@@ -21,15 +21,17 @@ public class BearerTokenHandle implements TokenHandle {
 
     private static final String TOKEN_STR = "token";
     private static final String USER_ID_STR = "userId";
+    private static final String LOGIN_TYPE = "loginType";
     private static final String SIGNAL_HEAD = "Bearer ";
     @Value("${jwt.accessKeyId}")
     private String appName = "appName";
 
     @Override
-    public String encryptAuth(String rawStr, Long userId) {
+    public String encryptAuth(String rawStr, Integer loginType, Long userId) {
         Map<String, Object> map = MapUtil.newHashMap();
         map.put(TOKEN_STR, rawStr);
         map.put(USER_ID_STR, userId);
+        map.put(LOGIN_TYPE, loginType);
         return JwtUtils.signature(map, "", "", appName);
     }
 
@@ -55,6 +57,16 @@ public class BearerTokenHandle implements TokenHandle {
             throw new BnException(-1000, "加密解析失败");
         }
         return Convert.toLong(claims.get(USER_ID_STR));
+    }
+
+    @Override
+    public Integer decodeLoginType(String authStr) {
+        String jwtStr = authStr.replace(SIGNAL_HEAD, "").trim();
+        Claims claims = JwtUtils.decodeJwt(jwtStr, appName);
+        if (claims == null) {
+            throw new BnException(-1000, "加密解析失败");
+        }
+        return Convert.toInt(claims.get(LOGIN_TYPE));
     }
 
 }

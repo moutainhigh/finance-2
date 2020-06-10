@@ -4,8 +4,8 @@ import org.aspectj.lang.ProceedingJoinPoint;
 
 /**
  * 监控处理
- * @author ganlt<br>
- * @since 2019/07/02 8:43 <br>
+ * @author zengxueqi
+ * @since 2019/07/02
  */
 public interface Monitor {
 

@@ -72,16 +72,22 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @since 2020/5/26
      */
     List<ProductGroupDto> getProductGroupCount();
+
     /**
      * 获取股权融资信息分页（后台）
-     * @author xia.junwei
-     * @since 2020/6/8
+     * @param page
+     * @param listStockConditionDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.finance.StockListVo>
+     * @author zengxueqi
+     * @since 2020/6/10
      */
-    IPage<StockListVo> getStockList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
+    IPage<StockListVo> getStockList(Page<StockListVo> page, @Param("param") ListStockConditionDto listStockConditionDto);
+
     /**
      * 获取债权融资信息分页（后台）
      * @author xia.junwei
      * @since 2020/6/8
      */
-    IPage<BondListVo> getBondList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
+    IPage<BondListVo> getBondList(Page<ListConditionDto> page, @Param("param") ListConditionDto listConditionDto);
+
 }

@@ -1,20 +1,27 @@
 package com.july.company.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.finance.ProductGroupDto;
+import com.july.company.dto.institution.ListInstitutionDto;
 import com.july.company.dto.institution.SaveInstitutionDto;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.Institution;
+import com.july.company.entity.SysCode;
 import com.july.company.entity.enums.FinanceTypeEnum;
 import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.mapper.InstitutionMapper;
 import com.july.company.service.CompanyService;
 import com.july.company.service.InstitutionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.SysCodeService;
 import com.july.company.vo.finance.FinanceStatisticsVo;
+import com.july.company.vo.finance.FinanceStockProductVo;
 import com.july.company.vo.institution.InstitutionAndRegionVo;
 import com.july.company.vo.institution.InstitutionProductVo;
+import com.july.company.vo.institution.ListInstitutionVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -37,6 +44,8 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
     private InstitutionMapper institutionMapper;
     @Resource
     private FinanceProductMapper financeProductMapper;
+    @Resource
+    private SysCodeService sysCodeService;
 
     /**
      * 保存机构信息
@@ -139,6 +148,38 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
         queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
         List<Institution> institutions = this.list(queryWrapper);
         return CollectionUtils.isEmpty(institutions) ? 0 : institutions.size();
+    }
+
+    /**
+     * 获取机构列表信息
+     * @param page
+     * @param listInstitutionDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.institution.ListInstitutionVo>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @Override
+    public IPage<ListInstitutionVo> getInstitution(Page<ListInstitutionVo> page, ListInstitutionDto listInstitutionDto) {
+        //获取机构分页列表信息
+        IPage<ListInstitutionVo> listInstitutionVoIPage = institutionMapper.getInstitution(page, listInstitutionDto);
+        List<ListInstitutionVo> institutionVoList = listInstitutionVoIPage.getRecords();
+
+        //获取所属地区信息
+        List<SysCode> sysCodes = sysCodeService.getSysCodeByType(SystemConstant.REGION);
+
+        List<ListInstitutionVo> listInstitutionVos = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(institutionVoList)) {
+            listInstitutionVos = institutionVoList.stream().map(listInstitutionVo -> {
+                sysCodes.stream().forEach(sysCode -> {
+                    if (sysCode.getCode().equals(listInstitutionVo.getRegionName())) {
+                        listInstitutionVo.setRegionName(sysCode.getValue());
+                    }
+                });
+                return listInstitutionVo;
+            }).collect(Collectors.toList());
+        }
+        listInstitutionVoIPage.setRecords(listInstitutionVos);
+        return listInstitutionVoIPage;
     }
 
 }

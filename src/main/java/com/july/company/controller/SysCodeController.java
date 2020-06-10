@@ -66,4 +66,28 @@ public class SysCodeController {
         return ResultT.ok(sysCodeService.getQuerySysCode(querySysCodeDto));
     }
 
+    /**
+     * 根据字典类型获取字典信息(单个codeType)
+     * @param sysCodeDto
+     * @return com.july.company.response.ResultT<java.util.List < com.july.company.vo.code.SysCodeVo>>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @PostMapping("/getSysCodeByType")
+    public ResultT<List<SysCode>> getSysCodeByType(@RequestBody SysCodeDto sysCodeDto) {
+        return ResultT.ok(sysCodeService.getSysCodeByType(sysCodeDto.getCodeType()));
+    }
+
+    /**
+     * 根据字典类型获取字典信息(多个codeType)
+     * @param sysCodeDto
+     * @return com.july.company.response.ResultT<java.util.List < com.july.company.vo.code.SysCodeVo>>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @PostMapping("/getSysCodeByTypes")
+    public ResultT<List<SysCodeVo>> getSysCodeByTypes(@RequestBody SysCodeDto sysCodeDto) {
+        return ResultT.ok(sysCodeService.getSysCodeByTypes(sysCodeDto.getCodeType()));
+    }
+
 }

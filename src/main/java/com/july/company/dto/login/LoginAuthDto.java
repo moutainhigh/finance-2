@@ -29,7 +29,7 @@ public class LoginAuthDto implements Serializable {
     @NotNull(message = "密码不能为空")
     private String password;
     /**
-     * 登录类型(=1表示后台登录)
+     * 登录类型(0=表示前端登录，1=表示后台登录)
      */
     private Integer loginType;
 

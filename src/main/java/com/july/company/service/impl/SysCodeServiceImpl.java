@@ -124,20 +124,20 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
             querySysCodeVos.add(querySysCodeVo);
         });
-        List<QuerySysCodeVo> querySysCodeVoList  = new ArrayList<>();
-        if(SystemConstant.SYS_FALSE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())){
+        List<QuerySysCodeVo> querySysCodeVoList = new ArrayList<>();
+        if (SystemConstant.SYS_FALSE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())) {
             querySysCodeVos.stream().forEach(querySysCodeVo -> {
                 SystemConstant.getStockField().stream().forEach(node -> {
-                    if(querySysCodeVo.getCodeType().equals(node.getCode())){
+                    if (querySysCodeVo.getCodeType().equals(node.getCode())) {
                         querySysCodeVo.setField(node.getValue());
                     }
                 });
                 querySysCodeVoList.add(querySysCodeVo);
             });
-        }else if(SystemConstant.SYS_TRUE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())){
+        } else if (SystemConstant.SYS_TRUE.equals(querySysCodeDto.getFinanceType()) && SystemConstant.SYS_TRUE.equals(querySysCodeDto.getBoolQuery())) {
             querySysCodeVos.stream().forEach(querySysCodeVo -> {
                 SystemConstant.getBondField().stream().forEach(node -> {
-                    if(querySysCodeVo.getCodeType().equals(node.getCode())){
+                    if (querySysCodeVo.getCodeType().equals(node.getCode())) {
                         querySysCodeVo.setField(node.getValue());
                     }
                 });
@@ -145,6 +145,51 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             });
         }
         return querySysCodeVos;
+    }
+
+    /**
+     * 获取字典类型获取字典信息
+     * @param codeType
+     * @return java.util.List<com.july.company.entity.SysCode>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @Override
+    public List<SysCode> getSysCodeByType(String codeType) {
+        QueryWrapper<SysCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(!StringUtils.isEmpty(codeType), "codeType", codeType)
+                .eq("deleted", SystemConstant.SYS_FALSE);
+        return this.list(queryWrapper);
+    }
+
+    /**
+     * 获取字典类型获取字典信息
+     * @param codeType
+     * @return java.util.List<com.july.company.vo.code.SysCodeVo>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @Override
+    public List<SysCodeVo> getSysCodeByTypes(String codeType) {
+        List<SysCode> sysCodes = sysCodeMapper.getSysCodeByType(codeType);
+        Map<String, List<SysCode>> collectGroup = sysCodes.stream().collect(Collectors.groupingBy(SysCode::getCodeType));
+
+        List<SysCodeVo> sysCodeVos = new ArrayList<>();
+        collectGroup.forEach((s, sysCodeList) -> {
+            List<SysCodeValueVo> sysCodeValueVos = sysCodeList.stream().map(sysCode ->
+                    SysCodeValueVo.builder()
+                            .codeType(sysCode.getCodeType())
+                            .code(sysCode.getCode())
+                            .value(sysCode.getValue())
+                            .build()
+            ).collect(Collectors.toList());
+
+            sysCodeVos.add(SysCodeVo.builder()
+                    .codeType(s)
+                    .sysCodeValueVos(sysCodeValueVos)
+                    .build());
+        });
+        return sysCodeVos;
     }
 
     /**
