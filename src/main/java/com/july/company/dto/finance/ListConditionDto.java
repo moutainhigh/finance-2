@@ -15,13 +15,20 @@ public class ListConditionDto implements Serializable {
 
 
     private static final long serialVersionUID = -4325862433210768997L;
+
     /**
-     * 股权融资标题
+     * 产品名称或机构名称
      */
-    private String title;
+    private String titleOrMechanism;
+
     /**
-     * 所属机构
+     * 注册地址
      */
-    private String mechanism;
+    private String registerAddress;
+
+    /**
+     * 营业收入
+     */
+    private String business;
 
 }

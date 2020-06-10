@@ -72,12 +72,14 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @since 2020/5/26
      */
     List<ProductGroupDto> getProductGroupCount();
+
     /**
      * 获取股权融资信息分页（后台）
      * @author xia.junwei
      * @since 2020/6/8
      */
     IPage<StockListVo> getStockList(Page<ListConditionDto> page, @Param("param")ListConditionDto listConditionDto);
+
     /**
      * 获取债权融资信息分页（后台）
      * @author xia.junwei
