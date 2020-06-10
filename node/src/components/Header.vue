@@ -7,8 +7,8 @@
         </div>
         <div class="nav">
             <div class="nav-item" @click="toPage('/')" :class="$route.path=='/'?'active':''">首页</div>
-            <div class="nav-item" @click="toPage('/guquan')" :class="$route.path=='/guquan'?'active':''">股权融资</div>
-            <div class="nav-item" @click="toPage('/zhaiquan')" :class="$route.path=='/zhaiquan'?'active':''">债券融资</div>
+            <div class="nav-item" @click="toPage('/guquan')" :class="$route.path=='/guquan' || $route.path=='/detail'?'active':''">股权融资</div>
+            <div class="nav-item" @click="toPage('/zhaiquan')" :class="$route.path=='/zhaiquan' || $route.path=='/zdetail'?'active':''">债权融资</div>
             <div class="nav-item match" @click="toPage('/match')" :class="$route.path=='/match'?'active':''">一键匹配</div>
         </div>
         <div class="user">

@@ -21,7 +21,7 @@ Vue.use(VueRouter)
     path: '/zhaiquan',
     name: 'Zhaiquan',
     component: () => import('../views/Zhaiquan.vue'),
-    meta:{title:'债券融资'}
+    meta:{title:'债全融资'}
   },
   {
     path: '/detail',
@@ -33,13 +33,19 @@ Vue.use(VueRouter)
     path: '/zdetail',
     name: 'ZDetail',
     component: () => import('../views/ZDetail.vue'),
-    meta:{title:'债券详情'}
+    meta:{title:'债权详情'}
   },
   {
     path: '/match',
     name: 'Match',
     component: () => import('../views/Match.vue'),
     meta:{title:'一键匹配'}
+  },
+  {
+    path: '/result',
+    name: 'Result',
+    component: () => import('../views/Result.vue'),
+    meta:{title:'返回到首页'}
   },
 ]
 
