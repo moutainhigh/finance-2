@@ -1,7 +1,9 @@
 package com.july.company.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.july.company.constant.SystemConstant;
 import com.july.company.dto.Node;
-import com.july.company.dto.finance.OperateMatchDto;
 import com.july.company.dto.finance.StockProductInfoDto;
 import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.dto.user.UserInfoDto;
@@ -13,6 +15,7 @@ import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.UserUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -206,6 +209,7 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
      * @since 2020/6/9
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveStockOneKeyMatching(StockProductMatchDto stockProductMatchDto) {
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "用户信息获取失败！");
@@ -216,12 +220,12 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
 
         //保存股权融资匹配信息
         FinanceStockDetail financeStockDetail = FinanceStockDetail.builder()
-                .financeState(getCode(stockProductMatchDto.getFinanceState().getCode(), stockProductMatchDto.getFinanceState().getValue()))
+                .financeState(getObjectToJSONStr(stockProductMatchDto.getFinanceState()))
                 .financeQuota(stockProductMatchDto.getFinanceQuota())
-                .industryDirect(getCode(stockProductMatchDto.getIndustryDirect().getCode(), stockProductMatchDto.getIndustryDirect().getValue()))
-                .shareholder(getCode(stockProductMatchDto.getShareholder().getCode(), stockProductMatchDto.getShareholder().getValue()))
+                .industryDirect(getObjectToJSONStr(stockProductMatchDto.getIndustryDirect()))
+                .shareholder(getObjectToJSONStr(stockProductMatchDto.getShareholder()))
                 .business(stockProductMatchDto.getBusiness())
-                .productState(getCode(stockProductMatchDto.getProductState().getCode(), stockProductMatchDto.getProductState().getValue()))
+                .productState(getObjectToJSONStr(stockProductMatchDto.getProductState()))
                 .businessAddRate(stockProductMatchDto.getBusinessAddRate())
                 .productRate(stockProductMatchDto.getProductRate())
                 .netInterestRate(stockProductMatchDto.getNetInterestRate())
@@ -230,13 +234,13 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
                 .staffCount(stockProductMatchDto.getStaffCount())
                 .marketCapacity(stockProductMatchDto.getMarketCapacity())
                 .marketAddRate(stockProductMatchDto.getMarketAddRate())
-                .targetCustomer(getListStr(stockProductMatchDto.getTargetCustomer()))
+                .targetCustomer(getObjectToJSONStr(stockProductMatchDto.getTargetCustomer()))
                 .marketOccupyRate(stockProductMatchDto.getMarketOccupyRate())
                 .boolBuyBack(stockProductMatchDto.getBoolBuyBack())
                 .patentCount(stockProductMatchDto.getPatentCount())
-                .advantage(getListStr(stockProductMatchDto.getAdvantage()))
+                .advantage(getObjectToJSONStr(stockProductMatchDto.getAdvantage()))
                 .capitals(stockProductMatchDto.getCapitals())
-                .evaluateName(getListStr(stockProductMatchDto.getEvaluateName()))
+                .evaluateName(getObjectToJSONStr(stockProductMatchDto.getEvaluateName()))
                 //.timeToMarket(stockProductMatchDto.getTimeToMarket())
                 //.companyStatus(stockProductMatchDto.getCompanyStatus())
                 .build();
@@ -263,6 +267,22 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
         companyService.updateById(company);
     }
 
+    public String getObjectToJSONStr(Node node) {
+        if (node == null) {
+            return null;
+        } else {
+            return JSON.toJSONString(node);
+        }
+    }
+
+    public String getObjectToJSONStr(List<Node> nodes) {
+        if (CollectionUtils.isEmpty(nodes)) {
+            return null;
+        } else {
+            return JSON.toJSONString(nodes);
+        }
+    }
+
     public String getCode(String code, String value) {
         if (StringUtils.isEmpty(value)) {
             return code;
@@ -271,12 +291,27 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
         }
     }
 
-    public String getListStr(List<Node> nodes) {
+    public String getJSONStr(List<Node> nodes) {
         if (!CollectionUtils.isEmpty(nodes)) {
             List<String> codes = nodes.stream().map(node -> getCode(node.getCode(), node.getValue())).collect(Collectors.toList());
             return String.join(",", codes);
         }
         return "";
+    }
+
+    /**
+     * 获取企业的一键匹配信息
+     * @param companyId
+     * @return java.util.List<com.july.company.entity.FinanceStockMatch>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @Override
+    public List<FinanceStockMatch> getFinanceStockMatch(Long companyId) {
+        QueryWrapper<FinanceStockMatch> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(companyId != null, "companyId", companyId)
+                .eq("deleted", SystemConstant.SYS_FALSE);
+        return this.list(queryWrapper);
     }
 
 }

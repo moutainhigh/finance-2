@@ -2,13 +2,11 @@ package com.july.company.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.dto.company.CompanyDto;
-import com.july.company.dto.company.DeleteCompanyDto;
-import com.july.company.dto.company.SelectCompanyDto;
-import com.july.company.dto.company.UpdateCompanyDto;
+import com.july.company.dto.company.*;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
 
 /**
@@ -61,18 +59,14 @@ public interface CompanyService extends IService<Company> {
      * @since 2020/6/7
      */
     void deleteCompany(DeleteCompanyDto deleteCompanyDto);
-    /**
-     * 通过用户查询公司信息
-     * @author xiajunwei
-     * @since 2020/6/9
-     */
-    public Company getCompanyByUser(UserInfoDto userInfoDto);
 
     /**
-     * 一件匹配保存修改企业信息
-     * @return void
-     * @author xiajunwei
-     * @since 2020/6/9
+     * 判断企业是否一键匹配过信息
+     * @param companyMatchDto
+     * @return com.july.company.vo.company.CompanyMatchVo
+     * @author zengxueqi
+     * @since 2020/6/10
      */
-    void updateCompanyForSaveOneMatch(Company company);
+    CompanyMatchVo getCompanyBoolMatch(CompanyMatchDto companyMatchDto);
+
 }

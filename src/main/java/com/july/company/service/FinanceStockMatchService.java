@@ -4,6 +4,8 @@ import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.entity.FinanceStockMatch;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * 股权融资一键匹配 服务类
  * @author zengxueqi
@@ -28,5 +30,14 @@ public interface FinanceStockMatchService extends IService<FinanceStockMatch> {
      * @since 2020/6/9
      */
     void saveStockOneKeyMatching(StockProductMatchDto stockProductMatchDto);
+
+    /**
+     * 获取公司的一键匹配信息
+     * @param companyId
+     * @return java.util.List<com.july.company.entity.FinanceStockMatch>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    List<FinanceStockMatch> getFinanceStockMatch(Long companyId);
 
 }
