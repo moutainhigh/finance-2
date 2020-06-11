@@ -129,13 +129,13 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
     @Override
     public FinanceProduct getFinanceProductById(Long id) {
         QueryWrapper<FinanceProduct> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(id != null, "id", id)
+        queryWrapper.eq("id", id)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
     }
 
     @Override
-    public IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto) {
+    public IPage<BondListVo> getBondList(Page<BondListVo> page, ListConditionDto listConditionDto) {
         IPage<BondListVo> bondList = financeProductMapper.getBondList(page, listConditionDto);
         if (!CollectionUtils.isEmpty(bondList.getRecords())) {
             //字典转换

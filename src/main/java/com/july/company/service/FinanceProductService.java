@@ -69,6 +69,6 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @author xia.junwei
      * @since 2020/6/8
      */
-    IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto);
+    IPage<BondListVo> getBondList(Page<BondListVo> page, ListConditionDto listConditionDto);
 
 }
