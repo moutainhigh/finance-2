@@ -123,7 +123,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
 
     /**
-     * 获取债券产品的明细信息
+     * 根据产品ID获取债券产品的明细信息
      * @param productId
      * @return com.july.company.entity.FinanceProductDetail
      * @author zengxueqi

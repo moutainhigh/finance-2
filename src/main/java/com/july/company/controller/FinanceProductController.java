@@ -3,12 +3,15 @@ package com.july.company.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
+import com.july.company.entity.FinanceBondDetail;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
+import com.july.company.service.FinanceBondDetailService;
 import com.july.company.service.FinanceProductService;
+import com.july.company.service.FinanceStockDetailService;
 import com.july.company.vo.finance.FinanceBondProductVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import com.july.company.service.impl.FinanceStockDetailServiceImpl;
@@ -31,7 +34,10 @@ public class FinanceProductController {
     private FinanceProductService financeProductService;
 
     @Resource
-    private FinanceStockDetailServiceImpl financeStockDetailService;
+    private FinanceStockDetailService financeStockDetailService;
+
+    @Resource
+    private FinanceBondDetailService financeBondDetailService;
 
     /**
      * 获取股权产品列表信息
@@ -122,6 +128,21 @@ public class FinanceProductController {
         PageVo<ListConditionDto> pager = pageParamVo.getPager();
         IPage<BondListVo> recordVos = financeProductService.getBondList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
         return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
+    }
+
+    /**
+     * 债权融资信息根据产品ID查询（后台）
+     * @author xia.junwei
+     * @since 2020/6/8
+     */
+    @PostMapping("/getBondByProductId")
+    public ResultT<BondEditDetailVo> getBondByProductId(@RequestBody Long id) {
+        FinanceProduct financeProduct = financeProductService.getFinanceProductById(id);
+        FinanceBondDetail financeBondDetail = financeBondDetailService.getFinanceProductDetail(id);
+        BondEditDetailVo bondEditDetailVo = new BondEditDetailVo();
+        BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
+        BeanUtils.copyProperties(financeProduct, bondEditDetailVo);
+        return ResultT.ok(bondEditDetailVo);
     }
 
     /**
