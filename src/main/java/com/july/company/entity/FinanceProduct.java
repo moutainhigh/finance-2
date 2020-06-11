@@ -35,6 +35,11 @@ public class FinanceProduct extends BaseEntity {
     @TableField("mechanism")
     private String mechanism;
     /**
+     * 注册地址
+     */
+    @TableField("registerAddress")
+    private String registerAddress;
+    /**
      * 办公地址
      */
     @TableField("workAddress")
