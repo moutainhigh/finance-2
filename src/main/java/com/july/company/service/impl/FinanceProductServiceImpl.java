@@ -6,15 +6,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.*;
+import com.july.company.entity.FinanceBondDetail;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
 import com.july.company.entity.enums.ProductStatusEnum;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
+import com.july.company.service.FinanceBondDetailService;
 import com.july.company.service.FinanceProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.FinanceStockDetailService;
 import com.july.company.utils.DateUtils;
 import com.july.company.vo.finance.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -35,6 +39,10 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
 
     @Resource
     private FinanceProductMapper financeProductMapper;
+    @Resource
+    private FinanceStockDetailService financeStockDetailService;
+    @Resource
+    private FinanceBondDetailService financeBondDetailService;
 
     /**
      * 获取股权产品列表信息
@@ -148,6 +156,42 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             bondList.setRecords(bondListVos);
         }
         return bondList;
+    }
+
+    /**
+     * 获取股权产品信息
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.StockListVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public StockListVo getStockByProductId(SelectProductDto selectProductDto) {
+        BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
+        FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
+        FinanceStockDetail financeProductDetail = financeStockDetailService.getFinanceProductDetail(selectProductDto.getProductId());
+        StockListVo stockListVo = new StockListVo();
+        BeanUtils.copyProperties(financeProductDetail, stockListVo);
+        BeanUtils.copyProperties(financeProduct, stockListVo);
+        return stockListVo;
+    }
+
+    /**
+     * 债权融资信息根据产品ID查询
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.BondEditDetailVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public BondEditDetailVo getBondByProductId(SelectProductDto selectProductDto) {
+        BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
+        FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
+        FinanceBondDetail financeBondDetail = financeBondDetailService.getFinanceProductDetail(selectProductDto.getProductId());
+        BondEditDetailVo bondEditDetailVo = new BondEditDetailVo();
+        BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
+        BeanUtils.copyProperties(financeProduct, bondEditDetailVo);
+        return bondEditDetailVo;
     }
 
 }

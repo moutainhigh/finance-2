@@ -51,7 +51,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                 .workAddress(financeProduct.getWorkAddress())
                 .tel(financeProduct.getTel())
                 .introduce(financeProduct.getIntroduce())
-                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProductDetail.getRegisterAddress() + ""))
+                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getRegisterAddress() + ""))
                 .financeStateStr(getColunmNode(SystemConstant.RZJD, financeProductDetail.getFinanceState()))
                 .financeQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, financeProductDetail.getFinanceQuota() + ""))
                 .industryDirectStr(getColunmNode(SystemConstant.HYFX, financeProductDetail.getIndustryDirect()))

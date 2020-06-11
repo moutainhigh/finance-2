@@ -71,4 +71,22 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      */
     IPage<BondListVo> getBondList(Page<BondListVo> page, ListConditionDto listConditionDto);
 
+    /**
+     * 获取股权产品信息
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.StockListVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    StockListVo getStockByProductId(SelectProductDto selectProductDto);
+
+    /**
+     * 债权融资信息根据产品ID查询
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.BondEditDetailVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    BondEditDetailVo getBondByProductId(SelectProductDto selectProductDto);
+
 }
