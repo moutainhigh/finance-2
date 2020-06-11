@@ -2,15 +2,13 @@ package com.july.company.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.dto.company.CompanyDto;
-import com.july.company.dto.company.DeleteCompanyDto;
-import com.july.company.dto.company.SelectCompanyDto;
-import com.july.company.dto.company.UpdateCompanyDto;
+import com.july.company.dto.company.*;
 
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.CompanyService;
+import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,6 +76,18 @@ public class CompanyController {
     public ResultT<String> deleteCompany(@RequestBody DeleteCompanyDto deleteCompanyDto) {
         companyService.deleteCompany(deleteCompanyDto);
         return ResultT.ok("修改成功！");
+    }
+
+    /**
+     * 判断企业是否一键匹配过信息
+     * @param companyMatchDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyMatchVo>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @PostMapping("/getCompanyBoolMatch")
+    public ResultT<CompanyMatchVo> getCompanyBoolMatch(@RequestBody CompanyMatchDto companyMatchDto) {
+        return ResultT.ok(companyService.getCompanyBoolMatch(companyMatchDto));
     }
 
 }

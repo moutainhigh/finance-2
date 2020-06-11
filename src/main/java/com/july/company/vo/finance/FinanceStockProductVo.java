@@ -39,17 +39,17 @@ public class FinanceStockProductVo implements Serializable {
      * 行业方向
      * @ignore
      */
-    private Integer industryDirect;
+    private String industryDirect;
     /**
      * 融资额度
      * @ignore
      */
-    private Integer financeQuota;
+    private String financeQuota;
     /**
      * 融资阶段
      * @ignore
      */
-    private Integer financeState;
+    private String financeState;
     /**
      * 行业方向(转换后)
      * @mock 新经济

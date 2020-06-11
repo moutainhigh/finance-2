@@ -235,6 +235,7 @@
                 ffp.title like concat('%',#{param.titleOrMechanism},'%')
             )
         </if>
+        order by ffp.status asc
     </select>
 
     <select id="getBondList" resultType="com.july.company.vo.finance.BondListVo">

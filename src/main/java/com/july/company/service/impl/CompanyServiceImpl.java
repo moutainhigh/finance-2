@@ -4,20 +4,26 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
-import com.july.company.dto.company.CompanyDto;
-import com.july.company.dto.company.DeleteCompanyDto;
-import com.july.company.dto.company.SelectCompanyDto;
-import com.july.company.dto.company.UpdateCompanyDto;
+import com.july.company.dto.company.*;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
 
+import com.july.company.entity.FinanceBondMatch;
+import com.july.company.entity.FinanceStockMatch;
+import com.july.company.entity.UserInfo;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.CompanyMapper;
 import com.july.company.service.CompanyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.FinanceBondMatchService;
+import com.july.company.service.FinanceStockMatchService;
+import com.july.company.service.UserInfoService;
 import com.july.company.utils.DateUtils;
+import com.july.company.utils.UserUtils;
+import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -37,6 +43,12 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
 
     @Resource
     private CompanyMapper companyMapper;
+    @Resource
+    private UserInfoService userInfoService;
+    @Resource
+    private FinanceStockMatchService financeStockMatchService;
+    @Resource
+    private FinanceBondMatchService financeBondMatchService;
 
     /**
      * 获取公司入驻数量
@@ -83,6 +95,7 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
      * @since 2020/6/7
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateCompany(UpdateCompanyDto updateCompanyDto) {
         Company company = this.getById(updateCompanyDto.getCompanyId());
         BnException.of(company == null, "没有找到该企业信息！");
@@ -123,6 +136,7 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
      * @since 2020/6/7
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void deleteCompany(DeleteCompanyDto deleteCompanyDto) {
         BnException.of(StringUtils.isEmpty(deleteCompanyDto.getCompanyIds()), "删除数据时，数据id不能为空！");
         List<String> companyIdList = Arrays.asList(deleteCompanyDto.getCompanyIds().split(","));
@@ -134,21 +148,29 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
             this.updateById(company);
         });
     }
+
     /**
-     * 通过用户查询公司信息
-     * @author xiajunwei
-     * @since 2020/6/9
+     * 判断企业是否一键匹配过信息
+     * @param companyMatchDto
+     * @return com.july.company.vo.company.CompanyMatchVo
+     * @author zengxueqi
+     * @since 2020/6/10
      */
-    public Company getCompanyByUser(UserInfoDto userInfoDto){
-        QueryWrapper<Company> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
-        queryWrapper.eq("companyName", userInfoDto.getCompanyName());
-        Company company = this.getOne(queryWrapper);
-        return company;
+    @Override
+    public CompanyMatchVo getCompanyBoolMatch(CompanyMatchDto companyMatchDto) {
+        UserInfo userInfo = userInfoService.getById(companyMatchDto.getUserId());
+        BnException.of(userInfo == null, "无法获取到企业信息！");
+
+        CompanyMatchVo companyMatchVo = new CompanyMatchVo();
+
+        if (SystemConstant.SYS_FALSE.equals(companyMatchDto.getProductType())) {
+            List<FinanceStockMatch> financeStockMatches = financeStockMatchService.getFinanceStockMatch(userInfo.getCompanyId());
+            companyMatchVo.setBoolMatch(CollectionUtils.isEmpty(financeStockMatches) ? 0 : 1);
+        } else {
+            List<FinanceBondMatch> financeBondMatches = financeBondMatchService.getFinanceBondMatch(userInfo.getCompanyId());
+            companyMatchVo.setBoolMatch(CollectionUtils.isEmpty(financeBondMatches) ? 0 : 1);
+        }
+        return companyMatchVo;
     }
 
-    @Override
-    public void updateCompanyForSaveOneMatch(Company company) {
-        this.updateById(company);
-    }
 }
