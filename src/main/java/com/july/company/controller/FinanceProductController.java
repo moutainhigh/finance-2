@@ -158,6 +158,18 @@ public class FinanceProductController {
     }
 
     /**
+     * 删除债权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @PostMapping("/deleteBondList")
+    public ResultT<String> deleteBondList(@RequestBody BondDeleteDetailDto bondDeleteDetailDto) {
+        financeProductService.deleteBondList(bondDeleteDetailDto);
+        return ResultT.ok("删除成功");
+    }
+
+    /**
      * 保存股权融资产品信息
      * @param stockEditDetailDto
      * @return com.july.company.response.ResultT<java.lang.String>
@@ -169,6 +181,8 @@ public class FinanceProductController {
         financeProductService.saveStockProduct(stockEditDetailDto);
         return ResultT.ok("股权产品修改成功！");
     }
+
+
 
     /**
      * 股权产品信息导出

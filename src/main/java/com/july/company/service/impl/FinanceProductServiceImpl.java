@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.*;
+import com.july.company.entity.Company;
 import com.july.company.entity.FinanceBondDetail;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
@@ -244,8 +245,14 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         }
     }
 
+    /**
+     * 修改保存或者添加债权信息(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateOrAddFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
         if (bondSaveDetailDto.getId() != null){
             //修改
@@ -263,6 +270,30 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
             financeBondDetail.setProductId(financeProduct.getId());
             financeBondDetailService.save(financeBondDetail);
+        }
+    }
+
+    /**
+     * 删除债权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteBondList(BondDeleteDetailDto bondDeleteDetailDto) {
+        BnException.of(StringUtils.isEmpty(bondDeleteDetailDto.getIds()), "删除数据时，数据id不能为空！");
+        List<String> ids = Arrays.asList(bondDeleteDetailDto.getIds().split(","));
+        for (String id :ids){
+            FinanceProduct financeProduct = this.getById(id);
+            financeProduct.setDeleted(SystemConstant.SYS_TRUE);
+            this.updateById(financeProduct);
+            QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("productId", id);
+            queryWrapper.eq("deleted",SystemConstant.SYS_FALSE);
+            FinanceBondDetail financeBondDetail = financeBondDetailService.getOne(queryWrapper);
+            financeBondDetail.setDeleted(SystemConstant.SYS_TRUE);
+            financeBondDetailService.updateById(financeBondDetail);
         }
     }
 }
