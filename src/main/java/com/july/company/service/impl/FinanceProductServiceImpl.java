@@ -245,6 +245,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
     }
 
     @Override
+    @Transactional
     public void updateOrAddFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
         if (bondSaveDetailDto.getId() != null){
             //修改
@@ -256,7 +257,6 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             //添加
             FinanceProduct financeProduct = new FinanceProduct();
             BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
-            financeProduct.setStatus(0);
             financeProduct.setFinanceType(1);
             this.save(financeProduct);
             FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
