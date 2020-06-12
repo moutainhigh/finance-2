@@ -39,4 +39,16 @@ public class FinanceApply extends BaseEntity {
     @TableField("productId")
     private Long productId;
 
+    /**
+     * 申请状态（0=待审核，1=已通过，2=已驳回）
+     */
+    @TableField("status")
+    private Integer status;
+
+    /**
+     * 备注(驳回原因)
+     */
+    @TableField("remark")
+    private String remark;
+
 }

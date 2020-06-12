@@ -37,6 +37,18 @@ public class CompanyVo implements Serializable {
      */
     private String registerTime;
     /**
+     * 注册地
+     */
+    private String registerAddress;
+    /**
+     * 联系人
+     */
+    private String contact;
+    /**
+     * 联系电话
+     */
+    private String tel;
+    /**
      * 企业状态(0=正常,1=禁用)
      */
     private Integer status;

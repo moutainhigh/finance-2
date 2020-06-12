@@ -1,13 +1,11 @@
 package com.july.company.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.constant.SystemConstant;
+import com.july.company.dto.apply.ProductOperateDto;
 import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.entity.FinanceStockDetail;
 import com.july.company.vo.finance.*;
 
 import java.util.List;
@@ -117,4 +115,5 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/6/11
      */
     void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto);
+
 }

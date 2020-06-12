@@ -1,9 +1,14 @@
 package com.july.company.service;
 
-import com.july.company.dto.apply.ProductApplyDto;
-import com.july.company.dto.apply.ProductCommitDto;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.july.company.dto.apply.*;
+import com.july.company.dto.finance.ListStockConditionDto;
 import com.july.company.entity.FinanceApply;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.july.company.vo.apply.ProductDetalVo;
+import com.july.company.vo.apply.SelectProductVo;
+import com.july.company.vo.finance.StockListVo;
 
 /**
  * 企业申请产品信息 服务类
@@ -29,5 +34,34 @@ public interface FinanceApplyService extends IService<FinanceApply> {
      * @since 2020/6/10
      */
     void commitProductApply(ProductCommitDto productCommitDto);
+
+
+    /**
+     * 获取产品申请信息（后台）
+     * @param page
+     * @param selectProductDto
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.july.company.vo.apply.SelectProductVo>
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    IPage<SelectProductVo> getFinanceApply(Page<SelectProductVo> page, SelectProductDto selectProductDto);
+
+    /**
+     * 申请产品操作
+     * @param productOperateDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    void applyProductOperate(ProductOperateDto productOperateDto);
+
+    /**
+     * 获取申请产品详细信息
+     * @param productDetailDto
+     * @return com.july.company.vo.apply.ProductDetalVo
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    ProductDetalVo getApplyInfo(ProductDetailDto productDetailDto);
 
 }
