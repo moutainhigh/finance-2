@@ -45,7 +45,7 @@ public class StockEditDetailVo implements Serializable {
     /**
      * 办公地址(详细地址)
      */
-    private String detaileAddress;
+    private String detailAddress;
     /**
      * 联系方式
      */
