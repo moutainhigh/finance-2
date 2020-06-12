@@ -33,6 +33,10 @@ public class BondSaveDetailDto implements Serializable {
      */
     private String mechanism;
     /**
+     * 机构ID
+     */
+    private Long institutionId;
+    /**
      * 注册地址
      */
     private String registerAddress;
