@@ -301,13 +301,13 @@ export default {
       // /finance/institution/getInstitutionAndRegion
       this.$http.post('/finance/institution/getInstitutionAndRegion',{}).then(res=>{
         if(res.data.code==0){
-          this.companyList = res.data.content;
+          this.companyList = res.data.content.length>20?res.data.content.slice(0,20):res.data.content;
           let company = filterCompany(this.companyList);
           if(company){
-            this.gqjg = company.gqjg;
+            this.gqjg = company.gqjg.length>10?company.gqjg.slice(0,10):company.gqjg;
             this.currSelItem = this.gqjg[0];
             this.gqIndex = 0;
-            this.zjjg = company.zjjg;
+            this.zjjg = company.zjjg.length>10?company.zjjg.slice(0,10):company.zjjg;
           }
         }
       })
