@@ -110,4 +110,11 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      */
     void saveStockProduct(StockEditDetailDto stockEditDetailDto);
 
+    /**
+     * 修改保存债权信息(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto);
 }

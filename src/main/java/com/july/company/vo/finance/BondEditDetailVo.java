@@ -26,9 +26,14 @@ public class BondEditDetailVo implements Serializable {
      */
     private Long id;
     /**
+     * 产品名称
+     */
+    private String title;
+    /**
      * 所属机构
      */
     private String mechanism;
+
     /**
      * 注册地址
      */
@@ -37,6 +42,10 @@ public class BondEditDetailVo implements Serializable {
      * 办公地址
      */
     private String workAddress;
+    /**
+     * 办公地址（详细地址）
+     */
+    private String detailAddress;
     /**
      * 联系方式
      */
