@@ -245,11 +245,24 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
     }
 
     @Override
-    public void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
-        FinanceProduct financeProduct = new FinanceProduct();
-        BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
-        this.updateById(financeProduct);
-        financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
+    public void updateOrAddFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
+        if (bondSaveDetailDto.getId() != null){
+            //修改
+            FinanceProduct financeProduct = new FinanceProduct();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+            this.updateById(financeProduct);
+            financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
+        }else {
+            //添加
+            FinanceProduct financeProduct = new FinanceProduct();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+            financeProduct.setStatus(0);
+            financeProduct.setFinanceType(1);
+            this.save(financeProduct);
+            FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
+            financeBondDetail.setProductId(financeProduct.getId());
+            financeBondDetailService.save(financeBondDetail);
+        }
     }
-
 }

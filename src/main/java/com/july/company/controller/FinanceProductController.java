@@ -146,15 +146,15 @@ public class FinanceProductController {
         return ResultT.ok(financeProductService.getStockByProductId(selectProductDto));
     }
     /**
-     * 修改保存债权信息(后台)
+     * 修改保存或者添加债权信息(后台)
      * @param bondSaveDetailDto
      * @author xiajunwei
      * @since 2020/6/11
      */
     @PostMapping("/updateFinanceBond")
     public ResultT<String> updateFinanceBond(@RequestBody BondSaveDetailDto bondSaveDetailDto) {
-        financeProductService.updateFinanceBond(bondSaveDetailDto);
-        return ResultT.ok("保存成功");
+        financeProductService.updateOrAddFinanceBond(bondSaveDetailDto);
+        return ResultT.ok("操作成功");
     }
 
     /**
