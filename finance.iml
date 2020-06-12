@@ -199,6 +199,21 @@
     <orderEntry type="library" name="Maven: io.opentracing:opentracing-noop:0.33.0" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.1.9.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.1.9.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: cn.gjing:tools-excel:1.1.4" level="project" />
+    <orderEntry type="library" name="Maven: com.monitorjbl:xlsx-streamer:2.1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.18" level="project" />
+    <orderEntry type="library" name="Maven: com.github.virtuald:curvesapi:1.04" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.poi:poi-ooxml-schemas:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: com.rackspace.apache:xerces2-xsd11:2.11.1" level="project" />
+    <orderEntry type="library" name="Maven: com.rackspace.eclipse.webtools.sourceediting:org.eclipse.wst.xml.xpath2.processor:2.1.100" level="project" />
+    <orderEntry type="library" name="Maven: edu.princeton.cup:java-cup:10k" level="project" />
+    <orderEntry type="library" name="Maven: com.ibm.icu:icu4j:4.6" level="project" />
+    <orderEntry type="library" name="Maven: xml-resolver:xml-resolver:1.2" level="project" />
+    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.4.01" level="project" />
     <orderEntry type="library" name="Maven: cn.snowheart:spring-boot-dingtalk-robot-starter:1.0.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.github.zengxueqi-yu:july-doc:1.1.1-RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.qdox:qdox:2.0.0" level="project" />

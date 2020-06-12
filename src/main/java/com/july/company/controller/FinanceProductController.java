@@ -1,5 +1,6 @@
 package com.july.company.controller;
 
+import cn.gjing.tools.excel.ExcelFactory;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
@@ -11,8 +12,12 @@ import com.july.company.vo.finance.FinanceBondProductVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import com.july.company.vo.finance.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 产品信息 前端控制器
@@ -132,13 +137,43 @@ public class FinanceProductController {
     /**
      * 股权融资信息根据产品ID查询(后台)
      * @param selectProductDto
-     * @return com.july.company.response.ResultT<com.july.company.vo.finance.StockListVo>
+     * @return com.july.company.response.ResultT<com.july.company.vo.finance.StockEditDetailVo>
      * @author zengxueqi
      * @since 2020/6/11
      */
     @PostMapping("/getStockByProductId")
-    public ResultT<StockListVo> getStockByProductId(@RequestBody SelectProductDto selectProductDto) {
+    public ResultT<StockEditDetailVo> getStockByProductId(@RequestBody SelectProductDto selectProductDto) {
         return ResultT.ok(financeProductService.getStockByProductId(selectProductDto));
+    }
+
+    /**
+     * 保存股权融资产品信息
+     * @param stockEditDetailDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    @PostMapping("/saveStockProduct")
+    public ResultT<String> saveStockProduct(@RequestBody StockEditDetailDto stockEditDetailDto) {
+        financeProductService.saveStockProduct(stockEditDetailDto);
+        return ResultT.ok("股权产品修改成功！");
+    }
+
+    /**
+     * 股权产品信息导出
+     * @param pageParamVo
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @PostMapping("/exportStockProduct")
+    public void exportStockProduct(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletResponse response = servletRequestAttributes.getResponse();
+        PageVo<ListStockConditionDto> pager = pageParamVo.getPager();
+        pager.setPageSize(-1L);
+        List<StockExcelListVo> eduTeacherLeaveRecordExcels = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+        ExcelFactory.createWriter("股权产品信息", StockExcelListVo.class, response).write(eduTeacherLeaveRecordExcels).flush();
     }
 
 }

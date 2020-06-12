@@ -30,4 +30,5 @@ public interface FinanceStockDetailService extends IService<FinanceStockDetail> 
      * @since 2020/5/20
      */
     FinanceStockDetail getFinanceProductDetail(Long productId);
+    
 }

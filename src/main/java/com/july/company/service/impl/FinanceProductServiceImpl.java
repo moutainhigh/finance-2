@@ -134,6 +134,31 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         return stockList;
     }
 
+    /**
+     * 股权产品excel信息
+     * @param page
+     * @param listStockConditionDto
+     * @return java.util.List<com.july.company.vo.finance.StockExcelListVo>
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public List<StockExcelListVo> getStockExcelList(Page<StockListVo> page, ListStockConditionDto listStockConditionDto) {
+        IPage<StockListVo> stockListVoIPage = getStockList(page, listStockConditionDto);
+        List<StockListVo> stockListVos = stockListVoIPage.getRecords();
+        BnException.of(CollectionUtils.isEmpty(stockListVos), "没有找到股权产品信息，无法导出！");
+        return stockListVos.stream().map(stockListVo ->
+                StockExcelListVo.builder()
+                        .productName(stockListVo.getProductName())
+                        .mechanism(stockListVo.getMechanism())
+                        .tel(stockListVo.getTel())
+                        .statusStr(stockListVo.getStatusStr())
+                        .financeQuotaStr(stockListVo.getFinanceQuotaStr())
+                        .createdTimeStr(stockListVo.getCreatedTimeStr())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
     @Override
     public FinanceProduct getFinanceProductById(Long id) {
         QueryWrapper<FinanceProduct> queryWrapper = new QueryWrapper<>();
@@ -166,14 +191,14 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      * @since 2020/6/11
      */
     @Override
-    public StockListVo getStockByProductId(SelectProductDto selectProductDto) {
+    public StockEditDetailVo getStockByProductId(SelectProductDto selectProductDto) {
         BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
         FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
         FinanceStockDetail financeProductDetail = financeStockDetailService.getFinanceProductDetail(selectProductDto.getProductId());
-        StockListVo stockListVo = new StockListVo();
-        BeanUtils.copyProperties(financeProductDetail, stockListVo);
-        BeanUtils.copyProperties(financeProduct, stockListVo);
-        return stockListVo;
+        StockEditDetailVo stockEditDetailVo = new StockEditDetailVo();
+        BeanUtils.copyProperties(financeProductDetail, stockEditDetailVo);
+        BeanUtils.copyProperties(financeProduct, stockEditDetailVo);
+        return stockEditDetailVo;
     }
 
     /**
@@ -192,6 +217,25 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
         BeanUtils.copyProperties(financeProduct, bondEditDetailVo);
         return bondEditDetailVo;
+    }
+
+    /**
+     * 保存股权融资产品信息
+     * @param stockEditDetailDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
+        FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
+        BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
+        BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+        this.updateById(financeProduct);
+
+        //修改股权融资产品信息
+        FinanceStockDetail financeStockDetail = financeStockDetailService.getFinanceProductDetail(financeProduct.getId());
+        BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+        financeStockDetailService.updateById(financeStockDetail);
     }
 
 }

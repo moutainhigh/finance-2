@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.entity.FinanceStockDetail;
 import com.july.company.vo.finance.*;
 
+import java.util.List;
+
 /**
  * 融资产品信息 服务类
  * @author zengxueqi
@@ -78,7 +80,7 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @author zengxueqi
      * @since 2020/6/11
      */
-    StockListVo getStockByProductId(SelectProductDto selectProductDto);
+    StockEditDetailVo getStockByProductId(SelectProductDto selectProductDto);
 
     /**
      * 债权融资信息根据产品ID查询
@@ -88,5 +90,24 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/6/11
      */
     BondEditDetailVo getBondByProductId(SelectProductDto selectProductDto);
+
+    /**
+     * 股权产品excel信息
+     * @param page
+     * @param listStockConditionDto
+     * @return java.util.List<com.july.company.vo.finance.StockExcelListVo>
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    List<StockExcelListVo> getStockExcelList(Page<StockListVo> page, ListStockConditionDto listStockConditionDto);
+
+    /**
+     * 保存股权融资产品信息
+     * @param stockEditDetailDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    void saveStockProduct(StockEditDetailDto stockEditDetailDto);
 
 }

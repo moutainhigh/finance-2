@@ -70,29 +70,31 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                 .marketOccupyRateStr(DictInit.getCodeValue(SystemConstant.SCZYL, financeProductDetail.getMarketOccupyRate() + ""))
                 .boolBuyBackStr(DictInit.getCodeValue(SystemConstant.SFHG, financeProductDetail.getBoolBuyBack() + ""))
                 .patentCountStr(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_FMZLSL, financeProductDetail.getPatentCount() + ""))
-                .advantageStr(getColunmNode(SystemConstant.GSJZYS, financeProductDetail.getAdvantage() + ""))
+                .advantageStr(getListColunmNode(SystemConstant.GSJZYS, financeProductDetail.getAdvantage() + ""))
                 .capitalsStr(DictInit.getCodeValue(SystemConstant.GDLJTRZJ, financeProductDetail.getCapitals() + ""))
-                .evaluateNameStr(getColunmNode(SystemConstant.PDCH, financeProductDetail.getEvaluateName() + ""))
+                .evaluateNameStr(getListColunmNode(SystemConstant.PDCH, financeProductDetail.getEvaluateName() + ""))
                 .build();
     }
 
     public String getColunmNode(String codeTypo, String colunm) {
-        //JSONObject jsonObject = JSON.parseObject(colunm);
-        Node node = JSONObject.parseObject(colunm, Node.class);
-        String code = node.getCode(); //jsonObject.getString("code");
-        String value = node.getValue(); //jsonObject.getString("code");
-        if (StringUtils.isEmpty(value)) {
-            return DictInit.getCodeValue(codeTypo, code);
-        } else {
-            return value;
+        if (!StringUtils.isEmpty(colunm)) {
+            Node node = JSONObject.parseObject(colunm, Node.class);
+            String code = node.getCode();
+            String value = node.getValue();
+            if (StringUtils.isEmpty(value)) {
+                return DictInit.getCodeValue(codeTypo, code);
+            } else {
+                return value;
+            }
         }
+        return null;
     }
 
     public String getListColunmNode(String codeTypo, String colunm) {
-        List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-        if (!CollectionUtils.isEmpty(nodes)) {
+        if (!StringUtils.isEmpty(colunm)) {
+            List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
             List<String> colunms = nodes.stream().map(node -> {
-                if (StringUtils.isEmpty(node.getCode())) {
+                if (StringUtils.isEmpty(node.getValue())) {
                     return DictInit.getCodeValue(codeTypo, node.getCode());
                 } else {
                     return node.getValue();

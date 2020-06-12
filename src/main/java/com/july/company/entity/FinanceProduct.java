@@ -45,6 +45,11 @@ public class FinanceProduct extends BaseEntity {
     @TableField("workAddress")
     private String workAddress;
     /**
+     * 办公详细地址
+     */
+    @TableField("detaileAddress")
+    private String detaileAddress;
+    /**
      * 联系电话
      */
     @TableField("tel")

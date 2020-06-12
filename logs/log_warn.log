@@ -1,23 +1,39 @@
-2020-06-11 11:59:15.312 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-2020-06-11 11:59:17.319 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 11:59:17.325 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 12:10:23.176 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-2020-06-11 12:10:24.907 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 12:10:24.912 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:28:53.118 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-2020-06-11 16:28:55.221 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:28:55.226 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:29:38.144 [XNIO-1 task-12] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
-2020-06-11 16:30:20.408 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-2020-06-11 16:30:22.237 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:30:22.240 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:30:39.840 [XNIO-1 task-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.july.company.response.ResultT<com.july.company.vo.finance.StockListVo> com.july.company.controller.FinanceProductController.getStockByProductId(java.lang.Long)]
-2020-06-11 16:30:57.742 [XNIO-1 task-12] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: Required request body is missing: public com.july.company.response.ResultT<com.july.company.vo.finance.StockListVo> com.july.company.controller.FinanceProductController.getStockByProductId(java.lang.Long)]
-2020-06-11 16:40:04.438 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
-2020-06-11 16:40:06.297 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:40:06.301 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
-2020-06-11 16:41:22.331 [XNIO-1 task-13] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=请提供产品id进行查询！]]
-2020-06-11 16:41:55.118 [XNIO-1 task-21] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=请提供产品id进行查询！]]
-2020-06-11 16:42:17.812 [XNIO-1 task-26] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=请提供产品id进行查询！]]
-2020-06-11 16:43:35.137 [XNIO-1 task-39] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=请提供产品id进行查询！]]
-2020-06-11 16:43:43.816 [XNIO-1 task-44] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=请提供产品id进行查询！]]
+2020-06-12 09:12:30.833 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:12:33.059 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:12:33.065 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:41:01.351 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:41:04.428 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:41:04.436 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:46:34.646 [XNIO-1 task-59] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-12 09:46:46.659 [XNIO-1 task-62] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-12 09:47:05.236 [XNIO-1 task-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-12 09:48:32.563 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:48:34.512 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:48:34.516 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:48:52.508 [XNIO-1 task-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-12 09:49:47.271 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:49:49.687 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:49:49.693 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:50:03.026 [XNIO-1 task-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-12 09:51:21.531 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:51:24.029 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:51:24.033 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:59:24.041 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 09:59:26.262 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:59:26.266 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 09:59:28.912 [XNIO-1 task-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'industryDirect' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-12 10:51:42.034 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 10:51:46.629 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 10:51:46.658 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 10:55:37.391 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 10:55:39.497 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 10:55:39.502 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 11:00:15.003 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 11:00:17.366 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 11:00:17.370 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 11:07:10.994 [XNIO-1 task-40] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'industryDirect' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-12 11:11:58.409 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 11:12:00.306 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 11:12:00.310 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
