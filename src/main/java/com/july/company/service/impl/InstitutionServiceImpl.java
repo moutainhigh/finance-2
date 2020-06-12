@@ -190,9 +190,10 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
      * @since 2020/6/12
      */
     @Override
-    public List<Institution> getInstitution() {
+    public List<Institution> getInstitution(Integer institutionType) {
         QueryWrapper<Institution> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+        queryWrapper.eq("institutionType", institutionType);
         return this.list(queryWrapper);
     }
 

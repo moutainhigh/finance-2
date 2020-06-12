@@ -96,3 +96,12 @@
 2020-06-12 16:19:10.430 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
 2020-06-12 16:19:12.739 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
 2020-06-12 16:19:12.745 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 16:42:06.138 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-12 16:42:08.199 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 16:42:08.204 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-12 17:07:31.358 [XNIO-1 task-13] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'industryDirect' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-12 17:08:16.550 [XNIO-1 task-17] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=用户名或密码错误]]
+2020-06-12 17:08:22.804 [XNIO-1 task-19] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=用户名或密码错误]]
+2020-06-12 17:09:20.401 [XNIO-1 task-44] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'industryDirect' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]

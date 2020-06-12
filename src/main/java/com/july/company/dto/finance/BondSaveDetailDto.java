@@ -21,6 +21,10 @@ public class BondSaveDetailDto implements Serializable {
 
     private static final long serialVersionUID = 7680189733243514257L;
     /**
+     * 产品状态(驳回=-1，保存=0，待审核=1，已发布=2，已下线=3，已删除=4)
+     */
+    private Integer status;
+    /**
      * 债权融资产品id
      */
     private Long id;
@@ -32,6 +36,10 @@ public class BondSaveDetailDto implements Serializable {
      * 所属机构
      */
     private String mechanism;
+    /**
+     * 机构ID
+     */
+    private Long institutionId;
     /**
      * 注册地址
      */
