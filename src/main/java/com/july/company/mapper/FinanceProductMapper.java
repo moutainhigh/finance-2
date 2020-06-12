@@ -88,6 +88,6 @@ public interface FinanceProductMapper extends BaseMapper<FinanceProduct> {
      * @author xia.junwei
      * @since 2020/6/8
      */
-    IPage<BondListVo> getBondList(Page<ListConditionDto> page, @Param("param") ListConditionDto listConditionDto);
+    IPage<BondListVo> getBondList(Page<BondListVo> page, @Param("param") ListConditionDto listConditionDto);
 
 }

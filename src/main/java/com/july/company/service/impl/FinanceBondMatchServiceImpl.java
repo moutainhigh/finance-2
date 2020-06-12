@@ -1,5 +1,7 @@
 package com.july.company.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.BondProductInfoDto;
@@ -13,6 +15,7 @@ import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.UserUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -56,7 +59,15 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
         return null;
     }
 
+    /**
+     * 一键匹配保存债券产品信息
+     * @param bondProductMatchDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "用户信息获取失败！");
@@ -67,14 +78,14 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
 
         //保存债权融资匹配信息
         FinanceBondDetail financeBondDetail = FinanceBondDetail.builder()
-                .registerAddress(getCode(bondProductMatchDto.getRegisterAddress().getCode(), bondProductMatchDto.getRegisterAddress().getValue()))
-                .industryDirect(getListStr(bondProductMatchDto.getIndustryDirect()))
-                .shareholder(getListStr(bondProductMatchDto.getShareholder()))
+                .registerAddress(getObjectToJSONStr(bondProductMatchDto.getRegisterAddress()))
+                .industryDirect(getObjectToJSONStr(bondProductMatchDto.getIndustryDirect()))
+                .shareholder(getObjectToJSONStr(bondProductMatchDto.getShareholder()))
                 .business(bondProductMatchDto.getBusiness())
                 .patentCount(bondProductMatchDto.getPatentCount())
                 .loanTerm(bondProductMatchDto.getLoanTerm())
                 .loanQuota(bondProductMatchDto.getLoanQuota())
-                .creditType(getListStr(bondProductMatchDto.getCreditType()))
+                .creditType(getObjectToJSONStr(bondProductMatchDto.getCreditType()))
                 .houseMortgage(bondProductMatchDto.getHouseMortgage())
                 .cashFlow(bondProductMatchDto.getCashFlow())
                 .goverOrderAmount(bondProductMatchDto.getGoverOrderAmount())
@@ -83,11 +94,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                 .assetAmount(bondProductMatchDto.getAssetAmount())
                 .liabilitiesAmount(bondProductMatchDto.getLiabilitiesAmount())
                 .owner(bondProductMatchDto.getOwner())
-                .qualification(getListStr(bondProductMatchDto.getQualification()))
+                .qualification(getObjectToJSONStr(bondProductMatchDto.getQualification()))
                 .subsidy(bondProductMatchDto.getSubsidy())
                 .boolIntroduce(bondProductMatchDto.getBoolIntroduce())
                 .taxAmount(bondProductMatchDto.getTaxAmount())
-                .boolLoan(getListStr(bondProductMatchDto.getBoolLoan()))
+                .boolLoan(getObjectToJSONStr(bondProductMatchDto.getBoolLoan()))
                 .existAmount(bondProductMatchDto.getExistAmount())
                 .jlr(bondProductMatchDto.getJlr())
                 .debtRatio(bondProductMatchDto.getDebtRatio())
@@ -111,12 +122,28 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
         operateDataService.saveOrUpdateMatchData(bondProductMatchDto.getOperateMatchDto());
 
         //更新公司信息
-        company.setRegisterAddress(getCode(bondProductMatchDto.getRegisterAddress().getCode(), bondProductMatchDto.getRegisterAddress().getValue()));
+        company.setRegisterAddress(getObjectToJSONStr(bondProductMatchDto.getRegisterAddress()));
         company.setWorkAddress(bondProductMatchDto.getWorkAddress());
         company.setContact(bondProductMatchDto.getContact());
         company.setTel(bondProductMatchDto.getTel());
         company.setIntroduce(bondProductMatchDto.getIntroduce());
         companyService.updateById(company);
+    }
+
+    public String getObjectToJSONStr(Node node) {
+        if (node == null) {
+            return null;
+        } else {
+            return JSON.toJSONString(node);
+        }
+    }
+
+    public String getObjectToJSONStr(List<Node> nodes) {
+        if (CollectionUtils.isEmpty(nodes)) {
+            return null;
+        } else {
+            return JSON.toJSONString(nodes);
+        }
     }
 
     public String getCode(String code, String value) {
@@ -125,14 +152,6 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
         } else {
             return value;
         }
-    }
-
-    public String getListStr(List<Node> nodes) {
-        if (!CollectionUtils.isEmpty(nodes)) {
-            List<String> codes = nodes.stream().map(node -> getCode(node.getCode(), node.getValue())).collect(Collectors.toList());
-            return String.join(",", codes);
-        }
-        return "";
     }
 
     /**
@@ -279,6 +298,21 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             }
         }
         return matchingProducts;
+    }
+
+    /**
+     * 获取企业的一键匹配信息
+     * @param companyId
+     * @return java.util.List<com.july.company.entity.FinanceBondMatch>
+     * @author zengxueqi
+     * @since 2020/6/10
+     */
+    @Override
+    public List<FinanceBondMatch> getFinanceBondMatch(Long companyId) {
+        QueryWrapper<FinanceBondMatch> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(companyId != null, "companyId", companyId)
+                .eq("deleted", SystemConstant.SYS_FALSE);
+        return this.list(queryWrapper);
     }
 
 }

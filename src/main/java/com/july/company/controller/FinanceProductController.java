@@ -1,22 +1,23 @@
 package com.july.company.controller;
 
+import cn.gjing.tools.excel.ExcelFactory;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
-import com.july.company.entity.FinanceProduct;
-import com.july.company.entity.FinanceStockDetail;
 import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.FinanceProductService;
 import com.july.company.vo.finance.FinanceBondProductVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
-import com.july.company.service.impl.FinanceStockDetailServiceImpl;
 import com.july.company.vo.finance.*;
-import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 产品信息 前端控制器
@@ -29,9 +30,6 @@ public class FinanceProductController {
 
     @Resource
     private FinanceProductService financeProductService;
-
-    @Resource
-    private FinanceStockDetailServiceImpl financeStockDetailService;
 
     /**
      * 获取股权产品列表信息
@@ -125,18 +123,68 @@ public class FinanceProductController {
     }
 
     /**
-     * 股权融资信息根据产品ID查询（后台）
-     * @author xia.junwei
-     * @since 2020/6/8
+     * 债权融资信息根据产品ID查询（后台）
+     * @param selectProductDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.finance.BondEditDetailVo>
+     * @author zengxueqi
+     * @since 2020/6/11
      */
-    @PostMapping("/getStockByproductId")
-    public ResultT<StockListVo> getStockByproductId(@RequestBody Long id) {
-        FinanceProduct financeProduct = financeProductService.getFinanceProductById(id);
-        FinanceStockDetail financeProductDetail = financeStockDetailService.getFinanceProductDetail(id);
-        StockListVo stockListVo = new StockListVo();
-        BeanUtils.copyProperties(financeProductDetail, stockListVo);
-        BeanUtils.copyProperties(financeProduct, stockListVo);
-        return ResultT.ok(stockListVo);
+    @PostMapping("/getBondByProductId")
+    public ResultT<BondEditDetailVo> getBondByProductId(@RequestBody SelectProductDto selectProductDto) {
+        return ResultT.ok(financeProductService.getBondByProductId(selectProductDto));
+    }
+
+    /**
+     * 股权融资信息根据产品ID查询(后台)
+     * @param selectProductDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.finance.StockEditDetailVo>
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @PostMapping("/getStockByProductId")
+    public ResultT<StockEditDetailVo> getStockByProductId(@RequestBody SelectProductDto selectProductDto) {
+        return ResultT.ok(financeProductService.getStockByProductId(selectProductDto));
+    }
+    /**
+     * 修改保存债权信息(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @PostMapping("/updateFinanceBond")
+    public ResultT<String> updateFinanceBond(@RequestBody BondSaveDetailDto bondSaveDetailDto) {
+        financeProductService.updateFinanceBond(bondSaveDetailDto);
+        return ResultT.ok("保存成功");
+    }
+
+    /**
+     * 保存股权融资产品信息
+     * @param stockEditDetailDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    @PostMapping("/saveStockProduct")
+    public ResultT<String> saveStockProduct(@RequestBody StockEditDetailDto stockEditDetailDto) {
+        financeProductService.saveStockProduct(stockEditDetailDto);
+        return ResultT.ok("股权产品修改成功！");
+    }
+
+    /**
+     * 股权产品信息导出
+     * @param pageParamVo
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @PostMapping("/exportStockProduct")
+    public void exportStockProduct(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletResponse response = servletRequestAttributes.getResponse();
+        PageVo<ListStockConditionDto> pager = pageParamVo.getPager();
+        pager.setPageSize(-1L);
+        List<StockExcelListVo> eduTeacherLeaveRecordExcels = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+        ExcelFactory.createWriter("股权产品信息", StockExcelListVo.class, response).write(eduTeacherLeaveRecordExcels).flush();
     }
 
 }

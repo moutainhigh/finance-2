@@ -1,29 +1,26 @@
 package com.july.company.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.FinanceProductDetailDto;
-import com.july.company.dto.finance.BondProductInfoDto;
-import com.july.company.dto.finance.StockProductInfoDto;
-import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
 import com.july.company.exception.BnException;
-import com.july.company.mapper.FinanceProductMapper;
 import com.july.company.mapper.FinanceStockDetailMapper;
 import com.july.company.service.FinanceProductService;
 import com.july.company.service.FinanceStockDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.utils.StringUtils;
 import com.july.company.vo.finance.FinanceStockProductDetailVo;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 融资公司明细信息 服务实现类
@@ -54,12 +51,12 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                 .workAddress(financeProduct.getWorkAddress())
                 .tel(financeProduct.getTel())
                 .introduce(financeProduct.getIntroduce())
-                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProductDetail.getRegisterAddress() + ""))
-                .financeStateStr(DictInit.getCodeValue(SystemConstant.RZJD, financeProductDetail.getFinanceState() + ""))
+                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getRegisterAddress() + ""))
+                .financeStateStr(getColunmNode(SystemConstant.RZJD, financeProductDetail.getFinanceState()))
                 .financeQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, financeProductDetail.getFinanceQuota() + ""))
-                .industryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, financeProductDetail.getIndustryDirect() + ""))
-                .shareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, financeProductDetail.getShareholder() + ""))
-                .productStateStr(DictInit.getCodeValue(SystemConstant.CPJD, financeProductDetail.getProductState() + ""))
+                .industryDirectStr(getColunmNode(SystemConstant.HYFX, financeProductDetail.getIndustryDirect()))
+                .shareholderStr(getColunmNode(SystemConstant.GDBJ, financeProductDetail.getShareholder() + ""))
+                .productStateStr(getColunmNode(SystemConstant.CPJD, financeProductDetail.getProductState() + ""))
                 .businessStr(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_YYSR, financeProductDetail.getBusiness() + ""))
                 .businessAddRateStr(DictInit.getCodeValue(SystemConstant.YYSRZZL, financeProductDetail.getBusinessAddRate() + ""))
                 .productRateStr(DictInit.getCodeValue(SystemConstant.CPMLL, financeProductDetail.getProductRate() + ""))
@@ -69,14 +66,43 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
                 .staffCountStr(DictInit.getCodeValue(SystemConstant.YGRS, financeProductDetail.getStaffCount() + ""))
                 .marketCapacityStr(DictInit.getCodeValue(SystemConstant.SCRL, financeProductDetail.getMarketCapacity() + ""))
                 .marketAddRateStr(DictInit.getCodeValue(SystemConstant.SCRLZZL, financeProductDetail.getMarketAddRate() + ""))
-                .targetCustomerStr(DictInit.getCodeValue(SystemConstant.MBKH, financeProductDetail.getTargetCustomer() + ""))
+                .targetCustomerStr(getListColunmNode(SystemConstant.MBKH, financeProductDetail.getTargetCustomer() + ""))
                 .marketOccupyRateStr(DictInit.getCodeValue(SystemConstant.SCZYL, financeProductDetail.getMarketOccupyRate() + ""))
                 .boolBuyBackStr(DictInit.getCodeValue(SystemConstant.SFHG, financeProductDetail.getBoolBuyBack() + ""))
                 .patentCountStr(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_FMZLSL, financeProductDetail.getPatentCount() + ""))
-                .advantageStr(DictInit.getCodeValue(SystemConstant.GSJZYS, financeProductDetail.getAdvantage() + ""))
+                .advantageStr(getListColunmNode(SystemConstant.GSJZYS, financeProductDetail.getAdvantage() + ""))
                 .capitalsStr(DictInit.getCodeValue(SystemConstant.GDLJTRZJ, financeProductDetail.getCapitals() + ""))
-                .evaluateNameStr(DictInit.getCodeValue(SystemConstant.PDCH, financeProductDetail.getEvaluateName() + ""))
+                .evaluateNameStr(getListColunmNode(SystemConstant.PDCH, financeProductDetail.getEvaluateName() + ""))
                 .build();
+    }
+
+    public String getColunmNode(String codeTypo, String colunm) {
+        if (!StringUtils.isEmpty(colunm)) {
+            Node node = JSONObject.parseObject(colunm, Node.class);
+            String code = node.getCode();
+            String value = node.getValue();
+            if (StringUtils.isEmpty(value)) {
+                return DictInit.getCodeValue(codeTypo, code);
+            } else {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public String getListColunmNode(String codeTypo, String colunm) {
+        if (!StringUtils.isEmpty(colunm)) {
+            List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
+            List<String> colunms = nodes.stream().map(node -> {
+                if (StringUtils.isEmpty(node.getValue())) {
+                    return DictInit.getCodeValue(codeTypo, node.getCode());
+                } else {
+                    return node.getValue();
+                }
+            }).collect(Collectors.toList());
+            return String.join(",", colunms);
+        }
+        return null;
     }
 
     /**

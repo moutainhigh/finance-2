@@ -21,5 +21,14 @@ public interface FinanceStockDetailService extends IService<FinanceStockDetail> 
      * @since 2020/5/20
      */
     FinanceStockProductDetailVo getFinanceStockProductDetail(FinanceProductDetailDto financeProductDetailDto);
+
+    /**
+     * 通过产品ID获取股权产品的明细信息
+     * @param productId
+     * @return com.july.company.entity.FinanceProductDetail
+     * @author zengxueqi
+     * @since 2020/5/20
+     */
+    FinanceStockDetail getFinanceProductDetail(Long productId);
     
 }

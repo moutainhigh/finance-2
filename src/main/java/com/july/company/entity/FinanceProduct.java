@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.july.company.base.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
@@ -15,6 +14,9 @@ import lombok.experimental.Accessors;
  * @since 2020-05-20
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("fc_finance_product")
@@ -35,10 +37,20 @@ public class FinanceProduct extends BaseEntity {
     @TableField("mechanism")
     private String mechanism;
     /**
+     * 注册地址
+     */
+    @TableField("registerAddress")
+    private String registerAddress;
+    /**
      * 办公地址
      */
     @TableField("workAddress")
     private String workAddress;
+    /**
+     * 办公详细地址
+     */
+    @TableField("detailAddress")
+    private String detailAddress;
     /**
      * 联系电话
      */

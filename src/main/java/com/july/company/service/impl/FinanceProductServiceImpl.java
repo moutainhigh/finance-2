@@ -6,15 +6,19 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.*;
+import com.july.company.entity.FinanceBondDetail;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
 import com.july.company.entity.enums.ProductStatusEnum;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceProductMapper;
+import com.july.company.service.FinanceBondDetailService;
 import com.july.company.service.FinanceProductService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.service.FinanceStockDetailService;
 import com.july.company.utils.DateUtils;
 import com.july.company.vo.finance.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -35,6 +39,10 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
 
     @Resource
     private FinanceProductMapper financeProductMapper;
+    @Resource
+    private FinanceStockDetailService financeStockDetailService;
+    @Resource
+    private FinanceBondDetailService financeBondDetailService;
 
     /**
      * 获取股权产品列表信息
@@ -126,35 +134,122 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         return stockList;
     }
 
+    /**
+     * 股权产品excel信息
+     * @param page
+     * @param listStockConditionDto
+     * @return java.util.List<com.july.company.vo.finance.StockExcelListVo>
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public List<StockExcelListVo> getStockExcelList(Page<StockListVo> page, ListStockConditionDto listStockConditionDto) {
+        IPage<StockListVo> stockListVoIPage = getStockList(page, listStockConditionDto);
+        List<StockListVo> stockListVos = stockListVoIPage.getRecords();
+        BnException.of(CollectionUtils.isEmpty(stockListVos), "没有找到股权产品信息，无法导出！");
+        return stockListVos.stream().map(stockListVo ->
+                StockExcelListVo.builder()
+                        .productName(stockListVo.getProductName())
+                        .mechanism(stockListVo.getMechanism())
+                        .tel(stockListVo.getTel())
+                        .statusStr(stockListVo.getStatusStr())
+                        .financeQuotaStr(stockListVo.getFinanceQuotaStr())
+                        .createdTimeStr(stockListVo.getCreatedTimeStr())
+                        .build()
+        ).collect(Collectors.toList());
+    }
+
     @Override
     public FinanceProduct getFinanceProductById(Long id) {
         QueryWrapper<FinanceProduct> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(id != null, "id", id)
+        queryWrapper.eq("id", id)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
     }
 
     @Override
-    public IPage<BondListVo> getBondList(Page<ListConditionDto> page, ListConditionDto listConditionDto) {
+    public IPage<BondListVo> getBondList(Page<BondListVo> page, ListConditionDto listConditionDto) {
         IPage<BondListVo> bondList = financeProductMapper.getBondList(page, listConditionDto);
         if (!CollectionUtils.isEmpty(bondList.getRecords())) {
             //字典转换
             List<BondListVo> bondListVos = bondList.getRecords().stream().map(bondListVo -> {
-                //注册地址
-                bondListVo.setRegisterAddressStr(DictInit.getCodeValue(SystemConstant.REGION, bondListVo.getRegisterAddress() + ""));
                 //营业收入
                 bondListVo.setBusinessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
-                //发明专利数量
-                bondListVo.setPatentCountStr(DictInit.getCodeValue(SystemConstant.BOND_FMZLS, bondListVo.getPatentCount() + ""));
-                //行业方向
-                bondListVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, bondListVo.getIndustryDirect() + ""));
-                //股东背景
-                bondListVo.setShareholderStr(DictInit.getCodeValue(SystemConstant.GDBJ, bondListVo.getShareholder() + ""));
+                bondListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(bondListVo.getCreatedTime()));
                 return bondListVo;
             }).collect(Collectors.toList());
             bondList.setRecords(bondListVos);
         }
         return bondList;
+    }
+
+    /**
+     * 获取股权产品信息
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.StockListVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public StockEditDetailVo getStockByProductId(SelectProductDto selectProductDto) {
+        BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
+        FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
+        FinanceStockDetail financeProductDetail = financeStockDetailService.getFinanceProductDetail(selectProductDto.getProductId());
+        StockEditDetailVo stockEditDetailVo = new StockEditDetailVo();
+        BeanUtils.copyProperties(financeProductDetail, stockEditDetailVo);
+        BeanUtils.copyProperties(financeProduct, stockEditDetailVo);
+        return stockEditDetailVo;
+    }
+
+    /**
+     * 债权融资信息根据产品ID查询
+     * @param selectProductDto
+     * @return com.july.company.vo.finance.BondEditDetailVo
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @Override
+    public BondEditDetailVo getBondByProductId(SelectProductDto selectProductDto) {
+        BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
+        FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
+        FinanceBondDetail financeBondDetail = financeBondDetailService.getFinanceProductDetail(selectProductDto.getProductId());
+        BondEditDetailVo bondEditDetailVo = new BondEditDetailVo();
+        BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
+        BeanUtils.copyProperties(financeProduct, bondEditDetailVo);
+        return bondEditDetailVo;
+    }
+
+    /**
+     * 保存股权融资产品信息
+     * @param stockEditDetailDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
+        if (stockEditDetailDto.getProductId() == null) {
+            FinanceProduct.builder()
+
+                    .build();
+        } else {
+            FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
+            BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
+            BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+            this.updateById(financeProduct);
+
+            //修改股权融资产品信息
+            FinanceStockDetail financeStockDetail = financeStockDetailService.getFinanceProductDetail(financeProduct.getId());
+            BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+            financeStockDetailService.updateById(financeStockDetail);
+        }
+    }
+
+    @Override
+    public void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
+        FinanceProduct financeProduct = new FinanceProduct();
+        BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+        this.updateById(financeProduct);
+        financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
     }
 
 }

@@ -182,4 +182,18 @@ public class InstitutionServiceImpl extends ServiceImpl<InstitutionMapper, Insti
         return listInstitutionVoIPage;
     }
 
+    /**
+     * 获取所有的机构信息
+     * @param
+     * @return java.util.List<com.july.company.entity.Institution>
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    @Override
+    public List<Institution> getInstitution() {
+        QueryWrapper<Institution> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+        return this.list(queryWrapper);
+    }
+
 }
