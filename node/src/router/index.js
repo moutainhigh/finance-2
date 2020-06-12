@@ -47,6 +47,12 @@ Vue.use(VueRouter)
     component: () => import('../views/Result.vue'),
     meta:{title:'返回到首页'}
   },
+  {
+    path: '/usercenter',
+    name: 'UserCenter',
+    component: () => import('../views/UserCenter.vue'),
+    meta:{title:'个人中心'}
+  },
 ]
 
 const router = new VueRouter({

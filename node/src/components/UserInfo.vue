@@ -2,14 +2,14 @@
   <div class="user">
       <div class="home-userName" v-if="isHome">
           <img src="/image/home/user-left.png" class="user-left" alt="">
-          <div class="u-info">
+          <div class="u-info" @click="toPage">
             <span>{{userInfo.companyName}}</span>
             <span @click="islogout=true" class="logout">[退出]</span>
             <img src="/image/home/user-i.png" class="u-icon" /> 
           </div>
           <img src="/image/home/user-right.png" class="user-right" alt="">
       </div>
-      <div class="userName" v-if="!isHome">
+      <div class="userName" v-if="!isHome" @click="toPage">
          <span>{{userInfo.companyName}}</span>
          <span @click="islogout=true" class="logout">[退出]</span> 
          <img src="/image/home/user-circle.png" /> 
@@ -64,6 +64,11 @@ export default {
                     this.$message.error(res.data.msg)
                 }
             })
+        },
+        toPage(){
+            if(this.$store.state.token){
+                this.$router.push({path:'/usercenter'});
+            }
         }
     }
 }
@@ -110,6 +115,7 @@ color: #9ee9ff;}
             height:3.2vw;
         }
         .u-info{
+            cursor: pointer;
             display:flex;
             justify-content:center;
             align-items: center;
@@ -140,6 +146,7 @@ color: #9ee9ff;}
         }
     }
     .userName{
+        cursor: pointer;
         .logout{
             margin-left:0.8vw;
             cursor: pointer;
