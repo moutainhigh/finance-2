@@ -5,8 +5,10 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dto.Node;
 import com.july.company.dto.code.QuerySysCodeDto;
 import com.july.company.dto.code.SysCodeDto;
+import com.july.company.entity.Institution;
 import com.july.company.entity.SysCode;
 import com.july.company.mapper.SysCodeMapper;
+import com.july.company.service.InstitutionService;
 import com.july.company.service.SysCodeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.vo.code.QueryDetailSysCodeVo;
@@ -34,6 +36,8 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
 
     @Resource
     private SysCodeMapper sysCodeMapper;
+    @Resource
+    private InstitutionService institutionService;
 
     /**
      * 列表查询条件信息
@@ -144,7 +148,60 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
                 querySysCodeVoList.add(querySysCodeVo);
             });
         }
+        querySysCodeVos.add(getRegionInfo());
+        querySysCodeVos.add(getInstitutionInfo());
         return querySysCodeVos;
+    }
+
+    /**
+     * 获取地区信息
+     * @param
+     * @return com.july.company.vo.code.QuerySysCodeVo
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    public QuerySysCodeVo getRegionInfo() {
+        QueryWrapper<SysCode> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("codeType", SystemConstant.REGION);
+        List<SysCode> sysCodes = this.list(queryWrapper);
+
+        QuerySysCodeVo querySysCodeVo = QuerySysCodeVo.builder()
+                .codeName("注册地址")
+                .codeType(SystemConstant.REGION)
+                .build();
+        List<QueryDetailSysCodeVo> queryDetailSysCodeVos = sysCodes.stream().map(sysCode ->
+                QueryDetailSysCodeVo.builder()
+                        .code(sysCode.getCode())
+                        .codeType(sysCode.getCodeType())
+                        .value(sysCode.getValue())
+                        .build()
+        ).collect(Collectors.toList());
+        querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
+        return querySysCodeVo;
+    }
+
+    /**
+     * 获取机构信息
+     * @param
+     * @return com.july.company.vo.code.QuerySysCodeVo
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    public QuerySysCodeVo getInstitutionInfo() {
+        List<Institution> institutions = institutionService.getInstitution();
+        QuerySysCodeVo querySysCodeVo = QuerySysCodeVo.builder()
+                .codeName("机构信息")
+                .codeType(SystemConstant.INSTITUTION)
+                .build();
+        List<QueryDetailSysCodeVo> queryDetailSysCodeVos = institutions.stream().map(institutionInfo ->
+                QueryDetailSysCodeVo.builder()
+                        .code(institutionInfo.getId().toString())
+                        .codeType(SystemConstant.INSTITUTION)
+                        .value(institutionInfo.getInstitutionName())
+                        .build()
+        ).collect(Collectors.toList());
+        querySysCodeVo.setQueryDetailSysCodeVos(queryDetailSysCodeVos);
+        return querySysCodeVo;
     }
 
     /**

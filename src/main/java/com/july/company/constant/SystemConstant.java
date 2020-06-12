@@ -159,6 +159,10 @@ public class SystemConstant {
      */
     public static final String REGION = "REGION";
     /**
+     * 机构信息
+     */
+    public static final String INSTITUTION = "INSTITUTION";
+    /**
      * http正常响应状态
      */
     public static final int HTTP_STATUS = 200;

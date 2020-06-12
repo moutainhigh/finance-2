@@ -58,4 +58,13 @@ public interface InstitutionService extends IService<Institution> {
      */
     IPage<ListInstitutionVo> getInstitution(Page<ListInstitutionVo> page, ListInstitutionDto listInstitutionDto);
 
+    /**
+     * 获取所有的机构信息
+     * @param
+     * @return java.util.List<com.july.company.entity.Institution>
+     * @author zengxueqi
+     * @since 2020/6/12
+     */
+    List<Institution> getInstitution();
+
 }

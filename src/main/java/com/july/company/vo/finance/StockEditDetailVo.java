@@ -27,6 +27,10 @@ public class StockEditDetailVo implements Serializable {
      */
     private Long productId;
     /**
+     * 机构id
+     */
+    private Long institutionId;
+    /**
      * 产品名称
      */
     private String title;

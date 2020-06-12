@@ -227,15 +227,21 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      * @since 2020/6/12
      */
     public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
-        FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
-        BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
-        BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
-        this.updateById(financeProduct);
+        if (stockEditDetailDto.getProductId() == null) {
+            FinanceProduct.builder()
 
-        //修改股权融资产品信息
-        FinanceStockDetail financeStockDetail = financeStockDetailService.getFinanceProductDetail(financeProduct.getId());
-        BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
-        financeStockDetailService.updateById(financeStockDetail);
+                    .build();
+        } else {
+            FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
+            BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
+            BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+            this.updateById(financeProduct);
+
+            //修改股权融资产品信息
+            FinanceStockDetail financeStockDetail = financeStockDetailService.getFinanceProductDetail(financeProduct.getId());
+            BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+            financeStockDetailService.updateById(financeStockDetail);
+        }
     }
 
 }
