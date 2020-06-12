@@ -244,4 +244,12 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         }
     }
 
+    @Override
+    public void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
+        FinanceProduct financeProduct = new FinanceProduct();
+        BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+        this.updateById(financeProduct);
+        financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
+    }
+
 }

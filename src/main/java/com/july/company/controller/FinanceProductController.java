@@ -153,7 +153,7 @@ public class FinanceProductController {
      */
     @PostMapping("/updateFinanceBond")
     public ResultT<String> updateFinanceBond(@RequestBody BondSaveDetailDto bondSaveDetailDto) {
-//        financeProductService.updateFinanceBond(bondSaveDetailDto);
+        financeProductService.updateFinanceBond(bondSaveDetailDto);
         return ResultT.ok("保存成功");
     }
 

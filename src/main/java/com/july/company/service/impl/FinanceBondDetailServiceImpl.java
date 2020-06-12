@@ -5,6 +5,7 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.Node;
 import com.july.company.dto.finance.BondProductMatchDto;
+import com.july.company.dto.finance.BondSaveDetailDto;
 import com.july.company.dto.finance.FinanceProductDetailDto;
 import com.july.company.dto.finance.BondProductInfoDto;
 import com.july.company.entity.FinanceBondDetail;
@@ -16,6 +17,7 @@ import com.july.company.service.FinanceBondDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.service.FinanceProductService;
 import com.july.company.vo.finance.FinanceBondProductDetailVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -111,14 +113,14 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
     }
 
     @Override
-    public void updateFinanceBondProductDetailById(Long Id, FinanceBondDetail financeBondDetail) {
+    public void updateFinanceBondProductDetailById(BondSaveDetailDto bondSaveDetailDto) {
+        FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
+        BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
+        financeBondDetail.setId(null);
         QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
-        queryWrapper.eq("id", Id);
-        FinanceBondDetail detail = this.getOne(queryWrapper);
-        BnException.of(detail == null, "融资产品详情信息为空");
-        financeBondDetail.setId(detail.getId());
-        this.updateById(financeBondDetail);
+        queryWrapper.eq("productId", bondSaveDetailDto.getId());
+        this.update(financeBondDetail, queryWrapper);
     }
 
 
