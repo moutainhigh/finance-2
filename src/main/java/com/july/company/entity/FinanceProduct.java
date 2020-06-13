@@ -76,5 +76,10 @@ public class FinanceProduct extends BaseEntity {
      */
     @TableField("status")
     private Integer status;
+    /**
+     * 备注
+     */
+    @TableField("remark")
+    private String remark;
 
 }

@@ -325,4 +325,29 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             financeStockDetailService.updateById(financeStockDetail);
         }
     }
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateProductOperate(ProductOperateDto productOperateDto) {
+        FinanceProduct financeProduct = this.getById(productOperateDto.getProductId());
+        BnException.of(financeProduct == null, "没有找到该产品信息！");
+
+        if (ProductStatusEnum.REJECT.getValue().equals(productOperateDto.getOperateType())) {
+            financeProduct.setRemark(productOperateDto.getRemark());
+        } else if (ProductStatusEnum.AUDIT.getValue().equals(productOperateDto.getOperateType())) {
+        } else if (ProductStatusEnum.RELEASE.getValue().equals(productOperateDto.getOperateType())) {
+        } else if (ProductStatusEnum.OFFLINE.getValue().equals(productOperateDto.getOperateType())) {
+            financeProduct.setRemark(productOperateDto.getRemark());
+        }
+        financeProduct.setStatus(productOperateDto.getOperateType());
+        this.updateById(financeProduct);
+    }
+
 }

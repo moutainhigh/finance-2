@@ -145,6 +145,7 @@ public class FinanceProductController {
     public ResultT<StockEditDetailVo> getStockByProductId(@RequestBody SelectProductDto selectProductDto) {
         return ResultT.ok(financeProductService.getStockByProductId(selectProductDto));
     }
+
     /**
      * 修改保存或者添加债权信息(后台)
      * @param bondSaveDetailDto
@@ -195,7 +196,6 @@ public class FinanceProductController {
     }
 
 
-
     /**
      * 股权产品信息导出
      * @param pageParamVo
@@ -211,6 +211,19 @@ public class FinanceProductController {
         pager.setPageSize(-1L);
         List<StockExcelListVo> eduTeacherLeaveRecordExcels = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
         ExcelFactory.createWriter("股权产品信息", StockExcelListVo.class, response).write(eduTeacherLeaveRecordExcels).flush();
+    }
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @PostMapping("/updateProductOperate")
+    public ResultT<String> updateProductOperate(@RequestBody ProductOperateDto productOperateDto) {
+        financeProductService.updateProductOperate(productOperateDto);
+        return ResultT.ok("操作成功！");
     }
 
 }

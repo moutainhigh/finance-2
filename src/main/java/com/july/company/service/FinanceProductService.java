@@ -2,7 +2,6 @@ package com.july.company.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.dto.apply.ProductOperateDto;
 import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -131,5 +130,14 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      * @since 2020/6/11
      */
     void deleteStockList(BondDeleteDetailDto bondDeleteDetailDto);
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    void updateProductOperate(ProductOperateDto productOperateDto);
 
 }
