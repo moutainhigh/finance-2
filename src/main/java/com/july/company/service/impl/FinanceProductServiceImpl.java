@@ -229,9 +229,14 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      */
     public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
         if (stockEditDetailDto.getProductId() == null) {
-            FinanceProduct.builder()
-
-                    .build();
+            FinanceProduct financeProduct = FinanceProduct.builder().build();
+            BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+            financeProduct.setFinanceType(0);
+            this.save(financeProduct);
+            FinanceStockDetail financeStockDetail = new FinanceStockDetail();
+            BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+            financeStockDetail.setProductId(financeProduct.getId());
+            financeStockDetailService.save(financeStockDetail);
         } else {
             FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
             BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
@@ -294,6 +299,30 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             FinanceBondDetail financeBondDetail = financeBondDetailService.getOne(queryWrapper);
             financeBondDetail.setDeleted(SystemConstant.SYS_TRUE);
             financeBondDetailService.updateById(financeBondDetail);
+        }
+    }
+
+    /**
+     * 删除股权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteStockList(BondDeleteDetailDto bondDeleteDetailDto) {
+        BnException.of(StringUtils.isEmpty(bondDeleteDetailDto.getIds()), "删除数据时，数据id不能为空！");
+        List<String> ids = Arrays.asList(bondDeleteDetailDto.getIds().split(","));
+        for (String id : ids) {
+            FinanceProduct financeProduct = this.getById(id);
+            financeProduct.setDeleted(SystemConstant.SYS_TRUE);
+            this.updateById(financeProduct);
+            QueryWrapper<FinanceStockDetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("productId", id);
+            queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+            FinanceStockDetail financeStockDetail = financeStockDetailService.getOne(queryWrapper);
+            financeStockDetail.setDeleted(SystemConstant.SYS_TRUE);
+            financeStockDetailService.updateById(financeStockDetail);
         }
     }
 }
