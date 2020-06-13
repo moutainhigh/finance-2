@@ -201,7 +201,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 .business(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_YYSR, financeStockDetail.getBusiness()))
                 .businessAddRate(DictInit.getCodeValue(SystemConstant.YYSRZZL, financeStockDetail.getBusinessAddRate()))
                 .productRate(DictInit.getCodeValue(SystemConstant.CPMLL, financeStockDetail.getProductRate()))
-                .netInterestRate(DictInit.getCodeValue(SystemConstant.JLR, financeStockDetail.getNetInterestRate()))
+                .netInterestRate(DictInit.getCodeValue(SystemConstant.JLL, financeStockDetail.getNetInterestRate()))
                 .oldFinanceQuota(DictInit.getCodeValue(SystemConstant.GWRZJE, financeStockDetail.getOldFinanceQuota()))
                 .experience(DictInit.getCodeValue(SystemConstant.CYJL, financeStockDetail.getExperience()))
                 .companyStatus(DictInit.getCodeValue(SystemConstant.QYZT, financeStockMatch.getCompanyStatus()))

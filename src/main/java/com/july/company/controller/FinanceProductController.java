@@ -1,6 +1,7 @@
 package com.july.company.controller;
 
 import cn.gjing.tools.excel.ExcelFactory;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.finance.*;
@@ -11,12 +12,17 @@ import com.july.company.service.FinanceProductService;
 import com.july.company.vo.finance.FinanceBondProductVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import com.july.company.vo.finance.*;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -204,13 +210,19 @@ public class FinanceProductController {
      * @since 2020/6/11
      */
     @PostMapping("/exportStockProduct")
-    public void exportStockProduct(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) {
+    public ResponseEntity<byte[]> exportStockProduct(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) throws IOException {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletResponse response = servletRequestAttributes.getResponse();
         PageVo<ListStockConditionDto> pager = pageParamVo.getPager();
         pager.setPageSize(-1L);
-        List<StockExcelListVo> eduTeacherLeaveRecordExcels = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
-        ExcelFactory.createWriter("股权产品信息", StockExcelListVo.class, response).write(eduTeacherLeaveRecordExcels).flush();
+        List<StockExcelListVo> stockExcelListVos = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        EasyExcel.write(out, StockExcelListVo.class).sheet("默认").doWrite(stockExcelListVos);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", java.net.URLEncoder.encode("股权产品信息.xls", "utf-8"));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return ResponseEntity.ok().headers(headers).body(out.toByteArray());
     }
 
     /**
