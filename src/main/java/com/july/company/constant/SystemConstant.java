@@ -91,6 +91,10 @@ public class SystemConstant {
      */
     public static final String CPJD = "CPJD";
     /**
+     * 企业状态
+     */
+    public static final String QYZT = "QYZT";
+    /**
      * 营业收入
      */
     public static final String STOCKRIGHT_YYSR = "STOCKRIGHT_YYSR";
@@ -138,6 +142,10 @@ public class SystemConstant {
      * 是否接受回购条款
      */
     public static final String SFHG = "SFHG";
+    /**
+     * 预计上市时间
+     */
+    public static final String SSSJ = "SSSJ";
     /**
      * 发明专利数量
      */

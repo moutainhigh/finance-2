@@ -68,5 +68,10 @@ public class Company extends BaseEntity {
      */
     @TableField("contact")
     private String contact;
+    /**
+     * 详细地址
+     */
+    @TableField("detailAddress")
+    private String detailAddress;
 
 }

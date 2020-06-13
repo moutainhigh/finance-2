@@ -3,12 +3,10 @@ package com.july.company.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.dto.apply.*;
-import com.july.company.dto.finance.ListStockConditionDto;
 import com.july.company.entity.FinanceApply;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.vo.apply.ProductDetalVo;
 import com.july.company.vo.apply.SelectProductVo;
-import com.july.company.vo.finance.StockListVo;
+import com.july.company.vo.apply.StockCompanyDetalVo;
 
 /**
  * 企业申请产品信息 服务类
@@ -56,12 +54,12 @@ public interface FinanceApplyService extends IService<FinanceApply> {
     void applyProductOperate(ProductOperateDto productOperateDto);
 
     /**
-     * 获取申请产品详细信息
-     * @param productDetailDto
-     * @return com.july.company.vo.apply.ProductDetalVo
+     * 获取申请的企业信息(后台)
+     * @param stockCompanyDto
+     * @return com.july.company.vo.apply.StockCompanyDetalVo
      * @author zengxueqi
-     * @since 2020/6/12
+     * @since 2020/6/13
      */
-    ProductDetalVo getApplyInfo(ProductDetailDto productDetailDto);
+    StockCompanyDetalVo getStockCompanyInfo(StockCompanyDto stockCompanyDto);
 
 }

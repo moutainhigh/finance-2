@@ -10,6 +10,7 @@ import com.july.company.response.ResultT;
 import com.july.company.service.FinanceApplyService;
 import com.july.company.vo.apply.ProductDetalVo;
 import com.july.company.vo.apply.SelectProductVo;
+import com.july.company.vo.apply.StockCompanyDetalVo;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -85,15 +86,15 @@ public class FinanceApplyController {
     }
 
     /**
-     * 获取申请产品详细信息
-     * @param productDetailDto
-     * @return com.july.company.response.ResultT<com.july.company.vo.apply.ProductDetalVo>
+     * 获取申请的企业信息(后台)
+     * @param stockCompanyDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.apply.StockCompanyDetalVo>
      * @author zengxueqi
-     * @since 2020/6/12
+     * @since 2020/6/13
      */
-    @PostMapping("/getApplyInfo")
-    public ResultT<ProductDetalVo> getApplyInfo(@RequestBody ProductDetailDto productDetailDto) {
-        return ResultT.ok(financeApplyService.getApplyInfo(productDetailDto));
+    @PostMapping("/getStockCompanyInfo")
+    public ResultT<StockCompanyDetalVo> getStockCompanyInfo(@RequestBody StockCompanyDto stockCompanyDto) {
+        return ResultT.ok(financeApplyService.getStockCompanyInfo(stockCompanyDto));
     }
 
 }
