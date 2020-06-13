@@ -182,12 +182,16 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         //股权产品信息
         FinanceStockDetail financeStockDetail = financeStockDetailService.getById(financeStockMatch.getDetailId());
 
+        String workAddress = org.springframework.util.StringUtils.isEmpty(DictInit.getCodeValue(SystemConstant.REGION, company.getWorkAddress())) ? "" :
+                DictInit.getCodeValue(SystemConstant.REGION, company.getWorkAddress());
+        workAddress = org.springframework.util.StringUtils.isEmpty(company.getDetailAddress()) ? workAddress : workAddress + company.getDetailAddress();
+
         StockCompanyDetalVo stockCompanyDetalVo = StockCompanyDetalVo.builder()
                 .companyName(company.getCompanyName())
                 .contact(company.getContact())
                 .tel(company.getTel())
                 .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
-                .workAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getWorkAddress()) + company.getDetailAddress())
+                .workAddress(workAddress)
                 .introduce(company.getIntroduce())
                 .financeState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()))
                 .financeQuota(DictInit.getCodeValue(SystemConstant.RZED, financeStockDetail.getFinanceQuota()))
