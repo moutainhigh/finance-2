@@ -55,6 +55,7 @@
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/login/LoginAuthDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/mapper/FinanceBondMatchMapper.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/finance/ListStockConditionDto.java
+/Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/dto/finance/ProductOperateDto.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/base/BaseEntity.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/intercepts/MonitorIntercept.java
 /Users/zengxueqi/IdeaProjects/finance/src/main/java/com/july/company/config/RedisConfig.java
