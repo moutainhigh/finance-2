@@ -124,4 +124,12 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      */
     void deleteBondList(BondDeleteDetailDto bondDeleteDetailDto);
 
+    /**
+     * 删除股权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    void deleteStockList(BondDeleteDetailDto bondDeleteDetailDto);
+
 }
