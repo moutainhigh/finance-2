@@ -191,7 +191,7 @@ public class FinanceProductController {
     @PostMapping("/saveStockProduct")
     public ResultT<String> saveStockProduct(@RequestBody StockEditDetailDto stockEditDetailDto) {
         financeProductService.saveStockProduct(stockEditDetailDto);
-        return ResultT.ok("股权产品修改成功！");
+        return ResultT.ok("操作成功！");
     }
 
 

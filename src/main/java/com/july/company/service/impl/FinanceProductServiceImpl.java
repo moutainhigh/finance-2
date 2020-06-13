@@ -229,9 +229,14 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      */
     public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
         if (stockEditDetailDto.getProductId() == null) {
-            FinanceProduct.builder()
-
-                    .build();
+            FinanceProduct financeProduct = FinanceProduct.builder().build();
+            BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+            financeProduct.setFinanceType(0);
+            this.save(financeProduct);
+            FinanceStockDetail financeStockDetail = new FinanceStockDetail();
+            BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+            financeStockDetail.setProductId(financeProduct.getId());
+            financeStockDetailService.save(financeStockDetail);
         } else {
             FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
             BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
