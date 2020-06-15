@@ -36,7 +36,7 @@ public class CompanyApplyProductVo implements Serializable {
     /**
      * 申请状态（0=待审核，1=已通过，2=已驳回）
      */
-    private Integer status;
+    private String status;
     /**
      * 行业方向
      */

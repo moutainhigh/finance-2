@@ -53,7 +53,7 @@ public class CompanyController {
     }
 
     /**
-     * 通过用户ID获取某个企业的信息(admin)
+     * 通过用户ID获取企业信息(admin)
      * @param companyByUserDto
      * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyVo>
      * @author xiajunwei

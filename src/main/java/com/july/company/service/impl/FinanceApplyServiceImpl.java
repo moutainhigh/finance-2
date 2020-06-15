@@ -310,20 +310,21 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
             }).collect(Collectors.toList());*/
             //根据financeType查询股权和债权各自展示的字段
             companyApplyProductVoList = companyApplyProductVos.stream().map(companyApplyProductVo -> {
+                companyApplyProductVo.setStatus(getStatusValue(companyApplyProductVo.getStatus()));
                 //股权
                 if (companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)){
                     FinanceStockDetail financeStockDetail = financeStockDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
-                    companyApplyProductVo.setIndustryDirect(financeStockDetail.getIndustryDirect());
-                    companyApplyProductVo.setFinanceQuota(financeStockDetail.getFinanceQuota());
-                    companyApplyProductVo.setFinanceState(financeStockDetail.getFinanceState());
+                    companyApplyProductVo.setIndustryDirect(getColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
+                    companyApplyProductVo.setFinanceQuota(DictInit.getCodeValue(SystemConstant.RZED, financeStockDetail.getFinanceQuota()));
+                    companyApplyProductVo.setFinanceState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()));
                 } else {
                     //债权
                     FinanceBondDetail financeBondDetail = financeBondDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
-                    companyApplyProductVo.setIndustryDirect(financeBondDetail.getIndustryDirect());
-                    companyApplyProductVo.setLoanQuota(financeBondDetail.getLoanQuota());
-                    companyApplyProductVo.setLoanTerm(financeBondDetail.getLoanTerm());
+                    companyApplyProductVo.setIndustryDirect(getListColunmNode(SystemConstant.HYFX, financeBondDetail.getIndustryDirect()));
+                    companyApplyProductVo.setLoanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota()));
+                    companyApplyProductVo.setLoanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm()));
                 }
                 return companyApplyProductVo;
             }).collect(Collectors.toList());
@@ -359,6 +360,14 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
             return String.join(",", colunms);
         }
         return null;
+    }
+    public String getStatusValue(String status){
+        switch (status){
+            case "0" : return "待审核";
+            case "1" : return "已通过";
+            case "2" : return "已驳回";
+            default: return null;
+        }
     }
 
 }

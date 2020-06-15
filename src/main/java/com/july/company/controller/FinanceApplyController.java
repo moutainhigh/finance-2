@@ -108,7 +108,7 @@ public class FinanceApplyController {
     }
 
     /**
-     * 获取申请的企业信息(前台：个人中心)
+     * 获取申请的企业信息列表(前台：个人中心)
      * @param pageParamVo
      * @return com.july.company.response.ResultT<com.july.company.vo.apply.StockCompanyDetalVo>
      * @author xiajunwei
