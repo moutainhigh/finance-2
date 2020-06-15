@@ -11,30 +11,30 @@
                     </div>
                     <div class="desc-item">
                         <img src="/image/icon-hangyefangxiang.png" alt="" style="width:16px;height:16px;">
-                        <div><span>行业方向：</span> {{item.industryDirectStr}}</div>
+                        <div><span>行业方向：</span> {{item.industryDirect}}</div>
                     </div>
-                    <div class="desc-item" v-if="type==0">
+                    <div class="desc-item" v-if="item.financeType==0">
                         <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
-                        <div><span>融资额度：</span> {{item.financeQuotaStr}}</div>
+                        <div><span>融资额度：</span> {{item.financeQuota}}</div>
                     </div>
-                    <div class="desc-item" v-if="type==0">
+                    <div class="desc-item" v-if="item.financeType==0">
                         <img src="/image/icon-rognzijieduan.png" alt="" style="width:16px;height:16px;">
-                        <div><span>融资阶段：</span> {{item.financeStateStr}}</div>
+                        <div><span>融资阶段：</span> {{item.financeState}}</div>
                     </div>
-                    <div class="desc-item" v-if="type==1">
+                    <div class="desc-item" v-if="item.financeType==1">
                         <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
-                        <div><span>贷款额度：</span> {{item.loanQuotaStr}}</div>
+                        <div><span>贷款额度：</span> {{item.loanQuota}}</div>
                     </div>
-                    <div class="desc-item" v-if="type==1">
+                    <div class="desc-item" v-if="item.financeType==1">
                         <img src="/image/icon-rognzijieduan.png" alt="" style="width:16px;height:16px;">
-                        <div><span>贷款期限：</span> {{item.loanTermStr}}</div>
+                        <div><span>贷款期限：</span> {{item.loanTerm}}</div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="status-time">
-            <div class="status">待审核</div>
-            <div class="time">申请时间：2020-06-12</div>
+            <div class="status">{{item.status}}</div>
+            <div class="time">申请时间：{{item.createdTime|dateformat}}</div>
         </div>
     </div>
 </template>
@@ -65,6 +65,17 @@ export default {
     },
     methods:{
 
+    },
+    filters:{
+        dateformat:function(v){
+            if(!v){
+                return '';
+            }
+            let date = new Date(Number(v)*1000);
+            let month = date.getMonth()>=10?date.getMonth():'0'+date.getMonth().toString();
+            let day = date.getDate()>=10?date.getDate():'0'+date.getDate().toString();
+            return date.getFullYear().toString()+'-'+month+'-'+day;
+        }
     }
 }
 </script>

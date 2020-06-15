@@ -7,21 +7,39 @@
             <div class="info-detail">
                 <div class="logo-box">
                     <div class="logo">
-                        <img src="/image/c6.png" >
+                        <a-spin :spinning="spinning">
+                            <a-upload
+                                name="file"
+                                list-type="picture-card"
+                                class="avatar-uploader"
+                                :show-upload-list="false"
+                                action="/finance/uploadCompanyLogo"
+                                :before-upload="beforeUpload"
+                                @change="changeUpFile"
+                                :headers="headers"
+                            >
+                                <img v-if="companyInfo.companyLogo" :src="companyInfo.companyLogo" alt="avatar" />
+                                <div v-else>
+                                <div class="ant-upload-text">
+                                    <img src="/image/c6.png" >
+                                </div>
+                                </div>
+                            </a-upload>
+                        </a-spin>
                     </div>
                     <div style="color:red;text-align:center;font-size:14px;">
                         *点击图片更换企业LOGO
                     </div>
                 </div>
                 <div class="company-info">
-                    <div class="company-name">{{$store.state.userInfo.companyName}}</div>
-                    <div class="company-ucode">{{$store.state.userInfo.companyName}}</div>
+                    <div class="company-name">{{companyInfo.companyName}}</div>
+                    <div class="company-ucode">{{companyInfo.creditCode}}</div>
                     <div class="company-concat">
-                        <div class="company-uname">联系人：<span>{{$store.state.userInfo.userName}}</span></div>
-                        <div class="company-uname">联系电话：<span>{{$store.state.userInfo.mobile}}</span></div>
+                        <div class="company-uname">联系人：<span>{{companyInfo.contact}}</span></div>
+                        <div class="company-uname">联系电话：<span>{{companyInfo.tel}}</span></div>
                     </div>
                     <div class="company-desc">
-                        <div>公司简介：</div>
+                        <div>公司简介：{{companyInfo.introduce}}</div>
                         <span></span>
                     </div>
                 </div>
@@ -29,8 +47,13 @@
             <div class="line"></div>
             <div class="prodlist">
                 <div class="title">申请列表</div>
+                <a-spin :spinning="spinninglist">
                 <div class="list">
-                    <ProductItem class="item" @click="toDetail(item)" v-for="(item,index) in matchList" :key="index"></ProductItem>
+                    <ProductItem class="item" @to-detail="toDetail(item)" :item="item" v-for="(item,index) in matchList" :key="index"></ProductItem>
+                </div>
+                </a-spin>
+                <div style="margin:auto;text-align:center;padding-bottom:15px;">
+                    <a-pagination :total="totalNum" @change="onChange" :current='pageNo' :defaultPageSize='pageSize' />
                 </div>
             </div>
         </div>
@@ -42,16 +65,65 @@
 export default {
     data(){
         return{
-            matchList:[1,2]
+            matchList:[],
+            companyInfo:{},
+            pageNo:1,
+            pageSize:10,
+            totalNum:0,
+            spinning:false,
+            spinninglist:false,
+            upData:{companyId:0},
+            headers:{}
         }
     },
+    created(){
+        this.headers = {'Authorization':this.$store.state.token?'Bearer '+this.$store.state.token:''}
+        this.getCompany();
+    },
     methods:{
+        beforeUpload(file){
+            return true;
+        },
+        changeUpFile(info){
+            if (info.file.status === 'uploading') {
+                this.spinning = true;
+                return;
+            }
+            if (info.file.status === 'done') {
+                this.spinning = false;
+            }
+        },
+        getCompany(){
+            let params = {userId:this.$store.state.userInfo.id};
+            this.$http.post('/finance/company/getCompanyInfoById',params).then(res=>{
+                if(res.data.code==0){
+                    this.companyInfo = res.data.content;
+                    // this.companyInfo.companyLogo = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png";
+                    this.getMatchList();
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>{})
+        },
         getMatchList(){
-
+            let params = {content:{companyId:this.companyInfo.id},pager:{pageSize:this.pageSize,currentPage:this.pageNo},pageSize:this.pageSize,currentPage:this.pageNo};
+            this.spinninglist = true ;
+            this.$http.post('/finance/financeApply/getCompanyApplyProductVo',params).then(res=>{
+            this.spinninglist = false ;
+                if(res.data.code==0){
+                    this.matchList = res.data.content.list;
+                    this.totalNum = res.data.content.pager.totalCount;
+                }else{
+                    this.$message.error(res.data.msg);
+                }
+            }).catch(err=>{})
         },
         toDetail(item){
             // 根据产品类型跳转
-            this.$router.push({path:'/detail',query:{companyId:item.id}})
+            this.$router.push({path:'/detail',query:{companyId:item.productId}})
+        },
+        onChange(){
+
         }
     },
     components:{
@@ -62,6 +134,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+/deep/ .ant-upload.ant-upload-select-picture-card{
+    border:none;
+}
 .user{
     background-color:#f6f6f6;
     .user-box{
@@ -93,6 +168,9 @@ export default {
                             width:100px;
                             height:100px;
                         }
+                    }
+                    /deep/ .avatar-uploader{
+                        border:none;
                     }
 
                 }
