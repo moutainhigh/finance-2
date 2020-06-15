@@ -11,6 +11,7 @@ import com.july.company.service.CompanyService;
 import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 
@@ -100,6 +101,19 @@ public class CompanyController {
     @PostMapping("/getCompanyBoolMatch")
     public ResultT<CompanyMatchVo> getCompanyBoolMatch(@RequestBody CompanyMatchDto companyMatchDto) {
         return ResultT.ok(companyService.getCompanyBoolMatch(companyMatchDto));
+    }
+
+    /**
+     * 上传企业Logo信息
+     * @param file
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/15
+     */
+    @PostMapping("/uploadCompanyLogo")
+    public ResultT<String> uploadCompanyLogo(@RequestBody MultipartFile file) {
+        companyService.uploadCompanyLogo(file);
+        return ResultT.ok("上传成功！");
     }
 
 }

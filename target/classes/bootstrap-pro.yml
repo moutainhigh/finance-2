@@ -1,0 +1,14 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848  #配置中心地址nacos.dev.bigdatacd.com:9000
+        shared-dataids: common.yml  #公共配置文件
+        file-extension: yml #配置文件后缀默认是properties
+        namespace: c6d49dd3-3f2d-4065-8b63-4630410eaaea
+
+#日志
+logging:
+  config: classpath:log/logback.xml
+  path: /data/web/finance/logs
+

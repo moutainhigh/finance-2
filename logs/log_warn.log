@@ -154,3 +154,39 @@
 2020-06-15 22:38:56.628 [XNIO-1 task-21] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
 2020-06-15 22:43:21.394 [XNIO-1 task-31] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
 2020-06-15 22:43:21.407 [XNIO-1 task-30] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 22:47:24.178 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-15 22:47:26.730 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 22:47:26.735 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 22:50:44.261 [XNIO-1 task-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 22:50:44.313 [XNIO-1 task-11] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:03:54.203 [XNIO-1 task-20] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:03:54.434 [XNIO-1 task-22] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:04:55.533 [XNIO-1 task-31] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:04:55.610 [XNIO-1 task-33] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:05:37.304 [XNIO-1 task-44] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:05:37.380 [XNIO-1 task-46] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:08:03.096 [XNIO-1 task-57] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:08:03.173 [XNIO-1 task-59] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:11:16.109 [XNIO-1 task-6] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:11:16.142 [XNIO-1 task-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:12:25.906 [XNIO-1 task-19] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:12:25.970 [XNIO-1 task-21] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:17:47.556 [XNIO-1 task-50] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:17:47.611 [XNIO-1 task-52] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:20:26.340 [XNIO-1 task-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:20:26.393 [XNIO-1 task-4] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-15 23:22:53.860 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-15 23:22:56.439 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:22:56.443 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:47:59.111 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-15 23:48:02.168 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:48:02.174 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:48:33.953 [XNIO-1 task-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=用户名或密码错误]]
+2020-06-15 23:49:30.661 [XNIO-1 task-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=企业Logo上传失败！]]
+2020-06-15 23:50:49.342 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-15 23:50:51.368 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:50:51.372 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:51:02.588 [XNIO-1 task-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=企业Logo上传失败！]]
+2020-06-15 23:52:19.560 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-15 23:52:22.385 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-15 23:52:22.392 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.

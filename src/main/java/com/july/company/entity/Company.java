@@ -73,5 +73,10 @@ public class Company extends BaseEntity {
      */
     @TableField("detailAddress")
     private String detailAddress;
+    /**
+     * 企业Logo地址
+     */
+    @TableField("companyLogo")
+    private String companyLogo;
 
 }
