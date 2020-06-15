@@ -8,10 +8,7 @@ import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.FinanceApplyService;
-import com.july.company.vo.apply.BondCompanyDetailVo;
-import com.july.company.vo.apply.ProductDetalVo;
-import com.july.company.vo.apply.SelectProductVo;
-import com.july.company.vo.apply.StockCompanyDetalVo;
+import com.july.company.vo.apply.*;
 import com.july.company.vo.finance.FinanceStockProductVo;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -108,6 +105,20 @@ public class FinanceApplyController {
     @PostMapping("/getBondCompanyInfo")
     public ResultT<BondCompanyDetailVo> getBondCompanyInfo(@RequestBody StockCompanyDto stockCompanyDto) {
         return ResultT.ok(financeApplyService.getBondCompanyInfo(stockCompanyDto));
+    }
+
+    /**
+     * 获取申请的企业信息列表(前台：个人中心)
+     * @param pageParamVo
+     * @return com.july.company.response.ResultT<com.july.company.vo.apply.StockCompanyDetalVo>
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    @PostMapping("/getCompanyApplyProductVo")
+    public ResultT<ResultT.Page<CompanyApplyProductVo>> getCompanyApplyProductVo(@RequestBody PageParamVo<CompanyApplyDto> pageParamVo) {
+        PageVo<CompanyApplyDto> pager = pageParamVo.getPager();
+        IPage<CompanyApplyProductVo> recordVos = financeApplyService.getCompanyApplyProductVo(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+        return ResultT.ok(recordVos.getRecords(), new PageVo<>(recordVos.getCurrent(), recordVos.getSize(), recordVos.getTotal()));
     }
 
 }

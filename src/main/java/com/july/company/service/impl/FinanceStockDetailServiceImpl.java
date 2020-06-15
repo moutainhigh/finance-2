@@ -32,6 +32,8 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
 
     @Resource
     private FinanceProductService financeProductService;
+    @Resource
+    private FinanceStockDetailMapper financeStockDetailMapper;
 
     /**
      * 获取股权融资产品明细信息
@@ -117,6 +119,19 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
         queryWrapper.eq(productId != null, "productId", productId)
                 .eq("deleted", SystemConstant.SYS_FALSE);
         return this.getOne(queryWrapper);
+    }
+
+    /**
+     * 通过产品ID串获取股权产品的明细信息列表
+     * @param stockStr
+     * @return com.july.company.entity.FinanceProductDetail
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    @Override
+    public List<FinanceStockDetail> getStockDetailByProductIds(String stockStr) {
+        List<FinanceStockDetail> financeStockDetailList = financeStockDetailMapper.getStockDetailByProductIds(stockStr);
+        return financeStockDetailList;
     }
 
 }

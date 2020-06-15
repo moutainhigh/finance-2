@@ -6,6 +6,8 @@ import com.july.company.entity.FinanceStockDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.finance.FinanceStockProductDetailVo;
 
+import java.util.List;
+
 /**
  * 融资公司明细信息 服务类
  * @author zengxueqi
@@ -30,5 +32,13 @@ public interface FinanceStockDetailService extends IService<FinanceStockDetail> 
      * @since 2020/5/20
      */
     FinanceStockDetail getFinanceProductDetail(Long productId);
-    
+
+    /**
+     * 通过产品ID串获取股权产品的明细信息列表
+     * @param stockStr
+     * @return com.july.company.entity.FinanceProductDetail
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    List<FinanceStockDetail> getStockDetailByProductIds(String stockStr);
 }
