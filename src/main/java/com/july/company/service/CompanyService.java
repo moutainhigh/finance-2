@@ -69,4 +69,12 @@ public interface CompanyService extends IService<Company> {
      */
     CompanyMatchVo getCompanyBoolMatch(CompanyMatchDto companyMatchDto);
 
+    /**
+     * 通过用户ID获取某个企业的信息(admin)
+     * @param companyByUserDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyVo>
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto);
 }

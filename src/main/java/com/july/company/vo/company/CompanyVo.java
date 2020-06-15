@@ -52,5 +52,9 @@ public class CompanyVo implements Serializable {
      * 企业状态(0=正常,1=禁用)
      */
     private Integer status;
+    /**
+     * 公司简介
+     */
+    private String introduce;
 
 }
