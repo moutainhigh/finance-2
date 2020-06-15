@@ -2,10 +2,12 @@ package com.july.company.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.july.company.dto.apply.CompanyApplyDto;
 import com.july.company.dto.apply.ProductDetailDto;
 import com.july.company.dto.apply.SelectProductDto;
 import com.july.company.entity.FinanceApply;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.july.company.vo.apply.CompanyApplyProductVo;
 import com.july.company.vo.apply.ProductDetalVo;
 import com.july.company.vo.apply.SelectProductVo;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +38,12 @@ public interface FinanceApplyMapper extends BaseMapper<FinanceApply> {
      */
     ProductDetalVo getApplyInfo(Long applyId);
 
+    /**
+     * 获取申请的企业信息(前台：个人中心)
+     * @param page
+     * @param companyApplyDto
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    IPage<CompanyApplyProductVo> getCompanyApplyProduct(Page<CompanyApplyProductVo> page, @Param("param")CompanyApplyDto companyApplyDto);
 }

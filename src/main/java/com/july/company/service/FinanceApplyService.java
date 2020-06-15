@@ -6,6 +6,7 @@ import com.july.company.dto.apply.*;
 import com.july.company.entity.FinanceApply;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.apply.BondCompanyDetailVo;
+import com.july.company.vo.apply.CompanyApplyProductVo;
 import com.july.company.vo.apply.SelectProductVo;
 import com.july.company.vo.apply.StockCompanyDetalVo;
 
@@ -71,4 +72,13 @@ public interface FinanceApplyService extends IService<FinanceApply> {
      * @since 2020/6/13
      */
     BondCompanyDetailVo getBondCompanyInfo(StockCompanyDto stockCompanyDto);
+
+    /**
+     * 获取申请的企业信息(前台：个人中心)
+     * @param page
+     * @param companyApplyDto
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    IPage<CompanyApplyProductVo> getCompanyApplyProductVo(Page<CompanyApplyProductVo> page, CompanyApplyDto companyApplyDto);
 }

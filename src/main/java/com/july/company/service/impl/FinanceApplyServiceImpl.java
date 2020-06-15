@@ -20,6 +20,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.DateUtils;
 import com.july.company.utils.StringUtils;
 import com.july.company.vo.apply.BondCompanyDetailVo;
+import com.july.company.vo.apply.CompanyApplyProductVo;
 import com.july.company.vo.apply.SelectProductVo;
 import com.july.company.vo.apply.StockCompanyDetalVo;
 import org.springframework.stereotype.Service;
@@ -273,6 +274,62 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 .existAmount(DictInit.getCodeValue(SystemConstant.DKJE, financeBondDetail.getExistAmount()))
                 .build();
         return bondCompanyDetailVo;
+    }
+
+    /**
+     * 获取申请的企业信息(前台：个人中心)
+     * @param page
+     * @param companyApplyDto
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    @Override
+    public IPage<CompanyApplyProductVo> getCompanyApplyProductVo(Page<CompanyApplyProductVo> page, CompanyApplyDto companyApplyDto) {
+        IPage<CompanyApplyProductVo> companyApplyProductVoIPage = financeApplyMapper.getCompanyApplyProduct(page, companyApplyDto);
+        List<CompanyApplyProductVo> companyApplyProductVos = companyApplyProductVoIPage.getRecords();
+
+        List<CompanyApplyProductVo> companyApplyProductVoList = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(companyApplyProductVos)){
+            /*List<String> stock = companyApplyProductVos.stream().map(companyApplyProductVo -> {
+                if(companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)){
+                    return companyApplyProductVo.getProductId().toString();
+                }
+                return null;
+            }).collect(Collectors.toList());
+            List<String> bond = companyApplyProductVos.stream().map(companyApplyProductVo -> {
+                if(companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_TRUE)){
+                    return companyApplyProductVo.getProductId().toString();
+                }
+                return null;
+            }).collect(Collectors.toList());
+            String stockStr = String.join(",",stock);
+            String bondStr = String.join(",",bond);
+            List<FinanceStockDetail> stockDetailByProductIds = financeStockDetailService.getStockDetailByProductIds(stockStr);
+            stockDetailByProductIds.stream().map(financeStockDetail -> {
+
+            }).collect(Collectors.toList());*/
+            //根据financeType查询股权和债权各自展示的字段
+            companyApplyProductVoList = companyApplyProductVos.stream().map(companyApplyProductVo -> {
+                //股权
+                if (companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)){
+                    FinanceStockDetail financeStockDetail = financeStockDetailService.
+                            getFinanceProductDetail(companyApplyProductVo.getProductId());
+                    companyApplyProductVo.setIndustryDirect(financeStockDetail.getIndustryDirect());
+                    companyApplyProductVo.setFinanceQuota(financeStockDetail.getFinanceQuota());
+                    companyApplyProductVo.setFinanceState(financeStockDetail.getFinanceState());
+                } else {
+                    //债权
+                    FinanceBondDetail financeBondDetail = financeBondDetailService.
+                            getFinanceProductDetail(companyApplyProductVo.getProductId());
+                    companyApplyProductVo.setIndustryDirect(financeBondDetail.getIndustryDirect());
+                    companyApplyProductVo.setLoanQuota(financeBondDetail.getLoanQuota());
+                    companyApplyProductVo.setLoanTerm(financeBondDetail.getLoanTerm());
+                }
+                return companyApplyProductVo;
+            }).collect(Collectors.toList());
+        }
+        companyApplyProductVoIPage.setRecords(companyApplyProductVoList);
+        return companyApplyProductVoIPage;
     }
 
     public String getColunmNode(String codeTypo, String colunm) {
