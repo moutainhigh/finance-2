@@ -20,6 +20,10 @@ public class SelectProductVo implements Serializable {
      */
     private Long applyId;
     /**
+     * 公司id
+     */
+    private Long companyId;
+    /**
      * 公司名称
      */
     private String companyName;

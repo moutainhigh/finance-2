@@ -10,6 +10,7 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.july.company.constant.SystemConstant;
+import com.july.company.dto.company.CompanyPasswordDto;
 import com.july.company.dto.login.*;
 import com.july.company.dto.role.UserRoleDto;
 import com.july.company.dto.sms.SmsCodeDto;
@@ -89,6 +90,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         log.trace("用户手机:{},登录系统", loginAuthDto.getMobile());
         //数据库匹配用户
         UserInfo userInfo = this.getUserInfoByMobile(loginAuthDto.getMobile());
+        BnException.of(userInfo == null, "没有找到该用户信息，请确认后登录！");
 
         if (SystemConstant.SYS_TRUE.equals(loginAuthDto.getLoginType())) {
             List<UserRoleDto> userRoleDtos = userRoleService.getUserRole(userInfo.getId());
@@ -424,6 +426,25 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
             userInfo.setSex(updateUserDto.getSex());
             this.updateById(userInfo);
         }
+    }
+
+    /**
+     * 重置公司用户密码信息
+     * @param companyPasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/15
+     */
+    @Override
+    public void resetPassword(CompanyPasswordDto companyPasswordDto) {
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("companyId", companyPasswordDto.getCompanyId())
+                .eq("status", SystemConstant.SYS_FALSE);
+        UserInfo userInfo = this.getOne(queryWrapper);
+        BnException.of(userInfo == null, "没有找到该企业的用户信息！");
+
+        userInfo.setPassword(Md5Utils.generatePassword(SystemConstant.START_PWD, userInfo.getPwdSalt()));
+        this.updateById(userInfo);
     }
 
 }

@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface FinanceBondMatchMapper extends BaseMapper<FinanceBondMatch> {
 
+    /**
+     * 获取最新的公司信息
+     * @param companyId
+     * @return com.july.company.entity.FinanceBondMatch
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    FinanceBondMatch getNewestMathInfo(Long companyId);
 }

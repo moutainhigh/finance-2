@@ -13,11 +13,13 @@ import com.july.company.entity.enums.ApplyStatusEnum;
 import com.july.company.entity.enums.FinanceTypeEnum;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.FinanceApplyMapper;
+import com.july.company.mapper.FinanceBondMatchMapper;
 import com.july.company.mapper.FinanceStockMatchMapper;
 import com.july.company.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.DateUtils;
 import com.july.company.utils.StringUtils;
+import com.july.company.vo.apply.BondCompanyDetailVo;
 import com.july.company.vo.apply.SelectProductVo;
 import com.july.company.vo.apply.StockCompanyDetalVo;
 import org.springframework.stereotype.Service;
@@ -50,7 +52,11 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
     @Resource
     private FinanceStockDetailService financeStockDetailService;
     @Resource
+    private FinanceBondDetailService financeBondDetailService;
+    @Resource
     private FinanceStockMatchMapper financeStockMatchMapper;
+    @Resource
+    private FinanceBondMatchMapper financeBondMatchMapper;
 
     /**
      * 保存企业申请的产品信息
@@ -172,13 +178,24 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
      */
     @Override
     public StockCompanyDetalVo getStockCompanyInfo(StockCompanyDto stockCompanyDto) {
-        FinanceApply financeApply = this.getById(stockCompanyDto.getApplyId());
-        BnException.of(financeApply == null, "没有找到申请的产品信息！");
-
         //企业信息
-        Company company = companyService.getById(financeApply.getCompanyId());
+        Company company = companyService.getById(stockCompanyDto.getCompanyId());
+        BnException.of(company == null, "没有找到该企业信息！");
         //企业最新信息
         FinanceStockMatch financeStockMatch = financeStockMatchMapper.getNewestMathInfo(company.getId());
+        if (financeStockMatch == null) {
+            String workAddress = org.springframework.util.StringUtils.isEmpty(DictInit.getCodeValue(SystemConstant.REGION, company.getWorkAddress())) ? "" :
+                    DictInit.getCodeValue(SystemConstant.REGION, company.getWorkAddress());
+            workAddress = org.springframework.util.StringUtils.isEmpty(company.getDetailAddress()) ? workAddress : workAddress + company.getDetailAddress();
+            return StockCompanyDetalVo.builder()
+                    .companyName(company.getCompanyName())
+                    .contact(company.getContact())
+                    .tel(company.getTel())
+                    .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                    .workAddress(workAddress)
+                    .introduce(company.getIntroduce())
+                    .build();
+        }
         //股权产品信息
         FinanceStockDetail financeStockDetail = financeStockDetailService.getById(financeStockMatch.getDetailId());
 
@@ -217,6 +234,68 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 .evaluateName(getListColunmNode(SystemConstant.PDCH, financeStockDetail.getEvaluateName()))
                 .build();
         return stockCompanyDetalVo;
+    }
+
+    /**
+     * 获取申请的企业信息(债权后台)
+     * @param stockCompanyDto
+     * @return com.july.company.vo.apply.StockCompanyDetalVo
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @Override
+    public BondCompanyDetailVo getBondCompanyInfo(StockCompanyDto stockCompanyDto) {
+        //企业信息
+        Company company = companyService.getById(stockCompanyDto.getCompanyId());
+        BnException.of(company == null, "没有找到该企业信息！");
+        //企业最新信息
+        FinanceBondMatch financeBondMatch = financeBondMatchMapper.getNewestMathInfo(company.getId());
+        if (financeBondMatch == null) {
+            return BondCompanyDetailVo.builder()
+                    .companyName(company.getCompanyName())
+                    .contact(company.getContact())
+                    .tel(company.getTel())
+                    .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                    .workAddress(company.getWorkAddress() + company.getDetailAddress())
+                    .introduce(company.getIntroduce())
+                    .build();
+        }
+        //股权产品信息
+        FinanceBondDetail financeBondDetail = financeBondDetailService.getById(financeBondMatch.getDetailId());
+        if (StringUtils.isEmpty(company.getDetailAddress())) {
+            company.setDetailAddress("");
+        }
+        BondCompanyDetailVo bondCompanyDetailVo = BondCompanyDetailVo.builder()
+                .companyName(company.getCompanyName())
+                .contact(company.getContact())
+                .tel(company.getTel())
+                .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                .workAddress(company.getWorkAddress() + company.getDetailAddress())
+                .introduce(company.getIntroduce())
+                .loanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm()))
+                .loanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota()))
+                .industryDirect(getListColunmNode(SystemConstant.HYFX, financeBondDetail.getIndustryDirect()))
+                .shareholder(getListColunmNode(SystemConstant.GDBJ, financeBondDetail.getShareholder()))
+                .creditType(getListColunmNode(SystemConstant.ZXFS, financeBondDetail.getCreditType()))
+                .houseMortgage(DictInit.getCodeValue(SystemConstant.FCDY, financeBondDetail.getHouseMortgage()))
+                .business(DictInit.getCodeValue(SystemConstant.BOND_YYSR, financeBondDetail.getBusiness()))
+                .jlr(DictInit.getCodeValue(SystemConstant.BOND_JLR, financeBondDetail.getJlr()))
+                .cashFlow(DictInit.getCodeValue(SystemConstant.XJLJE, financeBondDetail.getCashFlow()))
+                .goverOrderAmount(DictInit.getCodeValue(SystemConstant.ZFDDE, financeBondDetail.getGoverOrderAmount()))
+                .nationOrderAmount(DictInit.getCodeValue(SystemConstant.GQDDE, financeBondDetail.getNationOrderAmount()))
+                .assetAmount(financeBondDetail.getAssetAmount())
+                .liabilitiesAmount(financeBondDetail.getLiabilitiesAmount())
+                .owner(financeBondDetail.getOwner())
+                .qualification(getListColunmNode(SystemConstant.QYZZ, financeBondDetail.getQualification()))
+                .subsidy(DictInit.getCodeValue(SystemConstant.ZFBT, financeBondDetail.getSubsidy()))
+                .lastSubsidy(DictInit.getCodeValue(SystemConstant.ZFBT, financeBondDetail.getLastSubsidy()))
+                .boolIntroduce(DictInit.getCodeValue(SystemConstant.GQTZ, financeBondDetail.getBoolIntroduce()))
+                .taxAmount(DictInit.getCodeValue(SystemConstant.NRED, financeBondDetail.getTaxAmount()))
+                .patentCount(DictInit.getCodeValue(SystemConstant.BOND_FMZLS, financeBondDetail.getPatentCount()))
+                .boolLoan(getListColunmNode(SystemConstant.QTDK, financeBondDetail.getBoolLoan()))
+                .existAmount(DictInit.getCodeValue(SystemConstant.DKJE, financeBondDetail.getExistAmount()))
+                .build();
+        return bondCompanyDetailVo;
     }
 
     public String getColunmNode(String codeTypo, String colunm) {

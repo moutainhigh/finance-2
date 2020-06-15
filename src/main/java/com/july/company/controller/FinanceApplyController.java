@@ -8,6 +8,7 @@ import com.july.company.response.PageParamVo;
 import com.july.company.response.PageVo;
 import com.july.company.response.ResultT;
 import com.july.company.service.FinanceApplyService;
+import com.july.company.vo.apply.BondCompanyDetailVo;
 import com.july.company.vo.apply.ProductDetalVo;
 import com.july.company.vo.apply.SelectProductVo;
 import com.july.company.vo.apply.StockCompanyDetalVo;
@@ -95,6 +96,18 @@ public class FinanceApplyController {
     @PostMapping("/getStockCompanyInfo")
     public ResultT<StockCompanyDetalVo> getStockCompanyInfo(@RequestBody StockCompanyDto stockCompanyDto) {
         return ResultT.ok(financeApplyService.getStockCompanyInfo(stockCompanyDto));
+    }
+
+    /**
+     * 获取申请的企业信息(债权后台)
+     * @param stockCompanyDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.apply.StockCompanyDetalVo>
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @PostMapping("/getBondCompanyInfo")
+    public ResultT<BondCompanyDetailVo> getBondCompanyInfo(@RequestBody StockCompanyDto stockCompanyDto) {
+        return ResultT.ok(financeApplyService.getBondCompanyInfo(stockCompanyDto));
     }
 
 }

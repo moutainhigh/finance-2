@@ -1,5 +1,6 @@
 package com.july.company.service;
 
+import com.july.company.dto.company.CompanyPasswordDto;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
@@ -124,5 +125,14 @@ public interface UserInfoService extends IService<UserInfo> {
      * @since 2020/6/8
      */
     void updateUserInfo(UpdateUserDto updateUserDto);
+
+    /**
+     * 重置公司用户密码信息
+     * @param companyPasswordDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/15
+     */
+    void resetPassword(CompanyPasswordDto companyPasswordDto);
 
 }

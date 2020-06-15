@@ -396,5 +396,9 @@ public class SystemConstant {
      * 开关(on=开)
      */
     public static final String SWITCH_ON = "on";
+    /**
+     * 初始密码
+     */
+    public static final String START_PWD = "00000000";
 
 }

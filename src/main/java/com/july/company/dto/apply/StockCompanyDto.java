@@ -5,7 +5,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 公司信息
+ * 企业信息
  * @author zengxueqi
  * @program finance
  * @since 2020-06-13 19:33
@@ -16,12 +16,8 @@ public class StockCompanyDto implements Serializable {
     private static final long serialVersionUID = 3481612980735464681L;
 
     /**
-     * 产品id
+     * 企业id
      */
-    private Long productId;
-    /**
-     * 申请id
-     */
-    private Long applyId;
+    private Long companyId;
 
 }
