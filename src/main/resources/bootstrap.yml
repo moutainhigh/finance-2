@@ -2,7 +2,7 @@ spring:
   application:
     name: com.company.finance
   profiles:
-    active: dev
+    active: pro
   main:
     allow-bean-definition-overriding: true
   devtools:

@@ -39,7 +39,7 @@ public class FinanceBondProductVo implements Serializable {
      * 行业方向
      * @ignore
      */
-    private Integer industryDirect;
+    private String industryDirect;
     /**
      * 贷款额度
      * @ignore
