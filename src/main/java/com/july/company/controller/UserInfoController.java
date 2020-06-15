@@ -1,5 +1,6 @@
 package com.july.company.controller;
 
+import com.july.company.dto.company.CompanyPasswordDto;
 import com.july.company.dto.login.*;
 import com.july.company.dto.sms.SmsCodeDto;
 import com.july.company.dto.sms.SmsCodeVerifyDto;
@@ -185,6 +186,19 @@ public class UserInfoController {
     public ResultT<List<Integer>> getLogInfo() {
         List<Integer> logs = Arrays.asList(5, 6, 8);
         return ResultT.ok(logs);
+    }
+
+    /**
+     * 重置公司用户密码信息
+     * @param companyPasswordDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/15
+     */
+    @PostMapping("/resetPassword")
+    public ResultT<String> resetPassword(@RequestBody CompanyPasswordDto companyPasswordDto) {
+        userInfoService.resetPassword(companyPasswordDto);
+        return ResultT.ok("密码重置成功！");
     }
 
 }

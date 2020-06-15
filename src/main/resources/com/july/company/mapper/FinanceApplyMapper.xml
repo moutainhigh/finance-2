@@ -3,7 +3,7 @@
 <mapper namespace="com.july.company.mapper.FinanceApplyMapper">
 
     <select id="getFinanceApply" resultType="com.july.company.vo.apply.SelectProductVo">
-        select ffa.id as applyId,fc.companyName,ffp.title as productName,ffp.financeType,ffp.mechanism,ffa.createdTime,ffa.status
+        select ffa.id as applyId,fc.companyName,ffp.title as productName,ffp.financeType,ffp.mechanism,ffa.createdTime,ffa.status,fc.id as companyId
         from fc_finance_apply ffa,fc_company fc,fc_finance_product ffp
         where
         ffa.companyId = fc.id
@@ -26,4 +26,13 @@
         and ffa.id = #{applyId}
     </select>
 
+    <select id="getCompanyApplyProduct" resultType="com.july.company.vo.apply.CompanyApplyProductVo">
+        select ffa.status, ffa.createdTime,
+        ffp.title, ffp.financeType, ffp.mechanism, ffp.id as productId, ffp.financeType
+        from fc_finance_apply ffa,fc_finance_product ffp
+        where
+        ffa.productId = ffp.id
+        and ffa.deleted = 0
+        and ffa.companyId = #{param.companyId}
+    </select>
 </mapper>

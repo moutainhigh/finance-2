@@ -1,0 +1,1 @@
+2020-06-14 08:53:37.760 [XNIO-1 task-2] ERROR com.july.company.base.AdviceController - java.lang.NullPointerException at com.july.company.service.impl.UserInfoServiceImpl.login(UserInfoServiceImpl.java:94)

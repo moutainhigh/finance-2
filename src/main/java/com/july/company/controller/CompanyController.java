@@ -53,6 +53,18 @@ public class CompanyController {
     }
 
     /**
+     * 通过用户ID获取企业信息(admin)
+     * @param companyByUserDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyVo>
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    @PostMapping("/getCompanyInfoById")
+    public ResultT<CompanyVo> getCompanyInfoById(@RequestBody CompanyByUserDto companyByUserDto) {
+        return ResultT.ok(companyService.getCompanyInfoById(companyByUserDto));
+    }
+
+    /**
      * 修改企业信息(admin)
      * @param updateCompanyDto
      * @return com.july.company.response.ResultT<java.lang.String>

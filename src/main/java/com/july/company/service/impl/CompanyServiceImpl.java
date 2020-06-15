@@ -175,4 +175,31 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
         return companyMatchVo;
     }
 
+    /**
+     * 通过用户ID获取某个企业的信息(admin)
+     * @param companyByUserDto
+     * @return com.july.company.response.ResultT<com.july.company.vo.company.CompanyVo>
+     * @author xiajunwei
+     * @since 2020/6/15
+     */
+    @Override
+    public CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto) {
+        UserInfo userInfo = userInfoService.getById(companyByUserDto.getUserId());
+        BnException.of(userInfo == null, "无法获取到用户信息！");
+        BnException.of(userInfo.getCompanyId() == null, "无法获取到企业信息！");
+
+        Company company = this.getById(userInfo.getCompanyId());
+
+        BnException.of(company == null, "没有找到该企业信息！");
+
+        return CompanyVo.builder()
+                .creditCode(company.getCreditCode())
+                .companyName(company.getCompanyName())
+                .id(company.getId())
+                .contact(company.getContact())
+                .tel(company.getTel())
+                .introduce(company.getIntroduce())
+                .build();
+    }
+
 }
