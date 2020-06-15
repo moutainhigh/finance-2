@@ -145,16 +145,41 @@ public class FinanceProductController {
     public ResultT<StockEditDetailVo> getStockByProductId(@RequestBody SelectProductDto selectProductDto) {
         return ResultT.ok(financeProductService.getStockByProductId(selectProductDto));
     }
+
     /**
-     * 修改保存债权信息(后台)
+     * 修改保存或者添加债权信息(后台)
      * @param bondSaveDetailDto
      * @author xiajunwei
      * @since 2020/6/11
      */
     @PostMapping("/updateFinanceBond")
     public ResultT<String> updateFinanceBond(@RequestBody BondSaveDetailDto bondSaveDetailDto) {
-        financeProductService.updateFinanceBond(bondSaveDetailDto);
-        return ResultT.ok("保存成功");
+        financeProductService.updateOrAddFinanceBond(bondSaveDetailDto);
+        return ResultT.ok("操作成功");
+    }
+
+    /**
+     * 删除债权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @PostMapping("/deleteBondList")
+    public ResultT<String> deleteBondList(@RequestBody BondDeleteDetailDto bondDeleteDetailDto) {
+        financeProductService.deleteBondList(bondDeleteDetailDto);
+        return ResultT.ok("删除成功");
+    }
+
+    /**
+     * 删除股权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @PostMapping("/deleteStockList")
+    public ResultT<String> deleteStockList(@RequestBody BondDeleteDetailDto bondDeleteDetailDto) {
+        financeProductService.deleteStockList(bondDeleteDetailDto);
+        return ResultT.ok("删除成功");
     }
 
     /**
@@ -167,8 +192,9 @@ public class FinanceProductController {
     @PostMapping("/saveStockProduct")
     public ResultT<String> saveStockProduct(@RequestBody StockEditDetailDto stockEditDetailDto) {
         financeProductService.saveStockProduct(stockEditDetailDto);
-        return ResultT.ok("股权产品修改成功！");
+        return ResultT.ok("操作成功！");
     }
+
 
     /**
      * 股权产品信息导出
@@ -185,6 +211,19 @@ public class FinanceProductController {
         pager.setPageSize(-1L);
         List<StockExcelListVo> eduTeacherLeaveRecordExcels = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
         ExcelFactory.createWriter("股权产品信息", StockExcelListVo.class, response).write(eduTeacherLeaveRecordExcels).flush();
+    }
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return com.july.company.response.ResultT<java.lang.String>
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @PostMapping("/updateProductOperate")
+    public ResultT<String> updateProductOperate(@RequestBody ProductOperateDto productOperateDto) {
+        financeProductService.updateProductOperate(productOperateDto);
+        return ResultT.ok("操作成功！");
     }
 
 }

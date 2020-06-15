@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.finance.*;
+
 import com.july.company.entity.FinanceBondDetail;
 import com.july.company.entity.FinanceProduct;
 import com.july.company.entity.FinanceStockDetail;
@@ -228,9 +229,14 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
      */
     public void saveStockProduct(StockEditDetailDto stockEditDetailDto) {
         if (stockEditDetailDto.getProductId() == null) {
-            FinanceProduct.builder()
-
-                    .build();
+            FinanceProduct financeProduct = FinanceProduct.builder().build();
+            BeanUtils.copyProperties(stockEditDetailDto, financeProduct);
+            financeProduct.setFinanceType(0);
+            this.save(financeProduct);
+            FinanceStockDetail financeStockDetail = new FinanceStockDetail();
+            BeanUtils.copyProperties(stockEditDetailDto, financeStockDetail);
+            financeStockDetail.setProductId(financeProduct.getId());
+            financeStockDetailService.save(financeStockDetail);
         } else {
             FinanceProduct financeProduct = this.getById(stockEditDetailDto.getProductId());
             BnException.of(financeProduct == null, "没有找到对应的产品信息，无法修改！");
@@ -244,12 +250,104 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         }
     }
 
+    /**
+     * 修改保存或者添加债权信息(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
     @Override
-    public void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
-        FinanceProduct financeProduct = new FinanceProduct();
-        BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+    @Transactional(rollbackFor = Exception.class)
+    public void updateOrAddFinanceBond(BondSaveDetailDto bondSaveDetailDto) {
+        if (bondSaveDetailDto.getId() != null) {
+            //修改
+            FinanceProduct financeProduct = new FinanceProduct();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+            this.updateById(financeProduct);
+            financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
+        } else {
+            //添加
+            FinanceProduct financeProduct = new FinanceProduct();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeProduct);
+            financeProduct.setFinanceType(1);
+            this.save(financeProduct);
+            FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
+            BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
+            financeBondDetail.setProductId(financeProduct.getId());
+            financeBondDetailService.save(financeBondDetail);
+        }
+    }
+
+    /**
+     * 删除债权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteBondList(BondDeleteDetailDto bondDeleteDetailDto) {
+        BnException.of(StringUtils.isEmpty(bondDeleteDetailDto.getIds()), "删除数据时，数据id不能为空！");
+        List<String> ids = Arrays.asList(bondDeleteDetailDto.getIds().split(","));
+        for (String id : ids) {
+            FinanceProduct financeProduct = this.getById(id);
+            financeProduct.setDeleted(SystemConstant.SYS_TRUE);
+            this.updateById(financeProduct);
+            QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("productId", id);
+            queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+            FinanceBondDetail financeBondDetail = financeBondDetailService.getOne(queryWrapper);
+            financeBondDetail.setDeleted(SystemConstant.SYS_TRUE);
+            financeBondDetailService.updateById(financeBondDetail);
+        }
+    }
+
+    /**
+     * 删除股权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteStockList(BondDeleteDetailDto bondDeleteDetailDto) {
+        BnException.of(StringUtils.isEmpty(bondDeleteDetailDto.getIds()), "删除数据时，数据id不能为空！");
+        List<String> ids = Arrays.asList(bondDeleteDetailDto.getIds().split(","));
+        for (String id : ids) {
+            FinanceProduct financeProduct = this.getById(id);
+            financeProduct.setDeleted(SystemConstant.SYS_TRUE);
+            this.updateById(financeProduct);
+            QueryWrapper<FinanceStockDetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("productId", id);
+            queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
+            FinanceStockDetail financeStockDetail = financeStockDetailService.getOne(queryWrapper);
+            financeStockDetail.setDeleted(SystemConstant.SYS_TRUE);
+            financeStockDetailService.updateById(financeStockDetail);
+        }
+    }
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateProductOperate(ProductOperateDto productOperateDto) {
+        FinanceProduct financeProduct = this.getById(productOperateDto.getProductId());
+        BnException.of(financeProduct == null, "没有找到该产品信息！");
+
+        if (ProductStatusEnum.REJECT.getValue().equals(productOperateDto.getOperateType())) {
+            financeProduct.setRemark(productOperateDto.getRemark());
+        } else if (ProductStatusEnum.AUDIT.getValue().equals(productOperateDto.getOperateType())) {
+        } else if (ProductStatusEnum.RELEASE.getValue().equals(productOperateDto.getOperateType())) {
+        } else if (ProductStatusEnum.OFFLINE.getValue().equals(productOperateDto.getOperateType())) {
+            financeProduct.setRemark(productOperateDto.getRemark());
+        }
+        financeProduct.setStatus(productOperateDto.getOperateType());
         this.updateById(financeProduct);
-        financeBondDetailService.updateFinanceBondProductDetailById(bondSaveDetailDto);
     }
 
 }

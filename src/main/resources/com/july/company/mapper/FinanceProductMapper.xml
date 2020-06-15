@@ -258,7 +258,7 @@
         </if>
         <!--注册地址-->
         <if test="param != null and param.registerAddress != null and param.registerAddress != ''">
-            and ffpd.registerAddress = #{param.registerAddress}
+            and ffp.registerAddress = #{param.registerAddress}
         </if>
         <!--营业收入-->
         <if test="param != null and param.business != null and param.business != ''">

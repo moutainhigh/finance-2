@@ -65,6 +65,6 @@ public interface InstitutionService extends IService<Institution> {
      * @author zengxueqi
      * @since 2020/6/12
      */
-    List<Institution> getInstitution();
+    List<Institution> getInstitution(Integer financeType);
 
 }

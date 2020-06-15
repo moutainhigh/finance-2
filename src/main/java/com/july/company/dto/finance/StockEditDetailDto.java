@@ -22,6 +22,10 @@ public class StockEditDetailDto implements Serializable {
     private static final long serialVersionUID = 7049298509118081278L;
 
     /**
+     * 产品状态(驳回=-1，保存=0，待审核=1，已发布=2，已下线=3，已删除=4)
+     */
+    private Integer status;
+    /**
      * 债权融资产品id
      */
     private Long productId;
@@ -29,6 +33,11 @@ public class StockEditDetailDto implements Serializable {
      * 产品名称
      */
     private String title;
+    /**
+     * 机构id
+     */
+    private Long institutionId;
+
     /**
      * 所属机构
      */

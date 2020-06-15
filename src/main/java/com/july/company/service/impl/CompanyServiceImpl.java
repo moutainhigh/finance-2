@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
+import com.july.company.dictionary.DictInit;
 import com.july.company.dto.company.*;
 import com.july.company.dto.user.UserInfoDto;
 import com.july.company.entity.Company;
@@ -80,6 +81,7 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
         if (!CollectionUtils.isEmpty(companyVoList)) {
             companyVos = companyVoList.stream().map(companyVo -> {
                 companyVo.setRegisterTime(DateUtils.timeStamp2Date(Long.parseLong(companyVo.getRegisterTime())));
+                companyVo.setRegisterAddress(DictInit.getCodeValue(SystemConstant.REGION, companyVo.getRegisterAddress()));
                 return companyVo;
             }).collect(Collectors.toList());
         }

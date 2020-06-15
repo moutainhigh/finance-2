@@ -1,13 +1,10 @@
 package com.july.company.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.july.company.constant.SystemConstant;
 import com.july.company.dto.finance.*;
 import com.july.company.entity.FinanceProduct;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.entity.FinanceStockDetail;
 import com.july.company.vo.finance.*;
 
 import java.util.List;
@@ -111,10 +108,36 @@ public interface FinanceProductService extends IService<FinanceProduct> {
     void saveStockProduct(StockEditDetailDto stockEditDetailDto);
 
     /**
-     * 修改保存债权信息(后台)
+     * 修改保存或者添加债权信息(后台)
      * @param bondSaveDetailDto
      * @author xiajunwei
      * @since 2020/6/11
      */
-    void updateFinanceBond(BondSaveDetailDto bondSaveDetailDto);
+    void updateOrAddFinanceBond(BondSaveDetailDto bondSaveDetailDto);
+
+    /**
+     * 删除债权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    void deleteBondList(BondDeleteDetailDto bondDeleteDetailDto);
+
+    /**
+     * 删除股权信息(后台)
+     * @param bondDeleteDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    void deleteStockList(BondDeleteDetailDto bondDeleteDetailDto);
+
+    /**
+     * 产品信息操作(后台)
+     * @param productOperateDto
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/13
+     */
+    void updateProductOperate(ProductOperateDto productOperateDto);
+
 }

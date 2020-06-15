@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.july.company.mapper.CompanyMapper">
     <select id="findCompanyList" resultType="com.july.company.vo.company.CompanyVo">
-        select c.id,c.companyName,c.creditCode,c.createdTime as registerTime,c.status
+        select c.id,c.companyName,c.creditCode,c.createdTime as registerTime,c.status,c.registerAddress,c.contact,c.tel
         from fc_company c
         where
         c.deleted = 0

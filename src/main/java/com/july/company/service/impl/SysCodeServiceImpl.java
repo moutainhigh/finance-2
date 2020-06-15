@@ -149,7 +149,7 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
             });
         }
         querySysCodeVos.add(getRegionInfo());
-        querySysCodeVos.add(getInstitutionInfo());
+        querySysCodeVos.add(getInstitutionInfo(querySysCodeDto.getFinanceType()));
         return querySysCodeVos;
     }
 
@@ -187,8 +187,8 @@ public class SysCodeServiceImpl extends ServiceImpl<SysCodeMapper, SysCode> impl
      * @author zengxueqi
      * @since 2020/6/12
      */
-    public QuerySysCodeVo getInstitutionInfo() {
-        List<Institution> institutions = institutionService.getInstitution();
+    public QuerySysCodeVo getInstitutionInfo(Integer institutionType) {
+        List<Institution> institutions = institutionService.getInstitution(institutionType);
         QuerySysCodeVo querySysCodeVo = QuerySysCodeVo.builder()
                 .codeName("机构信息")
                 .codeType(SystemConstant.INSTITUTION)

@@ -32,8 +32,7 @@ public class BondEditDetailVo implements Serializable {
     /**
      * 所属机构
      */
-    private String mechanism;
-
+    private Long institutionId;
     /**
      * 注册地址
      */
