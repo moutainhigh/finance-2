@@ -1,6 +1,5 @@
 package com.july.company.controller;
 
-import cn.gjing.tools.excel.ExcelFactory;
 import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -211,8 +210,6 @@ public class FinanceProductController {
      */
     @PostMapping("/exportStockProduct")
     public ResponseEntity<byte[]> exportStockProduct(@RequestBody PageParamVo<ListStockConditionDto> pageParamVo) throws IOException {
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletResponse response = servletRequestAttributes.getResponse();
         PageVo<ListStockConditionDto> pager = pageParamVo.getPager();
         pager.setPageSize(-1L);
         List<StockExcelListVo> stockExcelListVos = financeProductService.getStockExcelList(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
@@ -221,6 +218,27 @@ public class FinanceProductController {
         EasyExcel.write(out, StockExcelListVo.class).sheet("默认").doWrite(stockExcelListVos);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentDispositionFormData("attachment", java.net.URLEncoder.encode("股权产品信息.xls", "utf-8"));
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        return ResponseEntity.ok().headers(headers).body(out.toByteArray());
+    }
+
+    /**
+     * 债券产品信息导出
+     * @param pageParamVo
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/11
+     */
+    @PostMapping("/exportBondProduct")
+    public ResponseEntity<byte[]> exportBondProduct(@RequestBody PageParamVo<ListConditionDto> pageParamVo) throws IOException {
+        PageVo<ListConditionDto> pager = pageParamVo.getPager();
+        pager.setPageSize(-1L);
+        List<BondListExcelVo> bondListExcelVos = financeProductService.exportBondProduct(new Page<>(pager.getCurrent(), pager.getSize()), pageParamVo.getContent());
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        EasyExcel.write(out, BondListExcelVo.class).sheet("默认").doWrite(bondListExcelVos);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDispositionFormData("attachment", java.net.URLEncoder.encode("债券产品信息.xls", "utf-8"));
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return ResponseEntity.ok().headers(headers).body(out.toByteArray());
     }

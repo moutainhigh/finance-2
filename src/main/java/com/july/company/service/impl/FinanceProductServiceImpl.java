@@ -26,6 +26,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -182,6 +183,31 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             bondList.setRecords(bondListVos);
         }
         return bondList;
+    }
+
+    /**
+     * 导出债券产品信息
+     * @param page
+     * @param listConditionDto
+     * @return java.util.List<com.july.company.vo.finance.BondListExcelVo>
+     * @author zengxueqi
+     * @since 2020/6/16
+     */
+    @Override
+    public List<BondListExcelVo> exportBondProduct(Page<BondListVo> page, ListConditionDto listConditionDto) {
+        IPage<BondListVo> bondListVoIPage = getBondList(page, listConditionDto);
+        List<BondListVo> bondListVoList = bondListVoIPage.getRecords();
+
+        List<BondListExcelVo> bondListExcelVos = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(bondListVoList)) {
+            bondListExcelVos = bondListVoList.stream().map(bondListVo -> {
+                BondListExcelVo bondListExcelVo = BondListExcelVo.builder().build();
+                BeanUtils.copyProperties(bondListVo, bondListExcelVo);
+                bondListExcelVo.setStatusStr(ProductStatusEnum.getDescByValue(Integer.parseInt(bondListVo.getStatus())));
+                return bondListExcelVo;
+            }).collect(Collectors.toList());
+        }
+        return bondListExcelVos;
     }
 
     /**
