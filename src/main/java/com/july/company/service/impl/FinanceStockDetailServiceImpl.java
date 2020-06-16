@@ -50,7 +50,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
         FinanceStockDetail financeProductDetail = getFinanceProductDetail(financeProduct.getId());
         return FinanceStockProductDetailVo.builder()
                 .mechanism(financeProduct.getMechanism())
-                .workAddress(financeProduct.getWorkAddress())
+                .workAddress(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getWorkAddress()))
                 .tel(financeProduct.getTel())
                 .introduce(financeProduct.getIntroduce())
                 .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getRegisterAddress() + ""))
