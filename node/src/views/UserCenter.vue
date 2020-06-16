@@ -13,7 +13,7 @@
                                 list-type="picture-card"
                                 class="avatar-uploader"
                                 :show-upload-list="false"
-                                action="/finance/uploadCompanyLogo"
+                                action="/finance/company/uploadCompanyLogo"
                                 :before-upload="beforeUpload"
                                 @change="changeUpFile"
                                 :headers="headers"
@@ -77,6 +77,10 @@ export default {
         }
     },
     created(){
+        if(!this.$store.state.token){
+            this.$router.push({name:'Home',params:{islogin:1}});
+            return ;
+        }
         this.headers = {'Authorization':this.$store.state.token?'Bearer '+this.$store.state.token:''}
         this.getCompany();
     },
@@ -91,6 +95,7 @@ export default {
             }
             if (info.file.status === 'done') {
                 this.spinning = false;
+                this.getCompany();
             }
         },
         getCompany(){
@@ -122,9 +127,11 @@ export default {
             // 根据产品类型跳转
             this.$router.push({path:'/detail',query:{companyId:item.productId}})
         },
-        onChange(){
-
-        }
+        onChange(page, pageSize){
+            this.pageNo = page;
+            this.pageSize = pageSize;
+            this.getMatchList();
+        },
     },
     components:{
         Header:()=>import("@/components/Header.vue"),
