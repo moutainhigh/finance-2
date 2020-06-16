@@ -8,6 +8,7 @@
         where
         ffp.id = ffpd.productId
         and ffp.financeType = 0
+        and ffp.status = 2
         and ffp.deleted = 0
         <if test="param.productIds != null and param.productIds != ''">
             and find_in_set(ffp.id,#{param.productIds})
@@ -137,6 +138,7 @@
         where
         ffp.id = ffpd.productId
         and ffp.financeType = 1
+        and ffp.status = 2
         and ffp.deleted = 0
         <if test="param.productIds != null and param.productIds != ''">
             and find_in_set(ffp.id,#{param.productIds})
