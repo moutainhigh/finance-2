@@ -238,7 +238,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         SmsCodeVo smsCodeVo = new SmsCodeVo();
         smsCodeVo.setSmsCodeValid(SystemConstant.SYS_FALSE);
         if (object != null) {
-            smsCodeVo.setSmsCodeValid(SystemConstant.SYS_TRUE);
+            if (smsCodeVerifyDto.getSmsCode().equals(object.toString())) {
+                smsCodeVo.setSmsCodeValid(SystemConstant.SYS_TRUE);
+            }
         }
         return smsCodeVo;
     }
