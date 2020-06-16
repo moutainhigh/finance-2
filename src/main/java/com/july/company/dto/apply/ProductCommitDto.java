@@ -1,6 +1,7 @@
 package com.july.company.dto.apply;
 
 import com.july.company.dto.finance.BondProductMatchDto;
+import com.july.company.dto.finance.OperateMatchDto;
 import com.july.company.dto.finance.StockProductMatchDto;
 import lombok.Data;
 
@@ -37,5 +38,9 @@ public class ProductCommitDto implements Serializable {
      * 债券融资产品(financeType=1时，必传)
      */
     private BondProductMatchDto bondProductMatchDto;
+    /**
+     * 一键匹配json数据
+     */
+    private OperateMatchDto operateMatchDto;
 
 }

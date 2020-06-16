@@ -53,6 +53,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         FinanceProduct financeProduct = financeProductService.getById(financeProductDetailDto.getCompanyId());
         FinanceBondDetail financeBondDetail = getFinanceProductDetail(financeProduct.getId());
         return FinanceBondProductDetailVo.builder()
+                .productId(financeBondDetail.getProductId())
                 //所属机构
                 .mechanism(financeProduct.getMechanism())
                 //办公地址

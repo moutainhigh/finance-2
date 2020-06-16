@@ -138,7 +138,8 @@ public class BondProductMatchDto implements Serializable {
      */
     private String yield;
     /**
-     * 保存一键匹配json信息
+     * 一键匹配json数据
      */
     private OperateMatchDto operateMatchDto;
+
 }
