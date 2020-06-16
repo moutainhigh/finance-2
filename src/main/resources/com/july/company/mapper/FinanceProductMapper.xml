@@ -224,6 +224,7 @@
         ffp.id = ffpd.productId
         and ffp.financeType = 0
         and ffp.deleted = 0
+        and ffp.status != 4
         <if test="param.financeQuota != null and param.financeQuota != ''">
             and ffpd.financeQuota = #{param.financeQuota}
         </if>
@@ -237,7 +238,7 @@
                 ffp.title like concat('%',#{param.titleOrMechanism},'%')
             )
         </if>
-        order by ffp.status asc
+        order by ffp.createdTime desc
     </select>
 
     <select id="getBondList" resultType="com.july.company.vo.finance.BondListVo">
@@ -266,6 +267,7 @@
         <if test="param != null and param.business != null and param.business != ''">
             and ffpd.business = #{param.business}
         </if>
+        order by ffp.createdTime desc
     </select>
 
 </mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.july.company.mapper.CompanyMapper">
+    <select id="findCompanyList" resultType="com.july.company.vo.company.CompanyVo">
+        select c.id,c.companyName,c.creditCode,c.createdTime as registerTime,c.status,c.registerAddress,c.contact,c.tel
+        from fc_company c
+        where
+        c.deleted = 0
+        and c.creditCode is not null
+        <if test="param.creditCode != null and param.creditCode != ''">
+            and c.creditCode like concat('%',#{param.creditCode},'%')
+        </if>
+        <if test="param.companyName != null and param.companyName != ''">
+            and c.companyName like concat('%',#{param.companyName},'%')
+        </if>
+        order by c.createdTime desc
+    </select>
+</mapper>
