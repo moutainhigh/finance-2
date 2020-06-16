@@ -146,7 +146,7 @@ export default {
                 this.spinning=false;
                 if(res.data.code==0){
                     if(res.data.content.boolMatch==0){
-                        this.$router.push({name:'Match',params:{active:0,isSub:true}});
+                        this.$router.push({name:'Match',params:{active:0,isSub:true,productId:Number(this.$route.query.companyId)}});
                     }else{
                         this.$confirm({
                             title:'温馨提示',
