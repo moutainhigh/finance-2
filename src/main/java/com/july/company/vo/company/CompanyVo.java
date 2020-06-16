@@ -56,5 +56,9 @@ public class CompanyVo implements Serializable {
      * 公司简介
      */
     private String introduce;
+    /**
+     * 企业Logo(base64)
+     */
+    private String companyLogo;
 
 }

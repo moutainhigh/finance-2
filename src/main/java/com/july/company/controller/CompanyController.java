@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 注册的公司信息 前端控制器
@@ -61,8 +62,8 @@ public class CompanyController {
      * @since 2020/6/15
      */
     @PostMapping("/getCompanyInfoById")
-    public ResultT<CompanyVo> getCompanyInfoById(@RequestBody CompanyByUserDto companyByUserDto) {
-        return ResultT.ok(companyService.getCompanyInfoById(companyByUserDto));
+    public ResultT<CompanyVo> getCompanyInfoById(@RequestBody CompanyByUserDto companyByUserDto, HttpServletResponse response) {
+        return ResultT.ok(companyService.getCompanyInfoById(companyByUserDto, response));
     }
 
     /**
@@ -115,5 +116,5 @@ public class CompanyController {
         companyService.uploadCompanyLogo(file);
         return ResultT.ok("上传成功！");
     }
-
+    
 }

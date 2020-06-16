@@ -24,6 +24,7 @@ import com.july.company.utils.FileUtils;
 import com.july.company.utils.UserUtils;
 import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -31,6 +32,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +47,8 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> implements CompanyService {
 
+    @Value("${file.uploadFolder}")
+    private String uploadFolder;
     @Resource
     private CompanyMapper companyMapper;
     @Resource
@@ -186,7 +190,7 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
      * @since 2020/6/15
      */
     @Override
-    public CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto) {
+    public CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto, HttpServletResponse response) {
         UserInfo userInfo = userInfoService.getById(companyByUserDto.getUserId());
         BnException.of(userInfo == null, "无法获取到用户信息！");
         BnException.of(userInfo.getCompanyId() == null, "无法获取到企业信息！");
@@ -202,6 +206,7 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
                 .contact(company.getContact())
                 .tel(company.getTel())
                 .introduce(company.getIntroduce())
+                .companyLogo(getCompanyLogo(company.getCompanyLogo(), response))
                 .build();
     }
 
@@ -214,13 +219,14 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
      */
     @Override
     public void uploadCompanyLogo(MultipartFile file) {
-        String logoPath = uploadImages(file);
+        String logoName = uploadImages(file);
         UserInfoDto userInfoDto = UserUtils.getUser();
         BnException.of(userInfoDto == null, "企业信息获取失败！");
         UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
 
         Company company = this.getById(userInfo.getCompanyId());
-        company.setCompanyName(logoPath);
+        company.setCompanyLogo(logoName);
+        this.updateById(company);
     }
 
     /**
@@ -247,19 +253,33 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
             filePath = "D:/finance/upload/";
         } else {
             //linux下的路径
-            filePath = "/Users/zengxueqi/Desktop/";//"/data/web/finance/upload/";
+            filePath = uploadFolder;//"/data/web/finance/upload/";
         }
         try {
             //写入图片
             Boolean writePictureflag = FileUtils.uploadFile(file.getBytes(), filePath, fileName);
             BnException.of(!writePictureflag, "企业Logo上传失败！");
-            //上传成功后，将可以访问的完整路径返回
-            return filePath + fileName;
+            //上传成功后，返回图片文件名
+            return fileName;
         } catch (Exception e) {
             e.printStackTrace();
             //上传图片失败
             throw new BnException("企业Logo上传失败！");
         }
+    }
+
+    /**
+     * 获取企业logo信息
+     * @param response
+     * @return java.lang.String
+     * @author zengxueqi
+     * @since 2020/6/16
+     */
+    public String getCompanyLogo(String companyLogo, HttpServletResponse response) {
+        if (StringUtils.isEmpty(companyLogo)) {
+            return null;
+        }
+        return FileUtils.getBase64Images(companyLogo, uploadFolder, response);
     }
 
 }
