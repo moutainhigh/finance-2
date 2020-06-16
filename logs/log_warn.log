@@ -488,3 +488,19 @@ org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acce
 2020-06-16 16:03:49.892 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
 2020-06-16 16:18:44.340 [XNIO-1 task-21] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
 2020-06-16 16:18:44.417 [XNIO-1 task-23] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-16 16:49:43.650 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-16 16:49:47.953 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 16:49:47.958 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 16:51:53.007 [XNIO-1 task-26] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=用户名或密码错误]]
+2020-06-16 16:53:26.124 [XNIO-1 task-35] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot construct instance of `java.util.ArrayList` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value (''); nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot construct instance of `java.util.ArrayList` (although at least one Creator exists): no String-argument constructor/factory method to deserialize from String value ('')
+ at [Source: (PushbackInputStream); line: 1, column: 461] (through reference chain: com.july.company.dto.finance.StockProductMatchDto["advantage"])]
+2020-06-16 17:38:11.697 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-16 17:38:13.879 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 17:38:13.883 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 17:41:59.380 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-16 17:42:01.339 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 17:42:01.343 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-16 17:48:15.028 [XNIO-1 task-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-16 17:48:15.029 [XNIO-1 task-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-16 17:48:28.007 [XNIO-1 task-16] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-16 17:48:28.056 [XNIO-1 task-18] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]

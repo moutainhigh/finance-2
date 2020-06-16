@@ -19,11 +19,11 @@
         </if>
         <!--融资阶段-->
         <if test="param.financeState != null and param.financeState != ''">
-            and ffpd.financeState->'$.code' = #{param.financeState}
+            and ffpd.financeState->'$.code' = ${param.financeState}
         </if>
         <!--行业方向-->
         <if test="param.industryDirect != null and param.industryDirect != ''">
-            and ffpd.industryDirect->'$.code' = #{param.industryDirect}
+            and ffpd.industryDirect->'$.code' = ${param.industryDirect}
         </if>
         <!--注册地址-->
         <if test="param.registerAddress != null and param.registerAddress != ''">
@@ -43,7 +43,7 @@
         </if>
         <!--评定名称-->
         <if test="param.evaluateName != null and param.evaluateName != ''">
-            and JSON_CONTAINS(ffpd.evaluateName, JSON_OBJECT("code", #{param.evaluateName}))
+            and JSON_CONTAINS(ffpd.evaluateName, JSON_OBJECT("code", ${param.evaluateName}))
         </if>
         <!--产品阶段-->
         <if test="param.productState != null and param.productState != ''">
@@ -71,7 +71,7 @@
         </if>
         <!--公司竞争优势-->
         <if test="param.advantage != null and param.advantage != ''">
-            and JSON_CONTAINS(ffpd.advantage, JSON_OBJECT("code", #{param.advantage}))
+            and JSON_CONTAINS(ffpd.advantage, JSON_OBJECT("code", ${param.advantage}))
         </if>
         <!--历史创业企业状态-->
         <if test="param.companyStatus != null and param.companyStatus != ''">
@@ -111,14 +111,14 @@
         </if>
         <!--目标客户-->
         <if test="param.targetCustomer != null and param.targetCustomer != ''">
-            and JSON_CONTAINS(ffpd.targetCustomer, JSON_OBJECT("code", #{param.targetCustomer}))
+            and JSON_CONTAINS(ffpd.targetCustomer, JSON_OBJECT("code", ${param.targetCustomer}))
         </if>
         <!--名称或机构名称-->
         <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
             and (
-            ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
-            or
-            ffp.title like concat('%',#{param.mechanismOrProduct},'%')
+                ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
+                or
+                ffp.title like concat('%',#{param.mechanismOrProduct},'%')
             )
         </if>
         <if test="param.orderByField == null">
@@ -153,19 +153,19 @@
         </if>
         <!--行业方向-->
         <if test="param.industryDirect != null and param.industryDirect != ''">
-            and JSON_CONTAINS(ffpd.industryDirect, JSON_OBJECT("code", #{param.industryDirect}))
+            and JSON_CONTAINS(ffpd.industryDirect, JSON_OBJECT("code", ${param.industryDirect}))
         </if>
         <!--股东背景-->
         <if test="param.shareholder != null and param.shareholder != ''">
-            and JSON_CONTAINS(ffpd.shareholder, JSON_OBJECT("code", #{param.shareholder}))
+            and JSON_CONTAINS(ffpd.shareholder, JSON_OBJECT("code", ${param.shareholder}))
         </if>
         <!--增信方式-->
         <if test="param.creditType != null and param.creditType != ''">
-            and JSON_CONTAINS(ffpd.creditType, JSON_OBJECT("code", #{param.creditType}))
+            and JSON_CONTAINS(ffpd.creditType, JSON_OBJECT("code", ${param.creditType}))
         </if>
         <!--企业资质-->
         <if test="param.qualification != null and param.qualification != ''">
-            and JSON_CONTAINS(ffpd.qualification, JSON_OBJECT("code", #{param.qualification}))
+            and JSON_CONTAINS(ffpd.qualification, JSON_OBJECT("code", ${param.qualification}))
         </if>
         <!--政府补贴-->
         <if test="param.subsidy != null and param.subsidy != ''">
@@ -174,9 +174,9 @@
         <!--名称或机构名称-->
         <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
             and (
-            ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
-            or
-            ffp.title like concat('%',#{param.mechanismOrProduct},'%')
+                ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
+                or
+                ffp.title like concat('%',#{param.mechanismOrProduct},'%')
             )
         </if>
         <if test="param.orderByField == null">
@@ -224,6 +224,7 @@
         ffp.id = ffpd.productId
         and ffp.financeType = 0
         and ffp.deleted = 0
+        and ffp.status != 4
         <if test="param.financeQuota != null and param.financeQuota != ''">
             and ffpd.financeQuota = #{param.financeQuota}
         </if>
@@ -237,7 +238,7 @@
                 ffp.title like concat('%',#{param.titleOrMechanism},'%')
             )
         </if>
-        order by ffp.status asc
+        order by ffp.createdTime desc
     </select>
 
     <select id="getBondList" resultType="com.july.company.vo.finance.BondListVo">
@@ -266,6 +267,7 @@
         <if test="param != null and param.business != null and param.business != ''">
             and ffpd.business = #{param.business}
         </if>
+        order by ffp.createdTime desc
     </select>
 
 </mapper>
