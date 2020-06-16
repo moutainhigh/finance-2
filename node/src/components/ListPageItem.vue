@@ -10,7 +10,7 @@
               </div>
               <div class="desc-item">
                   <img src="/image/icon-hangyefangxiang.png" alt="" style="width:16px;height:16px;">
-                  <div><span>行业方向：</span> {{item.industryDirectStr}}</div>
+                  <div :title="item.industryDirectStr"><span>行业方向：</span> {{item.industryDirectStr|subStr}}</div>
               </div>
               <div class="desc-item" v-if="type==0">
                   <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
@@ -59,6 +59,15 @@ export default {
     },
     methods:{
 
+    },
+    filters:{
+        subStr(val){
+            if(val && val.length>14){
+                return val.substr(0,14)+'...';
+            }else{
+                return val;
+            }
+        }
     }
 }
 </script>
