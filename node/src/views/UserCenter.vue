@@ -100,7 +100,7 @@ export default {
         },
         getCompany(){
             let params = {userId:this.$store.state.userInfo.id};
-            this.$http.post('/finance/company/getCompanyInfoById',params).then(res=>{
+            this.$http.postWithAuth('/finance/company/getCompanyInfoById',params).then(res=>{
                 if(res.data.code==0){
                     this.companyInfo = res.data.content;
                     // this.companyInfo.companyLogo = "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png";
@@ -113,7 +113,7 @@ export default {
         getMatchList(){
             let params = {content:{companyId:this.companyInfo.id},pager:{pageSize:this.pageSize,currentPage:this.pageNo},pageSize:this.pageSize,currentPage:this.pageNo};
             this.spinninglist = true ;
-            this.$http.post('/finance/financeApply/getCompanyApplyProductVo',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeApply/getCompanyApplyProductVo',params).then(res=>{
             this.spinninglist = false ;
                 if(res.data.code==0){
                     this.matchList = res.data.content.list;
