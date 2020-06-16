@@ -1,10 +1,12 @@
 package com.july.company.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
+import com.july.company.dto.Node;
 import com.july.company.dto.finance.*;
 
 import com.july.company.entity.FinanceBondDetail;
@@ -59,8 +61,8 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceStockProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
                 stockCompanyVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockCompanyVo.getFinanceQuota() + ""));
-                stockCompanyVo.setFinanceStateStr(DictInit.getCodeValue(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
-                stockCompanyVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
+                stockCompanyVo.setFinanceStateStr(getColunmNode(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
+                stockCompanyVo.setIndustryDirectStr(getColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
             companyVoIPage.setRecords(stockCompanyVos);
@@ -83,7 +85,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             List<FinanceBondProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
                 stockCompanyVo.setLoanQuotaStr(DictInit.getCodeValue(SystemConstant.DKED, stockCompanyVo.getLoanQuota() + ""));
                 stockCompanyVo.setLoanTermStr(DictInit.getCodeValue(SystemConstant.DKQX, stockCompanyVo.getLoanTerm() + ""));
-                stockCompanyVo.setIndustryDirectStr(DictInit.getCodeValue(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
+                stockCompanyVo.setIndustryDirectStr(getListColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
             companyVoIPage.setRecords(stockCompanyVos);
@@ -348,6 +350,34 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         }
         financeProduct.setStatus(productOperateDto.getOperateType());
         this.updateById(financeProduct);
+    }
+    public String getColunmNode(String codeTypo, String colunm) {
+        if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
+            Node node = JSONObject.parseObject(colunm, Node.class);
+            String code = node.getCode();
+            String value = node.getValue();
+            if (com.july.company.utils.StringUtils.isEmpty(value)) {
+                return DictInit.getCodeValue(codeTypo, code);
+            } else {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    public String getListColunmNode(String codeTypo, String colunm) {
+        if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
+            List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
+            List<String> colunms = nodes.stream().map(node -> {
+                if (com.july.company.utils.StringUtils.isEmpty(node.getValue())) {
+                    return DictInit.getCodeValue(codeTypo, node.getCode());
+                } else {
+                    return node.getValue();
+                }
+            }).collect(Collectors.toList());
+            return String.join(",", colunms);
+        }
+        return null;
     }
 
 }
