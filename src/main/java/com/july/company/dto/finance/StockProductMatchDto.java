@@ -206,7 +206,7 @@ public class StockProductMatchDto implements Serializable {
      */
     private String jlr;
     /**
-     * 保存一键匹配json信息
+     * 一键匹配json数据
      */
     private OperateMatchDto operateMatchDto;
 

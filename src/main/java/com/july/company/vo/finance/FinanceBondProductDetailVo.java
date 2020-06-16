@@ -22,6 +22,10 @@ public class FinanceBondProductDetailVo implements Serializable {
     private static final long serialVersionUID = -3939031125822945927L;
 
     /**
+     * 产品id
+     */
+    private Long productId;
+    /**
      * 所属机构
      */
     private String mechanism;

@@ -8,6 +8,8 @@ import com.july.company.constant.SystemConstant;
 import com.july.company.dictionary.DictInit;
 import com.july.company.dto.Node;
 import com.july.company.dto.apply.*;
+import com.july.company.dto.finance.BondProductMatchDto;
+import com.july.company.dto.finance.StockProductMatchDto;
 import com.july.company.entity.*;
 import com.july.company.entity.enums.ApplyStatusEnum;
 import com.july.company.entity.enums.FinanceTypeEnum;
@@ -79,6 +81,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         FinanceApply financeApply = FinanceApply.builder()
                 .companyId(userInfo.getCompanyId())
                 .productId(productApplyDto.getProductId())
+                .status(ApplyStatusEnum.AUDIT.getValue())
                 .build();
         this.save(financeApply);
     }
@@ -109,9 +112,13 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
     @Override
     public void commitProductApply(ProductCommitDto productCommitDto) {
         //保存一键匹配数据
-        if (FinanceTypeEnum.STOCKRIGHT.equals(productCommitDto.getFinanceType())) {
+        if (FinanceTypeEnum.STOCKRIGHT.getValue().equals(productCommitDto.getFinanceType())) {
+            StockProductMatchDto stockProductMatchDto = productCommitDto.getStockProductMatchDto();
+            stockProductMatchDto.setOperateMatchDto(productCommitDto.getOperateMatchDto());
             financeStockMatchService.saveStockOneKeyMatching(productCommitDto.getStockProductMatchDto());
         } else {
+            BondProductMatchDto bondProductMatchDto = productCommitDto.getBondProductMatchDto();
+            bondProductMatchDto.setOperateMatchDto(productCommitDto.getOperateMatchDto());
             financeBondMatchService.saveBondOneKeyMatching(productCommitDto.getBondProductMatchDto());
         }
 
@@ -312,7 +319,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         List<CompanyApplyProductVo> companyApplyProductVos = companyApplyProductVoIPage.getRecords();
 
         List<CompanyApplyProductVo> companyApplyProductVoList = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(companyApplyProductVos)){
+        if (!CollectionUtils.isEmpty(companyApplyProductVos)) {
             /*List<String> stock = companyApplyProductVos.stream().map(companyApplyProductVo -> {
                 if(companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)){
                     return companyApplyProductVo.getProductId().toString();
@@ -335,7 +342,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
             companyApplyProductVoList = companyApplyProductVos.stream().map(companyApplyProductVo -> {
                 companyApplyProductVo.setStatus(getStatusValue(companyApplyProductVo.getStatus()));
                 //股权
-                if (companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)){
+                if (companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)) {
                     FinanceStockDetail financeStockDetail = financeStockDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
                     companyApplyProductVo.setIndustryDirect(getColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
@@ -384,12 +391,17 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         }
         return null;
     }
-    public String getStatusValue(String status){
-        switch (status){
-            case "0" : return "待审核";
-            case "1" : return "已通过";
-            case "2" : return "已驳回";
-            default: return null;
+
+    public String getStatusValue(String status) {
+        switch (status) {
+            case "0":
+                return "待审核";
+            case "1":
+                return "已通过";
+            case "2":
+                return "已驳回";
+            default:
+                return null;
         }
     }
 

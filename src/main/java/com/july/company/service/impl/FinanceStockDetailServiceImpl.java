@@ -51,6 +51,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
         FinanceProduct financeProduct = financeProductService.getById(financeProductDetailDto.getCompanyId());
         FinanceStockDetail financeProductDetail = getFinanceProductDetail(financeProduct.getId());
         return FinanceStockProductDetailVo.builder()
+                .productId(financeProductDetail.getProductId())
                 .mechanism(financeProduct.getMechanism())
                 .workAddress(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getWorkAddress()))
                 .tel(financeProduct.getTel())
@@ -97,7 +98,7 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
     public String getListColunmNode(String codeTypo, String colunm) {
         if (!StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            if(!CollectionUtils.isEmpty(nodes)){
+            if (!CollectionUtils.isEmpty(nodes)) {
                 List<String> colunms = nodes.stream().map(node -> {
                     if (StringUtils.isEmpty(node.getValue())) {
                         return DictInit.getCodeValue(codeTypo, node.getCode());
