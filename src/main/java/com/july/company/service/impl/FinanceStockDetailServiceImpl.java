@@ -15,6 +15,7 @@ import com.july.company.service.FinanceStockDetailService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.utils.StringUtils;
 import com.july.company.vo.finance.FinanceStockProductDetailVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
  * @author zengxueqi
  * @since 2020-05-26
  */
+@Slf4j
 @Service
 public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetailMapper, FinanceStockDetail> implements FinanceStockDetailService {
 
@@ -95,14 +97,16 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
     public String getListColunmNode(String codeTypo, String colunm) {
         if (!StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if(!CollectionUtils.isEmpty(nodes)){
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeTypo, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
         }
         return null;
     }
