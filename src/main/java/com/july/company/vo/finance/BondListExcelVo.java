@@ -1,6 +1,8 @@
 package com.july.company.vo.finance;
 
-import cn.gjing.tools.excel.ExcelField;
+import cn.gjing.tools.excel.Excel;
+import cn.gjing.tools.excel.Type;
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,51 +20,40 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BondListVo implements Serializable {
+@Excel(value = "债券产品信息", type = Type.XLS)
+public class BondListExcelVo implements Serializable {
 
 
     private static final long serialVersionUID = 5843703271288489294L;
     /**
-     * 股权融资产品id
-     */
-    private Long id;
-    /**
      * 股权融资标题
      */
+    @ExcelProperty(value = "股权融资标题", index = 0)
     private String title;
     /**
      * 所属机构
      */
+    @ExcelProperty(value = "所属机构", index = 1)
     private String mechanism;
-    /**
-     * 办公地址
-     */
-    private String workAddress;
     /**
      * 联系方式
      */
+    @ExcelProperty(value = "联系方式", index = 2)
     private String tel;
-    /**
-     * 债权融资产品id
-     */
-    private Integer productId;
     /**
      * 营业收入
      */
+    @ExcelProperty(value = "营业收入", index = 3)
     private String businessStr;
-
-    private String business;
-
     /**
      * 申请时间
      */
-    private Long createdTime;
-
+    @ExcelProperty(value = "申请时间", index = 4)
     private String createdTimeStr;
-
     /**
      * 当前状态(驳回=-1，保存=0，待审核=1，已发布=2，已下线=3，已删除=4)
      */
-    private String status;
+    @ExcelProperty(value = "当前状态", index = 5)
+    private String statusStr;
 
 }

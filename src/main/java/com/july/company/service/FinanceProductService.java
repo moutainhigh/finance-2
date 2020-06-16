@@ -71,6 +71,16 @@ public interface FinanceProductService extends IService<FinanceProduct> {
     IPage<BondListVo> getBondList(Page<BondListVo> page, ListConditionDto listConditionDto);
 
     /**
+     * 导出债券产品信息
+     * @param page
+     * @param listConditionDto
+     * @return java.util.List<com.july.company.vo.finance.BondListExcelVo>
+     * @author zengxueqi
+     * @since 2020/6/16
+     */
+    List<BondListExcelVo> exportBondProduct(Page<BondListVo> page, ListConditionDto listConditionDto);
+
+    /**
      * 获取股权产品信息
      * @param selectProductDto
      * @return com.july.company.vo.finance.StockListVo
