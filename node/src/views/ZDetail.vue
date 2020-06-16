@@ -137,7 +137,7 @@ export default {
             let params = {userId:this.$store.state.userInfo.id,productType:1};
             this.spinning=true;
             // /finance/company/getCompanyBoolMatch
-            this.$http.post('/finance/company/getCompanyBoolMatch',params).then(res=>{
+            this.$http.postWithAuth('/finance/company/getCompanyBoolMatch',params).then(res=>{
                 this.spinning=false;
                 if(res.data.code==0){
                     if(res.data.content.boolMatch==0){
@@ -167,7 +167,7 @@ export default {
             let params = {productId:this.$route.query.companyId,userId:this.$store.state.userInfo.id};
             // /finance/financeApply/saveProductApply
             this.spinning=true;
-            this.$http.post('/finance/financeApply/saveProductApply',params).then(res=>{
+            this.$http.postWithAuth('/finance/financeApply/saveProductApply',params).then(res=>{
                 this.spinning=false;
                 if(res.data.code==0){
                     this.$router.push({name:'Result',params:{path:"/zhaiquan",msg:"申请成功"}});
