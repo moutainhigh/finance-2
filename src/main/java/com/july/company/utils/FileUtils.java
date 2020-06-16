@@ -1,8 +1,10 @@
 package com.july.company.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Base64;
 
 /**
  * 文件工具类
@@ -41,6 +43,58 @@ public class FileUtils {
         } finally {
             out.close();
         }
+    }
+
+    /**
+     * 根据图片文件名获取Base64
+     * @param fileName
+     * @param uploadFolder
+     * @param response
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/16
+     */
+    public static String getBase64Images(String fileName, String uploadFolder, HttpServletResponse response) {
+        if (fileName != null) {
+            //设置文件路径
+            String realPath = uploadFolder;
+            File file = new File(realPath, fileName);
+            String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            if (file.exists()) {
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(file);
+                    //设置页面不缓存
+                    response.setHeader("Pragma", "no-cache");
+                    response.setHeader("Cache-Control", "no-cache");
+                    response.setDateHeader("Expires", 0);
+                    BufferedImage bufferedImage = ImageIO.read(fis);
+                    //io流
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    //写入流中
+                    ImageIO.write(bufferedImage, suffix, baos);
+                    //转换成字节
+                    byte[] bytes = baos.toByteArray();
+                    Base64.Encoder encoder = Base64.getEncoder();
+                    //转换成base64串
+                    String png_base64 = encoder.encodeToString(bytes).trim();
+                    //删除 \r\n
+                    png_base64 = png_base64.replaceAll("\n", "").replaceAll("\r", "");
+                    return "data:image/" + suffix + ";base64," + png_base64;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    if (fis != null) {
+                        try {
+                            fis.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 }
