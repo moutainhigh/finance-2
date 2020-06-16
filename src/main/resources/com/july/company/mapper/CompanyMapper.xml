@@ -6,6 +6,7 @@
         from fc_company c
         where
         c.deleted = 0
+        and c.creditCode is not null
         <if test="param.creditCode != null and param.creditCode != ''">
             and c.creditCode like concat('%',#{param.creditCode},'%')
         </if>

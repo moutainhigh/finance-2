@@ -8,6 +8,9 @@ import com.july.company.entity.Company;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.july.company.vo.company.CompanyMatchVo;
 import com.july.company.vo.company.CompanyVo;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 注册的公司信息 服务类
@@ -76,5 +79,15 @@ public interface CompanyService extends IService<Company> {
      * @author xiajunwei
      * @since 2020/6/15
      */
-    CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto);
+    CompanyVo getCompanyInfoById(CompanyByUserDto companyByUserDto,HttpServletResponse response);
+
+    /**
+     * 上传企业Logo信息
+     * @param file
+     * @return void
+     * @author zengxueqi
+     * @since 2020/6/15
+     */
+    void uploadCompanyLogo(MultipartFile file);
+
 }
