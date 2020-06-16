@@ -497,7 +497,7 @@ export default {
             if(v.length && !this.matchForm.advantage){
                 let items = [];
                 v.forEach((item)=>{
-                    let obj = {code:String(map[item]),value:''};
+                    let obj = {code:map[item],value:''};
                     if(obj.code==5){
                         obj.value = this.advantageOther;
                     }
@@ -511,7 +511,7 @@ export default {
                 this.$set(this.matchForm,'advantage',advantage);
                 console.log(advantage)
                 v.forEach((item)=>{
-                    let obj = {code:String(map[item]),value:''};
+                    let obj = {code:map[item],value:''};
                     if(obj.code==5){
                         obj.value = this.advantageOther;
                     }
@@ -526,7 +526,7 @@ export default {
         },
         cbys:function(v,o){
             if(v){
-                let obj = {code:String(0),value:v};
+                let obj = {code:0,value:v};
                 if(this.matchForm.advantage){
                     let index = lodash.findIndex(this.matchForm.advantage,item=>item.code==0);
                     if(index!=-1){
@@ -552,7 +552,7 @@ export default {
         },
         jsys:function(v,o){
             if(v){
-                let obj = {code:String(1),value:v};
+                let obj = {code:1,value:v};
                 if(this.matchForm.advantage){
                     let index = lodash.findIndex(this.matchForm.advantage,item=>item.code==1);
                     if(index!=-1){
@@ -613,7 +613,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:item,value:''};
+                    let obj = {code:Number(item),value:''};
                     if(Number(item)==4){
                         obj.value=this.evaluateName;
                     }
@@ -627,7 +627,7 @@ export default {
         evaluateName:function(v,o){
             if(v){
                 this.matchForm.evaluateName.forEach(item=>{
-                    if(Number(item.code)==4){
+                    if(item.code==4){
                         item.value = v;
                     }
                 })
@@ -638,7 +638,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:item,value:''};
+                    let obj = {code:Number(item),value:''};
                     if(Number(item)==4){
                         obj.value=this.targetCustomer;
                     }
@@ -652,7 +652,7 @@ export default {
         targetCustomer:function(v,o){
             if(v){
                 this.matchForm.targetCustomer.forEach(item=>{
-                    if(Number(item.code)==4){
+                    if(item.code==4){
                         item.value = v;
                     }
                 })
