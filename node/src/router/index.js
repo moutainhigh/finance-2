@@ -51,7 +51,10 @@ Vue.use(VueRouter)
     path: '/usercenter',
     name: 'UserCenter',
     component: () => import('../views/UserCenter.vue'),
-    meta:{title:'个人中心'}
+    meta:{
+      title:'个人中心',
+      auth:true
+    }
   },
 ]
 
