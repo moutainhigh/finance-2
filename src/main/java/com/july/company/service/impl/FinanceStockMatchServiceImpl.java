@@ -77,91 +77,97 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
             for (StockProductInfoDto productInfoDto : productInfoDtos) {
                 double matchingRate = 0.0;
                 //注册地址
-                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
+                if (boolEquals(productInfoDto.getRegisterAddress(), productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
                     matchingRate += everyOne;
                 }
                 //融资阶段
-                if (productInfoDto.getFinanceState().equals(productMatchDto.getFinanceState().getCode()) && StringUtils.isEmpty(productMatchDto.getFinanceState().getValue())) {
+                if (boolEquals(productInfoDto.getFinanceState(), productMatchDto.getFinanceState().getCode()) && StringUtils.isEmpty(productMatchDto.getFinanceState().getValue())) {
                     matchingRate += everyOne;
                 }
                 //融资额度
-                if (productInfoDto.getFinanceQuota().equals(productMatchDto.getFinanceQuota())) {
+                if (boolEquals(productInfoDto.getFinanceQuota(), productMatchDto.getFinanceQuota())) {
                     matchingRate += everyOne;
                 }
                 //行业方向
-                if (productInfoDto.getIndustryDirect().equals(productMatchDto.getIndustryDirect().getCode()) && StringUtils.isEmpty(productMatchDto.getIndustryDirect().getValue())) {
+                if (boolEquals(productInfoDto.getIndustryDirect(), productMatchDto.getIndustryDirect().getCode()) && StringUtils.isEmpty(productMatchDto.getIndustryDirect().getValue())) {
                     matchingRate += everyOne;
                 }
                 //股东背景
-                if (productInfoDto.getShareholder().equals(productMatchDto.getShareholder().getCode()) && StringUtils.isEmpty(productMatchDto.getShareholder().getValue())) {
+                if (boolEquals(productInfoDto.getShareholder(), productMatchDto.getShareholder().getCode()) && StringUtils.isEmpty(productMatchDto.getShareholder().getValue())) {
                     matchingRate += everyOne;
                 }
                 //营业收入
-                if (productInfoDto.getBusiness().equals(productMatchDto.getBusiness())) {
+                if (boolEquals(productInfoDto.getBusiness(), productMatchDto.getBusiness())) {
                     matchingRate += everyOne;
                 }
                 //产品阶段
-                if (productInfoDto.getProductState().equals(productMatchDto.getProductState().getCode()) && StringUtils.isEmpty(productMatchDto.getProductState().getValue())) {
+                if (boolEquals(productInfoDto.getProductState(), productMatchDto.getProductState().getCode()) && StringUtils.isEmpty(productMatchDto.getProductState().getValue())) {
                     matchingRate += everyOne;
                 }
                 //营业收入增长率
-                if (productInfoDto.getBusinessAddRate().equals(productMatchDto.getBusinessAddRate())) {
+                if (boolEquals(productInfoDto.getBusinessAddRate(), productMatchDto.getBusinessAddRate())) {
                     matchingRate += everyOne;
                 }
                 //产品毛利率/预期产品毛利率
-                if (productInfoDto.getProductRate().equals(productMatchDto.getProductRate())) {
+                if (boolEquals(productInfoDto.getProductRate(), productMatchDto.getProductRate())) {
                     matchingRate += everyOne;
                 }
                 //净利率
-                if (productInfoDto.getNetInterestRate().equals(productMatchDto.getNetInterestRate())) {
+                if (boolEquals(productInfoDto.getNetInterestRate(), productMatchDto.getNetInterestRate())) {
                     matchingRate += everyOne;
                 }
                 //过往融资金额
-                if (productInfoDto.getOldFinanceQuota().equals(productMatchDto.getOldFinanceQuota())) {
+                if (boolEquals(productInfoDto.getOldFinanceQuota(), productMatchDto.getOldFinanceQuota())) {
                     matchingRate += everyOne;
                 }
                 //实际控制人创业经历
-                if (productInfoDto.getExperience().equals(productMatchDto.getExperience())) {
+                if (boolEquals(productInfoDto.getExperience(), productMatchDto.getExperience())) {
                     matchingRate += everyOne;
                 }
                 //员工人数
-                if (productInfoDto.getStaffCount().equals(productMatchDto.getStaffCount())) {
+                if (boolEquals(productInfoDto.getStaffCount(), productMatchDto.getStaffCount())) {
                     matchingRate += everyOne;
                 }
                 //目前市场容量
-                if (productInfoDto.getMarketCapacity().equals(productMatchDto.getMarketCapacity())) {
+                if (boolEquals(productInfoDto.getMarketCapacity(), productMatchDto.getMarketCapacity())) {
                     matchingRate += everyOne;
                 }
                 //目标市场增长率
-                if (productInfoDto.getMarketAddRate().equals(productMatchDto.getMarketAddRate())) {
+                if (boolEquals(productInfoDto.getMarketAddRate(), productMatchDto.getMarketAddRate())) {
                     matchingRate += everyOne;
                 }
                 //目标客户
                 //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
-                List<Node> nodes1 = productMatchDto.getTargetCustomer();
+                if (boolListEquals(productInfoDto.getTargetCustomer(), productMatchDto.getTargetCustomer())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes1 = productMatchDto.getTargetCustomer();
                 if (!CollectionUtils.isEmpty(nodes1)) {
                     for (Node node : nodes1) {
-                        if (productInfoDto.getTargetCustomer().equals(node) && StringUtils.isEmpty(node.getValue())) {
+                        if (boolEquals(productInfoDto.getTargetCustomer(), node.getCode()) && StringUtils.isEmpty(node.getValue())) {
                             matchingRate += everyOne;
                             break;
                         }
                     }
-                }
+                }*/
                 //市场占有率/预期市场占有率
-                if (productInfoDto.getMarketOccupyRate().equals(productMatchDto.getMarketOccupyRate())) {
+                if (boolEquals(productInfoDto.getMarketOccupyRate(), productMatchDto.getMarketOccupyRate())) {
                     matchingRate += everyOne;
                 }
                 //是否接收回购
-                if (productInfoDto.getBoolBuyBack().equals(productMatchDto.getBoolBuyBack())) {
+                if (boolEquals(productInfoDto.getBoolBuyBack(), productMatchDto.getBoolBuyBack())) {
                     matchingRate += everyOne;
                 }
                 //发明专利数量
-                if (productInfoDto.getPatentCount().equals(productMatchDto.getPatentCount())) {
+                if (boolEquals(productInfoDto.getPatentCount(), productMatchDto.getPatentCount())) {
                     matchingRate += everyOne;
                 }
                 //公司竞争优势 productInfoDto.getAdvantage() = {"code":"1","value":"1"}  node = {"code":"1","value":"1"}
                 //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
-                List<Node> nodes = productMatchDto.getAdvantage();
+                if (boolListEquals(productInfoDto.getAdvantage(), productMatchDto.getAdvantage())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes = productMatchDto.getAdvantage();
                 if (!CollectionUtils.isEmpty(nodes)) {
                     for (Node node : nodes) {
                         if (productInfoDto.getAdvantage().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -169,14 +175,14 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
                             break;
                         }
                     }
-                }
+                }*/
                 //股东累计投入资金
-                if (productInfoDto.getCapitals().equals(productMatchDto.getCapitals())) {
+                if (boolEquals(productInfoDto.getCapitals(), productMatchDto.getCapitals())) {
                     matchingRate += everyOne;
                 }
                 //公司所获评定名称
                 //TODO 匹配规则不清楚，不确定一个匹配上算成功还是全部匹配上，也不确定是多个节点还是一个节点
-                List<Node> nodes2 = productMatchDto.getEvaluateName();
+                /*List<Node> nodes2 = productMatchDto.getEvaluateName();
                 if (!CollectionUtils.isEmpty(nodes2)) {
                     for (Node node : nodes2) {
                         if (productInfoDto.getEvaluateName().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -184,13 +190,16 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
                             break;
                         }
                     }
+                }*/
+                if (boolListEquals(productInfoDto.getEvaluateName(), productMatchDto.getEvaluateName())) {
+                    matchingRate += everyOne;
                 }
                 //预计上市时间
-                if (productInfoDto.getTimeToMarket().equals(productMatchDto.getTimeToMarket())) {
+                if (boolEquals(productInfoDto.getTimeToMarket(), productMatchDto.getTimeToMarket())) {
                     matchingRate += everyOne;
                 }
                 //历史创业企业状态
-                if (productInfoDto.getCompanyStatus().equals(productMatchDto.getCompanyStatus())) {
+                if (boolEquals(productInfoDto.getCompanyStatus(), productMatchDto.getCompanyStatus())) {
                     matchingRate += everyOne;
                 }
                 if (matchingRate > 50) {
@@ -199,6 +208,27 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
             }
         }
         return matchingProducts;
+    }
+
+    public Boolean boolEquals(String backColunm, String frontColunm) {
+        if (!StringUtils.isEmpty(backColunm) && !StringUtils.isEmpty(frontColunm)) {
+            return backColunm.equals(frontColunm) ? true : false;
+        }
+        return false;
+    }
+
+    public Boolean boolListEquals(String backColunm, List<Node> frontColunm) {
+        if (!StringUtils.isEmpty(backColunm) && !CollectionUtils.isEmpty(frontColunm)) {
+            List<Node> backNode = JSON.parseArray(backColunm, Node.class);
+            for (Node node : backNode) {
+                for (Node node1 : frontColunm) {
+                    if (node.getCode().equals(node1.getCode()) && StringUtils.isEmpty(node.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -172,11 +172,14 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             for (BondProductInfoDto productInfoDto : productInfoDtos) {
                 double matchingRate = 0.0;
                 //注册地址
-                if (productInfoDto.getRegisterAddress().equals(productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
+                if (boolEquals(productInfoDto.getRegisterAddress(), productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
                     matchingRate += everyOne;
                 }
                 //行业方向
-                List<Node> nodes1 = productMatchDto.getIndustryDirect();
+                if (boolListEquals(productInfoDto.getIndustryDirect(), productMatchDto.getIndustryDirect())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes1 = productMatchDto.getIndustryDirect();
                 if (!CollectionUtils.isEmpty(nodes1)) {
                     for (Node node : nodes1) {
                         if (productInfoDto.getIndustryDirect().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -184,9 +187,12 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                             break;
                         }
                     }
-                }
+                }*/
                 //股东背景
-                List<Node> nodes2 = productMatchDto.getShareholder();
+                if (boolListEquals(productInfoDto.getShareholder(), productMatchDto.getShareholder())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes2 = productMatchDto.getShareholder();
                 if (!CollectionUtils.isEmpty(nodes2)) {
                     for (Node node : nodes2) {
                         if (productInfoDto.getShareholder().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -194,21 +200,24 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                             break;
                         }
                     }
-                }
+                }*/
                 //营业收入
-                if (productInfoDto.getBusiness().equals(productMatchDto.getBusiness())) {
+                if (boolEquals(productInfoDto.getBusiness(), productMatchDto.getBusiness())) {
                     matchingRate += everyOne;
                 }
                 //贷款期限
-                if (productInfoDto.getLoanTerm().equals(productMatchDto.getLoanTerm())) {
+                if (boolEquals(productInfoDto.getLoanTerm(), productMatchDto.getLoanTerm())) {
                     matchingRate += everyOne;
                 }
                 //贷款额度
-                if (productInfoDto.getLoanQuota().equals(productMatchDto.getLoanQuota())) {
+                if (boolEquals(productInfoDto.getLoanQuota(), productMatchDto.getLoanQuota())) {
                     matchingRate += everyOne;
                 }
                 //增信方式
-                List<Node> nodes3 = productMatchDto.getCreditType();
+                if (boolListEquals(productInfoDto.getCreditType(), productMatchDto.getCreditType())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes3 = productMatchDto.getCreditType();
                 if (!CollectionUtils.isEmpty(nodes3)) {
                     for (Node node : nodes3) {
                         if (productInfoDto.getCreditType().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -216,21 +225,21 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                             break;
                         }
                     }
-                }
+                }*/
                 //房产抵押
-                if (productInfoDto.getHouseMortgage().equals(productMatchDto.getHouseMortgage())) {
+                if (boolEquals(productInfoDto.getHouseMortgage(), productMatchDto.getHouseMortgage())) {
                     matchingRate += everyOne;
                 }
                 //现金流
-                if (productInfoDto.getCashFlow().equals(productMatchDto.getCashFlow())) {
+                if (boolEquals(productInfoDto.getCashFlow(), productMatchDto.getCashFlow())) {
                     matchingRate += everyOne;
                 }
                 //政府订单额
-                if (productInfoDto.getGoverOrderAmount().equals(productMatchDto.getGoverOrderAmount())) {
+                if (boolEquals(productInfoDto.getGoverOrderAmount(), productMatchDto.getGoverOrderAmount())) {
                     matchingRate += everyOne;
                 }
                 //国企订单额
-                if (productInfoDto.getNationOrderAmount().equals(productMatchDto.getNationOrderAmount())) {
+                if (boolEquals(productInfoDto.getNationOrderAmount(), productMatchDto.getNationOrderAmount())) {
                     matchingRate += everyOne;
                 }
                 //资产负债率=负债总额/资产总额
@@ -248,7 +257,10 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     matchingRate += everyOne;
                 }*/
                 //企业资质
-                List<Node> nodes4 = productMatchDto.getQualification();
+                if (boolListEquals(productInfoDto.getQualification(), productMatchDto.getQualification())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes4 = productMatchDto.getQualification();
                 if (!CollectionUtils.isEmpty(nodes4)) {
                     for (Node node : nodes4) {
                         if (productInfoDto.getQualification().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -256,25 +268,28 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                             break;
                         }
                     }
-                }
+                }*/
                 //本年度政府补贴
-                if (productInfoDto.getSubsidy().equals(productMatchDto.getSubsidy())) {
+                if (boolEquals(productInfoDto.getSubsidy(), productMatchDto.getSubsidy())) {
                     matchingRate += everyOne;
                 }
                 //上一年度政府补贴
-                if (productInfoDto.getLastSubsidy().equals(productMatchDto.getLastSubsidy())) {
+                if (boolEquals(productInfoDto.getLastSubsidy(), productMatchDto.getLastSubsidy())) {
                     matchingRate += everyOne;
                 }
                 //是否引入股权投资
-                if (productInfoDto.getBoolIntroduce().equals(productMatchDto.getBoolIntroduce())) {
+                if (boolEquals(productInfoDto.getBoolIntroduce(), productMatchDto.getBoolIntroduce())) {
                     matchingRate += everyOne;
                 }
                 //纳税额度
-                if (productInfoDto.getTaxAmount().equals(productMatchDto.getTaxAmount())) {
+                if (boolEquals(productInfoDto.getTaxAmount(), productMatchDto.getTaxAmount())) {
                     matchingRate += everyOne;
                 }
                 //是否有其他贷款
-                List<Node> nodes5 = productMatchDto.getBoolLoan();
+                if (boolListEquals(productInfoDto.getBoolLoan(), productMatchDto.getBoolLoan())) {
+                    matchingRate += everyOne;
+                }
+                /*List<Node> nodes5 = productMatchDto.getBoolLoan();
                 if (!CollectionUtils.isEmpty(nodes5)) {
                     for (Node node : nodes5) {
                         if (productInfoDto.getBoolLoan().equals(node) && StringUtils.isEmpty(node.getValue())) {
@@ -282,13 +297,13 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                             break;
                         }
                     }
-                }
+                }*/
                 //现有贷款金额
-                if (productInfoDto.getExistAmount().equals(productMatchDto.getExistAmount())) {
+                if (boolEquals(productInfoDto.getExistAmount(), productMatchDto.getExistAmount())) {
                     matchingRate += everyOne;
                 }
                 //净利润
-                if (productInfoDto.getJlr().equals(productMatchDto.getJlr())) {
+                if (boolEquals(productInfoDto.getJlr(), productMatchDto.getJlr())) {
                     matchingRate += everyOne;
                 }
 
@@ -298,6 +313,27 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             }
         }
         return matchingProducts;
+    }
+
+    public Boolean boolEquals(String backColunm, String frontColunm) {
+        if (!StringUtils.isEmpty(backColunm) && !StringUtils.isEmpty(frontColunm)) {
+            return backColunm.equals(frontColunm) ? true : false;
+        }
+        return false;
+    }
+
+    public Boolean boolListEquals(String backColunm, List<Node> frontColunm) {
+        if (!StringUtils.isEmpty(backColunm) && !CollectionUtils.isEmpty(frontColunm)) {
+            List<Node> backNode = JSON.parseArray(backColunm, Node.class);
+            for (Node node : backNode) {
+                for (Node node1 : frontColunm) {
+                    if (node.getCode().equals(node1.getCode()) && StringUtils.isEmpty(node.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     /**

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.july.company.mapper.SysMenuMapper">
+
+    <select id="getSysMenu" resultType="com.july.company.vo.menu.SysMenuVo">
+        SELECT
+        m.id as "id",
+        m.name as "title",
+        m.icon as "icon",
+        m.href as "href",
+        m.sort
+        FROM
+        fc_sys_menu m
+        where
+        m.parent_id  = 0
+        and m.is_show = true
+        order by m.sort asc
+    </select>
+
+    <select id="getAllSysMenu" resultType="com.july.company.entity.SysMenu">
+        SELECT
+        m.*
+        FROM
+        fc_sys_menu m
+        where
+        m.is_show = true
+        order by m.sort asc
+    </select>
+
+    <resultMap type="com.july.company.entity.SysMenu" id="getSelf">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="parentId" column="parentId"/>
+        <result property="level" column="level"/>
+        <result property="parentIds" column="parentIds"/>
+        <result property="sort" column="sort"/>
+        <result property="href" column="href"/>
+        <result property="target" column="target"/>
+        <result property="icon" column="icon"/>
+        <result property="isShow" column="isShow"/>
+        <result property="bgColor" column="bgColor"/>
+        <result property="permission" column="permission"/>
+        <result property="createdTime" column="createdTime"/>
+        <result property="updatedTime" column="updatedTime"/>
+        <result property="remarks" column="remarks"/>
+        <result property="deleted" column="deleted"/>
+        <collection property="children" select="getMenus" column="{parentId = id,isShow = myIsShow}">
+        </collection>
+    </resultMap>
+
+    <select id="getMenus" resultMap="getSelf" parameterType="java.util.Map">
+        select
+        id,
+        name,
+        parent_id as "parentId",
+        parent_ids as "parentIds",
+        level,
+        sort,
+        href,
+        target,
+        icon,
+        is_show as "isShow",
+        bg_color as "bgColor",
+        permission,
+        createdTime as "createdTime",
+        updatedTime as "updatedTime",
+        remarks,
+        deleted as "deleted",
+        #{isShow} as "myIsShow" from sys_menu where
+        deleted = false
+        <choose>
+            <when test="parentId != null and parentId!='' ">
+                and parent_id = #{parentId}
+            </when>
+            <otherwise>
+                and parent_id is NULL
+            </otherwise>
+        </choose>
+        <if test="isShow == true">
+            and is_show = #{isShow}
+        </if>
+        order by sort asc
+    </select>
+
+</mapper>
