@@ -394,7 +394,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:Number(item),value:''};
+                    let obj = {code:item,value:''};
                     if(Number(item)==8){
                         obj.value=this.industryDirect;
                     }
@@ -408,7 +408,7 @@ export default {
         industryDirect:function(v,o){
             if(v){
                 this.matchForm.industryDirect.forEach(item=>{
-                    if(item.code==8){
+                    if(Number(item.code)==8){
                         item.value = v;
                     }
                 })
@@ -419,7 +419,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:Number(item),value:''};
+                    let obj = {code:item,value:''};
                     if(Number(item)==8){
                         obj.value=this.shareholder;
                     }
@@ -433,7 +433,7 @@ export default {
         shareholder:function(v,o){
             if(v){
                 this.matchForm.shareholder.forEach(item=>{
-                    if(item.code==8){
+                    if(Number(item.code)==8){
                         item.value = v;
                     }
                 })
@@ -444,7 +444,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:Number(item),value:''};
+                    let obj = {code:item,value:''};
                     if(Number(item)==7){
                         obj.value=this.creditType;
                     }
@@ -458,7 +458,7 @@ export default {
         creditType:function(v,o){
             if(v){
                 this.matchForm.creditType.forEach(item=>{
-                    if(item.code==7){
+                    if(Number(item.code)==7){
                         item.value = v;
                     }
                 })
@@ -469,7 +469,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:Number(item),value:''};
+                    let obj = {code:item,value:''};
                     if(Number(item)==5){
                         obj.value=this.qualification;
                     }
@@ -483,7 +483,7 @@ export default {
         qualification:function(v,o){
             if(v){
                 this.matchForm.qualification.forEach(item=>{
-                    if(item.code==5){
+                    if(Number(item.code)==5){
                         item.value = v;
                     }
                 })
@@ -494,7 +494,7 @@ export default {
             if(v.length>0){
                 let items = [];
                 v.forEach(item=>{
-                    let obj = {code:Number(item),value:''};
+                    let obj = {code:item,value:''};
                     if(Number(item)==4){
                         obj.value=this.boolLoan;
                     }
@@ -508,7 +508,7 @@ export default {
         boolLoan:function(v,o){
             if(v){
                 this.matchForm.boolLoan.forEach(item=>{
-                    if(item.code==4){
+                    if(Number(item.code)==4){
                         item.value = v;
                     }
                 })
