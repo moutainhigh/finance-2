@@ -155,17 +155,19 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         return null;
     }
 
-    public String getListColunmNode(String codeTypo, String colunm) {
+    public String getListColunmNode(String codeType, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if (!CollectionUtils.isEmpty(nodes)) {
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeType, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
         }
         return null;
     }

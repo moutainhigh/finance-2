@@ -63,3 +63,63 @@
 2020-06-17 11:57:17.997 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
 2020-06-17 11:57:19.905 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
 2020-06-17 11:57:19.909 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 11:59:40.372 [XNIO-1 task-1] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-17 11:59:40.371 [XNIO-1 task-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-17 12:01:05.149 [XNIO-1 task-17] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1
+### The error may exist in com/july/company/mapper/FinanceBondDetailMapper.java (best guess)
+### The error may involve com.july.company.mapper.FinanceBondDetailMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO fc_finance_bond_detail  ( assetAmount, subsidy, lastSubsidy, creditType, goverOrderAmount, boolIntroduce,  createdTime,  owner, updatedTime, liabilitiesAmount, business, productId, cashFlow, shareholder, industryDirect, jlr, qualification, houseMortgage, loanTerm, registerAddress, deleted, nationOrderAmount,  loanQuota, patentCount, boolLoan, taxAmount, existAmount )  VALUES  ( ?, ?, ?, ?, ?, ?,  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ? )
+### Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1
+; Data truncation: Data too long for column 'patentCount' at row 1; nested exception is com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1]
+2020-06-17 12:01:13.010 [XNIO-1 task-19] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1
+### The error may exist in com/july/company/mapper/FinanceBondDetailMapper.java (best guess)
+### The error may involve com.july.company.mapper.FinanceBondDetailMapper.insert-Inline
+### The error occurred while setting parameters
+### SQL: INSERT INTO fc_finance_bond_detail  ( assetAmount, subsidy, lastSubsidy, creditType, goverOrderAmount, boolIntroduce,  createdTime,  owner, updatedTime, liabilitiesAmount, business, productId, cashFlow, shareholder, industryDirect, jlr, qualification, houseMortgage, loanTerm, registerAddress, deleted, nationOrderAmount,  loanQuota, patentCount, boolLoan, taxAmount, existAmount )  VALUES  ( ?, ?, ?, ?, ?, ?,  ?,  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,  ?, ?, ?, ?, ? )
+### Cause: com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1
+; Data truncation: Data too long for column 'patentCount' at row 1; nested exception is com.mysql.cj.jdbc.exceptions.MysqlDataTruncation: Data truncation: Data too long for column 'patentCount' at row 1]
+2020-06-17 12:02:00.695 [XNIO-1 task-27] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:04:58.206 [XNIO-1 task-7] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 12:18:31.815 [XNIO-1 task-34] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 12:20:38.902 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:20:41.316 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:20:41.321 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:21:15.816 [XNIO-1 task-14] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 12:27:25.359 [XNIO-1 task-27] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 12:30:20.182 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:30:22.408 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:30:22.413 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:30:41.498 [XNIO-1 task-14] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 12:31:51.164 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:31:53.202 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:31:53.206 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:34:29.222 [XNIO-1 task-14] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:36:00.853 [XNIO-1 task-16] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:36:05.896 [XNIO-1 task-18] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:36:41.028 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:36:43.661 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:36:43.666 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:36:52.052 [XNIO-1 task-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:39:45.183 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:39:47.454 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:39:47.459 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:39:55.896 [XNIO-1 task-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 10, line 1, column 111592367044]
+2020-06-17 12:41:59.026 [XNIO-1 task-16] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 10, line 1, column 111592368916]
+2020-06-17 12:45:03.534 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:45:05.609 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:45:05.613 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:45:16.426 [XNIO-1 task-3] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-17 12:45:16.427 [XNIO-1 task-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=408, message=登录信息不存在]]
+2020-06-17 12:45:25.150 [XNIO-1 task-15] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:51:08.401 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:51:10.767 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:51:10.772 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:52:23.926 [XNIO-1 task-13] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:52:49.805 [XNIO-1 task-28] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 12:57:21.912 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 12:57:24.441 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:57:24.446 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 12:57:42.392 [XNIO-1 task-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
