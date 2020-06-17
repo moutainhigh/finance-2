@@ -6,11 +6,11 @@
           <div class="desc">
               <div class="desc-item">
                   <img src="/image/icon-suoshujigou.png" alt="" style="width:16px;height:16px;">
-                  <div><span>所属机构：</span> {{item.mechanism}}</div>
+                  <div :title="item.mechanism"><span>所属机构：</span> {{item.mechanism|subStr(10)}}</div>
               </div>
               <div class="desc-item">
                   <img src="/image/icon-hangyefangxiang.png" alt="" style="width:16px;height:16px;">
-                  <div :title="item.industryDirectStr"><span>行业方向：</span> {{item.industryDirectStr|subStr}}</div>
+                  <div :title="item.industryDirectStr"><span>行业方向：</span> {{item.industryDirectStr|subStr(14)}}</div>
               </div>
               <div class="desc-item" v-if="type==0">
                   <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
@@ -18,7 +18,7 @@
               </div>
               <div class="desc-item" v-if="type==0">
                   <img src="/image/icon-rognzijieduan.png" alt="" style="width:16px;height:16px;">
-                  <div><span>融资阶段：</span> {{item.financeStateStr}}</div>
+                  <div :title="item.financeStateStr"><span>融资阶段：</span> {{item.financeStateStr|subStr(10)}}</div>
               </div>
               <div class="desc-item" v-if="type==1">
                   <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
@@ -61,9 +61,9 @@ export default {
 
     },
     filters:{
-        subStr(val){
-            if(val && val.length>14){
-                return val.substr(0,14)+'...';
+        subStr(val,len){
+            if(val && val.length>len){
+                return val.substr(0,len)+'...';
             }else{
                 return val;
             }
