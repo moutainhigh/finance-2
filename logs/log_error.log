@@ -383,3 +383,7 @@ Caused by: org.xml.sax.SAXParseException: The content of elements must consist o
 	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:261)
 	... 126 common frames omitted
 2020-06-17 13:52:04.010 [XNIO-1 task-5] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: syntax error, expect {, actual int, pos 0, fastjson-version 1.2.60 at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:489)
+2020-06-17 17:45:53.323 [XNIO-1 task-30] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20 at com.alibaba.fastjson.parser.DefaultJSONParser.parseArray(DefaultJSONParser.java:725)
+2020-06-17 17:47:22.880 [XNIO-1 task-1] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20 at com.alibaba.fastjson.parser.DefaultJSONParser.parseArray(DefaultJSONParser.java:725)
+2020-06-17 17:47:37.149 [XNIO-1 task-3] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20 at com.alibaba.fastjson.parser.DefaultJSONParser.parseArray(DefaultJSONParser.java:725)
+2020-06-17 17:47:55.809 [XNIO-1 task-5] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20 at com.alibaba.fastjson.parser.DefaultJSONParser.parseArray(DefaultJSONParser.java:725)
