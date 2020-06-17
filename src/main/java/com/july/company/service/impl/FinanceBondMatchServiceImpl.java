@@ -172,7 +172,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
             for (BondProductInfoDto productInfoDto : productInfoDtos) {
                 double matchingRate = 0.0;
                 //注册地址
-                if (boolEquals(productInfoDto.getRegisterAddress(), productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
+                if (boolOneEquals(productInfoDto.getRegisterAddress(), productMatchDto.getRegisterAddress().getCode()) && StringUtils.isEmpty(productMatchDto.getRegisterAddress().getValue())) {
                     matchingRate += everyOne;
                 }
                 //行业方向
@@ -202,15 +202,15 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     }
                 }*/
                 //营业收入
-                if (boolEquals(productInfoDto.getBusiness(), productMatchDto.getBusiness())) {
+                if (boolOneEquals(productInfoDto.getBusiness(), productMatchDto.getBusiness())) {
                     matchingRate += everyOne;
                 }
                 //贷款期限
-                if (boolEquals(productInfoDto.getLoanTerm(), productMatchDto.getLoanTerm())) {
+                if (boolOneEquals(productInfoDto.getLoanTerm(), productMatchDto.getLoanTerm())) {
                     matchingRate += everyOne;
                 }
                 //贷款额度
-                if (boolEquals(productInfoDto.getLoanQuota(), productMatchDto.getLoanQuota())) {
+                if (boolOneEquals(productInfoDto.getLoanQuota(), productMatchDto.getLoanQuota())) {
                     matchingRate += everyOne;
                 }
                 //增信方式
@@ -231,11 +231,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     matchingRate += everyOne;
                 }
                 //现金流
-                if (boolEquals(productInfoDto.getCashFlow(), productMatchDto.getCashFlow())) {
+                if (boolOneEquals(productInfoDto.getCashFlow(), productMatchDto.getCashFlow())) {
                     matchingRate += everyOne;
                 }
                 //政府订单额
-                if (boolEquals(productInfoDto.getGoverOrderAmount(), productMatchDto.getGoverOrderAmount())) {
+                if (boolOneEquals(productInfoDto.getGoverOrderAmount(), productMatchDto.getGoverOrderAmount())) {
                     matchingRate += everyOne;
                 }
                 //国企订单额
@@ -270,11 +270,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     }
                 }*/
                 //本年度政府补贴
-                if (boolEquals(productInfoDto.getSubsidy(), productMatchDto.getSubsidy())) {
+                if (boolOneEquals(productInfoDto.getSubsidy(), productMatchDto.getSubsidy())) {
                     matchingRate += everyOne;
                 }
                 //上一年度政府补贴
-                if (boolEquals(productInfoDto.getLastSubsidy(), productMatchDto.getLastSubsidy())) {
+                if (boolOneEquals(productInfoDto.getLastSubsidy(), productMatchDto.getLastSubsidy())) {
                     matchingRate += everyOne;
                 }
                 //是否引入股权投资
@@ -282,7 +282,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     matchingRate += everyOne;
                 }
                 //纳税额度
-                if (boolEquals(productInfoDto.getTaxAmount(), productMatchDto.getTaxAmount())) {
+                if (boolOneEquals(productInfoDto.getTaxAmount(), productMatchDto.getTaxAmount())) {
                     matchingRate += everyOne;
                 }
                 //是否有其他贷款
@@ -299,11 +299,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                     }
                 }*/
                 //现有贷款金额
-                if (boolEquals(productInfoDto.getExistAmount(), productMatchDto.getExistAmount())) {
+                if (boolOneEquals(productInfoDto.getExistAmount(), productMatchDto.getExistAmount())) {
                     matchingRate += everyOne;
                 }
                 //净利润
-                if (boolEquals(productInfoDto.getJlr(), productMatchDto.getJlr())) {
+                if (boolOneEquals(productInfoDto.getJlr(), productMatchDto.getJlr())) {
                     matchingRate += everyOne;
                 }
 
@@ -318,6 +318,20 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     public Boolean boolEquals(String backColunm, String frontColunm) {
         if (!StringUtils.isEmpty(backColunm) && !StringUtils.isEmpty(frontColunm)) {
             return backColunm.equals(frontColunm) ? true : false;
+        }
+        return false;
+    }
+
+    public Boolean boolOneEquals(String backColunm, String frontColunm) {
+        if (!StringUtils.isEmpty(backColunm) && !StringUtils.isEmpty(frontColunm)) {
+            List<Node> backNode = JSON.parseArray(backColunm, Node.class);
+            if (!CollectionUtils.isEmpty(backNode)) {
+                for (Node node : backNode) {
+                    if (node.getCode().equals(frontColunm) && StringUtils.isEmpty(node.getValue())) {
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }
