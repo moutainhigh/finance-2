@@ -13,7 +13,7 @@
                                 list-type="picture-card"
                                 class="avatar-uploader"
                                 :show-upload-list="false"
-                                action="/finance/company/uploadCompanyLogo"
+                                :action="url"
                                 :before-upload="beforeUpload"
                                 @change="changeUpFile"
                                 :headers="headers"
@@ -73,7 +73,8 @@ export default {
             spinning:false,
             spinninglist:false,
             upData:{companyId:0},
-            headers:{}
+            headers:{},
+            url:process.env.VUE_APP_PROXY_URL+'/finance/company/uploadCompanyLogo'
         }
     },
     created(){

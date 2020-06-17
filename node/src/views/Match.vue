@@ -989,35 +989,75 @@ export default {
                 paramsCurrent = Object.assign({},this.baseForm,this.matchForm);
             
                 let financeState = {code:this.matchForm.financeState,value:this.financeState}
-                paramsCurrent.financeState=financeState;
+                if(!this.matchForm.financeState){
+                    paramsCurrent.financeState=null;
+                }else{
+                    paramsCurrent.financeState=financeState;
+                }
     
                 let industryDirect = {code:this.matchForm.industryDirect,value:this.industryDirect}
-                paramsCurrent.industryDirect=industryDirect;
+                if(!this.matchForm.industryDirect){
+                    paramsCurrent.industryDirect=null;
+                }else{
+                    paramsCurrent.industryDirect=industryDirect;
+                }
     
                 let shareholder = {code:this.matchForm.shareholder,value:this.shareholder}
-                paramsCurrent.shareholder=shareholder;
+                if(!this.matchForm.industryDirect){
+                    paramsCurrent.shareholder=null;
+                }else{
+                    paramsCurrent.shareholder=shareholder;
+                }
     
                 let productState = {code:this.matchForm.productState,value:this.productState}
-                paramsCurrent.productState=productState;
+                if(!this.matchForm.productState){
+                    paramsCurrent.productState=null;
+                }else{
+                    paramsCurrent.productState=productState;
+                }
     
                 if(!this.matchForm.targetCustomer){
-                    let targetCustomer = [{code:'',value:''}]
-                    paramsCurrent.targetCustomer=targetCustomer;
+                    // let targetCustomer = [{code:'',value:''}]
+                    paramsCurrent.targetCustomer=null;
                 }
     
                 if(!this.matchForm.evaluateName){
-                    let evaluateName = [{code:'',value:''}]
-                    paramsCurrent.evaluateName=evaluateName;
+                    // let evaluateName = [{code:'',value:''}]
+                    paramsCurrent.evaluateName=null;
                 }
                 let registerAddress = {code:this.baseForm.registerAddress,value:''}
-                paramsCurrent.registerAddress=registerAddress;
+                if(!this.baseForm.registerAddress){
+                    paramsCurrent.registerAddress=null;
+                }else{
+                    paramsCurrent.registerAddress=registerAddress;
+                }
             }else if(this.active==1){
                 // 对债券匹配进行数据处理
                 paramsCurrent = Object.assign({},this.baseForm,params.matchForm.matchForm);
                 params.matchForm.baseForm=this.baseForm;
                 info = params.matchForm;
                 let registerAddress = {code:this.baseForm.registerAddress,value:''};
-                paramsCurrent.registerAddress=registerAddress;
+                if(!this.baseForm.registerAddress){
+                    paramsCurrent.registerAddress=null;
+                }else{
+                    paramsCurrent.registerAddress=registerAddress;
+                }
+                if(!params.matchForm.matchForm.industryDirect){
+                    paramsCurrent.industryDirect=null;
+                }
+                if(!params.matchForm.matchForm.shareholder){
+                    paramsCurrent.shareholder=null;
+                }
+                if(!params.matchForm.matchForm.creditType){
+                    paramsCurrent.creditType=null;
+                }
+                if(!params.matchForm.matchForm.qualification){
+                    paramsCurrent.qualification=null;
+                }
+                if(!params.matchForm.matchForm.boolLoan){
+                    paramsCurrent.boolLoan=null;
+                }
+
             }
 
             this.doSaveInfo(info,paramsCurrent);
@@ -1027,6 +1067,10 @@ export default {
             let param = {content:JSON.stringify(info),operateType:this.active==0?0:1,userId:this.$store.state.userInfo.id};
             localStorage.setItem('mathData',JSON.stringify(param));
             params.operateMatchDto = param;
+            if(!params.advantage){
+                params.advantage=null;
+            }
+
             this.spinning=false;
             if(this.active==0){
                 this.$http.postWithAuth('/finance/financeStockMatch/saveStockOneKeyMatching',params).then(res=>{
