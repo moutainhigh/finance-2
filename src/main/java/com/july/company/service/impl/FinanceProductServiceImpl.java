@@ -84,8 +84,8 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         IPage<FinanceBondProductVo> companyVoIPage = financeProductMapper.getFinanceBondProduct(page, financeBondProductDto);
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceBondProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
-                stockCompanyVo.setLoanQuotaStr(DictInit.getCodeValue(SystemConstant.DKED, stockCompanyVo.getLoanQuota() + ""));
-                stockCompanyVo.setLoanTermStr(DictInit.getCodeValue(SystemConstant.DKQX, stockCompanyVo.getLoanTerm() + ""));
+                stockCompanyVo.setLoanQuotaStr(getListColunmNode(SystemConstant.DKED, stockCompanyVo.getLoanQuota() + ""));
+                stockCompanyVo.setLoanTermStr(getListColunmNode(SystemConstant.DKQX, stockCompanyVo.getLoanTerm() + ""));
                 stockCompanyVo.setIndustryDirectStr(getListColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
