@@ -150,4 +150,11 @@ public interface FinanceProductService extends IService<FinanceProduct> {
      */
     void updateProductOperate(ProductOperateDto productOperateDto);
 
+    /**
+     * 编辑产品页面发布(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    void updateFinanceProductStatus(UpdateStatusDto bondSaveDetailDto);
 }
