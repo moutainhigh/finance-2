@@ -346,9 +346,9 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                     FinanceStockDetail financeStockDetail = financeStockDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
                     if (financeStockDetail != null) {
-                        companyApplyProductVo.setIndustryDirect(getColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
-                        companyApplyProductVo.setFinanceQuota(DictInit.getCodeValue(SystemConstant.RZED, financeStockDetail.getFinanceQuota()));
-                        companyApplyProductVo.setFinanceState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()));
+                        companyApplyProductVo.setIndustryDirect(getListColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
+                        companyApplyProductVo.setFinanceQuota(getListColunmNode(SystemConstant.RZED, financeStockDetail.getFinanceQuota()));
+                        companyApplyProductVo.setFinanceState(getListColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()));
                     }
                 } else {
                     //债权

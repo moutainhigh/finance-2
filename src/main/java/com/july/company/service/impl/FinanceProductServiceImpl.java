@@ -242,7 +242,6 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
         FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
         FinanceBondDetail financeBondDetail = financeBondDetailService.getFinanceProductDetail(selectProductDto.getProductId());
-        System.out.println("企业资质====>" + financeBondDetail.getQualification() + "/" + financeBondDetail.getSubsidy());
         BondEditDetailVo bondEditDetailVo = new BondEditDetailVo();
         BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
         BeanUtils.copyProperties(financeProduct, bondEditDetailVo);

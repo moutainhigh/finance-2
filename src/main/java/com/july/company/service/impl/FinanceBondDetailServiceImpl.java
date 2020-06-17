@@ -38,6 +38,8 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
     @Resource
     private FinanceProductService financeProductService;
+    @Resource
+    private FinanceBondDetailMapper financeBondDetailMapper;
 
     /**
      * 获取债券融资产品明细信息
@@ -51,7 +53,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         BnException.of(financeProductDetailDto.getCompanyId() == null, "债券融资公司id不能为空！");
 
         FinanceProduct financeProduct = financeProductService.getById(financeProductDetailDto.getCompanyId());
-        FinanceBondDetail financeBondDetail = getFinanceProductDetail(financeProduct.getId());
+        FinanceBondDetail financeBondDetail = financeBondDetailMapper.getFinanceProductDetail(financeProduct.getId());//getFinanceProductDetail(financeProduct.getId());
         return FinanceBondProductDetailVo.builder()
                 .productId(financeBondDetail.getProductId())
                 //所属机构
@@ -75,7 +77,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //增信方式
                 .creditType(getListColunmNode(SystemConstant.ZXFS, financeBondDetail.getCreditType() + ""))
                 //是否接受房产抵押
-                .houseMortgage(getListColunmNode(SystemConstant.FCDY, financeBondDetail.getHouseMortgage() + ""))
+                .houseMortgage(DictInit.getCodeValue(SystemConstant.FCDY, financeBondDetail.getHouseMortgage() + ""))
                 //营业收入
                 .businessStr(getListColunmNode(SystemConstant.BOND_YYSR, financeBondDetail.getBusiness() + ""))
                 //净利润
@@ -87,9 +89,9 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //央企/大型国企核心供应商订单额
                 .nationOrderAmount(getListColunmNode(SystemConstant.GQDDE, financeBondDetail.getNationOrderAmount() + ""))
                 //资产负债率
-                .debtRatio(getListColunmNode(SystemConstant.ZCFZL, financeBondDetail.getDebtRatio() + ""))
+                .debtRatio(DictInit.getCodeValue(SystemConstant.ZCFZL, financeBondDetail.getDebtRatio() + ""))
                 //净资产收益率
-                .yield(getListColunmNode(SystemConstant.JZCSYL, financeBondDetail.getYield() + ""))
+                .yield(DictInit.getCodeValue(SystemConstant.JZCSYL, financeBondDetail.getYield() + ""))
 
                 //资产总额
                 .assetAmount(financeBondDetail.getAssetAmount())
@@ -103,7 +105,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //政府补贴
                 .subsidy(getListColunmNode(SystemConstant.ZFBT, financeBondDetail.getSubsidy() + ""))
                 //是否引入股权投资
-                .boolIntroduce(getListColunmNode(SystemConstant.GQTZ, financeBondDetail.getBoolIntroduce() + ""))
+                .boolIntroduce(DictInit.getCodeValue(SystemConstant.GQTZ, financeBondDetail.getBoolIntroduce() + ""))
                 //纳税额度
                 .taxAmount(getListColunmNode(SystemConstant.NRED, financeBondDetail.getTaxAmount() + ""))
                 //发明专利数量

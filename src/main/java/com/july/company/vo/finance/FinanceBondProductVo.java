@@ -44,12 +44,12 @@ public class FinanceBondProductVo implements Serializable {
      * 贷款额度
      * @ignore
      */
-    private Integer loanQuota;
+    private String loanQuota;
     /**
      * 贷款期限
      * @ignore
      */
-    private Integer loanTerm;
+    private String loanTerm;
     /**
      * 行业方向(转换后)
      * @mock 新经济

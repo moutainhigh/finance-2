@@ -123,3 +123,67 @@
 2020-06-17 12:57:24.441 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
 2020-06-17 12:57:24.446 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
 2020-06-17 12:57:42.392 [XNIO-1 task-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 13:00:21.505 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:00:25.721 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:00:25.729 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:04:17.781 [XNIO-1 task-8] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 13:05:30.791 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:05:33.142 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:05:33.146 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:05:45.931 [XNIO-1 task-22] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 13:06:44.964 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:06:46.982 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:06:46.986 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:07:08.561 [XNIO-1 task-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:07:10.457 [XNIO-1 task-12] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:07:17.733 [XNIO-1 task-13] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:07:29.507 [XNIO-1 task-15] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 13:10:25.375 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:10:27.702 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:10:27.705 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:10:43.474 [XNIO-1 task-11] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:11:06.953 [XNIO-1 task-15] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 21]
+2020-06-17 13:11:20.274 [XNIO-1 task-17] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 21]
+2020-06-17 13:12:23.547 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:12:26.130 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:12:26.152 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:12:39.235 [XNIO-1 task-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: expect '[', but int, pos 1, line 1, column 20]
+2020-06-17 13:13:15.213 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:13:17.505 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:13:17.511 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:14:09.098 [XNIO-1 task-9] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:14:17.965 [XNIO-1 task-12] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:14:31.950 [XNIO-1 task-17] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:15:01.443 [XNIO-1 task-18] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:15:01.780 [XNIO-1 task-19] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [org.springframework.jdbc.UncategorizedSQLException: Error attempting to get column 'loanQuota' from result set.  Cause: java.sql.SQLException: Error
+; uncategorized SQLException; SQL state [null]; error code [0]; Error; nested exception is java.sql.SQLException: Error]
+2020-06-17 13:18:01.181 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:18:03.730 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:18:03.734 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:18:37.323 [XNIO-1 task-10] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:18:52.545 [XNIO-1 task-13] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:21:30.257 [XNIO-1 task-36] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-17 13:21:45.352 [XNIO-1 task-40] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-17 13:22:32.292 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:22:34.250 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:22:34.254 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:22:48.161 [XNIO-1 task-2] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.alibaba.fastjson.JSONException: syntax error, expect {, actual [, pos 0, fastjson-version 1.2.60]
+2020-06-17 13:23:19.842 [restartedMain] WARN  io.undertow.websockets.jsr - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2020-06-17 13:23:22.102 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:23:22.106 [restartedMain] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2020-06-17 13:23:47.821 [XNIO-1 task-15] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=没有找到该产品申请信息！]]
+2020-06-17 13:34:48.855 [XNIO-1 task-35] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:36:20.004 [XNIO-1 task-41] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:36:40.527 [XNIO-1 task-44] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:37:56.135 [XNIO-1 task-52] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:38:03.623 [XNIO-1 task-55] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]
+2020-06-17 13:38:59.517 [XNIO-1 task-41] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [BnException:[code=99999, message=该产品已经申请过，请不要重复申请！]]
+2020-06-17 13:39:07.849 [XNIO-1 task-46] WARN  o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [java.lang.NullPointerException]

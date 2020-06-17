@@ -1172,3 +1172,661 @@
 2020-06-17 12:57:36.991 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
 2020-06-17 12:57:37.378 [XNIO-1 task-5] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
 2020-06-17 12:57:37.381 [XNIO-1 task-5] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 12:59:58.414 [Thread-35] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 12:59:58.416 [Thread-35] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 12:59:58.417 [Thread-35] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 12:59:58.448 [Thread-35] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 12:59:58.451 [Thread-35] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 12:59:59.634 [Thread-35] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 12:59:59.650 [Thread-35] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 12:59:59.656 [Thread-35] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:00:16.295 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:00:16.603 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$85a313c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:00:16.895 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:00:16.910 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:00:16.917 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:00:16.955 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:00:19.105 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:00:19.110 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:00:19.261 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 101ms. Found 0 repository interfaces.
+2020-06-17 13:00:20.082 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:00:20.374 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ec402e3f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:00:20.768 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$c0f3540f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:00:20.823 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$85a313c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:00:21.537 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:00:21.538 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4564 ms
+2020-06-17 13:00:21.552 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:00:21.837 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:00:21.859 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:00:21.985 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:00:22.051 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:00:25.721 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:00:25.729 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:00:26.020 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:00:26.265 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:00:26.265 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:00:26.266 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:00:26.290 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:00:26.700 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:00:26.887 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:00:26.896 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:00:26.979 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:00:26.985 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:00:27.016 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:00:27.027 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:00:27.031 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 12.363 seconds (JVM running for 14.221)
+2020-06-17 13:00:27.033 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:00:27.704 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:00:28.052 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:00:28.053 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:00:28.054 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:00:28.054 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:03:21.000 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:03:21.002 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:03:21.023 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 21 ms
+2020-06-17 13:04:25.518 [Thread-39] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:04:25.519 [Thread-39] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:04:25.520 [Thread-39] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:04:25.532 [Thread-39] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:04:25.533 [Thread-39] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:04:25.562 [Thread-39] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:04:25.572 [Thread-39] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:04:25.575 [Thread-39] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:05:28.175 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:05:28.431 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$f9b50eb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:05:28.824 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:05:28.836 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:05:28.841 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:05:28.867 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:05:29.741 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:05:29.743 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:05:29.799 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33ms. Found 0 repository interfaces.
+2020-06-17 13:05:30.057 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:05:30.163 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f3814dee] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:05:30.265 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$c83473be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:05:30.307 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$f9b50eb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:05:30.815 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:05:30.816 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1936 ms
+2020-06-17 13:05:30.823 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:05:30.991 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:05:31.019 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:05:31.143 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:05:31.188 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:05:33.143 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:05:33.146 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:05:33.614 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:05:34.025 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:05:34.026 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:05:34.027 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:05:34.062 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:05:34.557 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:05:34.817 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:05:34.827 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:05:34.911 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:05:34.919 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:05:34.958 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:05:34.969 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:05:34.976 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 8.33 seconds (JVM running for 9.801)
+2020-06-17 13:05:34.979 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:05:35.777 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:05:35.784 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:05:35.785 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:05:35.786 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:05:35.786 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:05:36.672 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:05:36.672 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:05:36.685 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 13 ms
+2020-06-17 13:05:40.440 [XNIO-1 task-10] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:40.440 [XNIO-1 task-6] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:40.440 [XNIO-1 task-9] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:40.444 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:40.763 [XNIO-1 task-9] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:05:40.768 [XNIO-1 task-9] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:05:44.723 [XNIO-1 task-14] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:44.796 [XNIO-1 task-18] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:44.800 [XNIO-1 task-19] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:05:44.802 [XNIO-1 task-20] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:06:29.488 [Thread-33] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:06:29.490 [Thread-33] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:06:29.491 [Thread-33] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:06:29.501 [Thread-33] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:06:29.506 [Thread-33] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:06:30.647 [Thread-33] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:06:30.655 [Thread-33] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:06:30.659 [Thread-33] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:06:42.553 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:06:42.772 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$9ca96f28] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:06:43.003 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:06:43.014 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:06:43.019 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:06:43.048 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:06:43.888 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:06:43.891 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:06:43.952 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
+2020-06-17 13:06:44.207 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:06:44.310 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$808f6c2b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:06:44.463 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$554291fb] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:06:44.493 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$9ca96f28] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:06:44.989 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:06:44.989 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1926 ms
+2020-06-17 13:06:44.997 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:06:45.178 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:06:45.202 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:06:45.307 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:06:45.360 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:06:46.982 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:06:46.986 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:06:47.278 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:06:47.516 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:06:47.516 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:06:47.517 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:06:47.540 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:06:47.932 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:06:48.118 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:06:48.127 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:06:48.208 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:06:48.213 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:06:48.241 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:06:48.251 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:06:48.256 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 7.257 seconds (JVM running for 8.703)
+2020-06-17 13:06:48.258 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:06:48.802 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:06:48.806 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:06:48.806 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:06:48.807 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:06:48.807 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:07:02.048 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:07:02.049 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:07:02.081 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 31 ms
+2020-06-17 13:07:03.252 [XNIO-1 task-8] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:07:03.252 [XNIO-1 task-6] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:07:03.252 [XNIO-1 task-7] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:07:03.253 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:07:03.434 [XNIO-1 task-8] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:07:03.437 [XNIO-1 task-8] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:10:07.070 [Thread-30] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:10:07.073 [Thread-30] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:10:07.077 [Thread-30] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:10:07.087 [Thread-30] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:10:07.090 [Thread-30] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:10:08.219 [Thread-30] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:10:08.225 [Thread-30] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:10:08.228 [Thread-30] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:10:22.286 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:10:22.537 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d2641c53] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:10:22.785 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:10:22.795 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:10:22.801 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:10:22.829 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:10:23.853 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:10:23.856 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:10:23.914 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45ms. Found 0 repository interfaces.
+2020-06-17 13:10:24.228 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:10:24.337 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b64a1956] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:10:24.439 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$8afd3f26] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:10:24.525 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d2641c53] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:10:25.404 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:10:25.405 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2562 ms
+2020-06-17 13:10:25.413 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:10:25.641 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:10:25.666 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:10:25.767 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:10:25.815 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:10:27.702 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:10:27.705 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:10:27.998 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:10:28.235 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:10:28.235 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:10:28.236 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:10:28.261 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:10:28.662 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:10:28.844 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:10:28.853 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:10:28.946 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:10:28.951 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:10:28.999 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:10:29.011 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:10:29.018 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 8.64 seconds (JVM running for 10.486)
+2020-06-17 13:10:29.020 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:10:29.710 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:10:29.729 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:10:29.736 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:10:29.737 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:10:29.737 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:10:38.419 [XNIO-1 task-3] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:10:38.419 [XNIO-1 task-3] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:10:38.469 [XNIO-1 task-3] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 50 ms
+2020-06-17 13:10:39.651 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:10:39.651 [XNIO-1 task-7] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:10:39.656 [XNIO-1 task-6] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:10:39.664 [XNIO-1 task-8] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:10:39.978 [XNIO-1 task-5] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:10:39.985 [XNIO-1 task-5] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:11:58.469 [Thread-33] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:11:58.472 [Thread-33] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:11:58.478 [Thread-33] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:11:58.501 [Thread-33] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:11:58.502 [Thread-33] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:11:59.653 [Thread-33] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:11:59.664 [Thread-33] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:11:59.667 [Thread-33] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:12:20.755 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:12:21.009 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$17081edd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:12:21.318 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:12:21.331 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:12:21.336 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:12:21.363 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:12:22.423 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:12:22.426 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:12:22.480 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40ms. Found 0 repository interfaces.
+2020-06-17 13:12:22.780 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:12:22.893 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$faee1be0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:12:23.021 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$cfa141b0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:12:23.061 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$17081edd] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:12:23.570 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:12:23.571 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2193 ms
+2020-06-17 13:12:23.580 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:12:23.759 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:12:23.790 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:12:23.897 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:12:23.943 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:12:26.131 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:12:26.152 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:12:26.992 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:12:27.890 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:12:27.891 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:12:27.893 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:12:28.005 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:12:29.286 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:12:29.681 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:12:29.695 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:12:29.803 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:12:29.811 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:12:29.855 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:12:29.867 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:12:29.874 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 10.644 seconds (JVM running for 12.978)
+2020-06-17 13:12:29.877 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:12:31.158 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:12:31.179 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:12:31.190 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:12:31.193 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:12:31.195 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:12:33.903 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:12:33.903 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:12:33.929 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 26 ms
+2020-06-17 13:12:35.136 [XNIO-1 task-7] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:12:35.136 [XNIO-1 task-8] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:12:35.137 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:12:35.137 [XNIO-1 task-6] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:12:35.514 [XNIO-1 task-6] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:12:35.525 [XNIO-1 task-6] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:13:02.400 [Thread-38] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:13:02.401 [Thread-38] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:13:02.402 [Thread-38] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:13:02.408 [Thread-38] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:13:02.409 [Thread-38] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:13:03.592 [Thread-38] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:13:03.603 [Thread-38] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:13:03.607 [Thread-38] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:13:11.888 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:13:12.254 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$927f412e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:13:12.667 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:13:12.679 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:13:12.685 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:13:12.728 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:13:13.990 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:13:13.993 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:13:14.073 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 45ms. Found 0 repository interfaces.
+2020-06-17 13:13:14.403 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:13:14.523 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$76653e31] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:13:14.642 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$4b186401] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:13:14.673 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$927f412e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:13:15.238 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:13:15.238 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2495 ms
+2020-06-17 13:13:15.247 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:13:15.451 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:13:15.469 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:13:15.594 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:13:15.658 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:13:17.506 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:13:17.512 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:13:17.884 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:13:18.155 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:13:18.155 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:13:18.156 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:13:18.181 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:13:18.646 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:13:18.876 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:13:18.885 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:13:18.979 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:13:18.984 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:13:19.015 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:13:19.028 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:13:19.033 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 7.79 seconds (JVM running for 9.726)
+2020-06-17 13:13:19.036 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:13:19.618 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:13:19.621 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:13:19.622 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:13:19.623 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:13:19.623 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:13:25.692 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:13:25.693 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:13:25.719 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 26 ms
+2020-06-17 13:14:06.739 [XNIO-1 task-7] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:2,loginType:0
+2020-06-17 13:14:06.842 [XNIO-1 task-7] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:14:06.843 [XNIO-1 task-7] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:14:19.764 [XNIO-1 task-13] INFO  com.july.company.utils.JwtUtils - {nbf=1592370859, loginType=0, iss=, iat=1592370859, userId=4, from_service=, token=FE2DB14089124F53AB75569EBAA8CB82}
+2020-06-17 13:17:42.768 [Thread-32] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:17:42.773 [Thread-32] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:17:42.777 [Thread-32] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:17:42.790 [Thread-32] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:17:42.791 [Thread-32] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:17:43.916 [Thread-32] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:17:43.924 [Thread-32] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:17:43.927 [Thread-32] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:17:57.513 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:17:57.874 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$2fce8c32] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:17:58.295 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:17:58.328 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:17:58.337 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:17:58.384 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:17:59.657 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:17:59.660 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:17:59.718 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 43ms. Found 0 repository interfaces.
+2020-06-17 13:18:00.048 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:18:00.208 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$13b48935] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:18:00.363 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$e867af05] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:18:00.396 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$2fce8c32] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:18:01.211 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:18:01.211 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2804 ms
+2020-06-17 13:18:01.220 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:18:01.433 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:18:01.464 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:18:01.586 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:18:01.668 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:18:03.730 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:18:03.734 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:18:04.106 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:18:04.377 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:18:04.377 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:18:04.378 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:18:04.409 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:18:04.880 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:18:05.140 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:18:05.152 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:18:05.251 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:18:05.256 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:18:05.285 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:18:05.294 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:18:05.300 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 9.734 seconds (JVM running for 11.605)
+2020-06-17 13:18:05.302 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:18:05.947 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:18:05.951 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:18:05.952 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:18:05.953 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:18:05.953 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:18:10.966 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:18:10.967 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:18:10.996 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 28 ms
+2020-06-17 13:18:27.441 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:18:27.564 [XNIO-1 task-4] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:18:27.566 [XNIO-1 task-4] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:18:29.079 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:18:34.403 [XNIO-1 task-8] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:18:34.477 [XNIO-1 task-8] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:18:34.486 [XNIO-1 task-8] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:18:34.750 [XNIO-1 task-9] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:18:46.662 [XNIO-1 task-11] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:18:46.684 [XNIO-1 task-11] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:18:46.688 [XNIO-1 task-11] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:18:46.844 [XNIO-1 task-12] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:20:27.377 [XNIO-1 task-14] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:20:27.394 [XNIO-1 task-14] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:20:27.399 [XNIO-1 task-14] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:20:27.558 [XNIO-1 task-15] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:04.833 [XNIO-1 task-24] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:14.278 [XNIO-1 task-25] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:22.179 [XNIO-1 task-29] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:23.397 [XNIO-1 task-30] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:30.089 [XNIO-1 task-35] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:30.096 [XNIO-1 task-35] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:21:30.102 [XNIO-1 task-35] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:21:30.220 [XNIO-1 task-36] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:45.142 [XNIO-1 task-39] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:21:45.154 [XNIO-1 task-39] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:21:45.159 [XNIO-1 task-39] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:21:45.316 [XNIO-1 task-40] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:22:17.976 [Thread-34] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:22:17.977 [Thread-34] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:22:17.978 [Thread-34] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:22:17.989 [Thread-34] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:22:17.990 [Thread-34] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:22:19.147 [Thread-34] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:22:19.166 [Thread-34] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:22:19.176 [Thread-34] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:22:29.668 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:22:29.969 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d86a502f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:22:30.241 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:22:30.254 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:22:30.259 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:22:30.290 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:22:31.225 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:22:31.240 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:22:31.283 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
+2020-06-17 13:22:31.541 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:22:31.656 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bc504d32] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:22:31.770 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$91037302] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:22:31.802 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d86a502f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:22:32.316 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:22:32.316 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2010 ms
+2020-06-17 13:22:32.324 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:22:32.512 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:22:32.536 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:22:32.623 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:22:32.670 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:22:34.250 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:22:34.254 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:22:34.545 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:22:34.789 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:22:34.790 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:22:34.790 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:22:34.819 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:22:35.239 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:22:35.439 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:22:35.454 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:22:35.541 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:22:35.549 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:22:35.617 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:22:35.629 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:22:35.634 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 7.59 seconds (JVM running for 9.01)
+2020-06-17 13:22:35.636 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:22:36.136 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:22:36.139 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:22:36.139 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:22:36.140 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:22:36.140 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:22:46.771 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:22:46.856 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:22:46.878 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 21 ms
+2020-06-17 13:22:47.316 [XNIO-1 task-1] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:22:47.433 [XNIO-1 task-1] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:22:47.435 [XNIO-1 task-1] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:22:47.699 [XNIO-1 task-1] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:22:47.709 [XNIO-1 task-1] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:22:48.003 [XNIO-1 task-2] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:23:06.985 [Thread-31] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registering from Nacos Server now...
+2020-06-17 13:23:06.988 [Thread-31] INFO  com.alibaba.nacos.client.naming - [BEAT] removing beat: DEFAULT_GROUP@@com.company.finance:192.168.0.21:9001 from beat map.
+2020-06-17 13:23:06.994 [Thread-31] INFO  com.alibaba.nacos.client.naming - [DEREGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 deregistering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{},"port":9001,"weight":1.0}
+2020-06-17 13:23:07.004 [Thread-31] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - De-registration finished.
+2020-06-17 13:23:07.005 [Thread-31] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:23:08.149 [Thread-31] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2020-06-17 13:23:08.157 [Thread-31] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2020-06-17 13:23:08.160 [Thread-31] INFO  io.undertow.servlet - Destroying Spring FrameworkServlet 'dispatcherServlet'
+2020-06-17 13:23:17.036 [restartedMain] INFO  o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-06-17 13:23:17.362 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$6adef8d6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:23:17.633 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'common.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:23:17.645 [restartedMain] INFO  c.a.cloud.nacos.client.NacosPropertySourceBuilder - Loading nacos data, dataId: 'com.company.finance.yml', group: 'DEFAULT_GROUP'
+2020-06-17 13:23:17.650 [restartedMain] INFO  o.s.c.b.c.PropertySourceBootstrapConfiguration - Located property source: CompositePropertySource {name='NACOS', propertySources=[NacosPropertySource {name='com.company.finance-dev.yml'}, NacosPropertySource {name='com.company.finance.yml'}, NacosPropertySource {name='common.yml'}]}
+2020-06-17 13:23:17.677 [restartedMain] INFO  com.july.CompanyApplication - The following profiles are active: dev
+2020-06-17 13:23:18.689 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-06-17 13:23:18.707 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data repositories in DEFAULT mode.
+2020-06-17 13:23:18.754 [restartedMain] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34ms. Found 0 repository interfaces.
+2020-06-17 13:23:19.035 [restartedMain] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=226c5c33-f7ef-3542-840a-99a7f3ff636f
+2020-06-17 13:23:19.164 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4ec4f5d9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:23:19.281 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.july.company.config.RedisConfig$$EnhancerBySpringCGLIB$$23781ba9] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:23:19.313 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$6adef8d6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-06-17 13:23:19.873 [restartedMain] INFO  io.undertow.servlet - Initializing Spring embedded WebApplicationContext
+2020-06-17 13:23:19.873 [restartedMain] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 2181 ms
+2020-06-17 13:23:19.882 [restartedMain] INFO  com.july.company.config.CorsConfig - 配置跨域bean
+2020-06-17 13:23:20.064 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis分页拦截器初始化.
+2020-06-17 13:23:20.082 [restartedMain] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2020-06-17 13:23:20.189 [restartedMain] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2020-06-17 13:23:20.236 [restartedMain] INFO  com.july.company.intercepts.MybatisPlusConfig - mybatis公共字段填充处理器初始化.
+2020-06-17 13:23:22.102 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:23:22.107 [restartedMain] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2020-06-17 13:23:22.393 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2020-06-17 13:23:22.622 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:23:22.622 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Environment :null
+2020-06-17 13:23:22.623 [restartedMain] INFO  com.alibaba.nacos.client.naming - initializer namespace from System Property :null
+2020-06-17 13:23:22.647 [restartedMain] INFO  o.s.scheduling.concurrent.ThreadPoolTaskScheduler - Initializing ExecutorService
+2020-06-17 13:23:23.061 [restartedMain] INFO  o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2020-06-17 13:23:23.254 [restartedMain] INFO  org.xnio - XNIO version 3.3.8.Final
+2020-06-17 13:23:23.263 [restartedMain] INFO  org.xnio.nio - XNIO NIO Implementation Version 3.3.8.Final
+2020-06-17 13:23:23.434 [restartedMain] INFO  o.s.b.w.embedded.undertow.UndertowServletWebServer - Undertow started on port(s) 9001 (http) with context path '/finance'
+2020-06-17 13:23:23.439 [restartedMain] INFO  com.alibaba.nacos.client.naming - [BEAT] adding beat: {"cluster":"DEFAULT","ip":"192.168.0.21","metadata":{"preserved.register.source":"SPRING_CLOUD"},"period":5000,"port":9001,"scheduled":false,"serviceName":"DEFAULT_GROUP@@com.company.finance","stopped":false,"weight":1.0} to beat map.
+2020-06-17 13:23:23.468 [restartedMain] INFO  com.alibaba.nacos.client.naming - [REGISTER-SERVICE] 44f3ec72-5331-4305-a0c0-5e773ef15f33 registering service DEFAULT_GROUP@@com.company.finance with instance: {"clusterName":"DEFAULT","enabled":true,"ephemeral":true,"healthy":true,"instanceHeartBeatInterval":5000,"instanceHeartBeatTimeOut":15000,"ip":"192.168.0.21","ipDeleteTimeout":30000,"metadata":{"preserved.register.source":"SPRING_CLOUD"},"port":9001,"weight":1.0}
+2020-06-17 13:23:23.477 [restartedMain] INFO  c.a.cloud.nacos.registry.NacosServiceRegistry - nacos registry, com.company.finance 192.168.0.21:9001 register finished
+2020-06-17 13:23:23.487 [restartedMain] INFO  com.july.CompanyApplication - Started CompanyApplication in 7.361 seconds (JVM running for 8.957)
+2020-06-17 13:23:23.490 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典：START:spring初始化开始======================>
+2020-06-17 13:23:24.084 [restartedMain] INFO  com.july.company.dictionary.BeanDefineConfigue - 字典:END:spring初始化完毕======================>
+2020-06-17 13:23:24.087 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:23:24.088 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:23:24.089 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.ClientWorker - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [subscribe] com.company.finance-dev.yml+DEFAULT_GROUP+44f3ec72-5331-4305-a0c0-5e773ef15f33
+2020-06-17 13:23:24.089 [restartedMain] INFO  com.alibaba.nacos.client.config.impl.CacheData - [fixed-127.0.0.1_8848-44f3ec72-5331-4305-a0c0-5e773ef15f33] [add-listener] ok, tenant=44f3ec72-5331-4305-a0c0-5e773ef15f33, dataId=com.company.finance-dev.yml, group=DEFAULT_GROUP, cnt=1
+2020-06-17 13:23:28.063 [XNIO-1 task-1] INFO  io.undertow.servlet - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-17 13:23:28.063 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2020-06-17 13:23:28.078 [XNIO-1 task-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 14 ms
+2020-06-17 13:23:28.496 [XNIO-1 task-1] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:23:28.615 [XNIO-1 task-1] INFO  io.lettuce.core.EpollProvider - Starting without optional epoll library
+2020-06-17 13:23:28.616 [XNIO-1 task-1] INFO  io.lettuce.core.KqueueProvider - Starting without optional kqueue library
+2020-06-17 13:23:28.872 [XNIO-1 task-1] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:23:28.882 [XNIO-1 task-1] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:23:29.188 [XNIO-1 task-2] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:23:33.776 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:23:33.785 [XNIO-1 task-4] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:23:33.790 [XNIO-1 task-4] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:23:33.903 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:23:41.043 [XNIO-1 task-9] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:23:42.726 [XNIO-1 task-11] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:23:42.746 [XNIO-1 task-12] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:23:42.903 [XNIO-1 task-13] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:23:47.765 [XNIO-1 task-15] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:23:47.817 [XNIO-1 task-15] INFO  com.july.company.base.AdviceController - BnException:[code=99999, message=没有找到该产品申请信息！] at com.july.company.exception.BnException.on(BnException.java:219)
+2020-06-17 13:28:37.726 [XNIO-1 task-17] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:28:37.829 [XNIO-1 task-19] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:28:37.899 [XNIO-1 task-20] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:28:42.374 [XNIO-1 task-23] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:28:42.375 [XNIO-1 task-24] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:30:05.675 [XNIO-1 task-28] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:30:07.408 [XNIO-1 task-31] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:30:07.417 [XNIO-1 task-32] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:30:33.824 [XNIO-1 task-35] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:33.848 [XNIO-1 task-35] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:30:33.853 [XNIO-1 task-35] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:30:34.005 [XNIO-1 task-36] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:39.657 [XNIO-1 task-40] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:39.942 [XNIO-1 task-42] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:43.484 [XNIO-1 task-43] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:48.443 [XNIO-1 task-46] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:48.451 [XNIO-1 task-46] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:30:48.456 [XNIO-1 task-46] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:30:48.574 [XNIO-1 task-47] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:30:55.979 [XNIO-1 task-50] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:07.288 [XNIO-1 task-53] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:07.288 [XNIO-1 task-54] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:15.703 [XNIO-1 task-56] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:16.952 [XNIO-1 task-58] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:19.917 [XNIO-1 task-60] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:31:19.934 [XNIO-1 task-60] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:31:19.936 [XNIO-1 task-60] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:31:20.066 [XNIO-1 task-61] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:31:31.350 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:31:31.350 [XNIO-1 task-5] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:33:49.203 [XNIO-1 task-9] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:33:50.578 [XNIO-1 task-12] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:33:50.584 [XNIO-1 task-13] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:34:00.731 [XNIO-1 task-19] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:1
+2020-06-17 13:34:38.710 [XNIO-1 task-25] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:34:38.959 [XNIO-1 task-27] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:34:38.966 [XNIO-1 task-29] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:34:41.816 [XNIO-1 task-30] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:34:46.575 [XNIO-1 task-33] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:34:46.585 [XNIO-1 task-33] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:34:46.589 [XNIO-1 task-33] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:34:46.721 [XNIO-1 task-34] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:12.955 [XNIO-1 task-36] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:12.977 [XNIO-1 task-36] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:12.981 [XNIO-1 task-36] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:13.125 [XNIO-1 task-37] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:17.885 [XNIO-1 task-39] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:17.893 [XNIO-1 task-39] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:17.916 [XNIO-1 task-39] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:18.032 [XNIO-1 task-40] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:33.352 [XNIO-1 task-42] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:33.361 [XNIO-1 task-42] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:33.364 [XNIO-1 task-42] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:33.496 [XNIO-1 task-43] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:44.192 [XNIO-1 task-45] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:44.201 [XNIO-1 task-45] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:44.207 [XNIO-1 task-45] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:44.360 [XNIO-1 task-46] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:50.520 [XNIO-1 task-48] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:36:50.530 [XNIO-1 task-48] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:50.536 [XNIO-1 task-48] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:36:50.693 [XNIO-1 task-49] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:37:47.619 [XNIO-1 task-50] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:37:47.632 [XNIO-1 task-50] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:37:47.635 [XNIO-1 task-50] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:37:47.777 [XNIO-1 task-51] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:37:59.077 [XNIO-1 task-54] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:37:59.084 [XNIO-1 task-54] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:37:59.088 [XNIO-1 task-54] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:37:59.205 [XNIO-1 task-53] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:38:06.435 [XNIO-1 task-56] INFO  com.july.company.utils.JwtUtils - {nbf=1592372286, loginType=0, iss=, iat=1592372286, userId=3, from_service=, token=C2E52AA1C063401F98A60C9732F9BEB4}
+2020-06-17 13:38:10.468 [XNIO-1 task-57] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:10.472 [XNIO-1 task-57] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:10.473 [XNIO-1 task-57] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:10.788 [XNIO-1 task-58] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:15.330 [XNIO-1 task-59] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:15.334 [XNIO-1 task-59] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:15.335 [XNIO-1 task-59] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:15.442 [XNIO-1 task-60] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:20.445 [XNIO-1 task-63] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:38:20.451 [XNIO-1 task-63] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:20.453 [XNIO-1 task-63] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:20.582 [XNIO-1 task-64] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:4,loginType:0
+2020-06-17 13:38:21.363 [XNIO-1 task-2] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:26.396 [XNIO-1 task-3] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:26.456 [XNIO-1 task-4] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:30.479 [XNIO-1 task-7] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:30.482 [XNIO-1 task-7] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:30.484 [XNIO-1 task-7] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:38:30.794 [XNIO-1 task-8] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:37.317 [XNIO-1 task-16] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:38.829 [XNIO-1 task-19] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:46.853 [XNIO-1 task-31] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:47.005 [XNIO-1 task-33] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:47.306 [XNIO-1 task-35] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:51.300 [XNIO-1 task-36] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:58.135 [XNIO-1 task-40] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:59.505 [XNIO-1 task-41] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:38:59.516 [XNIO-1 task-41] INFO  com.july.company.base.AdviceController - BnException:[code=99999, message=该产品已经申请过，请不要重复申请！] at com.july.company.exception.BnException.on(BnException.java:219)
+2020-06-17 13:39:02.646 [XNIO-1 task-43] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:39:04.228 [XNIO-1 task-44] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:39:04.231 [XNIO-1 task-44] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:39:04.233 [XNIO-1 task-44] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:39:04.262 [XNIO-1 task-45] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:39:37.548 [XNIO-1 task-47] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0
+2020-06-17 13:39:37.551 [XNIO-1 task-47] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:39:37.552 [XNIO-1 task-47] INFO  com.july.company.monitor.MessageMonitor - 解析失败
+2020-06-17 13:39:37.578 [XNIO-1 task-48] INFO  com.july.company.intercepts.LoginIntercept - 缓存的userId:3,loginType:0

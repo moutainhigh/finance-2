@@ -145,11 +145,11 @@
         </if>
         <!--贷款期限-->
         <if test="param.loanTerm != null and param.loanTerm != ''">
-            and ffpd.loanTerm = #{param.loanTerm}
+            and JSON_CONTAINS(ffpd.loanTerm, JSON_OBJECT("code", ${param.loanTerm}))
         </if>
         <!--贷款额度-->
         <if test="param.loanQuota != null and param.loanQuota != ''">
-            and ffpd.loanQuota = #{param.loanQuota}
+            and JSON_CONTAINS(ffpd.loanQuota, JSON_OBJECT("code", ${param.loanQuota}))
         </if>
         <!--行业方向-->
         <if test="param.industryDirect != null and param.industryDirect != ''">
@@ -169,7 +169,7 @@
         </if>
         <!--政府补贴-->
         <if test="param.subsidy != null and param.subsidy != ''">
-            and ffpd.subsidy = #{param.subsidy}
+            and JSON_CONTAINS(ffpd.subsidy, JSON_OBJECT("code", ${param.subsidy}))
         </if>
         <!--名称或机构名称-->
         <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
