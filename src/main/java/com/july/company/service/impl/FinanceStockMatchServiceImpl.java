@@ -199,7 +199,7 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
                     matchingRate += everyOne;
                 }
                 //历史创业企业状态
-                if (boolOneEquals(productInfoDto.getCompanyStatus(), productMatchDto.getCompanyStatus())) {
+                if (boolEquals(productInfoDto.getCompanyStatus(), productMatchDto.getCompanyStatus())) {
                     matchingRate += everyOne;
                 }
                 if (matchingRate > 50) {
