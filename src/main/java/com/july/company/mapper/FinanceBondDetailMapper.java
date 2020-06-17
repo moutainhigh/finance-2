@@ -13,4 +13,12 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface FinanceBondDetailMapper extends BaseMapper<FinanceBondDetail> {
 
+    /**
+     * 根据产品ID获取债券产品的明细信息
+     * @param productId
+     * @return com.july.company.entity.FinanceProductDetail
+     * @author zengxueqi
+     * @since 2020/5/20
+     */
+    FinanceBondDetail getFinanceProductDetail(Long productId);
 }

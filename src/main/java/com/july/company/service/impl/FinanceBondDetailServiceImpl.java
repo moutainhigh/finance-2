@@ -38,6 +38,8 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
     @Resource
     private FinanceProductService financeProductService;
+    @Resource
+    private FinanceBondDetailMapper financeBondDetailMapper;
 
     /**
      * 获取债券融资产品明细信息
@@ -136,10 +138,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
      * @since 2020/5/20
      */
     public FinanceBondDetail getFinanceProductDetail(Long productId) {
-        QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(productId != null, "productId", productId)
-                .eq("deleted", SystemConstant.SYS_FALSE);
-        return this.getOne(queryWrapper);
+        return financeBondDetailMapper.getFinanceProductDetail(productId);
     }
 
     public String getColunmNode(String codeTypo, String colunm) {
