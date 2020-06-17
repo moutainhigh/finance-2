@@ -48,11 +48,14 @@
             <div class="prodlist">
                 <div class="title">申请列表</div>
                 <a-spin :spinning="spinninglist">
-                <div class="list">
+                <div class="list" v-if="matchList.length">
                     <ProductItem class="item" @to-detail="toDetail(item)" :item="item" v-for="(item,index) in matchList" :key="index"></ProductItem>
                 </div>
+                <div class="list" v-if="!matchList.length">
+                    暂无数据
+                </div>
                 </a-spin>
-                <div style="margin:auto;text-align:center;padding-bottom:15px;">
+                <div style="margin:auto;text-align:center;padding-bottom:15px;" v-if="matchList.length">
                     <a-pagination :total="totalNum" @change="onChange" :current='pageNo' :defaultPageSize='pageSize' />
                 </div>
             </div>
@@ -126,7 +129,11 @@ export default {
         },
         toDetail(item){
             // 根据产品类型跳转
-            this.$router.push({path:'/detail',query:{companyId:item.productId}})
+            if(item.financeType==0){
+                this.$router.push({path:'/detail',query:{companyId:item.productId}})
+            }else{
+                this.$router.push({path:'/zdetail',query:{companyId:item.productId}})
+            }
         },
         onChange(page, pageSize){
             this.pageNo = page;

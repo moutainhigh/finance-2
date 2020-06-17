@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="filter-item more">
-                        <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.codeType">
+                        <div class="item-title" v-for="sItem in searchFieldList.slice(3)" :key="sItem.field">
                             <span>{{sItem.codeName}}：</span>
                             <a-select default-value="不限" style="width: 120px" v-model="params.content[sItem.field]" @change="selectField" allowClear>
                                 <a-select-option value="" key="">不限</a-select-option>
@@ -96,7 +96,7 @@ import { getSearchField } from "@/common/commapi.js"
 import { matchSearchData} from "@/common/lib/tools.js"
 import {mapActions} from "vuex"
 export default {
-    name:"Guquan",
+    name:"Zhaiquan",
     data(){
         return {
             isLogin:false,
