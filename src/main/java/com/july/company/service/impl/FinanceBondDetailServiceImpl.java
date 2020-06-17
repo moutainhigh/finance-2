@@ -117,13 +117,14 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
     @Override
     public void updateFinanceBondProductDetailById(BondSaveDetailDto bondSaveDetailDto) {
-        FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
-        BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
-        financeBondDetail.setId(null);
         QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
         queryWrapper.eq("productId", bondSaveDetailDto.getId());
-        this.update(financeBondDetail, queryWrapper);
+        FinanceBondDetail financeBondDetail = this.getOne(queryWrapper);
+        Long id = financeBondDetail.getId();
+        BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
+        financeBondDetail.setId(id);
+        this.updateById(financeBondDetail);
     }
 
 
