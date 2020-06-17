@@ -61,9 +61,9 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         IPage<FinanceStockProductVo> companyVoIPage = financeProductMapper.getFinanceStockProduct(page, financeStockProductDto);
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceStockProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
-                stockCompanyVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockCompanyVo.getFinanceQuota() + ""));
-                stockCompanyVo.setFinanceStateStr(getColunmNode(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
-                stockCompanyVo.setIndustryDirectStr(getColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
+                stockCompanyVo.setFinanceQuotaStr(getListColunmNode(SystemConstant.RZED, stockCompanyVo.getFinanceQuota() + ""));
+                stockCompanyVo.setFinanceStateStr(getListColunmNode(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
+                stockCompanyVo.setIndustryDirectStr(getListColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
             companyVoIPage.setRecords(stockCompanyVos);
@@ -127,7 +127,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         if (!CollectionUtils.isEmpty(stockList.getRecords())) {
             List<StockListVo> stockListVos = stockList.getRecords().stream().map(stockListVo -> {
                 //融资额度
-                stockListVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
+                stockListVo.setFinanceQuotaStr(getListColunmNode(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
                 //产品状态
                 stockListVo.setStatusStr(ProductStatusEnum.getDescByValue(stockListVo.getStatus()));
                 stockListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(stockListVo.getCreatedTime()));
@@ -242,6 +242,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         BnException.of(selectProductDto.getProductId() == null, "请提供产品id进行查询！");
         FinanceProduct financeProduct = getFinanceProductById(selectProductDto.getProductId());
         FinanceBondDetail financeBondDetail = financeBondDetailService.getFinanceProductDetail(selectProductDto.getProductId());
+        System.out.println("企业资质====>" + financeBondDetail.getQualification() + "/" + financeBondDetail.getSubsidy());
         BondEditDetailVo bondEditDetailVo = new BondEditDetailVo();
         BeanUtils.copyProperties(financeBondDetail, bondEditDetailVo);
         BeanUtils.copyProperties(financeProduct, bondEditDetailVo);
@@ -377,6 +378,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         financeProduct.setStatus(productOperateDto.getOperateType());
         this.updateById(financeProduct);
     }
+
     public String getColunmNode(String codeTypo, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             Node node = JSONObject.parseObject(colunm, Node.class);

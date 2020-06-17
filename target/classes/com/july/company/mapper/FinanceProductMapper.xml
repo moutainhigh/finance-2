@@ -15,31 +15,31 @@
         </if>
         <!--融资额度-->
         <if test="param.financeQuota != null and param.financeQuota != ''">
-            and ffpd.financeQuota = #{param.financeQuota}
+            and JSON_CONTAINS(ffpd.financeQuota, JSON_OBJECT("code", ${param.financeQuota}))
         </if>
         <!--融资阶段-->
         <if test="param.financeState != null and param.financeState != ''">
-            and ffpd.financeState->'$.code' = ${param.financeState}
+            and JSON_CONTAINS(ffpd.financeState, JSON_OBJECT("code", ${param.financeState}))
         </if>
         <!--行业方向-->
         <if test="param.industryDirect != null and param.industryDirect != ''">
-            and ffpd.industryDirect->'$.code' = ${param.industryDirect}
+            and JSON_CONTAINS(ffpd.industryDirect, JSON_OBJECT("code", ${param.industryDirect}))
         </if>
         <!--注册地址-->
         <if test="param.registerAddress != null and param.registerAddress != ''">
-            and ffpd.registerAddress = #{param.registerAddress}
+            and JSON_CONTAINS(ffpd.registerAddress, JSON_OBJECT("code", ${param.registerAddress}))
         </if>
         <!--营业收入-->
         <if test="param.business != null and param.business != ''">
-            and ffpd.business = #{param.business}
+            and JSON_CONTAINS(ffpd.business, JSON_OBJECT("code", ${param.business}))
         </if>
         <!--员工人数-->
         <if test="param.staffCount != null and param.staffCount != ''">
-            and ffpd.staffCount = #{param.staffCount}
+            and JSON_CONTAINS(ffpd.staffCount, JSON_OBJECT("code", ${param.staffCount}))
         </if>
         <!--市场占有率-->
         <if test="param.marketOccupyRate != null and param.marketOccupyRate != ''">
-            and ffpd.marketOccupyRate = #{param.marketOccupyRate}
+            and JSON_CONTAINS(ffpd.marketOccupyRate, JSON_OBJECT("code", ${param.marketOccupyRate}))
         </if>
         <!--评定名称-->
         <if test="param.evaluateName != null and param.evaluateName != ''">
@@ -47,27 +47,27 @@
         </if>
         <!--产品阶段-->
         <if test="param.productState != null and param.productState != ''">
-            and ffpd.productState = #{param.productState}
+            and JSON_CONTAINS(ffpd.productState, JSON_OBJECT("code", ${param.productState}))
         </if>
         <!--产品毛利率-->
         <if test="param.productRate != null and param.productRate != ''">
-            and ffpd.productRate = #{param.productRate}
+            and JSON_CONTAINS(ffpd.productRate, JSON_OBJECT("code", ${param.productRate}))
         </if>
         <!--实控人创业经历-->
         <if test="param.experience != null and param.experience != ''">
-            and ffpd.experience = #{param.experience}
+            and JSON_CONTAINS(ffpd.experience, JSON_OBJECT("code", ${param.experience}))
         </if>
         <!--发明专利数-->
         <if test="param.patentCount != null and param.patentCount != ''">
-            and ffpd.patentCount = #{param.patentCount}
+            and JSON_CONTAINS(ffpd.patentCount, JSON_OBJECT("code", ${param.patentCount}))
         </if>
         <!--股东背景-->
         <if test="param.shareholder != null and param.shareholder != ''">
-            and ffpd.shareholder->'$.code' = #{param.shareholder}
+            and JSON_CONTAINS(ffpd.shareholder, JSON_OBJECT("code", ${param.shareholder}))
         </if>
         <!--股东累计投入资金-->
         <if test="param.capitals != null and param.capitals != ''">
-            and ffpd.capitals = #{param.capitals}
+            and JSON_CONTAINS(ffpd.capitals, JSON_OBJECT("code", ${param.capitals}))
         </if>
         <!--公司竞争优势-->
         <if test="param.advantage != null and param.advantage != ''">
@@ -75,19 +75,19 @@
         </if>
         <!--历史创业企业状态-->
         <if test="param.companyStatus != null and param.companyStatus != ''">
-            and ffpd.companyStatus = #{param.companyStatus}
+            and JSON_CONTAINS(ffpd.companyStatus, JSON_OBJECT("code", ${param.companyStatus}))
         </if>
         <!--市场容量-->
         <if test="param.marketCapacity != null and param.marketCapacity != ''">
-            and ffpd.marketCapacity = #{param.marketCapacity}
+            and JSON_CONTAINS(ffpd.marketCapacity, JSON_OBJECT("code", ${param.marketCapacity}))
         </if>
         <!--市场预期容量增长率-->
         <if test="param.marketAddRate != null and param.marketAddRate != ''">
-            and ffpd.marketAddRate = #{param.marketAddRate}
+            and JSON_CONTAINS(ffpd.marketAddRate, JSON_OBJECT("code", ${param.marketAddRate}))
         </if>
         <!--市场占有率-->
         <if test="param.marketOccupyRate != null and param.marketOccupyRate != ''">
-            and ffpd.marketOccupyRate = #{param.marketOccupyRate}
+            and JSON_CONTAINS(ffpd.marketOccupyRate, JSON_OBJECT("code", ${param.marketOccupyRate}))
         </if>
         <!--是否接受回购条款-->
         <if test="param.boolBuyBack != null and param.boolBuyBack != ''">
@@ -95,19 +95,19 @@
         </if>
         <!--预计上市时间-->
         <if test="param.timeToMarket != null and param.timeToMarket != ''">
-            and ffpd.timeToMarket = #{param.timeToMarket}
+            and JSON_CONTAINS(ffpd.timeToMarket, JSON_OBJECT("code", ${param.timeToMarket}))
         </if>
         <!--营业收入增长率-->
         <if test="param.businessAddRate != null and param.businessAddRate != ''">
-            and ffpd.businessAddRate = #{param.businessAddRate}
+            and JSON_CONTAINS(ffpd.businessAddRate, JSON_OBJECT("code", ${param.businessAddRate}))
         </if>
         <!--过往融资金额-->
         <if test="param.oldFinanceQuota != null and param.oldFinanceQuota != ''">
-            and ffpd.oldFinanceQuota = #{param.oldFinanceQuota}
+            and JSON_CONTAINS(ffpd.oldFinanceQuota, JSON_OBJECT("code", ${param.oldFinanceQuota}))
         </if>
         <!--净利率-->
         <if test="param.netInterestRate != null and param.netInterestRate != ''">
-            and ffpd.netInterestRate = #{param.netInterestRate}
+            and JSON_CONTAINS(ffpd.netInterestRate, JSON_OBJECT("code", ${param.netInterestRate}))
         </if>
         <!--目标客户-->
         <if test="param.targetCustomer != null and param.targetCustomer != ''">
@@ -174,9 +174,9 @@
         <!--名称或机构名称-->
         <if test="param.mechanismOrProduct != null and param.mechanismOrProduct != ''">
             and (
-                ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
-                or
-                ffp.title like concat('%',#{param.mechanismOrProduct},'%')
+            ffp.mechanism like concat('%',#{param.mechanismOrProduct},'%')
+            or
+            ffp.title like concat('%',#{param.mechanismOrProduct},'%')
             )
         </if>
         <if test="param.orderByField == null">
@@ -217,7 +217,8 @@
     </select>
 
     <select id="getStockList" resultType="com.july.company.vo.finance.StockListVo">
-        select ffp.id as productId,ffp.title as productName,ffp.mechanism,ffp.tel,ffpd.financeQuota,ffp.createdTime,ffp.status
+        select ffp.id as productId,ffp.title as
+        productName,ffp.mechanism,ffp.tel,ffpd.financeQuota,ffp.createdTime,ffp.status
         from
         fc_finance_product ffp,fc_finance_stock_detail ffpd
         where
@@ -226,16 +227,16 @@
         and ffp.deleted = 0
         and ffp.status != 4
         <if test="param.financeQuota != null and param.financeQuota != ''">
-            and ffpd.financeQuota = #{param.financeQuota}
+            and JSON_CONTAINS(ffpd.financeQuota, JSON_OBJECT("code", ${param.financeQuota}))
         </if>
         <if test="param.registerAddress != null and param.registerAddress != ''">
-            and ffp.registerAddress = #{param.registerAddress}
+            and JSON_CONTAINS(ffp.registerAddress, JSON_OBJECT("code", ${param.registerAddress}))
         </if>
         <if test="param.titleOrMechanism != null and param.titleOrMechanism != ''">
             and (
-                ffp.mechanism like concat('%',#{param.titleOrMechanism},'%')
-                or
-                ffp.title like concat('%',#{param.titleOrMechanism},'%')
+            ffp.mechanism like concat('%',#{param.titleOrMechanism},'%')
+            or
+            ffp.title like concat('%',#{param.titleOrMechanism},'%')
             )
         </if>
         order by ffp.createdTime desc

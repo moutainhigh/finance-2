@@ -345,16 +345,20 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 if (companyApplyProductVo.getFinanceType().equals(SystemConstant.SYS_FALSE)) {
                     FinanceStockDetail financeStockDetail = financeStockDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
-                    companyApplyProductVo.setIndustryDirect(getColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
-                    companyApplyProductVo.setFinanceQuota(DictInit.getCodeValue(SystemConstant.RZED, financeStockDetail.getFinanceQuota()));
-                    companyApplyProductVo.setFinanceState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()));
+                    if (financeStockDetail != null) {
+                        companyApplyProductVo.setIndustryDirect(getColunmNode(SystemConstant.HYFX, financeStockDetail.getIndustryDirect()));
+                        companyApplyProductVo.setFinanceQuota(DictInit.getCodeValue(SystemConstant.RZED, financeStockDetail.getFinanceQuota()));
+                        companyApplyProductVo.setFinanceState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()));
+                    }
                 } else {
                     //债权
                     FinanceBondDetail financeBondDetail = financeBondDetailService.
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
-                    companyApplyProductVo.setIndustryDirect(getListColunmNode(SystemConstant.HYFX, financeBondDetail.getIndustryDirect()));
-                    companyApplyProductVo.setLoanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota()));
-                    companyApplyProductVo.setLoanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm()));
+                    if (financeBondDetail != null) {
+                        companyApplyProductVo.setIndustryDirect(getListColunmNode(SystemConstant.HYFX, financeBondDetail.getIndustryDirect()));
+                        companyApplyProductVo.setLoanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota()));
+                        companyApplyProductVo.setLoanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm()));
+                    }
                 }
                 return companyApplyProductVo;
             }).collect(Collectors.toList());

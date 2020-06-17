@@ -1,11 +1,9 @@
 package com.july.company.service;
 
-import com.july.company.dto.finance.BondProductMatchDto;
 import com.july.company.dto.finance.BondSaveDetailDto;
 import com.july.company.dto.finance.FinanceProductDetailDto;
 import com.july.company.entity.FinanceBondDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.july.company.entity.FinanceStockDetail;
 import com.july.company.vo.finance.FinanceBondProductDetailVo;
 
 /**
@@ -39,4 +37,5 @@ public interface FinanceBondDetailService extends IService<FinanceBondDetail> {
      * @since 2020/5/20
      */
     FinanceBondDetail getFinanceProductDetail(Long productId);
+
 }
