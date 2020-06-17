@@ -50,33 +50,38 @@ public class FinanceStockDetailServiceImpl extends ServiceImpl<FinanceStockDetai
 
         FinanceProduct financeProduct = financeProductService.getById(financeProductDetailDto.getCompanyId());
         FinanceStockDetail financeProductDetail = getFinanceProductDetail(financeProduct.getId());
+
+        String workAddress = org.springframework.util.StringUtils.isEmpty(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getWorkAddress())) ? "" :
+                DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getWorkAddress());
+        workAddress = org.springframework.util.StringUtils.isEmpty(financeProduct.getDetailAddress()) ? workAddress : workAddress + financeProduct.getDetailAddress();
+
         return FinanceStockProductDetailVo.builder()
                 .productId(financeProductDetail.getProductId())
                 .mechanism(financeProduct.getMechanism())
-                .workAddress(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getWorkAddress()))
+                .workAddress(workAddress)
                 .tel(financeProduct.getTel())
                 .introduce(financeProduct.getIntroduce())
-                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeProduct.getRegisterAddress() + ""))
-                .financeStateStr(getColunmNode(SystemConstant.RZJD, financeProductDetail.getFinanceState()))
-                .financeQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, financeProductDetail.getFinanceQuota() + ""))
-                .industryDirectStr(getColunmNode(SystemConstant.HYFX, financeProductDetail.getIndustryDirect()))
-                .shareholderStr(getColunmNode(SystemConstant.GDBJ, financeProductDetail.getShareholder() + ""))
-                .productStateStr(getColunmNode(SystemConstant.CPJD, financeProductDetail.getProductState() + ""))
-                .businessStr(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_YYSR, financeProductDetail.getBusiness() + ""))
-                .businessAddRateStr(DictInit.getCodeValue(SystemConstant.YYSRZZL, financeProductDetail.getBusinessAddRate() + ""))
-                .productRateStr(DictInit.getCodeValue(SystemConstant.CPMLL, financeProductDetail.getProductRate() + ""))
-                .netInterestRateStr(DictInit.getCodeValue(SystemConstant.JLL, financeProductDetail.getNetInterestRate() + ""))
-                .oldFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.GWRZJE, financeProductDetail.getOldFinanceQuota() + ""))
-                .experienceStr(DictInit.getCodeValue(SystemConstant.CYJL, financeProductDetail.getExperience() + ""))
-                .staffCountStr(DictInit.getCodeValue(SystemConstant.YGRS, financeProductDetail.getStaffCount() + ""))
-                .marketCapacityStr(DictInit.getCodeValue(SystemConstant.SCRL, financeProductDetail.getMarketCapacity() + ""))
-                .marketAddRateStr(DictInit.getCodeValue(SystemConstant.SCRLZZL, financeProductDetail.getMarketAddRate() + ""))
+                .registerAddressStr(getListColunmNode(SystemConstant.REGION, financeProduct.getRegisterAddress() + ""))
+                .financeStateStr(getListColunmNode(SystemConstant.RZJD, financeProductDetail.getFinanceState()))
+                .financeQuotaStr(getListColunmNode(SystemConstant.RZED, financeProductDetail.getFinanceQuota() + ""))
+                .industryDirectStr(getListColunmNode(SystemConstant.HYFX, financeProductDetail.getIndustryDirect()))
+                .shareholderStr(getListColunmNode(SystemConstant.GDBJ, financeProductDetail.getShareholder() + ""))
+                .productStateStr(getListColunmNode(SystemConstant.CPJD, financeProductDetail.getProductState() + ""))
+                .businessStr(getListColunmNode(SystemConstant.STOCKRIGHT_YYSR, financeProductDetail.getBusiness() + ""))
+                .businessAddRateStr(getListColunmNode(SystemConstant.YYSRZZL, financeProductDetail.getBusinessAddRate() + ""))
+                .productRateStr(getListColunmNode(SystemConstant.CPMLL, financeProductDetail.getProductRate() + ""))
+                .netInterestRateStr(getListColunmNode(SystemConstant.JLL, financeProductDetail.getNetInterestRate() + ""))
+                .oldFinanceQuotaStr(getListColunmNode(SystemConstant.GWRZJE, financeProductDetail.getOldFinanceQuota() + ""))
+                .experienceStr(getListColunmNode(SystemConstant.CYJL, financeProductDetail.getExperience() + ""))
+                .staffCountStr(getListColunmNode(SystemConstant.YGRS, financeProductDetail.getStaffCount() + ""))
+                .marketCapacityStr(getListColunmNode(SystemConstant.SCRL, financeProductDetail.getMarketCapacity() + ""))
+                .marketAddRateStr(getListColunmNode(SystemConstant.SCRLZZL, financeProductDetail.getMarketAddRate() + ""))
                 .targetCustomerStr(getListColunmNode(SystemConstant.MBKH, financeProductDetail.getTargetCustomer() + ""))
-                .marketOccupyRateStr(DictInit.getCodeValue(SystemConstant.SCZYL, financeProductDetail.getMarketOccupyRate() + ""))
+                .marketOccupyRateStr(getListColunmNode(SystemConstant.SCZYL, financeProductDetail.getMarketOccupyRate() + ""))
                 .boolBuyBackStr(DictInit.getCodeValue(SystemConstant.SFHG, financeProductDetail.getBoolBuyBack() + ""))
-                .patentCountStr(DictInit.getCodeValue(SystemConstant.STOCKRIGHT_FMZLSL, financeProductDetail.getPatentCount() + ""))
+                .patentCountStr(getListColunmNode(SystemConstant.STOCKRIGHT_FMZLSL, financeProductDetail.getPatentCount() + ""))
                 .advantageStr(getListColunmNode(SystemConstant.GSJZYS, financeProductDetail.getAdvantage() + ""))
-                .capitalsStr(DictInit.getCodeValue(SystemConstant.GDLJTRZJ, financeProductDetail.getCapitals() + ""))
+                .capitalsStr(getListColunmNode(SystemConstant.GDLJTRZJ, financeProductDetail.getCapitals() + ""))
                 .evaluateNameStr(getListColunmNode(SystemConstant.PDCH, financeProductDetail.getEvaluateName() + ""))
                 .build();
     }
