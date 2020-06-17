@@ -378,6 +378,19 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         this.updateById(financeProduct);
     }
 
+    /**
+     * 编辑产品页面发布(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @Override
+    public void updateFinanceProductStatus(UpdateStatusDto bondSaveDetailDto) {
+        FinanceProduct financeProduct = this.getById(bondSaveDetailDto.getProductId());
+        financeProduct.setStatus(2);
+        this.updateById(financeProduct);
+    }
+
     public String getColunmNode(String codeTypo, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             Node node = JSONObject.parseObject(colunm, Node.class);

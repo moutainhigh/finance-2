@@ -9,7 +9,7 @@ export default {
     name:'DespComp',
     data(){
         return {
-            title:'债券融资',
+            title:'债权融资',
             enTitle:'Bond FINANCING'
         }
     },

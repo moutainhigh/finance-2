@@ -164,6 +164,18 @@ public class FinanceProductController {
     }
 
     /**
+     * 编辑产品页面发布(后台)
+     * @param bondSaveDetailDto
+     * @author xiajunwei
+     * @since 2020/6/11
+     */
+    @PostMapping("/updateFinanceProductStatus")
+    public ResultT<String> updateFinanceProductStatus(@RequestBody UpdateStatusDto bondSaveDetailDto) {
+        financeProductService.updateFinanceProductStatus(bondSaveDetailDto);
+        return ResultT.ok("操作成功");
+    }
+
+    /**
      * 删除债权信息(后台)
      * @param bondDeleteDetailDto
      * @author xiajunwei
