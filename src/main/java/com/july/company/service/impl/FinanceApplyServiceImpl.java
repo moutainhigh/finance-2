@@ -356,8 +356,8 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                             getFinanceProductDetail(companyApplyProductVo.getProductId());
                     if (financeBondDetail != null) {
                         companyApplyProductVo.setIndustryDirect(getListColunmNode(SystemConstant.HYFX, financeBondDetail.getIndustryDirect()));
-                        companyApplyProductVo.setLoanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota()));
-                        companyApplyProductVo.setLoanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm()));
+                        companyApplyProductVo.setLoanQuota(getListColunmNode(SystemConstant.DKED, financeBondDetail.getLoanQuota()));
+                        companyApplyProductVo.setLoanTerm(getListColunmNode(SystemConstant.DKQX, financeBondDetail.getLoanTerm()));
                     }
                 }
                 return companyApplyProductVo;
@@ -384,14 +384,16 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
     public String getListColunmNode(String codeType, String colunm) {
         if (!StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeType, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if (!StringUtils.isEmpty(nodes)) {
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeType, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
         }
         return null;
     }
