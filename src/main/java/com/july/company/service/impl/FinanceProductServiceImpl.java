@@ -61,9 +61,9 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         IPage<FinanceStockProductVo> companyVoIPage = financeProductMapper.getFinanceStockProduct(page, financeStockProductDto);
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceStockProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
-                stockCompanyVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockCompanyVo.getFinanceQuota() + ""));
-                stockCompanyVo.setFinanceStateStr(getColunmNode(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
-                stockCompanyVo.setIndustryDirectStr(getColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
+                stockCompanyVo.setFinanceQuotaStr(getListColunmNode(SystemConstant.RZED, stockCompanyVo.getFinanceQuota() + ""));
+                stockCompanyVo.setFinanceStateStr(getListColunmNode(SystemConstant.RZJD, stockCompanyVo.getFinanceState() + ""));
+                stockCompanyVo.setIndustryDirectStr(getListColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
             companyVoIPage.setRecords(stockCompanyVos);
@@ -84,8 +84,8 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         IPage<FinanceBondProductVo> companyVoIPage = financeProductMapper.getFinanceBondProduct(page, financeBondProductDto);
         if (!CollectionUtils.isEmpty(companyVoIPage.getRecords())) {
             List<FinanceBondProductVo> stockCompanyVos = companyVoIPage.getRecords().stream().map(stockCompanyVo -> {
-                stockCompanyVo.setLoanQuotaStr(DictInit.getCodeValue(SystemConstant.DKED, stockCompanyVo.getLoanQuota() + ""));
-                stockCompanyVo.setLoanTermStr(DictInit.getCodeValue(SystemConstant.DKQX, stockCompanyVo.getLoanTerm() + ""));
+                stockCompanyVo.setLoanQuotaStr(getListColunmNode(SystemConstant.DKED, stockCompanyVo.getLoanQuota() + ""));
+                stockCompanyVo.setLoanTermStr(getListColunmNode(SystemConstant.DKQX, stockCompanyVo.getLoanTerm() + ""));
                 stockCompanyVo.setIndustryDirectStr(getListColunmNode(SystemConstant.HYFX, stockCompanyVo.getIndustryDirect() + ""));
                 return stockCompanyVo;
             }).collect(Collectors.toList());
@@ -127,7 +127,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         if (!CollectionUtils.isEmpty(stockList.getRecords())) {
             List<StockListVo> stockListVos = stockList.getRecords().stream().map(stockListVo -> {
                 //融资额度
-                stockListVo.setFinanceQuotaStr(DictInit.getCodeValue(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
+                stockListVo.setFinanceQuotaStr(getListColunmNode(SystemConstant.RZED, stockListVo.getFinanceQuota() + ""));
                 //产品状态
                 stockListVo.setStatusStr(ProductStatusEnum.getDescByValue(stockListVo.getStatus()));
                 stockListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(stockListVo.getCreatedTime()));
@@ -178,7 +178,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             //字典转换
             List<BondListVo> bondListVos = bondList.getRecords().stream().map(bondListVo -> {
                 //营业收入
-                bondListVo.setBusinessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
+                bondListVo.setBusinessStr(getListColunmNode(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
                 bondListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(bondListVo.getCreatedTime()));
                 return bondListVo;
             }).collect(Collectors.toList());
@@ -377,6 +377,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
         financeProduct.setStatus(productOperateDto.getOperateType());
         this.updateById(financeProduct);
     }
+
     public String getColunmNode(String codeTypo, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             Node node = JSONObject.parseObject(colunm, Node.class);
@@ -394,14 +395,17 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
     public String getListColunmNode(String codeTypo, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (com.july.company.utils.StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if (!com.july.company.utils.StringUtils.isEmpty(nodes)) {
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (com.july.company.utils.StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeTypo, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
+
         }
         return null;
     }

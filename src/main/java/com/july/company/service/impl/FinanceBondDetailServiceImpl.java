@@ -38,6 +38,8 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
 
     @Resource
     private FinanceProductService financeProductService;
+    @Resource
+    private FinanceBondDetailMapper financeBondDetailMapper;
 
     /**
      * 获取债券融资产品明细信息
@@ -51,7 +53,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         BnException.of(financeProductDetailDto.getCompanyId() == null, "债券融资公司id不能为空！");
 
         FinanceProduct financeProduct = financeProductService.getById(financeProductDetailDto.getCompanyId());
-        FinanceBondDetail financeBondDetail = getFinanceProductDetail(financeProduct.getId());
+        FinanceBondDetail financeBondDetail = financeBondDetailMapper.getFinanceProductDetail(financeProduct.getId());//getFinanceProductDetail(financeProduct.getId());
         return FinanceBondProductDetailVo.builder()
                 .productId(financeBondDetail.getProductId())
                 //所属机构
@@ -63,11 +65,11 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //产品介绍
                 .introduce(financeProduct.getIntroduce())
                 //注册地址
-                .registerAddressStr(DictInit.getCodeValue(SystemConstant.REGION, financeBondDetail.getRegisterAddress() + ""))
+                .registerAddressStr(getListColunmNode(SystemConstant.REGION, financeBondDetail.getRegisterAddress() + ""))
                 //贷款期限
-                .loanTerm(DictInit.getCodeValue(SystemConstant.DKQX, financeBondDetail.getLoanTerm() + ""))
+                .loanTerm(getListColunmNode(SystemConstant.DKQX, financeBondDetail.getLoanTerm() + ""))
                 //贷款额度
-                .loanQuota(DictInit.getCodeValue(SystemConstant.DKED, financeBondDetail.getLoanQuota() + ""))
+                .loanQuota(getListColunmNode(SystemConstant.DKED, financeBondDetail.getLoanQuota() + ""))
                 //行业方向
                 .industryDirectStr(getListColunmNode(SystemConstant.BOND_HYFX, financeBondDetail.getIndustryDirect() + ""))
                 //股东背景
@@ -77,15 +79,15 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //是否接受房产抵押
                 .houseMortgage(DictInit.getCodeValue(SystemConstant.FCDY, financeBondDetail.getHouseMortgage() + ""))
                 //营业收入
-                .businessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, financeBondDetail.getBusiness() + ""))
+                .businessStr(getListColunmNode(SystemConstant.BOND_YYSR, financeBondDetail.getBusiness() + ""))
                 //净利润
-                .jlr(DictInit.getCodeValue(SystemConstant.BOND_JLR, financeBondDetail.getJlr() + ""))
+                .jlr(getListColunmNode(SystemConstant.BOND_JLR, financeBondDetail.getJlr() + ""))
                 //上年度经营活动现金流净额
-                .cashFlow(DictInit.getCodeValue(SystemConstant.XJLJE, financeBondDetail.getCashFlow() + ""))
+                .cashFlow(getListColunmNode(SystemConstant.XJLJE, financeBondDetail.getCashFlow() + ""))
                 //政府订单额
-                .goverOrderAmount(DictInit.getCodeValue(SystemConstant.ZFDDE, financeBondDetail.getGoverOrderAmount() + ""))
+                .goverOrderAmount(getListColunmNode(SystemConstant.ZFDDE, financeBondDetail.getGoverOrderAmount() + ""))
                 //央企/大型国企核心供应商订单额
-                .nationOrderAmount(DictInit.getCodeValue(SystemConstant.GQDDE, financeBondDetail.getNationOrderAmount() + ""))
+                .nationOrderAmount(getListColunmNode(SystemConstant.GQDDE, financeBondDetail.getNationOrderAmount() + ""))
                 //资产负债率
                 .debtRatio(DictInit.getCodeValue(SystemConstant.ZCFZL, financeBondDetail.getDebtRatio() + ""))
                 //净资产收益率
@@ -101,29 +103,30 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
                 //企业资质
                 .qualification(getListColunmNode(SystemConstant.QYZZ, financeBondDetail.getQualification() + ""))
                 //政府补贴
-                .subsidy(DictInit.getCodeValue(SystemConstant.ZFBT, financeBondDetail.getSubsidy() + ""))
+                .subsidy(getListColunmNode(SystemConstant.ZFBT, financeBondDetail.getSubsidy() + ""))
                 //是否引入股权投资
                 .boolIntroduce(DictInit.getCodeValue(SystemConstant.GQTZ, financeBondDetail.getBoolIntroduce() + ""))
                 //纳税额度
-                .taxAmount(DictInit.getCodeValue(SystemConstant.NRED, financeBondDetail.getTaxAmount() + ""))
+                .taxAmount(getListColunmNode(SystemConstant.NRED, financeBondDetail.getTaxAmount() + ""))
                 //发明专利数量
-                .patentCountStr(DictInit.getCodeValue(SystemConstant.BOND_FMZLS, financeBondDetail.getPatentCount() + ""))
+                .patentCountStr(getListColunmNode(SystemConstant.BOND_FMZLS, financeBondDetail.getPatentCount() + ""))
                 //是否有其他贷款
                 .boolLoan(getListColunmNode(SystemConstant.QTDK, financeBondDetail.getBoolLoan() + ""))
                 //现有贷款金额
-                .existAmount(DictInit.getCodeValue(SystemConstant.DKJE, financeBondDetail.getExistAmount() + ""))
+                .existAmount(getListColunmNode(SystemConstant.DKJE, financeBondDetail.getExistAmount() + ""))
                 .build();
     }
 
     @Override
     public void updateFinanceBondProductDetailById(BondSaveDetailDto bondSaveDetailDto) {
-        FinanceBondDetail financeBondDetail = FinanceBondDetail.builder().build();
-        BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
-        financeBondDetail.setId(null);
         QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("deleted", SystemConstant.SYS_FALSE);
         queryWrapper.eq("productId", bondSaveDetailDto.getId());
-        this.update(financeBondDetail, queryWrapper);
+        FinanceBondDetail financeBondDetail = this.getOne(queryWrapper);
+        Long id = financeBondDetail.getId();
+        BeanUtils.copyProperties(bondSaveDetailDto, financeBondDetail);
+        financeBondDetail.setId(id);
+        this.updateById(financeBondDetail);
     }
 
 
@@ -135,10 +138,7 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
      * @since 2020/5/20
      */
     public FinanceBondDetail getFinanceProductDetail(Long productId) {
-        QueryWrapper<FinanceBondDetail> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq(productId != null, "productId", productId)
-                .eq("deleted", SystemConstant.SYS_FALSE);
-        return this.getOne(queryWrapper);
+        return financeBondDetailMapper.getFinanceProductDetail(productId);
     }
 
     public String getColunmNode(String codeTypo, String colunm) {
@@ -155,17 +155,19 @@ public class FinanceBondDetailServiceImpl extends ServiceImpl<FinanceBondDetailM
         return null;
     }
 
-    public String getListColunmNode(String codeTypo, String colunm) {
+    public String getListColunmNode(String codeType, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if (!CollectionUtils.isEmpty(nodes)) {
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeType, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
         }
         return null;
     }

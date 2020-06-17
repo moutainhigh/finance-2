@@ -186,5 +186,4 @@ public class FinanceBondDetail extends BaseEntity{
     @TableField("lastSubsidy")
     private String lastSubsidy;
 
-
 }
