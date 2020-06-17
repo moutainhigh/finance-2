@@ -199,7 +199,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                     .companyName(company.getCompanyName())
                     .contact(company.getContact())
                     .tel(company.getTel())
-                    .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                    .registerAddress(getColunmNode(SystemConstant.REGION, company.getRegisterAddress()))
                     .workAddress(workAddress)
                     .introduce(company.getIntroduce())
                     .build();
@@ -215,7 +215,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 .companyName(company.getCompanyName())
                 .contact(company.getContact())
                 .tel(company.getTel())
-                .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                .registerAddress(getColunmNode(SystemConstant.REGION, company.getRegisterAddress()))
                 .workAddress(workAddress)
                 .introduce(company.getIntroduce())
                 .financeState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()))
@@ -263,7 +263,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                     .companyName(company.getCompanyName())
                     .contact(company.getContact())
                     .tel(company.getTel())
-                    .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
+                    .registerAddress(getColunmNode(SystemConstant.REGION, company.getRegisterAddress()))
                     .workAddress(company.getWorkAddress() + company.getDetailAddress())
                     .introduce(company.getIntroduce())
                     .build();
@@ -367,13 +367,13 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         return companyApplyProductVoIPage;
     }
 
-    public String getColunmNode(String codeTypo, String colunm) {
+    public String getColunmNode(String codeType, String colunm) {
         if (!StringUtils.isEmpty(colunm)) {
             Node node = JSONObject.parseObject(colunm, Node.class);
             String code = node.getCode();
             String value = node.getValue();
             if (StringUtils.isEmpty(value)) {
-                return DictInit.getCodeValue(codeTypo, code);
+                return DictInit.getCodeValue(codeType, code);
             } else {
                 return value;
             }
@@ -381,12 +381,12 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
         return null;
     }
 
-    public String getListColunmNode(String codeTypo, String colunm) {
+    public String getListColunmNode(String codeType, String colunm) {
         if (!StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
             List<String> colunms = nodes.stream().map(node -> {
                 if (StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
+                    return DictInit.getCodeValue(codeType, node.getCode());
                 } else {
                     return node.getValue();
                 }

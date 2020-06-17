@@ -382,3 +382,4 @@ Caused by: org.xml.sax.SAXParseException: The content of elements must consist o
 	at org.apache.xerces.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:298)
 	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:261)
 	... 126 common frames omitted
+2020-06-17 13:52:04.010 [XNIO-1 task-5] ERROR com.july.company.base.AdviceController - com.alibaba.fastjson.JSONException: syntax error, expect {, actual int, pos 0, fastjson-version 1.2.60 at com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer.deserialze(JavaBeanDeserializer.java:489)
