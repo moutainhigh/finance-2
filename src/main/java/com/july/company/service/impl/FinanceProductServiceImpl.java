@@ -178,7 +178,7 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
             //字典转换
             List<BondListVo> bondListVos = bondList.getRecords().stream().map(bondListVo -> {
                 //营业收入
-                bondListVo.setBusinessStr(DictInit.getCodeValue(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
+                bondListVo.setBusinessStr(getListColunmNode(SystemConstant.BOND_YYSR, bondListVo.getBusiness() + ""));
                 bondListVo.setCreatedTimeStr(DateUtils.timeStamp2Date(bondListVo.getCreatedTime()));
                 return bondListVo;
             }).collect(Collectors.toList());
@@ -394,14 +394,17 @@ public class FinanceProductServiceImpl extends ServiceImpl<FinanceProductMapper,
     public String getListColunmNode(String codeTypo, String colunm) {
         if (!com.july.company.utils.StringUtils.isEmpty(colunm)) {
             List<Node> nodes = JSONObject.parseArray(colunm, Node.class);
-            List<String> colunms = nodes.stream().map(node -> {
-                if (com.july.company.utils.StringUtils.isEmpty(node.getValue())) {
-                    return DictInit.getCodeValue(codeTypo, node.getCode());
-                } else {
-                    return node.getValue();
-                }
-            }).collect(Collectors.toList());
-            return String.join(",", colunms);
+            if (!com.july.company.utils.StringUtils.isEmpty(nodes)) {
+                List<String> colunms = nodes.stream().map(node -> {
+                    if (com.july.company.utils.StringUtils.isEmpty(node.getValue())) {
+                        return DictInit.getCodeValue(codeTypo, node.getCode());
+                    } else {
+                        return node.getValue();
+                    }
+                }).collect(Collectors.toList());
+                return String.join(",", colunms);
+            }
+
         }
         return null;
     }
