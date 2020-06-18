@@ -936,7 +936,7 @@ export default {
             this.$http.postWithAuth('/finance/operateData/findMatchData',{userId:this.$store.state.userInfo.id}).then(res=>{
                 this.spinning=false
                 if(res.data.code==0){
-                    // return;
+                    // 返回的数据
                     let contentList = res.data.content;
                     if(contentList.length==0){
                         return ;
@@ -949,7 +949,15 @@ export default {
                     // let info = localStorage.getItem('mathData');
                     // info = JSON.parse(info);
                     info.content = JSON.parse(info.content);
-                    this.baseForm = info.content.baseForm;
+
+                    // 获取最新的基本信息
+                    if(contentList.length==2){
+                        let content = contentList[0].updatedTime>contentList[1].updatedTime?JSON.parse(contentList[0].content):JSON.parse(contentList[1].content);
+                        this.baseForm = content.baseForm;
+                    }else{
+                        this.baseForm = info.content.baseForm;
+                    }
+
                     if(info.operateType==0){
                         this.matchForm = info.content.matchForm;
                         this.isCheckCb= info.content.isCheckCb;
