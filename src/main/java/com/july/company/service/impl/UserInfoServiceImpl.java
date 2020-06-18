@@ -335,7 +335,14 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
                 .eq("password", password)
                 .eq("status", SystemConstant.SYS_FALSE)
                 .eq("deleted", SystemConstant.SYS_FALSE);
-        return this.getOne(queryWrapper);
+        UserInfo userInfo = this.getOne(queryWrapper);
+        if(!"admin".equals(mobile)){
+            BnException.of(userInfo == null,"没有找到该用户信息！");
+            Company company = companyService.getById(userInfo.getCompanyId());
+            BnException.of(company == null,"没有找到该用户的企业信息！");
+            BnException.of(SystemConstant.SYS_TRUE.equals(company.getStatus()),"用户所在的企业已经被禁用，请联系管理员！");
+        }
+        return userInfo;
     }
 
     /**

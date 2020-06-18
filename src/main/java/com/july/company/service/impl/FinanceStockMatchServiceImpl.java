@@ -303,7 +303,7 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
         operateDataService.saveOrUpdateMatchData(stockProductMatchDto.getOperateMatchDto());
 
         //更新公司信息
-        company.setRegisterAddress(stockProductMatchDto.getRegisterAddress().getValue());
+        company.setRegisterAddress(stockProductMatchDto.getRegisterAddress().getCode());
         company.setWorkAddress(stockProductMatchDto.getWorkAddress());
         company.setContact(stockProductMatchDto.getContact());
         company.setTel(stockProductMatchDto.getTel());
