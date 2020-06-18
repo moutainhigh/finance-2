@@ -385,7 +385,7 @@ export default {
     created(){
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:1}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
-        }).catch(err=>console.log(err));
+        }).catch();
         this.getSaveInfo();
     },
     watch:{
@@ -518,7 +518,6 @@ export default {
     methods:{
         getFieldList(codeType){
             for(let item of this.searchFieldList){
-                // console.log(item.codeType,codeType);
                 if(item.codeType==codeType){
                     return item.queryDetailSysCodeVos;
                 }
@@ -527,7 +526,6 @@ export default {
         },
         getChildSysCodes(itemList,value){
             for(let item of itemList){
-                // console.log(item.codeType,codeType);
                 if(item.value==value){
                     return item.childSysCodes;
                 }
@@ -617,7 +615,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         saveInfo(){
             // 保存匹配信息

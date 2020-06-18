@@ -228,7 +228,6 @@ export async function drawCompany(driver,name,companyList){
                 let jd = Math.random()*1000;
                 let ncx = companyObj.cx + (companyObj.r*2*index) * Math.cos(jd*Math.PI/180); 
                 let ncy = companyObj.cy + (companyObj.r*4*index) * Math.sin(jd*Math.PI/180);
-                // console.log(ncx,ncy)
                 let bgcolor = 'rgba(255, 214, 0, 0.2)';
                 let color = 'rgba(255, 214, 0, 0.8)';
                 if(item.institutionType==1){
@@ -462,7 +461,6 @@ export async function sendSms(path,params){
         if(res.data.code==0){
             resolve(res.data);
         }else{
-            console.log(res)
             reject('短信发送失败')
         }
     })
@@ -475,7 +473,6 @@ export async function checkSmsCode(path,params){
         if(res.data.code==0){
             resolve(res.data);
         }else{
-            console.log(res)
             reject('验证码错误')
         }
     })

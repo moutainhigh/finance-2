@@ -486,7 +486,7 @@ export default {
         }
         getSearchField(this.$http,'/finance/sysCode/getQuerySysCode',{financeType:0}).then(res=>{
             this.searchFieldList = res;//matchSearchData(res);
-        }).catch(err=>console.log(err));
+        }).catch();
         // 获取保存信息
         this.getSaveInfo();
     },
@@ -509,7 +509,6 @@ export default {
                 advantage = JSON.parse(advantage);
                 lodash.remove(advantage,aitem=>[2,3,4,5].some(sitem=>sitem==aitem.code));
                 this.$set(this.matchForm,'advantage',advantage);
-                console.log(advantage)
                 v.forEach((item)=>{
                     let obj = {code:map[item],value:''};
                     if(obj.code==5){
@@ -777,7 +776,7 @@ export default {
                         this.doSub(param)
                     }
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
            
             
         },
@@ -815,7 +814,7 @@ export default {
 
             this.spinning=true
             this.$http.postWithAuth('/finance/financeBondMatch/getBondOneKeyMatching',params).then(res=>{
-                console.log(res)
+                
                 this.spinning=false;
                 if(res.data.code==0){
                     // this.$message.success('匹配成功，跳转中');
@@ -824,7 +823,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         goMatch(){//股权一键匹配
             let params = Object.assign({},this.baseForm,this.matchForm);
@@ -868,7 +867,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         doBoneMatch(params){//提交债权申请
             this.spinning=true
@@ -879,7 +878,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         subMatch(){//股权提交
             let params = Object.assign({},this.baseForm,this.matchForm);
@@ -930,7 +929,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         getSaveInfo(){
             // 获取保存在服务器的一键匹配数据
@@ -971,7 +970,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         saveInfo(params){
             // 保存匹配信息
@@ -1081,10 +1080,10 @@ export default {
                     }else{
                         this.$message.error(res.data.msg);
                     }
-                }).catch(err=>console.log(err))
+                }).catch()
             }else if(this.active==1){
                 this.$http.postWithAuth('/finance/financeBondMatch/saveBondOneKeyMatching',params).then(res=>{
-                    console.log(res)
+                    
                     this.spinning=false;
                     if(res.data.code==0){
                        if(flag){
@@ -1093,7 +1092,7 @@ export default {
                     }else{
                         this.$message.error(res.data.msg);
                     }
-                }).catch(err=>console.log(err))
+                }).catch()
             }
         }
     },

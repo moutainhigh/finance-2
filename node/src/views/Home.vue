@@ -220,7 +220,6 @@ export default {
       this.isForget = false;
     },
     doLogin(params){
-        console.log(params)
         if(params && params.mobile){
             this.userInfo = this.$store.state.userInfo;
             this.isLogin = false;
@@ -231,7 +230,6 @@ export default {
       this.isLogin = false;
     },
     doReg(params){
-      console.log(params)
       if(params && params.mobile){
         this.isReg = false;
       }
@@ -241,7 +239,6 @@ export default {
       this.isForget=true;
     },
     doforget(params){
-      console.log(params)
       if(params && params.mobile){
         this.isForget = false;
       }
