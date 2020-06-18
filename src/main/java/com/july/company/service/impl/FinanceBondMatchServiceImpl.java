@@ -122,7 +122,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
         operateDataService.saveOrUpdateMatchData(bondProductMatchDto.getOperateMatchDto());
 
         //更新公司信息
-        company.setRegisterAddress(getObjectToJSONStr(bondProductMatchDto.getRegisterAddress()));
+        company.setRegisterAddress(bondProductMatchDto.getRegisterAddress().getCode());
         company.setWorkAddress(bondProductMatchDto.getWorkAddress());
         company.setContact(bondProductMatchDto.getContact());
         company.setTel(bondProductMatchDto.getTel());

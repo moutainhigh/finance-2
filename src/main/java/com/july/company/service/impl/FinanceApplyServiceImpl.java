@@ -215,7 +215,7 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
                 .companyName(company.getCompanyName())
                 .contact(company.getContact())
                 .tel(company.getTel())
-                .registerAddress(getColunmNode(SystemConstant.REGION, company.getRegisterAddress()))
+                .registerAddress(DictInit.getCodeValue(SystemConstant.REGION, company.getRegisterAddress()))
                 .workAddress(workAddress)
                 .introduce(company.getIntroduce())
                 .financeState(getColunmNode(SystemConstant.RZJD, financeStockDetail.getFinanceState()))
