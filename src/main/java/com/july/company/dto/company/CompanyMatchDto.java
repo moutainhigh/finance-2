@@ -16,7 +16,7 @@ public class CompanyMatchDto implements Serializable {
     private static final long serialVersionUID = -4122018021429814825L;
 
     /**
-     * 统一信用代码
+     * 用户Id
      */
     private Long userId;
     /**

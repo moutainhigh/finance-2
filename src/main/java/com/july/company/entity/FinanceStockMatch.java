@@ -52,4 +52,10 @@ public class FinanceStockMatch extends BaseEntity{
     @TableField("timeToMarket")
     private String timeToMarket;
 
+    /**
+     * 选择类型（0：保存，1：一键匹配）
+     */
+    @TableField("chooseType")
+    private Integer chooseType;
+
 }

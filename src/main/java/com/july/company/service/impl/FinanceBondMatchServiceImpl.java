@@ -42,6 +42,11 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     private FinanceBondDetailService financeBondDetailService;
     @Resource
     private OperateDataService operateDataService;
+    @Resource
+    private FinanceBondMatchMapper financeBondMatchMapper;
+    @Resource
+    private FinanceBondMatchService financeBondMatchService;
+
 
     /**
      * 一键匹配债券产品信息
@@ -52,6 +57,15 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
      */
     @Override
     public String getBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
+        //获取当前用户信息
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        BnException.of(userInfoDto == null, "用户信息获取失败！");
+        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
+        //取最新匹配数据，更改为已匹配状态
+        FinanceBondMatch financeBondMatch = financeBondMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+        financeBondMatch.setChooseType(SystemConstant.SYS_TRUE);
+        financeBondMatchService.updateById(financeBondMatch);
+        //进行一键匹配
         List<String> matchingData = oneKeyMatchingData(bondProductMatchDto);
         if (!CollectionUtils.isEmpty(matchingData)) {
             return String.join(",", matchingData);
@@ -107,6 +121,12 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                 .build();
         financeBondDetailService.save(financeBondDetail);
 
+        //查询历史是否匹配过
+        FinanceBondMatch bondMatch = financeBondMatchMapper.getNewestMathInfo(company.getId());
+        int chooseType = SystemConstant.SYS_FALSE;
+        if(bondMatch != null && bondMatch.getChooseType().equals(SystemConstant.SYS_TRUE)){
+            chooseType = 1;
+        }
         //保存一键匹配的信息
         FinanceBondMatch financeBondMatch = FinanceBondMatch.builder()
                 .companyId(company.getId())
@@ -115,6 +135,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                 .liabilitiesAmount(bondProductMatchDto.getLiabilitiesAmount())
                 .assetAmount(bondProductMatchDto.getAssetAmount())
                 .owner(bondProductMatchDto.getOwner())
+                .chooseType(chooseType)
                 .build();
         this.save(financeBondMatch);
 

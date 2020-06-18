@@ -63,4 +63,10 @@ public class FinanceBondMatch extends BaseEntity {
     @TableField("companyId")
     private Long companyId;
 
+    /**
+     * 选择类型（0：保存，1：匹配）
+     */
+    @TableField("chooseType")
+    private Integer chooseType;
+
 }
