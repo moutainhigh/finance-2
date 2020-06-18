@@ -14,6 +14,8 @@ import com.july.company.entity.FinanceStockMatch;
 import com.july.company.entity.UserInfo;
 import com.july.company.exception.BnException;
 import com.july.company.mapper.CompanyMapper;
+import com.july.company.mapper.FinanceBondMatchMapper;
+import com.july.company.mapper.FinanceStockMatchMapper;
 import com.july.company.service.CompanyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.july.company.service.FinanceBondMatchService;
@@ -57,6 +59,12 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
     private FinanceStockMatchService financeStockMatchService;
     @Resource
     private FinanceBondMatchService financeBondMatchService;
+    @Resource
+    private FinanceStockMatchMapper financeStockMatchMapper;
+    @Resource
+    private FinanceBondMatchMapper financeBondMatchMapper;
+    @Resource
+    private CompanyService companyService;
 
     /**
      * 获取公司入驻数量
@@ -173,11 +181,11 @@ public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> impl
         CompanyMatchVo companyMatchVo = new CompanyMatchVo();
 
         if (SystemConstant.SYS_FALSE.equals(companyMatchDto.getProductType())) {
-            List<FinanceStockMatch> financeStockMatches = financeStockMatchService.getFinanceStockMatch(userInfo.getCompanyId());
-            companyMatchVo.setBoolMatch(CollectionUtils.isEmpty(financeStockMatches) ? 0 : 1);
+            FinanceStockMatch financeStockMatch = financeStockMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+            companyMatchVo.setBoolMatch(financeStockMatch == null || financeStockMatch.getChooseType().equals(SystemConstant.SYS_FALSE) ? 0 : 1);
         } else {
-            List<FinanceBondMatch> financeBondMatches = financeBondMatchService.getFinanceBondMatch(userInfo.getCompanyId());
-            companyMatchVo.setBoolMatch(CollectionUtils.isEmpty(financeBondMatches) ? 0 : 1);
+            FinanceBondMatch financeBondMatch = financeBondMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+            companyMatchVo.setBoolMatch(financeBondMatch == null || financeBondMatch.getChooseType().equals(SystemConstant.SYS_FALSE) ? 0 : 1);
         }
         return companyMatchVo;
     }

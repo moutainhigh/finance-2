@@ -42,6 +42,8 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
     private FinanceStockDetailService financeStockDetailService;
     @Resource
     private OperateDataService operateDataService;
+    @Resource
+    private FinanceStockMatchMapper financeStockMatchMapper;
 
     /**
      * 一键匹配股权产品信息
@@ -290,12 +292,19 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
                 .build();
         financeStockDetailService.save(financeStockDetail);
 
+        //查询历史是否匹配过
+        FinanceStockMatch stockMatch = financeStockMatchMapper.getNewestMathInfo(company.getId());
+        int chooseType = SystemConstant.SYS_FALSE;
+        if(stockMatch != null && stockMatch.getChooseType().equals(SystemConstant.SYS_TRUE)){
+            chooseType = 1;
+        }
         //保存一键匹配的信息
         FinanceStockMatch financeStockMatch = FinanceStockMatch.builder()
                 .companyId(company.getId())
                 .detailId(financeStockDetail.getId())
                 .companyStatus(stockProductMatchDto.getCompanyStatus())
                 .timeToMarket(stockProductMatchDto.getTimeToMarket())
+                .chooseType(chooseType)
                 .build();
         this.save(financeStockMatch);
 

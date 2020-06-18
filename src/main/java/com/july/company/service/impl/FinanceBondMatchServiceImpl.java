@@ -42,6 +42,8 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     private FinanceBondDetailService financeBondDetailService;
     @Resource
     private OperateDataService operateDataService;
+    @Resource
+    private FinanceBondMatchMapper financeBondMatchMapper;
 
     /**
      * 一键匹配债券产品信息
@@ -107,6 +109,12 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                 .build();
         financeBondDetailService.save(financeBondDetail);
 
+        //查询历史是否匹配过
+        FinanceBondMatch bondMatch = financeBondMatchMapper.getNewestMathInfo(company.getId());
+        int chooseType = SystemConstant.SYS_FALSE;
+        if(bondMatch != null && bondMatch.getChooseType().equals(SystemConstant.SYS_TRUE)){
+            chooseType = 1;
+        }
         //保存一键匹配的信息
         FinanceBondMatch financeBondMatch = FinanceBondMatch.builder()
                 .companyId(company.getId())
@@ -115,6 +123,7 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
                 .liabilitiesAmount(bondProductMatchDto.getLiabilitiesAmount())
                 .assetAmount(bondProductMatchDto.getAssetAmount())
                 .owner(bondProductMatchDto.getOwner())
+                .chooseType(chooseType)
                 .build();
         this.save(financeBondMatch);
 
