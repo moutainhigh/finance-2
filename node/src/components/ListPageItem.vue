@@ -2,7 +2,7 @@
   <div class="page-item-box" @click="$emit('to-detail',item)">
       <img src="/image/c6.png" alt="" style="width:100px;height:100px;margin-right:32px;">
       <div>
-          <div class="title">{{item.title}}</div>
+          <div class="title" :title="item.title">{{item.title|subStr(30)}}</div>
           <div class="desc">
               <div class="desc-item">
                   <img src="/image/icon-suoshujigou.png" alt="" style="width:16px;height:16px;">
@@ -72,7 +72,9 @@ export default {
 }
 </script>
 <style scoped>
-.page-item-box{padding:28px 27px 26px;background: #F6F6F6;border-radius: 4px;border-radius: 4px;display:flex;justify-content:flex-start;cursor:pointer;}
+.page-item-box{padding:28px 27px 26px;background: #F6F6F6;border-radius: 4px;border-radius: 4px;display:flex;justify-content:flex-start;cursor:pointer;    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;}
 .page-item-box .title{font-family: PingFangSC-Medium;font-size: 1.2vw;color: #333333;text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;}

@@ -162,7 +162,7 @@ export default {
             })
             this.params.content=Object.assign({},this.params.content,content);
             this.getProductList();
-        }).catch(err=>console.log(err));
+        }).catch();
         
         
     },
@@ -174,7 +174,7 @@ export default {
             this.isForget = false;
         },
         doLogin(params){
-            console.log(params)
+            
             if(params && params.mobile){
                 this.userInfo = this.$store.state.userInfo;
                 this.isLogin = false;
@@ -185,7 +185,7 @@ export default {
             this.isLogin = false;
         },
         doReg(params){
-            console.log(params)
+            
             if(params && params.mobile){
                 this.isReg = false;
             }
@@ -195,7 +195,7 @@ export default {
             this.isForget=true;
         },
         doforget(params){
-            console.log(params)
+            
             if(params && params.mobile){
                 this.isForget = false;
             }
@@ -208,8 +208,7 @@ export default {
         initPage(){
             var params = this.params;
             this.$http.post('/finance/financeCompany/getFinanceCompany',{...params}).then(res=>{
-                console.log(res);
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         openSearch(){
             this.openMore = !this.openMore;
@@ -236,7 +235,6 @@ export default {
             this.getProductList();
         },
         selectField(val,item){
-            console.log(val,item)
             // let field = this.mapData.get(item.data.attrs.codeType);
             // if(field){
             //     this.$set(this.params.content,field,item.data.key);

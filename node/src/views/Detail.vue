@@ -131,7 +131,7 @@ export default {
                 if(res.data.code==0){
                     this.detail = res.data.content;
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         },
         subMatch(){
             if(!this.$store.state.token){
@@ -166,7 +166,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
             
         },
         doSubMatch(){
@@ -181,7 +181,7 @@ export default {
                 }else{
                     this.$message.error(res.data.msg);
                 }
-            }).catch(err=>console.log(err))
+            }).catch()
         }
     },
     mounted(){
