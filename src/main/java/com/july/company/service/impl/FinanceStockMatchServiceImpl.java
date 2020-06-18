@@ -44,6 +44,8 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
     private OperateDataService operateDataService;
     @Resource
     private FinanceStockMatchMapper financeStockMatchMapper;
+    @Resource
+    private FinanceStockMatchService financeStockMatchService;
 
     /**
      * 一键匹配股权产品信息
@@ -54,6 +56,15 @@ public class FinanceStockMatchServiceImpl extends ServiceImpl<FinanceStockMatchM
      */
     @Override
     public String getStockOneKeyMatching(StockProductMatchDto stockProductMatchDto) {
+        //获取当前用户信息
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        BnException.of(userInfoDto == null, "用户信息获取失败！");
+        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
+        //取最新匹配数据，更改为已匹配状态
+        FinanceStockMatch financeStockMatch = financeStockMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+        financeStockMatch.setChooseType(SystemConstant.SYS_TRUE);
+        financeStockMatchService.updateById(financeStockMatch);
+        //进行一键匹配
         List<String> matchingData = oneKeyMatchingData(stockProductMatchDto);
         if (!CollectionUtils.isEmpty(matchingData)) {
             return String.join(",", matchingData);

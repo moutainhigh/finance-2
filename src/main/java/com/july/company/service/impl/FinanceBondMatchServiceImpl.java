@@ -44,6 +44,9 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
     private OperateDataService operateDataService;
     @Resource
     private FinanceBondMatchMapper financeBondMatchMapper;
+    @Resource
+    private FinanceBondMatchService financeBondMatchService;
+
 
     /**
      * 一键匹配债券产品信息
@@ -54,6 +57,15 @@ public class FinanceBondMatchServiceImpl extends ServiceImpl<FinanceBondMatchMap
      */
     @Override
     public String getBondOneKeyMatching(BondProductMatchDto bondProductMatchDto) {
+        //获取当前用户信息
+        UserInfoDto userInfoDto = UserUtils.getUser();
+        BnException.of(userInfoDto == null, "用户信息获取失败！");
+        UserInfo userInfo = userInfoService.getById(userInfoDto.getId());
+        //取最新匹配数据，更改为已匹配状态
+        FinanceBondMatch financeBondMatch = financeBondMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+        financeBondMatch.setChooseType(SystemConstant.SYS_TRUE);
+        financeBondMatchService.updateById(financeBondMatch);
+        //进行一键匹配
         List<String> matchingData = oneKeyMatchingData(bondProductMatchDto);
         if (!CollectionUtils.isEmpty(matchingData)) {
             return String.join(",", matchingData);

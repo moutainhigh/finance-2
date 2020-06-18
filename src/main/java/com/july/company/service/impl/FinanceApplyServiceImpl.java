@@ -111,15 +111,25 @@ public class FinanceApplyServiceImpl extends ServiceImpl<FinanceApplyMapper, Fin
      */
     @Override
     public void commitProductApply(ProductCommitDto productCommitDto) {
+        UserInfo userInfo = userInfoService.getById(productCommitDto.getUserId());
         //保存一键匹配数据
         if (FinanceTypeEnum.STOCKRIGHT.getValue().equals(productCommitDto.getFinanceType())) {
             StockProductMatchDto stockProductMatchDto = productCommitDto.getStockProductMatchDto();
             stockProductMatchDto.setOperateMatchDto(productCommitDto.getOperateMatchDto());
             financeStockMatchService.saveStockOneKeyMatching(productCommitDto.getStockProductMatchDto());
+
+            //取最新匹配数据，更改为已匹配状态
+            FinanceStockMatch financeStockMatch = financeStockMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+            financeStockMatch.setChooseType(SystemConstant.SYS_TRUE);
+            financeStockMatchService.updateById(financeStockMatch);
         } else {
             BondProductMatchDto bondProductMatchDto = productCommitDto.getBondProductMatchDto();
             bondProductMatchDto.setOperateMatchDto(productCommitDto.getOperateMatchDto());
             financeBondMatchService.saveBondOneKeyMatching(productCommitDto.getBondProductMatchDto());
+            //取最新匹配数据，更改为已匹配状态
+            FinanceBondMatch financeBondMatch = financeBondMatchMapper.getNewestMathInfo(userInfo.getCompanyId());
+            financeBondMatch.setChooseType(SystemConstant.SYS_TRUE);
+            financeBondMatchService.updateById(financeBondMatch);
         }
 
         //保存产品申请信息
