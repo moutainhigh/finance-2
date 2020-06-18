@@ -7,6 +7,7 @@ import com.july.company.entity.OperateData;
 import com.july.company.mapper.OperateDataMapper;
 import com.july.company.service.OperateDataService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.july.company.utils.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -40,13 +41,14 @@ public class OperateDataServiceImpl extends ServiceImpl<OperateDataMapper, Opera
             for (OperateData data : matchDataList) {
                 if (data.getOperateType() == operateMatchDto.getOperateType()){
                     data.setContent(operateMatchDto.getContent());
+                    data.setUpdatedTime(System.currentTimeMillis() / 1000);
                     this.updateById(data);
                     return ;
                 }
             }
         }
         OperateData operateData = new OperateData();
-        BeanUtils.copyProperties(operateMatchDto,operateData);
+        BeanUtils.copyProperties(operateMatchDto, operateData);
         this.save(operateData);
         return ;
     }
