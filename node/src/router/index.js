@@ -21,7 +21,7 @@ Vue.use(VueRouter)
     path: '/zhaiquan',
     name: 'Zhaiquan',
     component: () => import('../views/Zhaiquan.vue'),
-    meta:{title:'债全融资'}
+    meta:{title:'债权融资'}
   },
   {
     path: '/detail',
