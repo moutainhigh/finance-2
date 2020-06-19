@@ -10,13 +10,13 @@ export default {
     data(){
         return {
             title:'债权融资',
-            enTitle:'Bond FINANCING'
+            enTitle:'Debt FINANCING'
         }
     },
     created() {
         if(this.$route.path=='/guquan'){
             this.title="股权融资";
-            this.entitle="EQUITY FINANCING";
+            this.enTitle="EQUITY FINANCING";
         }
     },
     methods: {
