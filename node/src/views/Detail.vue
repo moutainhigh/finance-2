@@ -177,7 +177,7 @@ export default {
             this.$http.postWithAuth('/finance/financeApply/saveProductApply',params).then(res=>{
                 this.spinning=false;
                 if(res.data.code==0){
-                    this.$router.push({name:'Result',params:{path:"/",msg:"申请成功"}})
+                    this.$router.push({name:'Result',params:{path:"/guanquan",msg:"申请成功"}})
                 }else{
                     this.$message.error(res.data.msg);
                 }

@@ -14,7 +14,7 @@
               </div>
               <div class="desc-item" v-if="type==0">
                   <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
-                  <div><span>融资额度：</span> {{item.financeQuotaStr}}</div>
+                  <div :title="item.financeQuotaStr"><span>融资额度：</span> {{item.financeQuotaStr|subStr(10)}}</div>
               </div>
               <div class="desc-item" v-if="type==0">
                   <img src="/image/icon-rognzijieduan.png" alt="" style="width:16px;height:16px;">
@@ -22,11 +22,11 @@
               </div>
               <div class="desc-item" v-if="type==1">
                   <img src="/image/icon-rongziedu.png" alt="" style="width:16px;height:16px;">
-                  <div><span>贷款额度：</span> {{item.loanQuotaStr}}</div>
+                  <div :title="item.loanQuotaStr"><span>贷款额度：</span> {{item.loanQuotaStr|subStr(12)}}</div>
               </div>
               <div class="desc-item" v-if="type==1">
                   <img src="/image/icon-rognzijieduan.png" alt="" style="width:16px;height:16px;">
-                  <div><span>贷款期限：</span> {{item.loanTermStr}}</div>
+                  <div :title="item.loanTermStr"><span>贷款期限：</span> {{item.loanTermStr|subStr(10)}}</div>
               </div>
           </div>
       </div>
